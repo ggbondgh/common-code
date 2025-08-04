@@ -1,0 +1,200 @@
+//======================================
+//FileName	=	extern.h
+//LastDate	=	20191221
+//======================================
+
+//
+
+#ifndef	extern_h
+#define	extern_h
+
+
+System_Clock	EQU	8000000	//	Used at UART, PS2, ...
+PMS164	=>	0x164
+Chip_Name	=>	PMS164
+#if	defined(ADCC)
+	#if defined(ADCR)
+		ADCRH	EQU		ADCR
+		ADCRL	EQU		0
+	#else
+		ADCR	EQU		ADCRH
+	#endif
+#endif
+
+
+
+
+
+	Const_Touch_Source_CLK	=>	3;	//Touch Pad clock selection,取值0-8
+									//0:reserved, 1:reserved, 2:IHRC/4, 3:IHRC/8,
+									//4:IHRC/16, 5:IHRC/32, 6:IHRC/64, 7:IHRC/128, 8:ILRC
+									//default:2
+	Const_Touch_VRef		=>  0;	//0:0.5*VCC, 1:0.4*VCC, 2:0.3*VCC, 3:0.2*VCC
+									//CS电容参考电压设定 0.2VCC-0.5VCC
+									//对CS电容大小和触摸灵敏度有影响
+									//此处提高可降低外部基准电容
+									//default:0
+	Const_Touch_Discharge	=>	3;	
+									//0:reserved, 1:CLK_32, 2:CLK_64, 3:CLK_128	
+									//default:1
+
+//
+
+//-------------------------------------
+
+//-------------------------------------
+//
+T_Watch_Set:
+	Const_EN_Uart		=>1	//Uart使能
+									
+								//default:1
+	UART_BaudRate		=>	38400	//UART波特率:7200 9600, 19200, 38400, 56000								
+	Uart_Work_SYSCLK	=>	'2M'	
+	Interrupt_Uart		=> 1		//UART中断及传输端口选择
+									//0:PA0中断  1:PA5中断	2:PB0中断	default:0
+									//注意:仿真时不支持PA5和PB0中断
+									//实际IC烧录建议使用PA5
+
+		//根据波特率设置,定义半位和一位串口数据位的延时值,单位:系统时钟
+		#ifdef	UART_BaudRate
+			#if		(UART_BaudRate == 7200)
+					#ifdef	Uart_Work_SYSCLK
+					#if	(Uart_Work_SYSCLK == '250K')
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 8	//=52(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 25	//=104(-10)
+					#endif
+					#endif
+
+			#elif		(UART_BaudRate == 9600)
+				#ifdef	Uart_Work_SYSCLK
+					#if	(Uart_Work_SYSCLK == '250K')
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 3	//=52(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 16	//=104(-10)
+					#elif	(Uart_Work_SYSCLK == '1M')
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 42	//=52(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 94	//=104(-10)
+					#elif	(Uart_Work_SYSCLK == '2M')
+					HALF_BIT_DELAY_SYSCLK_CNT	=> 94	//=104(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 198	//=208(-10)
+					#elif	(Uart_Work_SYSCLK == '4M')
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 198	//=208(-10) 半位延时计数值,单位:系统时钟										
+					ONE_BIT_DELAY_SYSCLK_CNT	=> 407	//=417(-10)
+				#elif	(Uart_Work_SYSCLK == '8M')
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 407	//=417(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 823	//=833(-10)
+					#else	//默认 Uart_Work_SYSCLK ='2M'
+					
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 94	//=104(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 198	//=208(-10)
+					#endif
+				#else	//默认 Uart_Work_SYSCLK ='2M'
+			
+					HALF_BIT_DELAY_SYSCLK_CNT	=> 94	//=104(-10) 半位延时计数值,单位:系统时钟										
+					ONE_BIT_DELAY_SYSCLK_CNT	=> 198	//=208(-10)
+				#endif
+			#elif	(UART_BaudRate == 19200)
+				#ifdef	Uart_Work_SYSCLK
+					#if	(Uart_Work_SYSCLK == '1M')
+							
+					#elif	(Uart_Work_SYSCLK == '2M')
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 42	//=52(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 94	//=104(-10)
+					#elif	(Uart_Work_SYSCLK == '4M')
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 94	//=104(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 198	//=208(-10)
+					#elif	(Uart_Work_SYSCLK == '8M')
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 198	//=208(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 407	//=417(-10)
+					#else	
+					
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 42	//=52(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 94	//=104(-10)
+					#endif
+				#else
+				
+					HALF_BIT_DELAY_SYSCLK_CNT	=> 42	//=52(-10) 半位延时计数值,单位:系统时钟										
+					ONE_BIT_DELAY_SYSCLK_CNT	=> 94	//=104(-10)
+				#endif
+			#elif	(UART_BaudRate == 38400)
+				#ifdef	Uart_Work_SYSCLK
+					#if	(Uart_Work_SYSCLK == '1M')
+					
+					#elif	(Uart_Work_SYSCLK == '2M')		//计算理论值( - 指令延时调整值)
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 16	//=26(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 42	//=52(-10)
+					#elif	(Uart_Work_SYSCLK == '4M')
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 42	//=52(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 96	//=104(-10)
+					#elif	(Uart_Work_SYSCLK == '8M')
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 94	//=104(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 198	//=208(-10)
+					#else
+					
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 16	//=26(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 42	//=52(-10)
+					#endif
+				#else	
+				
+					HALF_BIT_DELAY_SYSCLK_CNT	=> 16	//=26(-10) 半位延时计数值,单位:系统时钟										
+					ONE_BIT_DELAY_SYSCLK_CNT	=> 42	//=52(-10)
+				#endif
+			#else
+				#if	(UART_BaudRate != 56000)
+				
+				#endif
+
+				#ifdef	Uart_Work_SYSCLK
+					#if		(Uart_Work_SYSCLK == '1M')
+				
+					#elif	(Uart_Work_SYSCLK == '2M')		//计算理论值( - 指令延时调整值)
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 8	//=18(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 26	//=36(-10)
+					#elif	(Uart_Work_SYSCLK == '4M')
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 26	//=36(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 61	//=71(-10)
+					#elif	(Uart_Work_SYSCLK == '8M')
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 61	//=71(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 132	//=142(-10)
+					#else
+					
+						HALF_BIT_DELAY_SYSCLK_CNT	=> 8	//=18(-10) 半位延时计数值,单位:系统时钟										
+						ONE_BIT_DELAY_SYSCLK_CNT	=> 26	//=36(-10)
+					#endif
+				#else	
+			
+					HALF_BIT_DELAY_SYSCLK_CNT	=> 8	//=18(-10) 半位延时计数值,单位:系统时钟										
+					ONE_BIT_DELAY_SYSCLK_CNT	=> 26	//=36(-10)
+				#endif			
+			#endif
+		#else	
+	
+
+			#ifdef	Uart_Work_SYSCLK
+				#if	(Uart_Work_SYSCLK == '1M')
+				
+				#elif	(Uart_Work_SYSCLK == '2M')
+					HALF_BIT_DELAY_SYSCLK_CNT	=> 8	//=18(-10) 半位延时计数值,单位:系统时钟										
+					ONE_BIT_DELAY_SYSCLK_CNT	=> 26	//=36(-10)
+				#elif	(Uart_Work_SYSCLK == '4M')
+					HALF_BIT_DELAY_SYSCLK_CNT	=> 26	//=36(-10) 半位延时计数值,单位:系统时钟										
+					ONE_BIT_DELAY_SYSCLK_CNT	=> 61	//=71(-10)
+				#elif	(Uart_Work_SYSCLK == '8M')
+					HALF_BIT_DELAY_SYSCLK_CNT	=> 61	//=71(-10) 半位延时计数值,单位:系统时钟										
+					ONE_BIT_DELAY_SYSCLK_CNT	=> 132	//=142(-10)
+				#else	
+					HALF_BIT_DELAY_SYSCLK_CNT	=> 8	//=18(-10) 半位延时计数值,单位:系统时钟										
+					ONE_BIT_DELAY_SYSCLK_CNT	=> 26	//=36(-10)
+				#endif
+			#else	
+			
+				HALF_BIT_DELAY_SYSCLK_CNT	=> 8	//=18(-10) 半位延时计数值,单位:系统时钟										
+				ONE_BIT_DELAY_SYSCLK_CNT	=> 26	//=36(-10)
+			#endif
+		#endif
+
+
+void	Uart_Send_One_Byte(void);
+
+#endif
+
+//End Of File

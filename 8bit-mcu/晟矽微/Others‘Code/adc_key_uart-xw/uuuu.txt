@@ -1,0 +1,7 @@
+
+
+
+-------
+send   开始 ---> sendbytelen？=0  ----->是   buff[]为空直接将数据填入发送buff
+                                    |
+                                    --> 否    buff[]数据未发送完成 将数据接入buff[sendbytelen]位置

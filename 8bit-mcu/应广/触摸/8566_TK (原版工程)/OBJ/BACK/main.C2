@@ -1,0 +1,451 @@
+
+#include	"extern.h"
+
+word u16_get_val;		//读取值
+word u16_Press_val;     //按下
+word u16_release_val;	//松开
+
+eword u16_TK11_environment_val_Sum = 0;
+word u16_TK11_environment_val;
+word u16_release_val_TK11 = 0;
+bit  TK11_Release_Flag;
+
+word u16_Press_val_Sleep = 0;
+word u16_temp_val = 0;
+
+byte TK11_Filter_Cnt = 0;
+byte TK11_Release_Cnt = 0;
+byte Pre_T_Key11_Release = 1;
+byte FilterCnt_TK11;
+word u16_get_val_Temp_TK11 = 0;
+
+bit  T_Key11_Signal ;
+
+word SleepCnt = 500;  //睡眠计数
+word RestCnt;	//复位计数
+
+byte uart_send_c = 0;
+
+
+
+
+#define FilterCnt_Value  8 
+
+#define Const_SEN_T_Key11  30 //
+
+#define Const_SEN_T_Key11_Release  40
+
+
+
+//----------------------------------------------
+Word	Reload_T16;
+bit    Time_10ms_Flag_Sleep;
+bit    Time_10ms_Flag;
+
+//byte    Time_10ms_Flag_2 = 0;
+byte    Time_1s_Flag_1 = 0;
+byte    Time_1s_Flag_2 = 0;
+
+bit   Time_5ms_Flag_TK;
+word   Time_6ms_Cnt = 0;
+word   Time_3ms_Cnt_GPC = 0;
+word   Time_10ms_Cnt = 0;
+
+byte   T16_1ms_Cnt_1 = 0;
+byte   T16_1ms_Cnt_2 = 0;
+word   T16_1ms_Cnt_3 = 0;
+
+
+void   Timer16_Init(void) // 1ms
+{
+	Reload_T16 = 32768 - 16000;
+	stt16 Reload_T16;
+	$ T16M IHRC,/1,bit15;
+	$ INTEGS BIT_R;
+	INTRQ.T16 = 0;
+	INTEN.T16 = 1;
+	ENGINT;
+}
+//----------------------------------------------
+
+void PWM_Tmr2_Init ( void )
+{
+	TM2B = 00;
+	$ TM2S 8BIT,/1,/2;
+	TM2c = 00;
+}
+
+
+void TK_Release_(void)
+{
+	TK11_Release_Cnt = 0;
+
+	T_Key11_Signal = 0;
+	Pre_T_Key11_Release = 1;					
+	u16_TK11_environment_val = u16_get_val;
+	TK11_Filter_Cnt = 0;
+	u16_TK11_environment_val_Sum = 0;
+
+	TK11_Release_Flag = 1;
+}
+
+void TK11_Scan(void) //*********
+{	
+
+
+		TKE2 = 0b_0000_1000;	//使能TK11，PB.0
+
+		$ TCC TK_RUN;
+		while(A != 0x00) 
+		{
+			A = TCC & 0x70;
+		}
+		u16_get_val =  (TKCH << 8) | TKCL;
+
+		u16_Press_val_Sleep = u16_get_val + Const_SEN_T_Key11; // Const_SEN_T_Key9
+		if(u16_Press_val_Sleep < u16_TK11_environment_val)
+		{
+			SleepCnt = 1000;
+		}
+
+		u16_temp_val = u16_get_val_Temp_TK11 << 2;
+		u16_temp_val -= u16_get_val_Temp_TK11;
+		u16_temp_val += u16_get_val;
+		u16_get_val_Temp_TK11 = u16_temp_val >> 2;
+
+		u16_get_val = u16_get_val_Temp_TK11;
+
+		if(Pre_T_Key11_Release) 
+		{
+			u16_Press_val = u16_get_val + Const_SEN_T_Key11;
+			
+			if(u16_Press_val < u16_TK11_environment_val)	 //按下
+			{
+				SleepCnt = 1000;
+			//	Const_Env_Dw_Fix_Speed = 5;
+
+				FilterCnt_TK11 ++;
+				if(FilterCnt_TK11 >= FilterCnt_Value)
+				{
+					T_Key11_Signal = 1;
+					Pre_T_Key11_Release = 0;
+					u16_release_val_TK11 = u16_TK11_environment_val - Const_SEN_T_Key11; //
+				}
+			}
+			else //更新环境值
+			{
+				FilterCnt_TK11 = 0;
+
+				if(SleepCnt)
+				{
+					TK11_Filter_Cnt ++;
+					u16_TK11_environment_val_Sum += u16_get_val;
+					if(TK11_Filter_Cnt > 31)
+					{
+						TK11_Filter_Cnt = 0;
+						u16_TK11_environment_val = u16_TK11_environment_val_Sum >> 5;
+						u16_TK11_environment_val_Sum = 0;
+
+						if(TK11_Release_Flag)
+						{
+							TK11_Release_Flag = 0;
+							u16_TK11_environment_val = u16_get_val;
+						}
+					}
+				}
+				else
+				{
+					u16_TK11_environment_val = u16_get_val;
+					u16_TK11_environment_val_Sum = 0;
+					TK11_Filter_Cnt = 0;
+				}
+				
+				if(TK11_Release_Flag == 1)
+				{
+					if(u16_get_val > u16_TK11_environment_val)
+					{
+						u16_TK11_environment_val = u16_get_val;
+					}
+				}
+			}
+		}
+		else  
+		{
+			FilterCnt_TK11 = 0;
+
+			TK11_Filter_Cnt++;
+
+			if(TK11_Filter_Cnt >= 3) // 15ms
+			{
+				TK11_Filter_Cnt = 0;
+
+				if(u16_get_val <= u16_TK11_environment_val)
+				{
+					u16_TK11_environment_val = u16_get_val;
+				}
+				else
+				{
+					u16_TK11_environment_val ++;
+				}
+			}
+
+			if(u16_get_val > u16_TK11_environment_val)
+			{
+				u16_release_val = u16_get_val - u16_TK11_environment_val;
+			}
+			else
+			{
+				u16_release_val = 0;
+			}
+
+			if(u16_get_val > u16_release_val_TK11 || u16_release_val > Const_SEN_T_Key11_Release)	//松开
+			{
+				TK11_Release_Cnt ++;
+				if(TK11_Release_Cnt >= 4) //触摸松开滤波 20ms
+				{
+					TK_Release_();
+				}
+			}
+			else
+			{
+				TK11_Release_Cnt = 0;
+			}	
+	    }	
+}
+
+
+
+void TK11_OUT_Control(void)
+{
+	if(T_Key11_Signal)
+	{
+		
+		$ PA.3 out, Low;
+
+	}
+	else
+	{
+			
+		$ PA.3 out, High;
+		
+	}
+}
+
+
+
+void Sleep_mode(void)
+{
+
+	if(SleepCnt && Time_10ms_Flag_Sleep)
+	{
+		Time_10ms_Flag_Sleep = 0;
+		SleepCnt--;
+	}
+
+	if(T_Key11_Signal)
+	{
+		SleepCnt = 500;
+	}
+
+
+	if(!SleepCnt)
+	{
+
+		Reload_T16 = 32768 - Const_Sleep_WakeUp;  //
+		STT16	Reload_T16;
+
+		$ T16M	ILRC,/1,BIT15;
+
+		INTRQ.T16 = 0;
+
+		eoscr = 0x01;
+
+	//	$ MISC	WDT_64K,Fast_Wake_Up,LVR_Disable;
+		$ CLKMD	 ILRC/1, En_IHRC, En_ILRC, EN_Watchdog;
+		CLKMD.EN_Watchdog	=	0;
+		CLKMD.En_IHRC	=	0;
+
+		stopexe;
+
+		$ CLKMD	IHRC/SysClock_DIV, En_IHRC, En_ILRC, EN_Watchdog;
+//		$ MISC	WDT_64K,Fast_Wake_Up;
+
+		Timer16_Init(); //1ms  //切换定时唤醒时间
+
+		Time_5ms_Flag_TK = 1;
+	//	Const_Env_Dw_Fix_Speed = 1;
+
+		eoscr = 0x00; // 开LVR
+	//	eoscr = 0x01; // 关LVR
+
+	}
+
+}
+
+
+
+
+void IO_Init(void)
+{
+	PA		=	0b0000_0000;
+	PAC		=	0b0000_0000;
+	PAPH	=	0b0000_0000;
+
+	PB		=	0b0000_0000;
+	PBC		=	0b0000_0000;
+	PBPH	=	0b0000_0000;
+
+	PADIER	=	0b0000_0000;
+	PBDIER	=	0b0000_0000;
+
+
+
+}
+
+void TK_Init(void)
+{
+	TS   = 0b_0011_00_11; 	// IHRC/8, 0.5*VCC, 128*CLK
+	TKE1 = 0b_0000_000_0;
+	TKE2 = 0b_0000_000_0;
+
+	TPS2 = 0x01; // CS 接VDD
+}
+
+
+void Reset_3S(void)
+{
+	if(T_Key11_Signal)	//有按键按下
+	{
+		SleepCnt = 1000;
+
+		RestCnt ++;
+		if(RestCnt > 1000) //约 10S
+		{
+			RestCnt = 0;
+		//	reset;
+			TK_Release_();
+
+		}
+	}
+	else
+	{
+		RestCnt = 0;
+	}
+}
+
+
+
+
+void Uart_Send_One_Byte(void) // 38400
+{
+		//PA.5 = 0;			//起始位
+		$ PA.5 out, low;
+		.delay ONE_BIT_DELAY_SYSCLK_CNT
+
+		byte bit_cnt = 0;
+		while(bit_cnt < 8)		//8个数据位，先发低位再发高位
+		{					
+			SR uart_send_c; 	//右移一位
+
+			.swapc_o PA.5; 		//进位制C赋给IO端口
+
+			bit_cnt++;
+
+			.delay ONE_BIT_DELAY_SYSCLK_CNT
+		}
+		PA.5 = 1;			//停止位
+		.delay ONE_BIT_DELAY_SYSCLK_CNT
+}
+
+
+void Uart_Send_Data(void) // 38400
+{
+
+		uart_send_c = u16_get_val $ 0;
+		Uart_Send_One_Byte();
+		uart_send_c = u16_get_val $ 1;
+		Uart_Send_One_Byte();
+
+		uart_send_c = u16_TK11_environment_val $ 0;
+		Uart_Send_One_Byte();
+		uart_send_c = u16_TK11_environment_val $ 1;
+		Uart_Send_One_Byte();
+	
+}
+
+
+void FPPA0(void)
+{
+
+	.ADJUST_IC	SYSCLK = IHRC/SysClock_DIV, IHRC=16MHz, VDD=4.5V,Init_RAM;	// SysClock_DIV 8
+																
+	//.OutFile    CtlLed_MCU=%S_DATE-20%T_TIME-%THHMMSS_CHK-%X.PDK;	//指定输出文件的名称 %S=CHIP, %TMMHHSS=年月日时分秒, %X=Check_Sum 是生成文件的校验和;
+
+	IO_Init();
+
+	.delay 50*2000;
+
+	Timer16_Init();	//T16 定时器 1ms
+
+//	PWM_Tmr2_Init();
+
+	TK_Init();
+
+	Wdreset; //	WatchDog Reset
+	Clkmd.En_WatchDog = 1;		// WatchDog Enable
+	$ MISC WDT_256K;			//看门狗时钟超时时间设定
+
+	while(1)
+	{
+		if(Time_5ms_Flag_TK)
+		{
+			Time_5ms_Flag_TK = 0;		
+			TK11_Scan();
+
+		//	Uart_Send_Data();
+
+			TK11_OUT_Control();
+
+			Reset_3S();
+		}
+
+		Sleep_mode();						
+		
+		Wdreset; //	WatchDog Reset
+		
+	}
+
+}
+
+
+
+//----------------------------------------------
+void Interrupt(void)
+{
+	pushaf;
+	//----------------------------------------------
+	if(Intrq.T16)
+	{	//T16 Trig 周期：1ms
+		STT16	Reload_T16;
+		Intrq.T16 = 0;	
+
+		T16_1ms_Cnt_1 ++;
+		T16_1ms_Cnt_2 ++;
+
+		if(T16_1ms_Cnt_1 >= 5)
+		{
+			T16_1ms_Cnt_1 = 0;
+			Time_5ms_Flag_TK = 1;
+		}
+
+		if(T16_1ms_Cnt_2 >= 10)
+		{
+			T16_1ms_Cnt_2 = 0;
+			Time_10ms_Flag_Sleep = 1;
+			Time_10ms_Flag = 1;
+		}
+	}
+	//----------------------------------------------
+	popaf;
+}
+//----------------------------------------------

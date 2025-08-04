@@ -1,0 +1,39 @@
+//.CHIP  CM8566
+//.CHIP  PMS164
+.CHIP	PMS163
+//.CHIP	Chip_Name
+//{{PADAUK_CODE_OPTION
+//-------------------不可更改-------------------------------------
+	\此处为UART通讯端口，请勿更改
+
+//-----------------------------------------------------------------
+	.Code_Option	Comparator_Edge	All_Edge
+	.Code_Option	GPC_PWM		Disable
+	.Code_Option	Security	Disable		// Security Disable
+	.Code_Option	LVR		2.5V
+	.Code_Option	EMI		Disable
+	.Code_Option	ICE_Set		PA7_as_CS	// At ICE, use PA7 as CS pin
+	.Code_Option	CS_Sel		PA6
+	.Code_Option	PWM_Source	16MHz
+	.Code_Option	Interrupt_Src1	PB.0
+	.Code_Option	Interrupt_Src0	PA.0
+	.Code_Option	Bootup_Time	Fast
+	.Code_Option	PB7_Drive	Strong
+	.Code_Option	PB4_Drive	Strong
+
+//---------------------单线侦错------------------------------------
+//	.Load_Ref       Debug(PA.0)           // 预设以 PA.0 作通讯脚位。
+//-----------------------------------------------------------------
+//}}PADAUK_CODE_OPTION
+
+//	----------- IMPORTANT -------------
+//	Please don't change the follow code
+//	It only be used for internal Mini-C
+//	-----------------------------------
+
+	.JMP	FPPA0	<?>, 0
+.ROMADR	0x10
+	.PUT	Interrupt <reti>, 8
+
+#pragma Disable ICE_LIB_Intr
+//#pragma	disable	logic

@@ -1,0 +1,18 @@
+//======================================
+#ifndef	extern_h
+#define	extern_h
+
+#if	defined(ADCC)
+	#if defined(ADCR)
+		ADCRH	EQU		ADCR
+		ADCRL	EQU		0
+	#else
+		ADCR	EQU		ADCRH
+	#endif
+#endif
+
+
+
+#endif
+
+//End Of File

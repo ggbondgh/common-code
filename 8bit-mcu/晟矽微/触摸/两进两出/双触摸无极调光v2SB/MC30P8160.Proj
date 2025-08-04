@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project MCU="MC30P8160" ID="0x8160" MCU_Type="CRISC" Date="2012-08-28" VS="1.01">
+  <ProWindows>
+    <Explorer fName="MC30P8160">
+      <SouceCode fName="SourceCode">
+        <asmFile fName="MC30P8160.c" fPath="\MC30P8160.c" />
+        <asmFile fName="das.c" fPath="\das.c" />
+      </SouceCode>
+      <SouceCode fName="Output">
+        <asmFile fName="MC30P8160.lst" fPath="\MC30P8160.lst" />
+        <asmFile fName="MC30P8160.s19" fPath="\MC30P8160.s19" />
+      </SouceCode>
+      <SouceCode fName="Debug">
+        <asmFile fName="MC30P8160_include.h" fPath="\MC30P8160_include.h" />
+        <asmFile fName="MC30P8160_MAIN.h" fPath="\MC30P8160_MAIN.h" />
+        <asmFile fName="dsad.h" fPath="\dsad.h" />
+      </SouceCode>
+    </Explorer>
+  </ProWindows>
+  <Option Value="85" Value0="0" Value1="ba" Value2="5" Value3="0" Value4="f" Value5="0" Value6="0" Value7="0" Value8="0" Value9="0" Value10="0" Value11="0" Value12="0" Value13="0" />
+  <Compiler Name="gpasm.exe" />
+  <NewCompiler Name="false" />
+  <Language Name="C" />
+  <LoadFillMode Flag="true" FillValue="0" />
+  <ChipVCCValue Value="0x01" />
+  <WatchSymbol Name="u16_get_val" Addr="001C" Value="??" BitFlag="False" Bit="0" DataRes="2" Array="False" />
+  <WatchSymbol Name="CPLAY_FLAG" Addr="003A" Value="??" BitFlag="False" Bit="0" DataRes="1" Array="False" />
+  <WatchSymbol Name="TK1_Key_Cnt" Addr="0048" Value="??" BitFlag="False" Bit="0" DataRes="1" Array="False" />
+</Project>

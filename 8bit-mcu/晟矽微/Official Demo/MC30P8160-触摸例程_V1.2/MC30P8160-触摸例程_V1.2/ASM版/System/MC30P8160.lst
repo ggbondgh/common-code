@@ -1,0 +1,1776 @@
+gpasm-2.2.31 (Mar 15 2022)   MC30P8160.asm      2023-4-3  11:58:18           PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 #include                "MC30P8160.inc"
+                      00001                 LIST
+                      00002 ;mc30p8160.inc    Standard Header File, Version 1.00 by Sinomcu
+                      00466                 LIST
+                      00002 #include                "MC30P8160_TK.h"
+                      00001 ;;;****************************************************************************
+                      00002 ;; 触摸标准程序调用的SRAM定义
+                      00003 ;;;****************************************************************************
+                      00004 #DEFINE         _TKCON                          TKCON
+                      00005 #DEFINE         _TKEN                           TKEN
+                      00006 #DEFINE         _T0EN                           T0EN
+                      00007 #DEFINE         _T0IF                           T0IF
+                      00008 #DEFINE         _C                                      C
+                      00009 #DEFINE         _Z                                      Z
+                      00010 
+                      00011 cblock    0x20
+                      00012 ;;-----------------------------------------------
+                      00013 TKCNT0_SAVEH                                            ;触摸按键0是否使能;没有使用时取消定义
+                      00014 TKCNT0_SAVEL
+                      00015 TKCNT0_BASEH
+                      00016 TKCNT0_BASEL
+                      00017 
+                      00018 TKCNT1_SAVEH                                            ;触摸按键1是否使能;没有使用时取消定义
+                      00019 TKCNT1_SAVEL
+                      00020 TKCNT1_BASEH
+                      00021 TKCNT1_BASEL
+                      00022 
+                      00023 TKCNT2_SAVEH                                            ;触摸按键2是否使能;没有使用时取消定义
+                      00024 TKCNT2_SAVEL
+                      00025 TKCNT2_BASEH
+                      00026 TKCNT2_BASEL
+                      00027 
+                      00028 TKCNT3_SAVEH                                            ;触摸按键3是否使能;没有使用时取消定义
+                      00029 TKCNT3_SAVEL
+                      00030 TKCNT3_BASEH
+                      00031 TKCNT3_BASEL
+                      00032 ;;-----------------------------------------------
+                      00033 ;cblock    0x30
+                      00034 TOUCH_SCAN_TONE
+                      00035 TOUCH_SCAN_LIST
+                      00036 TKCNTH_NEW
+                      00037 TKCNTL_NEW
+                      00038 TOUCH_FLAG                                                      ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+                      00039 TOUCH_DEBOUNCE1                                         ;触摸按下消抖计数
+                      00040 TOUCH_DEBOUNCE2                                         ;触摸松开消抖计数
+                      00041 TOUCH_DEBOUNCE3                                         ;触摸环境消抖计数
+                      00042 TOUCH_DEBOUNCE4                                         ;触摸环境错误消抖计数
+                      00043 TOUCH_TEMP1                                                     ;暂存
+                      00044 TOUCH_TEMP2                                                     ;暂存
+                      00045 TOUCH_TEMP3                                                     ;暂存
+                      00046 TOUCH_TEMP4                                                     ;暂存
+                      00047 TOUCH_TEMP5                                                     ;暂存
+                      00048 TOUCH_TEMP6                                                     ;暂存
+                      00049 
+                      00050 ENDC
+                      00051 ;;-----------------------------------------------
+                      00052 #DEFINE                         TKCNTL_OLD_TEMPH        TEMP0                   ;暂存各通道保存值
+                      00053 #DEFINE                         TKCNTL_OLD_TEMPL        TEMP1                   ;暂存各通道保存值
+                      00054 #DEFINE                         SUB_AH                          TEMP2
+                      00055 #DEFINE                         SUB_AL                          TEMP3
+                      00056 #DEFINE                         SUB_BH                          TEMP4
+                      00057 #DEFINE                         SUB_BL                          TEMP5
+                      00058 #DEFINE                         SUB_CH                          TEMP6
+                      00059 #DEFINE                         SUB_CL                          TEMP7
+                      00060 
+                      00061 #DEFINE                         TOUCH_FLAG_0            TOUCH_FLAG,0
+                      00062 #DEFINE                         TOUCH_FLAG_1            TOUCH_FLAG,1
+                      00063 #DEFINE                         TOUCH_FLAG_2            TOUCH_FLAG,2
+                      00064 #DEFINE                         TOUCH_FLAG_3            TOUCH_FLAG,3
+                      00065 #DEFINE                         TOUCH_NEW_FLAG_0        TOUCH_FLAG,4
+                      00066 #DEFINE                         TOUCH_NEW_FLAG_1        TOUCH_FLAG,5
+                      00067 #DEFINE                         TOUCH_NEW_FLAG_2        TOUCH_FLAG,6
+                      00068 #DEFINE                         TOUCH_NEW_FLAG_3        TOUCH_FLAG,7
+                      00069 ;;-----------------------------------------------
+                      00070 #DEFINE                         START_TK_FG             PLAY_FLAG,0                     ;初次启动TK扫描标志位
+                      00071 #DEFINE                         WAKEUP_FG               PLAY_FLAG,1                     ;休眠重新唤醒标志位
+                      00072 #DEFINE                         TK_SCANEND_FG   PLAY_FLAG,2                     ;TK扫描完一轮标志位
+                      00073 
+  0000000F            00074 TOUCH_KEY                       EQU     00001111B                                               ;定义触摸按键使能的通道,
+  00000004            00075 TOUCH_KEY_NUM           EQU     4                                                               ;定义有效的触摸按键数量（0-3）
+                      00076 #DEFINE                         SET_TOUCH3_ENABLE               1                       ;触摸按键TK3是否使能P13
+                      00077 #DEFINE                         SET_TOUCH2_ENABLE               1                       ;触摸按键TK2是否使能P12
+                      00078 #DEFINE                         SET_TOUCH1_ENABLE               1                       ;触摸按键TK1是否使能P11
+                      00079 #DEFINE                         SET_TOUCH0_ENABLE               1                       ;触摸按键TK0是否使能P10
+                      00080 
+                      00081 #DEFINE                         TOUCH_SLEEP_FG                  1                       ;是否需要触摸休眠唤醒,0=不休眠，非零=休眠
+                      00082 ;;-----------------------------------------------
+                      00083 #DEFINE                         SET_TOUCH_ENV_LEVEL             0X10            ;通道环境重适应阀值（第一级）
+                      00084 #DEFINE                         SET_TOUCH_ENV2_LEVEL    0X20            ;通道环境重适应阀值（第二级）
+                      00085 #DEFINE                         SET_TOUCH_DELAY_LEVEL   0X20            ;触摸重适应时间（缓慢靠近按键允许响应时间，设定时间短时，缓慢靠近按键当作环境适应,不响应。设定时间长,允许缓慢靠近按键，但相应的按键响应速度会变慢）
+                      00086 
+                      00087 #DEFINE                         SET_SENS_LEVEL0                 0xEE            ;TK0触摸灵敏度级别
+                      00088 #DEFINE                         SET_TOUCH0_PRE_LEVEL    0X80            ;通道0按下触摸通道的阀值(单独定义值)
+                      00089 #DEFINE                         SET_TOUCH0_RELEA_LEVEL  0X80            ;通道0放开触摸通道的阀值
+                      00090 #DEFINE                         SET_TOUCH0_DEBOUNCEC    0X10            ;通道消抖处理次数,即连续多少次响应按键为有效
+                      00091 
+                      00092 #DEFINE                         SET_SENS_LEVEL1                 0xEE            ;TK1触摸灵敏度级别
+                      00093 #DEFINE                         SET_TOUCH1_PRE_LEVEL    0X80            ;通道1按下触摸通道的阀值(单独定义值)
+                      00094 #DEFINE                         SET_TOUCH1_RELEA_LEVEL  0X80            ;通道1放开触摸通道的阀值
+                      00095 #DEFINE                         SET_TOUCH1_DEBOUNCEC    0X10            ;通道消抖处理次数,即连续多少次响应按键为有效
+                      00096 
+                      00097 #DEFINE                         SET_SENS_LEVEL2                 0xEE            ;TK2触摸灵敏度级别
+                      00098 #DEFINE                         SET_TOUCH2_PRE_LEVEL    0X80            ;通道2按下触摸通道的阀值(单独定义值)
+                      00099 #DEFINE                         SET_TOUCH2_RELEA_LEVEL  0X80            ;通道2放开触摸通道的阀值
+                      00100 #DEFINE                         SET_TOUCH2_DEBOUNCEC    0X10            ;通道消抖处理次数,即连续多少次响应按键为有效
+                      00101 
+                      00102 #DEFINE                         SET_SENS_LEVEL3                 0xEE            ;TK3触摸灵敏度级别
+                      00103 #DEFINE                         SET_TOUCH3_PRE_LEVEL    0X80            ;通道3按下触摸通道的阀值(单独定义值)
+                      00104 #DEFINE                         SET_TOUCH3_RELEA_LEVEL  0X80            ;通道3放开触摸通道的阀值
+                      00105 #DEFINE                         SET_TOUCH3_DEBOUNCEC    0X10            ;通道消抖处理次数,即连续多少次响应按键为有效
+                      00003 
+                      00004 #DEFINE                         INTFLAG         INTF            ;8160与其它芯片的寄存器定义差异
+                      00005 #DEFINE                         INTECON         INTE
+                      00006 #DEFINE                         KBIM            P1KBCR
+                      00007 ;;;------- 功能模块使能定义  --------------------
+                      00008 #DEFINE                         SET_UART_ENABLE         1       ;串口功能是否使能
+                      00009 ;;;--------- 用户数据定义------------------------
+                      00010 cblock    0x10
+                      00011 SAVE_ACC
+                      00012 SAVE_STATUS
+                      00013 
+                      00014 PLAY_FLAG
+                      00015 TEMP0           ;TEMP0-TEMP7在各子程序中暂时使用，退出子程序时无效
+                      00016 TEMP1
+                      00017 TEMP2
+                      00018 TEMP3
+                      00019 TEMP4
+                      00020 TEMP5
+                      00021 TEMP6
+                      00022 TEMP7           ;CBLOCK 0X00-0X10
+                      00023 
+                      00024 USE_FLAG
+                      00025 
+                      00026 ENDC
+                      00027 
+                      00028 ;;-----------------------------------------------
+                      00029 #DEFINE                         TIME_FG         USE_FLAG,0
+                      00030 #DEFINE                         TEST_FG         USE_FLAG,1
+                      00031 ;;-----------------------------------------------
+                      00032 #DEFINE                         PIN_UART_TX             P1,5            ;串口TX脚
+                      00033 #DEFINE                         PIN_LED1                P1,4            ;LED1输出脚
+                      00034 ;;;**********************************************
+                      00035 ;;;**********************************************
+                      00036 ;;;**********************************************
+                      00037 ;中断向量表
+                      00038 ;.code
+                      00039         ORG             0x03FF
+03FF   2800           00040         GOTO    START                   ;0000H
+                      00041         ORG             0x0000
+0000   2800           00042         GOTO    START                   ;0000H
+0001   0000           00043         NOP                                     ;0001H
+0002   0000           00044         NOP                                     ;0002H
+0003   0000           00045         NOP                                     ;0003H  
+0004   0000           00046         NOP                                     ;0004H
+0005   0000           00047         NOP                                     ;0005H
+0006   0000           00048         NOP                                     ;0006H
+0007   0000           00049         NOP                                     ;0007H
+0008   2800           00050         GOTO    INT_SUB                 ;0008H
+                      00051 ;;---------------------------------------------------------
+                      00052 #include        "MC30P8160_TK.asm"
+                      00001 ;;;****************************************************************************
+                      00002 ;;;****************************************************************************
+                      00003 ;;;****************************************************************************
+                      00004 ;; 触摸程序
+                      00005 ;; 初始化触摸参数:                              CALL    SET_TOUCH_OPTION
+                      00006 ;; 调用入口:                                    CALL    SCAN_TOUCH
+                      00007 ;;--------------------------
+                      00008 
+                      00009 ;-------------------------------------------------------------------------------------
+0009                  00010 SET_TOUCH_OPTION:
+0009   0B0F           00011         MOVAI   TOUCH_KEY                               ;00001111B
+000A   15E7           00012         MOVRA   P1ADCR                                  ;设定对应的TK口为非数字功能，1为非数字功能
+000B   17D6           00013         ORRA    DDR1                                    ;只设定TK脚为输入模式，其它不变。输入/输出；1为输入，0为输出
+000C   15B4           00014         MOVRA   TOUCH_FLAG
+000D   11B4           00015         SWAPR   TOUCH_FLAG                              ;将对应的TK 使能触摸点要刷新基准数据（TOUCH_NEW_FLAG）
+000E   3DD8           00016         BCLR    T2IE                                    ;不需要T2中断，TK采用扫描方式
+000F   0BC8           00017         MOVAI   11001000B                               ;定时器0配置,BIT7为定时器2开启,BIT6为定时器2连续/单次计数模式,BIT4-3:时钟源选定,BIT0-2:定时器分频
+0010   17E0           00018         ORRA    T2CR                                    ;开启T2定时器，并且为单次计时模式
+0011   0B00           00019         MOVAI   00000000B
+0012   15EB           00020         MOVRA   TKCR0                                   ;TK触摸配置,BIT7=1开启TK,BIT6=1允许触摸充放电,BIT5/4为TK时钟滤波,BIT3:TK跳频,BIT2-0:TK振荡频率选择
+0013   0BFF           00021         MOVAI   11111111B                               ;选择通道0
+0014   15ED           00022         MOVRA   TKCR2                                   ;TK触摸配置,BIT7=1使能TK计数,BIT6:TKM计数中断,BIT2/0:选定触摸通道
+0015                  00023 SET_TOUCH_OPTION2:                                      ;休眠唤醒后重新设定触摸参数
+0015   1DB1           00024         CLRR    TOUCH_SCAN_LIST
+0016   1DB0           00025         CLRR    TOUCH_SCAN_TONE
+0017   1DB5           00026         CLRR    TOUCH_DEBOUNCE1
+0018   1DB6           00027         CLRR    TOUCH_DEBOUNCE2
+0019   1DB7           00028         CLRR    TOUCH_DEBOUNCE3
+001A   1DB8           00029         CLRR    TOUCH_DEBOUNCE4
+001B   3D12           00030         BCLR    TK_SCANEND_FG                   ;所有TK的扫描完成
+001C   3892           00031         BSET    WAKEUP_FG                               ;看门狗唤醒
+001D   000C           00032         RETURN
+                      00033 ;-------------------------------------------------------------------------------------
+001E                  00034 SCAN_TOUCH:
+001E   1631           00035         MOVAR   TOUCH_SCAN_LIST                 ;扫描触摸的步骤
+001F   0D03           00036         ANDAI   0X03
+0020   1F82           00037         ADDRA   PCL
+0021   2800           00038         GOTO    SCAN_TOUCH_STEP1                ;设定扫描通道和扫描参数，并开启触摸
+0022   2800           00039         GOTO    SCAN_TOUCH_STEP2                ;等待触摸计数完成，并屏蔽杂波
+0023   2800           00040         GOTO    SCAN_TOUCH_STEP3                ;分析每个通道的读数（滤波和消抖）,确认是否触发触摸按键
+0024   1DB1           00041         CLRR    TOUCH_SCAN_LIST
+                      00042 ;       GOTO    SCAN_TOUCH_STEP1                ;设定扫描通道和扫描参数，并开启触摸
+                      00043 ;;---------------------------------------------------------
+0025                  00044 SCAN_TOUCH_STEP1:
+0025   1630           00045         MOVAR   TOUCH_SCAN_TONE                 ;扫描通道数
+0026   0D03           00046         ANDAI   0X03
+0027   1F82           00047         ADDRA   PCL
+                      00048 #if SET_TOUCH0_ENABLE                           ;第0个触摸点是否使能
+0028   2800           00049         GOTO    SCAN_TOUCH_STEP1_TONE0
+                      00050 #else
+                      00051 #endif
+                      00052 #if SET_TOUCH1_ENABLE                           ;第1个触摸点是否使能
+0029   2800           00053         GOTO    SCAN_TOUCH_STEP1_TONE1
+                      00054 #else
+                      00055 #endif
+                      00056 #if SET_TOUCH2_ENABLE                           ;第2个触摸点是否使能
+002A   2800           00057         GOTO    SCAN_TOUCH_STEP1_TONE2
+                      00058 #else
+                      00059 #endif
+                      00060 #if SET_TOUCH3_ENABLE                           ;第3个触摸点是否使能
+002B   2800           00061         GOTO    SCAN_TOUCH_STEP1_TONE3
+                      00062 #else
+                      00063 #endif
+                      00064 ;;---------------------------
+                      00065 #if SET_TOUCH0_ENABLE                           ;第0个触摸点是否使能
+002C                  00066 SCAN_TOUCH_STEP1_TONE0:
+002C   0B01           00067         MOVAI   00000001B                               ;1-输出,0-输入
+002D   17D6           00068         ORRA    DDR1                                    ;设相应的触摸通道(TK0-P10）为输入口
+002E   17E7           00069         ORRA    P1ADCR                                  ;设相应的触摸通道(TK0-P10）关闭数字功能
+002F   0B00           00070         MOVAI   00000000B                               ;选择通道0
+0030   15EC           00071         MOVRA   TKCR1                                   ;TK触摸配置,BIT7=1使能TK计数,BIT6:TKM计数中断,BIT2/0:选定触摸通道
+0031   3C12           00072         BCLR    START_TK_FG
+0032   3634           00073         JBCLR   TOUCH_NEW_FLAG_0
+0033   3812           00074         BSET    START_TK_FG
+0034   0BEE           00075         MOVAI   SET_SENS_LEVEL0
+0035   2800           00076         GOTO    SCAN_TOUCH_STEP1_NEXT
+                      00077 #else
+                      00078 #endif
+                      00079 #if SET_TOUCH1_ENABLE                           ;第1个触摸点是否使能
+0036                  00080 SCAN_TOUCH_STEP1_TONE1:
+0036   0B02           00081         MOVAI   00000010B                               ;1-输出,0-输入
+0037   17D6           00082         ORRA    DDR1                                    ;设相应的触摸通道(TK0-P10）为输入口
+0038   17E7           00083         ORRA    P1ADCR                                  ;设相应的触摸通道(TK0-P10）关闭数字功能
+0039   0B01           00084         MOVAI   00000001B                               ;选择通道0
+003A   15EC           00085         MOVRA   TKCR1                                   ;TK触摸配置,BIT7=1使能TK计数,BIT6:TKM计数中断,BIT2/0:选定触摸通道
+003B   3C12           00086         BCLR    START_TK_FG
+003C   36B4           00087         JBCLR   TOUCH_NEW_FLAG_1
+003D   3812           00088         BSET    START_TK_FG
+003E   0BEE           00089         MOVAI   SET_SENS_LEVEL1
+003F   2800           00090         GOTO    SCAN_TOUCH_STEP1_NEXT
+                      00091 #else
+                      00092 #endif
+                      00093 #if SET_TOUCH2_ENABLE                           ;第2个触摸点是否使能
+0040                  00094 SCAN_TOUCH_STEP1_TONE2:
+0040   0B04           00095         MOVAI   00000100B                               ;1-输出,0-输入
+0041   17D6           00096         ORRA    DDR1                                    ;设相应的触摸通道(TK0-P10）为输入口
+0042   17E7           00097         ORRA    P1ADCR                                  ;设相应的触摸通道(TK0-P10）关闭数字功能
+0043   0B02           00098         MOVAI   00000010B                               ;选择通道0
+0044   15EC           00099         MOVRA   TKCR1                                   ;TK触摸配置,BIT7=1使能TK计数,BIT6:TKM计数中断,BIT2/0:选定触摸通道
+0045   3C12           00100         BCLR    START_TK_FG
+0046   3734           00101         JBCLR   TOUCH_NEW_FLAG_2
+0047   3812           00102         BSET    START_TK_FG
+0048   0BEE           00103         MOVAI   SET_SENS_LEVEL2
+0049   2800           00104         GOTO    SCAN_TOUCH_STEP1_NEXT
+                      00105 #else
+                      00106 #endif
+                      00107 #if SET_TOUCH3_ENABLE                           ;第3个触摸点是否使能
+004A                  00108 SCAN_TOUCH_STEP1_TONE3:
+004A   0B08           00109         MOVAI   00001000B                               ;1-输出,0-输入
+004B   17D6           00110         ORRA    DDR1                                    ;设相应的触摸通道(TK0-P10）为输入口
+004C   17E7           00111         ORRA    P1ADCR                                  ;设相应的触摸通道(TK0-P10）关闭数字功能
+004D   0B03           00112         MOVAI   00000011B                               ;选择通道0
+004E   15EC           00113         MOVRA   TKCR1                                   ;TK触摸配置,BIT7=1使能TK计数,BIT6:TKM计数中断,BIT2/0:选定触摸通道
+004F   3C12           00114         BCLR    START_TK_FG
+0050   37B4           00115         JBCLR   TOUCH_NEW_FLAG_3
+0051   3812           00116         BSET    START_TK_FG
+0052   0BEE           00117         MOVAI   SET_SENS_LEVEL3
+0053   2800           00118         GOTO    SCAN_TOUCH_STEP1_NEXT
+                      00119 #else
+                      00120 #endif
+                      00121 ;;---------------------------
+0054                  00122 SCAN_TOUCH_STEP1_NEXT:
+0054   15E1           00123         MOVRA   T2CNTH                                  ;设定定时器0计数值(16位高地址)
+0055   15E3           00124         MOVRA   T2LOADH                                 ;设定定时器0重装计数值(16位高地址)
+0056   0BFA           00125         MOVAI   250
+0057   15E2           00126         MOVRA   T2CNTL                                  ;设定定时器0计数值(16位低地址)
+0058   15E4           00127         MOVRA   T2LOADL                                 ;设定定时器0重装计数值(16位低地址)
+                      00128 
+0059   1DEE           00129         CLRR    TKCNTH
+005A   1DEF           00130         CLRR    TKCNTL                                  ;清TOUCH读数,必须手工清零
+005B   0BC8           00131         MOVAI   11001000B
+005C   17EB           00132         ORRA    TKCR0                                   ;TK触摸配置,BIT7=1开启TK,BIT6=1允许触摸充放电,BIT5/4为TK时钟滤波,BIT3:TK跳频,BIT2-0:TK振荡频率选择
+005D   3B6B           00133         BSET    TKCON                                   ;开始电容充放电
+005E   3BEB           00134         BSET    TKEN
+005F   3BE0           00135         BSET    T2EN
+0060   0B01           00136         MOVAI   0X01
+0061   15B1           00137         MOVRA   TOUCH_SCAN_LIST
+0062   000C           00138         RETURN
+                      00139 ;;---------------------------------------------------------
+0063                  00140 SCAN_TOUCH_STEP2:
+0063   3158           00141         JBSET   T2IF
+0064   000C           00142         RETURN
+0065   3D58           00143         BCLR    T2IF                                    ;触摸计数完成
+                      00144 
+0066   166E           00145         MOVAR   TKCNTH
+0067   15B2           00146         MOVRA   TKCNTH_NEW
+0068   166F           00147         MOVAR   TKCNTL
+0069   15B3           00148         MOVRA   TKCNTL_NEW
+006A   3F6B           00149         BCLR    TKCON
+006B   1DEE           00150         CLRR    TKCNTH
+006C   1DEF           00151         CLRR    TKCNTL                                  ;清TOUCH读数,必须手工清零
+                      00152 
+006D   0B0F           00153         MOVAI   TOUCH_KEY                               ;I/O口数字功能设定,0是有效
+006E   080F           00154         XORAI   00001111B
+006F   1EE7           00155         ANDRA   P1ADCR                                  ;设定对应的TK口为数字功能，0为数字功能
+0070   1ED6           00156         ANDRA   DDR1                                    ;设相应的触摸通道(TK0-TK3）为输出口
+0071   0B02           00157         MOVAI   0X02
+0072   15B1           00158         MOVRA   TOUCH_SCAN_LIST
+0073   000C           00159         RETURN
+                      00160 ;;---------------------------------------------------------
+0074                  00161 SCAN_TOUCH_STEP3:
+0074   3412           00162         JBCLR   START_TK_FG                                     ;启动的前一段时间，可以不考虑数据差值
+0075   2800           00163         GOTO    SCAN_TOUCH_STEP3_SAVE
+0076   1633           00164         MOVAR   TKCNTL_NEW
+                      00165 
+0077   1630           00166         MOVAR   TOUCH_SCAN_TONE                         ;扫描通道数
+0078   0D07           00167         ANDAI   0X07
+0079   1F82           00168         ADDRA   PCL
+                      00169 #if SET_TOUCH0_ENABLE                                   ;第0个触摸点是否使能
+007A   2800           00170         GOTO    SCAN_TOUCH_STEP3_TONE0
+                      00171 #else
+                      00172 #endif
+                      00173 #if SET_TOUCH1_ENABLE                                   ;第1个触摸点是否使能
+007B   2800           00174         GOTO    SCAN_TOUCH_STEP3_TONE1
+                      00175 #else
+                      00176 #endif
+                      00177 #if SET_TOUCH2_ENABLE                                   ;第2个触摸点是否使能
+007C   2800           00178         GOTO    SCAN_TOUCH_STEP3_TONE2
+                      00179 #else
+                      00180 #endif
+                      00181 #if SET_TOUCH3_ENABLE                                   ;第3个触摸点是否使能
+007D   2800           00182         GOTO    SCAN_TOUCH_STEP3_TONE3
+                      00183 #else
+                      00184 #endif
+                      00185 #if SET_TOUCH0_ENABLE                                   ;第0个触摸点是否使能
+007E                  00186 SCAN_TOUCH_STEP3_TONE0:
+007E   1620           00187         MOVAR   TKCNT0_SAVEH
+007F   1593           00188         MOVRA   TKCNTL_OLD_TEMPH
+0080   1621           00189         MOVAR   TKCNT0_SAVEL
+0081   1594           00190         MOVRA   TKCNTL_OLD_TEMPL                        ;把保存的这个通道的读数值提取出来
+0082   0B80           00191         MOVAI   SET_TOUCH0_PRE_LEVEL            ;触摸按下的阀值
+0083   15B9           00192         MOVRA   TOUCH_TEMP1
+0084   0B80           00193         MOVAI   SET_TOUCH0_RELEA_LEVEL          ;触摸离开的阀值
+0085   15BA           00194         MOVRA   TOUCH_TEMP2
+0086   0B01           00195         MOVAI   00000001B
+0087   15BB           00196         MOVRA   TOUCH_TEMP3                                     ;对应触摸通道0
+0088   0B10           00197         MOVAI   SET_TOUCH0_DEBOUNCEC            ;通道消抖处理次数,即连续多少次响应按键为有效
+0089   15BC           00198         MOVRA   TOUCH_TEMP4
+008A   1623           00199         MOVAR   TKCNT0_BASEL
+008B   15BD           00200         MOVRA   TOUCH_TEMP5
+008C   1622           00201         MOVAR   TKCNT0_BASEH
+008D   15BE           00202         MOVRA   TOUCH_TEMP6
+008E   2800           00203         GOTO    SCAN_TOUCH_STEP3_CHECK
+                      00204 #else
+                      00205 #endif
+                      00206 #if SET_TOUCH1_ENABLE                                   ;第1个触摸点是否使能
+008F                  00207 SCAN_TOUCH_STEP3_TONE1:
+008F   1624           00208         MOVAR   TKCNT1_SAVEH
+0090   1593           00209         MOVRA   TKCNTL_OLD_TEMPH
+0091   1625           00210         MOVAR   TKCNT1_SAVEL
+0092   1594           00211         MOVRA   TKCNTL_OLD_TEMPL                        ;把保存的这个通道的读数值提取出来
+0093   0B80           00212         MOVAI   SET_TOUCH1_PRE_LEVEL            ;触摸按下的阀值
+0094   15B9           00213         MOVRA   TOUCH_TEMP1
+0095   0B80           00214         MOVAI   SET_TOUCH1_RELEA_LEVEL          ;触摸离开的阀值
+0096   15BA           00215         MOVRA   TOUCH_TEMP2
+0097   0B02           00216         MOVAI   00000010B
+0098   15BB           00217         MOVRA   TOUCH_TEMP3                                     ;对应触摸通道1
+0099   0B10           00218         MOVAI   SET_TOUCH1_DEBOUNCEC            ;通道消抖处理次数,即连续多少次响应按键为有效
+009A   15BC           00219         MOVRA   TOUCH_TEMP4
+009B   1627           00220         MOVAR   TKCNT1_BASEL
+009C   15BD           00221         MOVRA   TOUCH_TEMP5
+009D   1626           00222         MOVAR   TKCNT1_BASEH
+009E   15BE           00223         MOVRA   TOUCH_TEMP6
+009F   2800           00224         GOTO    SCAN_TOUCH_STEP3_CHECK
+                      00225 #else
+                      00226 #endif
+                      00227 #if SET_TOUCH2_ENABLE                                   ;第2个触摸点是否使能
+00A0                  00228 SCAN_TOUCH_STEP3_TONE2:
+00A0   1628           00229         MOVAR   TKCNT2_SAVEH
+00A1   1593           00230         MOVRA   TKCNTL_OLD_TEMPH
+00A2   1629           00231         MOVAR   TKCNT2_SAVEL
+00A3   1594           00232         MOVRA   TKCNTL_OLD_TEMPL                        ;把保存的这个通道的读数值提取出来
+00A4   0B80           00233         MOVAI   SET_TOUCH2_PRE_LEVEL            ;触摸按下的阀值
+00A5   15B9           00234         MOVRA   TOUCH_TEMP1
+00A6   0B80           00235         MOVAI   SET_TOUCH2_RELEA_LEVEL          ;触摸离开的阀值
+00A7   15BA           00236         MOVRA   TOUCH_TEMP2
+00A8   0B04           00237         MOVAI   00000100B
+00A9   15BB           00238         MOVRA   TOUCH_TEMP3                                     ;对应触摸通道2
+00AA   0B10           00239         MOVAI   SET_TOUCH2_DEBOUNCEC            ;通道消抖处理次数,即连续多少次响应按键为有效
+00AB   15BC           00240         MOVRA   TOUCH_TEMP4
+00AC   162B           00241         MOVAR   TKCNT2_BASEL
+00AD   15BD           00242         MOVRA   TOUCH_TEMP5
+00AE   162A           00243         MOVAR   TKCNT2_BASEH
+00AF   15BE           00244         MOVRA   TOUCH_TEMP6
+00B0   2800           00245         GOTO    SCAN_TOUCH_STEP3_CHECK
+                      00246 #else
+                      00247 #endif
+                      00248 #if SET_TOUCH3_ENABLE                                   ;第3个触摸点是否使能
+00B1                  00249 SCAN_TOUCH_STEP3_TONE3:
+00B1   162C           00250         MOVAR   TKCNT3_SAVEH
+00B2   1593           00251         MOVRA   TKCNTL_OLD_TEMPH
+00B3   162D           00252         MOVAR   TKCNT3_SAVEL
+00B4   1594           00253         MOVRA   TKCNTL_OLD_TEMPL                        ;把保存的这个通道的读数值提取出来
+00B5   0B80           00254         MOVAI   SET_TOUCH3_PRE_LEVEL            ;触摸按下的阀值
+00B6   15B9           00255         MOVRA   TOUCH_TEMP1
+00B7   0B80           00256         MOVAI   SET_TOUCH3_RELEA_LEVEL          ;触摸离开的阀值
+00B8   15BA           00257         MOVRA   TOUCH_TEMP2
+00B9   0B08           00258         MOVAI   00001000B
+00BA   15BB           00259         MOVRA   TOUCH_TEMP3                                     ;对应触摸通道3
+00BB   0B10           00260         MOVAI   SET_TOUCH3_DEBOUNCEC            ;通道消抖处理次数,即连续多少次响应按键为有效
+00BC   15BC           00261         MOVRA   TOUCH_TEMP4
+00BD   162F           00262         MOVAR   TKCNT3_BASEL
+00BE   15BD           00263         MOVRA   TOUCH_TEMP5
+00BF   162E           00264         MOVAR   TKCNT3_BASEH
+00C0   15BE           00265         MOVRA   TOUCH_TEMP6
+00C1   2800           00266         GOTO    SCAN_TOUCH_STEP3_CHECK
+                      00267 #else
+                      00268 #endif
+                      00269 ;;---------------------------
+00C2                  00270 SCAN_TOUCH_STEP3_CHECK:
+00C2   1633           00271         MOVAR   TKCNTL_NEW
+00C3   1596           00272         MOVRA   SUB_AL
+00C4   1632           00273         MOVAR   TKCNTH_NEW
+00C5   1595           00274         MOVRA   SUB_AH
+00C6   1614           00275         MOVAR   TKCNTL_OLD_TEMPL
+00C7   1598           00276         MOVRA   SUB_BL
+00C8   1613           00277         MOVAR   TKCNTL_OLD_TEMPH
+00C9   1597           00278         MOVRA   SUB_BH
+00CA   2000           00279         CALL    SUB_2BYTE                                       ;判断新旧值的差值
+00CB                  00280 SCAN_TOUCH_STEP3_CHECK_MAX:
+00CB   0B70           00281         MOVAI   0X70
+00CC   1E19           00282         ANDAR   SUB_CH                                          ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+00CD   3103           00283         JBSET   _Z
+00CE   2800           00284         GOTO    SCAN_TOUCH_STEP3_BAD            ;数据差值超过0X1000H,错误，再次扫描当前触摸通道
+                      00285 ;---------------------------
+00CF                  00286 SCAN_TOUCH_STEP3_CHECK_NEXT:
+00CF   3399           00287         JBSET   SUB_CH,7
+00D0   2800           00288         GOTO    SCAN_TOUCH_STEP3_TORELEASE      ;旧值小于或等于新值，离开触摸的趋势
+00D1                  00289 SCAN_TOUCH_STEP3_TOPRESS:                               ;旧值大于新值，按下触摸的趋势
+00D1   0B7F           00290         MOVAI   0X7F
+00D2   1E19           00291         ANDAR   SUB_CH                                          ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+00D3   3103           00292         JBSET   _Z
+00D4   2800           00293         GOTO    SCAN_TOUCH_STEP3_PRE            ;数据差值超过0X100H,大于阀值，确定有按下动作
+00D5   1639           00294         MOVAR   TOUCH_TEMP1                                             ;新旧数据差值
+00D6   121A           00295         RSUBAR  SUB_CL                                  ;(TKCNTL_OLD - TKCNTL_NEW) - TOUCH0_PRE_LEVEL ,判断差值与触摸阀值大小
+00D7   3403           00296         JBCLR   _C
+00D8   2800           00297         GOTO    SCAN_TOUCH_STEP3_PRE            ;差值大于阀值，确认有按下动作
+00D9   0B10           00298         MOVAI   SET_TOUCH_ENV_LEVEL
+00DA   121A           00299         RSUBAR  SUB_CL
+00DB   3403           00300         JBCLR   _C
+00DC   2800           00301         GOTO    SCAN_TOUCH_STEP3_SAVEDEBOUNCE   ;差值大于环境阀值小于触摸阀值，按下趋势，消抖处理，如一直没有过触摸阀值，则重新刷新保存值与基准值
+00DD   2800           00302         GOTO    SCAN_TOUCH_STEP3_NORMAL         ;差值小于环境阀值，去保存值(TKCNTx_SAVE)与基准值(TKCNTx_BASE)的差值
+00DE                  00303 SCAN_TOUCH_STEP3_PRE:                                   ;差值大于等于阀值，触摸确认有按下
+00DE   1633           00304         MOVAR   TKCNTL_NEW
+00DF   1596           00305         MOVRA   SUB_AL
+00E0   1632           00306         MOVAR   TKCNTH_NEW
+00E1   1595           00307         MOVRA   SUB_AH
+00E2   163D           00308         MOVAR   TOUCH_TEMP5
+00E3   1598           00309         MOVRA   SUB_BL
+00E4   163E           00310         MOVAR   TOUCH_TEMP6
+00E5   1597           00311         MOVRA   SUB_BH
+00E6   2000           00312         CALL    SUB_2BYTE                                       ;判断新值与基础值的差值
+00E7   0B70           00313         MOVAI   0X70
+00E8   1E19           00314         ANDAR   SUB_CH                                          ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+00E9   3103           00315         JBSET   _Z
+00EA   2800           00316         GOTO    SCAN_TOUCH_STEP3_BAD            ;数据差值超过0X1000H,暂定为错误/（判断是否是新的触摸值远大于基础值）
+00EB   0B20           00317         MOVAI   SET_TOUCH_ENV2_LEVEL
+00EC   121A           00318         RSUBAR  SUB_CL                                          ;按下动作时，当前值(TKCNTx_NEW)与基准值(TKCNTx_BASE)差值大于环境值（第二级阀值）
+00ED   3003           00319         JBSET   _C
+00EE   2800           00320         GOTO    SCAN_TOUCH_STEP3_BAD            ;差值小于在环境阀值，（可能是异常），更新当前数据但不置触摸标志
+00EF                  00321 SCAN_TOUCH_STEP3_PRE_MAX:
+00EF   3399           00322         JBSET   SUB_CH,7
+00F0   2800           00323         GOTO    SCAN_TOUCH_STEP3_BAD            ;新的触摸值远大于基础值，（可能是异常），更新当前数据但不置触摸标志
+00F1                  00324 SCAN_TOUCH_STEP3_PRE_NEXT:
+00F1   1DB5           00325         CLRR    TOUCH_DEBOUNCE1
+00F2   19B6           00326         INCR    TOUCH_DEBOUNCE2                         ;通道消抖处理次数,即连续多少次响应按键为有效
+00F3   163C           00327         MOVAR   TOUCH_TEMP4
+00F4   1236           00328         RSUBAR  TOUCH_DEBOUNCE2
+00F5   3003           00329         JBSET   _C
+00F6   2800           00330         GOTO    SCAN_TOUCH_STEP3_RECHECK        ;消抖没有处理完，再次扫描当前触摸通道
+00F7   163B           00331         MOVAR   TOUCH_TEMP3
+00F8   17B4           00332         ORRA    TOUCH_FLAG                                      ;对应的触摸通道标志置位
+00F9   2800           00333         GOTO    SCAN_TOUCH_STEP3_SAVE_DATA      ;按下状态，只刷新保存值
+                      00334 ;----------------------------------------------------------
+00FA                  00335 SCAN_TOUCH_STEP3_NORMAL:                                ;新值和保存值得差值在环境阀值范围的，全部再比较保存值(TKCNTx_SAVE)与基准值(TKCNTx_BASE)的差值
+                      00336 #if TOUCH_SLEEP_FG                                              ;有唤醒功能时调用
+00FA   3492           00337         JBCLR   WAKEUP_FG
+00FB   2800           00338         GOTO    SCAN_TOUCH_STEP3_NORMAL2        ;休眠刚唤醒时不需要再消抖
+                      00339 #else
+                      00340 #endif
+00FC   19B7           00341         INCR    TOUCH_DEBOUNCE3
+00FD   0B20           00342         MOVAI   SET_TOUCH_DELAY_LEVEL           ;触摸重适应时间（缓慢靠近按键允许响应时间，设定时间短时，缓慢靠近按键当作环境适应，不响应）
+00FE   1237           00343         RSUBAR  TOUCH_DEBOUNCE3
+00FF   3003           00344         JBSET   _C
+0100   2800           00345         GOTO    SCAN_TOUCH_STEP3_RECHECK        ;消抖没有处理完，再次扫描当前触摸通道
+0101   1DB7           00346         CLRR    TOUCH_DEBOUNCE3
+0102                  00347 SCAN_TOUCH_STEP3_NORMAL2:
+0102   1614           00348         MOVAR   TKCNTL_OLD_TEMPL
+0103   1596           00349         MOVRA   SUB_AL
+0104   1613           00350         MOVAR   TKCNTL_OLD_TEMPH
+0105   1595           00351         MOVRA   SUB_AH
+0106   163D           00352         MOVAR   TOUCH_TEMP5
+0107   1598           00353         MOVRA   SUB_BL
+0108   163E           00354         MOVAR   TOUCH_TEMP6
+0109   1597           00355         MOVRA   SUB_BH
+010A   2000           00356         CALL    SUB_2BYTE                                       ;判断新值与基础值的差值
+010B   0B70           00357         MOVAI   0X70
+010C   1E19           00358         ANDAR   SUB_CH                                          ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+010D   3103           00359         JBSET   _Z
+010E   2800           00360         GOTO    SCAN_TOUCH_STEP3_BAD            ;数据差值超过0X1000H,暂定为错误
+010F   163B           00361         MOVAR   TOUCH_TEMP3
+0110   1E34           00362         ANDAR   TOUCH_FLAG                                      ;对应的触摸通道标志置位
+0111   3503           00363         JBCLR   _Z
+0112   2800           00364         GOTO    SCAN_TOUCH_STEP3_NORMAL_KEYUNHOLD
+0113                  00365 SCAN_TOUCH_STEP3_NORMAL_KEYHOLD:                ;触摸按键按下状态
+0113   0B7F           00366         MOVAI   0X7F
+0114   1E19           00367         ANDAR   SUB_CH                                          ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+0115   3103           00368         JBSET   _Z
+0116   2800           00369         GOTO    SCAN_TOUCH_STEP3_SAVE_DATA      ;数据差值超过0X100H或大于阀值，确定按下动作正常
+0117   0B20           00370         MOVAI   SET_TOUCH_ENV2_LEVEL
+0118   121A           00371         RSUBAR  SUB_CL                                          ;按下动作时，保存值(TKCNTx_SAVE)必须小于基准值(TKCNTx_BASE)，且差值大于环境值（第二级阀值）
+0119   3003           00372         JBSET   _C
+011A   2800           00373         GOTO    SCAN_TOUCH_STEP3_BAD            ;差值小于在环境阀值，错误
+011B   3399           00374         JBSET   SUB_CH,7
+011C   2800           00375         GOTO    SCAN_TOUCH_STEP3_BAD            ;保存值(TKCNTx_SAVE)大于基准值(TKCNTx_BASE)，错误
+011D   2800           00376         GOTO    SCAN_TOUCH_STEP3_SAVE_DATA      ;按下状态，只刷新保存值
+011E                  00377 SCAN_TOUCH_STEP3_NORMAL_KEYUNHOLD:              ;触摸按键松开状态
+011E   2800           00378         GOTO    SCAN_TOUCH_STEP3_SAVE           ;差值小于在环境阀值，数据正常，刷新保存值(TKCNTx_SAVE)和基准值(TKCNTx_BASE)，然后继续扫描TK
+                      00379 ;----------------------------
+011F                  00380 SCAN_TOUCH_STEP3_SAVEDEBOUNCE:
+011F   19B7           00381         INCR    TOUCH_DEBOUNCE3
+                      00382 #if TOUCH_SLEEP_FG                                              ;有唤醒功能时调用
+0120   0B10           00383         MOVAI   0X10
+0121   3092           00384         JBSET   WAKEUP_FG
+0122   0BF0           00385         MOVAI   0XF0
+                      00386 #else
+                      00387         MOVAI   0XF0
+                      00388 #endif
+0123   1237           00389         RSUBAR  TOUCH_DEBOUNCE3
+0124   3003           00390         JBSET   _C
+0125   2800           00391         GOTO    SCAN_TOUCH_STEP3_RECHECK        ;消抖没有处理完，再次扫描当前触摸通道
+0126   2800           00392         GOTO    SCAN_TOUCH_STEP3_SAVE_DATA      ;按下状态，只刷新保存值
+                      00393 ;----------------------------------------------------------
+0127                  00394 SCAN_TOUCH_STEP3_TORELEASE:                             ;旧值小于或等于新值，离开触摸的趋势
+0127   0B7F           00395         MOVAI   0X7F
+0128   1E19           00396         ANDAR   SUB_CH                                          ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+0129   3103           00397         JBSET   _Z
+012A   2800           00398         GOTO    SCAN_TOUCH_STEP3_RELEASE        ;数据差值超过0X100H或大于阀值，确定松开动作正常
+012B   163A           00399         MOVAR   TOUCH_TEMP2                                             ;新旧数据差值
+012C   121A           00400         RSUBAR  SUB_CL                                          ;(TKCNTL_NEW - TKCNTL_OLD) - TOUCH0_RELA_LEVEL ,判断差值与离开触摸阀值大小
+012D   3403           00401         JBCLR   _C
+012E   2800           00402         GOTO    SCAN_TOUCH_STEP3_RELEASE        ;差值大于阀值，确认有松开动作
+012F   2800           00403         GOTO    SCAN_TOUCH_STEP3_NORMAL         ;差值小于环境阀值，去保存值(TKCNTx_SAVE)与基准值(TKCNTx_BASE)的差值
+0130                  00404 SCAN_TOUCH_STEP3_RELEASE:                       ;差值大于等于阀值，触摸确认有离开
+0130   1DB6           00405         CLRR    TOUCH_DEBOUNCE2
+0131   19B5           00406         INCR    TOUCH_DEBOUNCE1                         ;通道消抖处理次数,即连续多少次响应按键为有效
+0132   163C           00407         MOVAR   TOUCH_TEMP4
+0133   1235           00408         RSUBAR  TOUCH_DEBOUNCE1
+0134   3003           00409         JBSET   _C
+0135   2800           00410         GOTO    SCAN_TOUCH_STEP3_RECHECK        ;消抖没有处理完，再次扫描当前触摸通道
+0136                  00411 SCAN_TOUCH_STEP3_RELEASE_SET:                   ;触摸确认有离开
+0136   1C3B           00412         COMAR   TOUCH_TEMP3
+0137   1EB4           00413         ANDRA   TOUCH_FLAG                                      ;对应的触摸通道标志清零
+0138   2800           00414         GOTO    SCAN_TOUCH_STEP3_SAVE_DATA      ;按下状态，只刷新保存值
+                      00415 ;       GOTO    SCAN_TOUCH_STEP3_SAVE
+                      00416 ;;---------------------------
+0139                  00417 SCAN_TOUCH_STEP3_BAD:
+0139   19B8           00418         INCR    TOUCH_DEBOUNCE4                         ;通道消抖处理次数,即连续多少次响应按键为有效
+013A   163C           00419         MOVAR   TOUCH_TEMP4
+013B   1238           00420         RSUBAR  TOUCH_DEBOUNCE4
+013C   3003           00421         JBSET   _C
+013D   2800           00422         GOTO    SCAN_TOUCH_STEP3_RECHECK        ;消抖没有处理完，再次扫描当前触摸通道
+013E   1C3B           00423         COMAR   TOUCH_TEMP3
+013F   1EB4           00424         ANDRA   TOUCH_FLAG                                      ;将对应的TK标志取消
+0140   113B           00425         SWAPAR  TOUCH_TEMP3
+0141   17B4           00426         ORRA    TOUCH_FLAG                                      ;相应的TK重新扫描TOUCH_NEW_FLAG
+0142   2800           00427         GOTO    SCAN_TOUCH_STEP3_NEXT
+                      00428 ;;---------------------------
+0143                  00429 SCAN_TOUCH_STEP3_RECHECK:
+0143   1DB1           00430         CLRR    TOUCH_SCAN_LIST
+0144   000C           00431         RETURN
+                      00432 ;;---------------------------
+0145                  00433 SCAN_TOUCH_STEP3_SAVE:
+0145   1630           00434         MOVAR   TOUCH_SCAN_TONE                         ;扫描通道数
+0146   0D03           00435         ANDAI   0X03
+0147   1F82           00436         ADDRA   PCL
+                      00437 #if SET_TOUCH0_ENABLE                           ;第0个触摸点是否使能
+0148   2800           00438         GOTO    SCAN_TOUCH_STEP3_BAKTONE0
+                      00439 #else
+                      00440 #endif
+                      00441 #if SET_TOUCH1_ENABLE                           ;第1个触摸点是否使能
+0149   2800           00442         GOTO    SCAN_TOUCH_STEP3_BAKTONE1
+                      00443 #else
+                      00444 #endif
+                      00445 #if SET_TOUCH2_ENABLE                           ;第2个触摸点是否使能
+014A   2800           00446         GOTO    SCAN_TOUCH_STEP3_BAKTONE2
+                      00447 #else
+                      00448 #endif
+                      00449 #if SET_TOUCH3_ENABLE                           ;第3个触摸点是否使能
+014B   2800           00450         GOTO    SCAN_TOUCH_STEP3_BAKTONE3
+                      00451 #else
+                      00452 #endif
+                      00453 ;---------------------------
+014C                  00454 SCAN_TOUCH_STEP3_SAVE_DATA:                             ;保存当前触摸读数
+014C   1630           00455         MOVAR   TOUCH_SCAN_TONE                         ;扫描通道数
+014D   0D03           00456         ANDAI   0X03
+014E   1F82           00457         ADDRA   PCL
+                      00458 #if SET_TOUCH0_ENABLE                           ;第0个触摸点是否使能
+014F   2800           00459         GOTO    SCAN_TOUCH_STEP3_SAVETONE0
+                      00460 #else
+                      00461 #endif
+                      00462 #if SET_TOUCH1_ENABLE                           ;第1个触摸点是否使能
+0150   2800           00463         GOTO    SCAN_TOUCH_STEP3_SAVETONE1
+                      00464 #else
+                      00465 #endif
+                      00466 #if SET_TOUCH2_ENABLE                           ;第2个触摸点是否使能
+0151   2800           00467         GOTO    SCAN_TOUCH_STEP3_SAVETONE2
+                      00468 #else
+                      00469 #endif
+                      00470 #if SET_TOUCH3_ENABLE                           ;第3个触摸点是否使能
+0152   2800           00471         GOTO    SCAN_TOUCH_STEP3_SAVETONE3
+                      00472 #else
+                      00473 #endif
+                      00474 ;---------------------------
+                      00475 #if SET_TOUCH0_ENABLE                                   ;第0个触摸点是否使能
+0153                  00476 SCAN_TOUCH_STEP3_BAKTONE0:
+0153   1633           00477         MOVAR   TKCNTL_NEW
+0154   15A3           00478         MOVRA   TKCNT0_BASEL
+0155   1632           00479         MOVAR   TKCNTH_NEW
+0156   15A2           00480         MOVRA   TKCNT0_BASEH
+0157   3E34           00481         BCLR    TOUCH_NEW_FLAG_0
+0158                  00482 SCAN_TOUCH_STEP3_SAVETONE0:
+0158   1633           00483         MOVAR   TKCNTL_NEW
+0159   15A1           00484         MOVRA   TKCNT0_SAVEL
+015A   1632           00485         MOVAR   TKCNTH_NEW
+015B   15A0           00486         MOVRA   TKCNT0_SAVEH
+015C   2800           00487         GOTO    SCAN_TOUCH_STEP3_NEXT
+                      00488 #else
+                      00489 #endif
+                      00490 #if SET_TOUCH1_ENABLE                                   ;第1个触摸点是否使能
+015D                  00491 SCAN_TOUCH_STEP3_BAKTONE1:
+015D   1633           00492         MOVAR   TKCNTL_NEW
+015E   15A7           00493         MOVRA   TKCNT1_BASEL
+015F   1632           00494         MOVAR   TKCNTH_NEW
+0160   15A6           00495         MOVRA   TKCNT1_BASEH
+0161   3EB4           00496         BCLR    TOUCH_NEW_FLAG_1
+0162                  00497 SCAN_TOUCH_STEP3_SAVETONE1:
+0162   1633           00498         MOVAR   TKCNTL_NEW
+0163   15A5           00499         MOVRA   TKCNT1_SAVEL
+0164   1632           00500         MOVAR   TKCNTH_NEW
+0165   15A4           00501         MOVRA   TKCNT1_SAVEH
+0166   2800           00502         GOTO    SCAN_TOUCH_STEP3_NEXT
+                      00503 #else
+                      00504 #endif
+                      00505 #if SET_TOUCH2_ENABLE                                   ;第2个触摸点是否使能
+0167                  00506 SCAN_TOUCH_STEP3_BAKTONE2:
+0167   1633           00507         MOVAR   TKCNTL_NEW
+0168   15AB           00508         MOVRA   TKCNT2_BASEL
+0169   1632           00509         MOVAR   TKCNTH_NEW
+016A   15AA           00510         MOVRA   TKCNT2_BASEH
+016B   3F34           00511         BCLR    TOUCH_NEW_FLAG_2
+016C                  00512 SCAN_TOUCH_STEP3_SAVETONE2:
+016C   1633           00513         MOVAR   TKCNTL_NEW
+016D   15A9           00514         MOVRA   TKCNT2_SAVEL
+016E   1632           00515         MOVAR   TKCNTH_NEW
+016F   15A8           00516         MOVRA   TKCNT2_SAVEH
+0170   2800           00517         GOTO    SCAN_TOUCH_STEP3_NEXT
+                      00518 #else
+                      00519 #endif
+                      00520 #if SET_TOUCH3_ENABLE                                   ;第3个触摸点是否使能
+0171                  00521 SCAN_TOUCH_STEP3_BAKTONE3:
+0171   1633           00522         MOVAR   TKCNTL_NEW
+0172   15AF           00523         MOVRA   TKCNT3_BASEL
+0173   1632           00524         MOVAR   TKCNTH_NEW
+0174   15AE           00525         MOVRA   TKCNT3_BASEH
+0175   3FB4           00526         BCLR    TOUCH_NEW_FLAG_3
+0176                  00527 SCAN_TOUCH_STEP3_SAVETONE3:
+0176   1633           00528         MOVAR   TKCNTL_NEW
+0177   15AD           00529         MOVRA   TKCNT3_SAVEL
+0178   1632           00530         MOVAR   TKCNTH_NEW
+0179   15AC           00531         MOVRA   TKCNT3_SAVEH
+017A   2800           00532         GOTO    SCAN_TOUCH_STEP3_NEXT
+                      00533 #else
+                      00534 #endif
+                      00535 ;---------------------------
+017B                  00536 SCAN_TOUCH_STEP3_NEXT:
+017B   19B0           00537         INCR    TOUCH_SCAN_TONE                         ;扫描下一通道，将所有触摸口暂时设为输出，防止误动作
+017C   0B04           00538         MOVAI   TOUCH_KEY_NUM
+017D   1230           00539         RSUBAR  TOUCH_SCAN_TONE
+017E   3003           00540         JBSET   C
+017F   2800           00541         GOTO    SCAN_TOUCH_STEP3_NEXT1
+                      00542 #if TOUCH_SLEEP_FG                                      ;有唤醒功能时调用
+0180   3912           00543         BSET    TK_SCANEND_FG                   ;所有TK的扫描完成
+                      00544 #else
+                      00545         BSET    TK_SCANEND_FG                   ;所有TK的扫描完成
+                      00546         CLRR    TOUCH_SCAN_TONE
+                      00547 #endif
+0181                  00548 SCAN_TOUCH_STEP3_NEXT1:
+0181   1DB5           00549         CLRR    TOUCH_DEBOUNCE1
+0182   1DB6           00550         CLRR    TOUCH_DEBOUNCE2
+0183   1DB7           00551         CLRR    TOUCH_DEBOUNCE3
+0184   1DB8           00552         CLRR    TOUCH_DEBOUNCE4
+0185   1DB1           00553         CLRR    TOUCH_SCAN_LIST
+                      00554 
+                      00555 #if TOUCH_SLEEP_FG                                      ;有唤醒功能时调用
+0186   0B04           00556         MOVAI   TOUCH_KEY_NUM
+0187   1230           00557         RSUBAR  TOUCH_SCAN_TONE
+0188   3003           00558         JBSET   _C
+0189   000C           00559         RETURN
+018A   1DB0           00560         CLRR    TOUCH_SCAN_TONE
+018B   3092           00561         JBSET   WAKEUP_FG
+018C   000C           00562         RETURN
+018D   3C92           00563         BCLR    WAKEUP_FG
+                      00564 #else
+                      00565 #endif
+018E   000C           00566         RETURN
+                      00567 ;------------------------------------------------
+018F                  00568 SUB_2BYTE:                                                              ;减法子程序（SUB_AH/L-SUB_BH/L=SUB_CH/L)(适用于2个数据相差不超过15BIT)
+                      00569 ;SUB_AH/L为被减数高/低8位，SUB_BH/L为减数高/低8位，差值存在SUB_CH/L，且SUB_CH-bit7为零时表示减法运算结果无溢出，为1时表示运算结果有溢出
+                      00570 ;如果两数相差超过0XFF，则以0XFF为最大差值
+018F   3C03           00571         BCLR    _C
+0190   1618           00572         MOVAR   SUB_BL
+0191   1216           00573         RSUBAR  SUB_AL
+0192   159A           00574         MOVRA   SUB_CL
+0193   1617           00575         MOVAR   SUB_BH
+0194   0615           00576         RSBCAR  SUB_AH
+0195   1599           00577         MOVRA   SUB_CH
+0196   3F99           00578         BCLR    SUB_CH,7                                        ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+0197   3403           00579         JBCLR   _C
+0198   000C           00580         RETURN
+0199   1616           00581         MOVAR   SUB_AL
+019A   1218           00582         RSUBAR  SUB_BL
+019B   159A           00583         MOVRA   SUB_CL
+019C   1615           00584         MOVAR   SUB_AH
+019D   0617           00585         RSBCAR  SUB_BH
+019E   1599           00586         MOVRA   SUB_CH
+019F   3B99           00587         BSET    SUB_CH,7                                        ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+01A0   000C           00588         RETURN
+                      00589 ;**********************************************************************************************************
+                      00590 
+                      00053 ;;---------------------------------------------------------
+                      00054 #if SET_UART_ENABLE                                     ;串口功能是否使能
+                      00055 #include        "MC30P8160_UART.asm"
+                      00001 ;;;**********************************************************************************************************
+                      00002 ;;;**********************************************************************************************************
+                      00003 ;; 串口程序
+                      00004 ;; 波特率初始化:        CALL    SET_UART_9600BPS        ;设定波特率
+                      00005 ;; 中断调用：           CALL    UART_SUB
+                      00006 ;; 数据刷新：           CALL    SCAN_UART_OUT
+                      00007 ;; 重新/再次启动：      CALL    OPEN_OUT_UART
+                      00008 ;;;**********************************************************************************************************
+                      00009 ;;;**********************************************************************************************************
+                      00010 #if SET_UART_ENABLE                                     ;串口功能是否使能
+                      00011 
+                      00012 #DEFINE                         UART_ON_FG              PLAY_FLAG,4                     ;串口启动标志位
+                      00013 #DEFINE                         UART_END_FG             PLAY_FLAG,5                     ;串口发送结束标志位
+                      00014 ;;-----------------------------------------------
+                      00015 CBLOCK  0X40
+                      00016 ;;-----------------------------------------------
+                      00017 ;;串口功能没有使用时取消定义
+                      00018 ;;UART RAM、
+                      00019 UART_OUT_DATA                                           ;UART串口发送数据
+                      00020 UART_OUT_LIST                                           ;UART串口发送数据序列
+                      00021 UART_OUT_LIST2                                          ;UART串口发送数据序列2
+                      00022 UART_OUT_CHECKSUM                                       ;UART串口数据发送累计和
+                      00023 UART_OUT_COUNT                                          ;UART串口发送数据计数
+                      00024 UART_OUT_DATA_TEMP                                      ;UART串口发送数据暂存
+                      00025 ;;-----------------------------------------------
+                      00026 ENDC
+                      00027 
+                      00028 ;;;****************************************************************************
+                      00029 ;;;****************************************************************************
+                      00030 ;;UART_INT:
+01A1                  00031 UART_SUB:                                               ;串口通信控制
+01A1   3212           00032         JBSET   UART_ON_FG
+01A2   000C           00033         RETURN
+01A3   1AC4           00034         DJZR    UART_OUT_COUNT
+01A4   2800           00035         GOTO    UART_SUB_OUT_FG
+01A5   3692           00036         JBCLR   UART_END_FG
+01A6   2800           00037         GOTO    UART_SUB_WAIT_NEXT
+01A7   3E86           00038         BCLR    PIN_UART_TX                     ;起始位发0
+01A8   0B0A           00039         MOVAI   10      ;18                             ;18为带帧数据间隔
+01A9   15C4           00040         MOVRA   UART_OUT_COUNT          ;初始UART计数(每帧数据1起始位，8位数据，1停止位,中间再加8个0做无效数据做帧间隔)
+01AA   1640           00041         MOVAR   UART_OUT_DATA
+01AB   15C5           00042         MOVRA   UART_OUT_DATA_TEMP      ;更新数据
+01AC   000C           00043         RETURN
+01AD                  00044 UART_SUB_OUT_FG:
+01AD   0B02           00045         MOVAI   2       ;10
+01AE   1244           00046         RSUBAR  UART_OUT_COUNT
+01AF   3003           00047         JBSET   C
+01B0   2800           00048         GOTO    UART_SUB_OUT_ENDBIT     ;起始发0（加上8个帧间隔码）合计9个0码
+01B1                  00049 UART_SUB_OUT:
+01B1   3045           00050         JBSET   UART_OUT_DATA_TEMP,0
+01B2   2800           00051         GOTO    UART_SUB_OUT_LOW
+01B3                  00052 UART_SUB_OUT_HIGH:
+01B3   3A86           00053         BSET    PIN_UART_TX                     ;发1码
+01B4   2800           00054         GOTO    UART_SUB_NEXT
+01B5                  00055 UART_SUB_OUT_LOW:
+01B5   3E86           00056         BCLR    PIN_UART_TX                     ;发0码
+01B6   2800           00057         GOTO    UART_SUB_NEXT
+01B7                  00058 UART_SUB_NEXT:
+01B7   13C5           00059         RRR             UART_OUT_DATA_TEMP
+01B8   000C           00060         RETURN
+01B9                  00061 UART_SUB_OUT_ENDBIT:
+01B9   3A86           00062         BSET    PIN_UART_TX                     ;结束位发1
+01BA   3A92           00063         BSET    UART_END_FG                     ;只发一次
+                      00064 ;       RETURN
+01BB   2800           00065         GOTO    SCAN_UART_OUT           ;读取下一个BYTE的数据，保持数据的连续性
+01BC                  00066 UART_SUB_WAIT_NEXT:
+01BC   0B01           00067         MOVAI   1
+01BD   15C4           00068         MOVRA   UART_OUT_COUNT
+01BE   3A86           00069         BSET    PIN_UART_TX                     ;结束位发1
+01BF   000C           00070         RETURN
+                      00071 ;;;****************************************************************************
+                      00072 ;;;****************************************************************************
+01C0                  00073 SET_UART_9600BPS:
+01C0   0B8B           00074         MOVAI   10001011B                       ;定时器0配置,BIT0-2:定时器分频,BIT3定时器分配:1-WDT,0-TC0
+01C1   15D9           00075         MOVRA   T1CR                            ;BIT4:0-上升沿1-下降沿,BIT5:：
+01C2   0BD0           00076         MOVAI   208                                     ;定时器1配置,BIT0-2:定时器分频,BIT3定时器分配:1-WDT,0-TC0
+01C3   15DA           00077         MOVRA   T1CNT                           ;清定时器1计数值
+01C4   15DB           00078         MOVRA   T1LOAD                          ;设定定时器1重装计数值
+01C5   38D8           00079         BSET    T1IE
+                      00080 
+                      00081 ;       MOVAI   10001011B                               ;定时器2配置,BIT7=T2EN,BIT4-3:时钟源选定,BIT0-2:定时器分频
+                      00082 ;       MOVRA   T2CR
+                      00083 ;       MOVAI   208                                             ;选择HOSC时钟源，32M 16分频，单计数时间长度为1000000/(32000000/16)=0.5US,208*0.5=104US（=9600BPS）
+                      00084 ;       MOVRA   T2CNT                                   ;设定定时器1计数值
+                      00085 ;       MOVRA   T2LOAD                                  ;设定定时器1重装计数值
+                      00086 ;       BSET    T2IE
+01C6   000C           00087         RETURN
+                      00088 ;------------------------------------------------
+01C7                  00089 OPEN_OUT_UART:                                          ;开启串口输出
+01C7   3612           00090         JBCLR   UART_ON_FG
+01C8   000C           00091         RETURN
+01C9   3A12           00092         BSET    UART_ON_FG                              ;只发一次
+01CA   3A92           00093         BSET    UART_END_FG
+01CB   1DC1           00094         CLRR    UART_OUT_LIST
+01CC   1DC2           00095         CLRR    UART_OUT_LIST2
+01CD   1DC3           00096         CLRR    UART_OUT_CHECKSUM
+01CE   000C           00097         RETURN
+                      00098 ;;---------------------------
+01CF                  00099 SCAN_UART_OUT:                                          ;串口输出子程序
+01CF   3212           00100         JBSET   UART_ON_FG
+01D0   000C           00101         RETURN
+01D1   3292           00102         JBSET   UART_END_FG
+01D2   000C           00103         RETURN
+01D3   3E92           00104         BCLR    UART_END_FG
+01D4                  00105 SCAN_UART_OUT_LIST:                                     ;数据格式是：0X88+0XAF+1BYTE（数据长度）+N*2BYTE（每个通道2byte的数据）+校验码（从0X88头至最后的累加和）
+01D4   1641           00106         MOVAR   UART_OUT_LIST                   ;串口输出模式
+01D5   0D03           00107         ANDAI   0X03
+01D6   1F82           00108         ADDRA   PCL
+01D7   2800           00109         GOTO    SCAN_UART_OUT_HEAD              ;头码部分
+01D8   2800           00110         GOTO    SCAN_UART_OUT_DATA              ;数据部分
+01D9   2800           00111         GOTO    SCAN_UART_OUT_ENDCODE   ;结束码部分
+01DA   1DC1           00112         CLRR    UART_OUT_LIST                   ;帧间隔部分，持续10个高电平时间
+01DB                  00113 SCAN_UART_OUT_HEAD:
+01DB   1642           00114         MOVAR   UART_OUT_LIST2                  ;串口输出模式
+01DC   0D03           00115         ANDAI   0X03
+01DD   1F82           00116         ADDRA   PCL
+01DE   2800           00117         GOTO    SCAN_UART_OUT_HEAD1             ;头码 0X88
+01DF   2800           00118         GOTO    SCAN_UART_OUT_HEAD2             ;第二BYTE码 0XA1
+01E0   2800           00119         GOTO    SCAN_UART_OUT_HEAD3             ;第三BYTE码 为数据长度
+01E1   1DC2           00120         CLRR    UART_OUT_LIST2
+01E2   0B01           00121         MOVAI   0X01
+01E3   15C1           00122         MOVRA   UART_OUT_LIST
+01E4                  00123 SCAN_UART_OUT_DATA:     
+01E4   1642           00124         MOVAR   UART_OUT_LIST2                  ;串口输出模式
+01E5   0D1F           00125         ANDAI   0X1F                                    ;要大于触摸通道数，这样发完通道数据后才会到“SCAN_UART_OUT_DATA_END”
+01E6   1F82           00126         ADDRA   PCL
+                      00127 ;;---------------------------
+                      00128 #if SET_TOUCH0_ENABLE                           ;第0个触摸点是否使能
+01E7   2800           00129         GOTO    SCAN_UART_OUT_SAVE0H
+01E8   2800           00130         GOTO    SCAN_UART_OUT_SAVE0L
+01E9   2800           00131         GOTO    SCAN_UART_OUT_BASE0H
+01EA   2800           00132         GOTO    SCAN_UART_OUT_BASE0L
+                      00133 #else
+                      00134 #endif
+                      00135 #if SET_TOUCH1_ENABLE                           ;第1个触摸点是否使能
+01EB   2800           00136         GOTO    SCAN_UART_OUT_SAVE1H
+01EC   2800           00137         GOTO    SCAN_UART_OUT_SAVE1L
+01ED   2800           00138         GOTO    SCAN_UART_OUT_BASE1H
+01EE   2800           00139         GOTO    SCAN_UART_OUT_BASE1L
+                      00140 #else
+                      00141 #endif
+                      00142 #if SET_TOUCH2_ENABLE                           ;第2个触摸点是否使能
+01EF   2800           00143         GOTO    SCAN_UART_OUT_SAVE2H
+01F0   2800           00144         GOTO    SCAN_UART_OUT_SAVE2L
+01F1   2800           00145         GOTO    SCAN_UART_OUT_BASE2H
+01F2   2800           00146         GOTO    SCAN_UART_OUT_BASE2L
+                      00147 #else
+                      00148 #endif
+                      00149 #if SET_TOUCH3_ENABLE                           ;第3个触摸点是否使能
+01F3   2800           00150         GOTO    SCAN_UART_OUT_SAVE3H
+01F4   2800           00151         GOTO    SCAN_UART_OUT_SAVE3L
+01F5   2800           00152         GOTO    SCAN_UART_OUT_BASE3H
+01F6   2800           00153         GOTO    SCAN_UART_OUT_BASE3L
+                      00154 #else
+                      00155 #endif
+01F7                  00156 SCAN_UART_OUT_DATA_END:
+01F7   1DC2           00157         CLRR    UART_OUT_LIST2
+01F8   0B02           00158         MOVAI   0X02
+01F9   15C1           00159         MOVRA   UART_OUT_LIST
+                      00160 ;;---------------------------
+01FA                  00161 SCAN_UART_OUT_ENDCODE:                          ;结束码部分
+01FA   1642           00162         MOVAR   UART_OUT_LIST2                  ;串口输出模式
+01FB   0D03           00163         ANDAI   0X03
+01FC   1F82           00164         ADDRA   PCL
+01FD   2800           00165         GOTO    SCAN_UART_OUT_CHECK             ;发校验和
+                      00166 ;       GOTO    SCAN_UART_OUT_ENDBYTE   ;发送帧间隔，10个高电平周期
+01FE   0000           00167         NOP
+01FF   0000           00168         NOP
+0200   3A86           00169         BSET    PIN_UART_TX                             ;起始位发0
+0201   3E12           00170         BCLR    UART_ON_FG                              ;结束整个发码
+0202   000C           00171         RETURN
+                      00172 ;;---------------------------
+                      00173 #if SET_TOUCH0_ENABLE                                   ;第0个触摸点是否使能
+0203                  00174 SCAN_UART_OUT_SAVE0L:
+0203   1621           00175         MOVAR   TKCNT0_SAVEL
+0204   2800           00176         GOTO    SCAN_UART_OUTCHECKSUM
+0205                  00177 SCAN_UART_OUT_SAVE0H:
+0205   1620           00178         MOVAR   TKCNT0_SAVEH
+0206   2800           00179         GOTO    SCAN_UART_OUTCHECKSUM
+0207                  00180 SCAN_UART_OUT_BASE0L:
+0207   1623           00181         MOVAR   TKCNT0_BASEL
+0208   2800           00182         GOTO    SCAN_UART_OUTCHECKSUM
+0209                  00183 SCAN_UART_OUT_BASE0H:
+0209   1622           00184         MOVAR   TKCNT0_BASEH
+020A   2800           00185         GOTO    SCAN_UART_OUTCHECKSUM
+                      00186 #else
+                      00187 #endif
+                      00188 #if SET_TOUCH1_ENABLE                                   ;第1个触摸点是否使能
+020B                  00189 SCAN_UART_OUT_SAVE1L:
+020B   1625           00190         MOVAR   TKCNT1_SAVEL
+020C   2800           00191         GOTO    SCAN_UART_OUTCHECKSUM
+020D                  00192 SCAN_UART_OUT_SAVE1H:
+020D   1624           00193         MOVAR   TKCNT1_SAVEH
+020E   2800           00194         GOTO    SCAN_UART_OUTCHECKSUM
+020F                  00195 SCAN_UART_OUT_BASE1L:
+020F   1627           00196         MOVAR   TKCNT1_BASEL
+0210   2800           00197         GOTO    SCAN_UART_OUTCHECKSUM
+0211                  00198 SCAN_UART_OUT_BASE1H:
+0211   1626           00199         MOVAR   TKCNT1_BASEH
+0212   2800           00200         GOTO    SCAN_UART_OUTCHECKSUM
+                      00201 #else
+                      00202 #endif
+                      00203 #if SET_TOUCH2_ENABLE                                   ;第2个触摸点是否使能
+0213                  00204 SCAN_UART_OUT_SAVE2L:
+0213   1629           00205         MOVAR   TKCNT2_SAVEL
+0214   2800           00206         GOTO    SCAN_UART_OUTCHECKSUM
+0215                  00207 SCAN_UART_OUT_SAVE2H:
+0215   1628           00208         MOVAR   TKCNT2_SAVEH
+0216   2800           00209         GOTO    SCAN_UART_OUTCHECKSUM
+0217                  00210 SCAN_UART_OUT_BASE2L:
+0217   162B           00211         MOVAR   TKCNT2_BASEL
+0218   2800           00212         GOTO    SCAN_UART_OUTCHECKSUM
+0219                  00213 SCAN_UART_OUT_BASE2H:
+0219   162A           00214         MOVAR   TKCNT2_BASEH
+021A   2800           00215         GOTO    SCAN_UART_OUTCHECKSUM
+                      00216 #else
+                      00217 #endif
+                      00218 #if SET_TOUCH3_ENABLE                                   ;第3个触摸点是否使能
+021B                  00219 SCAN_UART_OUT_SAVE3L:
+021B   162D           00220         MOVAR   TKCNT3_SAVEL
+021C   2800           00221         GOTO    SCAN_UART_OUTCHECKSUM
+021D                  00222 SCAN_UART_OUT_SAVE3H:
+021D   162C           00223         MOVAR   TKCNT3_SAVEH
+021E   2800           00224         GOTO    SCAN_UART_OUTCHECKSUM
+021F                  00225 SCAN_UART_OUT_BASE3L:
+021F   162F           00226         MOVAR   TKCNT3_BASEL
+0220   2800           00227         GOTO    SCAN_UART_OUTCHECKSUM
+0221                  00228 SCAN_UART_OUT_BASE3H:
+0221   162E           00229         MOVAR   TKCNT3_BASEH
+0222   2800           00230         GOTO    SCAN_UART_OUTCHECKSUM
+                      00231 #else
+                      00232 #endif
+                      00233 ;;---------------------------
+0223                  00234 SCAN_UART_OUT_HEAD1:                                    ;头码1
+0223   0B88           00235         MOVAI   0X88
+0224   2800           00236         GOTO    SCAN_UART_OUTCHECKSUM
+0225                  00237 SCAN_UART_OUT_HEAD2:                                    ;头码2
+0225   0BA1           00238         MOVAI   0XA1
+0226   2800           00239         GOTO    SCAN_UART_OUTCHECKSUM
+0227                  00240 SCAN_UART_OUT_HEAD3:                                    ;头码3-数据长度
+0227   0B04           00241         MOVAI   TOUCH_KEY_NUM                           ;数据总长度是触摸通道数*4
+0228   15C0           00242         MOVRA   UART_OUT_DATA
+0229   14C0           00243         RLR             UART_OUT_DATA
+022A   14C0           00244         RLR             UART_OUT_DATA
+022B   1640           00245         MOVAR   UART_OUT_DATA
+022C   2800           00246         GOTO    SCAN_UART_OUTCHECKSUM
+022D                  00247 SCAN_UART_OUT_CHECK:
+022D   1643           00248         MOVAR   UART_OUT_CHECKSUM
+022E   15C0           00249         MOVRA   UART_OUT_DATA
+022F   2800           00250         GOTO    SCAN_UART_OUTING
+0230                  00251 SCAN_UART_OUTCHECKSUM:
+0230   15C0           00252         MOVRA   UART_OUT_DATA
+                      00253 ;       MOVAR   UART_OUT_DATA
+0231   1FC3           00254         ADDRA   UART_OUT_CHECKSUM                       ;校验和
+0232                  00255 SCAN_UART_OUTING:
+0232   19C2           00256         INCR    UART_OUT_LIST2                          ;发送下一BYTE
+0233   0B01           00257         MOVAI   0X01
+0234   15C4           00258         MOVRA   UART_OUT_COUNT
+0235   000C           00259         RETURN
+                      00260 ;SCAN_UART_OUT_ENDBYTE:                                 ;需要发送间隔码时调用
+                      00261 ;       INCR    UART_OUT_LIST2                          ;发送下一BYTE
+                      00262 ;;      BSET    PIN_UART_TX                                     ;起始位发1
+                      00263 ;       MOVAI   10                                                      ;10个帧数据间隔
+                      00264 ;       MOVRA   UART_OUT_COUNT                          ;直接赋UART计数
+                      00265 ;       MOVAI   0XFF
+                      00266 ;       MOVRA   UART_OUT_DATA
+                      00267 ;       MOVRA   UART_OUT_DATA_TEMP                      ;持续发送高电平
+                      00268 ;       RETURN
+                      00269 ;;;****************************************************************************
+                      00270 #else                                                           ;串口功能是否使能
+                      00271 #endif
+                      00272 ;;;**********************************************************************************************************
+                      00056 #else
+                      00057 #endif
+                      00058 ;;---------------------------------------------------------
+0236                  00059 INT_SUB:
+0236   1590           00060         MOVRA   SAVE_ACC
+0237   1103           00061         SWAPAR  STATUS
+0238   1591           00062         MOVRA   SAVE_STATUS
+0239   340F           00063         JBCLR   INTFLAG,0               ;定时0中断标志
+023A   2800           00064         GOTO    T0_INT
+023B   3458           00065         JBCLR   T1IF                    ;定时1中断标志
+023C   2800           00066         GOTO    T1_INT
+                      00067 ;       JBCLR   INTFLAG,1               ;按键中断标志
+                      00068 ;       GOTO    KEY_INT
+                      00069 ;       JBCLR   INTFLAG,2               ;外部中断标志
+                      00070 ;       GOTO    PORT_INT
+023D                  00071 INT_END:
+023D   1D8F           00072         CLRR    INTFLAG
+023E   1111           00073         SWAPAR  SAVE_STATUS
+023F   1583           00074         MOVRA   STATUS
+0240   1190           00075         SWAPR   SAVE_ACC
+0241   1110           00076         SWAPAR  SAVE_ACC
+0242   000D           00077         RETIE   
+                      00078 ;;;--------------------------
+0243                  00079 T0_INT:
+0243   3C0F           00080         BCLR    INTFLAG,0               ;清定时0中断标志
+                      00081 ;       MOVAI   131                             ;定时器0没有重载器，改变周期可以改T0CR分频值或在中断里改T0CNT   
+                      00082 ;       MOVRA   T0CNT                   ;清定时器0计数值
+0244   381B           00083         BSET    TIME_FG
+0245   2800           00084         GOTO    INT_END
+                      00085 ;;;--------------------------
+0246                  00086 T1_INT:
+0246   3C58           00087         BCLR    T1IF                    ;清定时1中断标志
+                      00088 ;;;----------------
+                      00089 #if SET_UART_ENABLE                                     ;串口功能是否使能
+0247   2000           00090         CALL    UART_SUB
+                      00091 #else
+                      00092 #endif
+                      00093 ;;;----------------
+0248   2800           00094         GOTO    INT_END
+                      00095 ;;;--------------------------
+                      00096 ;KEY_INT:
+                      00097 ;       BCLR    INTFLAG,1               ;清按键中断标志
+                      00098 ;       GOTO    INT_END
+                      00099 ;;;--------------------------
+                      00100 ;PORT_INT:
+                      00101 ;       BCLR    INTFLAG,2               ;清外部中断标志
+                      00102 ;       GOTO    INT_END
+                      00103 
+                      00104 ;       MOVAR   LED_STEP2
+                      00105 ;       ANDAI   0X07
+                      00106 ;       ADDRA   PCL
+                      00107 ;       GOTO    SCAN_LED_STEP1U
+                      00108 ;       GOTO    SCAN_LED_STEP1D2U
+                      00109 ;       GOTO    SCAN_LED_STEP2D3U
+                      00110 ;       GOTO    SCAN_LED_STEP3D4U
+                      00111 ;       GOTO    SCAN_LED_STEP4D1U
+                      00112 ;;------------------------------------------------------------------------------------------------------------
+                      00113 ;清零RAM 10H~3FH
+                      00114 ;------------------------------------------------------------------------------------------------------------
+0249                  00115 CLR_RAM:
+0249   0B4F           00116         MOVAI   0X4F
+024A   1584           00117         MOVRA   FSR
+024B   0B3F           00118         MOVAI   0X3F
+024C   15CF           00119         MOVRA   0X4F                    ;把寄存器的数量保存到最后一个寄存器上
+024D                  00120 CLR_RAM_LOOP:
+024D   1B84           00121         DECR    FSR
+024E   1D80           00122         CLRR    INDF
+024F   1ACF           00123         DJZR    0X4F
+0250   2800           00124         GOTO    CLR_RAM_LOOP
+0251   000C           00125         RETURN
+                      00126 ;------------------------------------------------------------------------------------------------------------
+                      00127 ;特殊寄存器初始化
+                      00128 ;------------------------------------------------------------------------------------------------------------
+0252                  00129 SET_OPTION:
+0252   0B0F           00130         MOVAI   00001111B               ;I/O口数字功能设定,0是有效
+0253   15E7           00131         MOVRA   P1ADCR
+0254   0B0F           00132         MOVAI   00001111B               ;P10,P11,P12输出口，P14,P15输入口；1为输入，0为输出(P13只能做输入)
+0255   15D6           00133         MOVRA   DDR1
+0256   0B00           00134         MOVAI   00000000B               ;P10,P11,P12输出，P14,P15输入口低电平触发
+0257   1586           00135         MOVRA   P1
+                      00136         
+0258   0BFF           00137         MOVAI   0xFF                    ;下拉电阻,1是无效
+0259   158B           00138         MOVRA   PDCON
+025A   0BFF           00139         MOVAI   0xFF                    ;P14,P15开上拉电阻,P13无法设上拉、下拉，均为浮空，做输入口时最好外边加上拉电阻
+025B   158D           00140         MOVRA   PUCON                   ;3081/6060的P13有上拉
+025C   0B00           00141         MOVAI   0x00                    ;开漏推挽,1是开漏,0是推挽
+025D   158C           00142         MOVRA   ODCON
+                      00143 
+                      00144 ;定时器设定     
+                      00145 ;       MOVAI   00000011B               ;定时器0配置,BIT0-2:定时器分频,BIT3定时器分配:1-WDT,0-TC0
+                      00146 ;       MOVRA   T0CR                    ;BIT4:0-上升沿计数1-下降沿计数,BIT5:时钟源0-FCPU,1-外部;BIT6:1-上升沿触发0-下降沿触发
+                      00147 ;       MOVAI   6       ;131
+                      00148 ;       CLRR    T0CNT                   ;清定时器0计数值;T0没有自动重载器，所以计数值以256为基准，或者在中断里改变T0CNT值
+                      00149 
+025E   0B00           00150         MOVAI   00000000B               ;定时器1配置,BIT7=T1EN, BIT6=PWM1AOE,1允许PWM, BIT5=PWM1AEN,1使能PWM1A
+025F   15D9           00151         MOVRA   T1CR                    ;BIT4.3:T1时钟源选择,BIT2-0:T1分频
+0260   1DDA           00152         CLRR    T1CNT                   ;清定时器1计数值
+0261   1DDB           00153         CLRR    T1LOAD
+0262   0B00           00154         MOVAI   00000000B
+0263   15D8           00155         MOVRA   TMRCR                   ;BIT6=T0TBS,BIT3=T2IE,BIT2=T2IF,BIT1=T1IE,BIT0=T1IF
+0264   0B00           00156         MOVAI   00000000B
+0265   15D0           00157         MOVRA   PWM1CR0                 ;关闭PWM
+0266   0B00           00158         MOVAI   00000000B
+0267   15D1           00159         MOVRA   PWM1CR1
+0268   0B00           00160         MOVAI   00000000B
+0269   15D2           00161         MOVRA   PWM1CR2
+026A   1DDC           00162         CLRR    T1DATA
+026B   1DDD           00163         CLRR    T1DATB
+026C   1DDE           00164         CLRR    T1DATC
+026D   1DDF           00165         CLRR    T1DATD
+                      00166 
+                      00167 ;       MOVAI   00000010B               ;定时器2配置,BIT0-2:定时器分频,BIT3定时器分配:1-WDT,0-TC0
+                      00168 ;       MOVRA   T2CR                    ;BIT4:0-上升沿1-下降沿,BIT5:：
+                      00169 ;       MOVAI   0XF0
+                      00170 ;       MOVRA   T2CNTL                  ;清定时器2计数值
+                      00171 ;       MOVRA   T2LOADL                 ;清定时器2计数值
+                      00172 ;       MOVAI   0X6D
+                      00173 ;       MOVRA   T2LOADH                 ;清定时器2计数值
+                      00174         
+026E   0B01           00175         MOVAI   00000001B
+026F   158E           00176         MOVRA   INTECON                 ;BIT7=GIE,总中断,BIT0=T0IE,BIT1=KBIE,BIT2=INT0IE,1-中断使能
+0270   3B8E           00177         BSET    GIE
+                      00178 ;       BSET    T0IE                    ;打开T0中断，必须单独设定
+0271   0B00           00179         MOVAI   0x00
+0272   158F           00180         MOVRA   INTFLAG                 ;BIT0=T0IF,BIT1=KBIF,BIT2=INT0IF,1-中断发生
+0273   0B00           00181         MOVAI   0x00                    ;P14,P15,P13键盘中断功能开
+0274   15E5           00182         MOVRA   KBIM
+0275   000C           00183         RETURN
+                      00184 ;------------------------------------------------------------------------------------------------------------
+                      00185 ;复位后开始处
+                      00186 ;------------------------------------------------------------------------------------------------------------
+0276                  00187 SET_MAIN_T0:
+0276   0B03           00188         MOVAI   00000011B               ;定时器0配置,BIT0-2:定时器分频,BIT3定时器分配:1-WDT,0-TC0
+0277   1589           00189         MOVRA   T0CR                    ;BIT4:0-上升沿计数1-下降沿计数,BIT5:时钟源0-FCPU,1-外部;BIT6:1-上升沿触发0-下降沿触发
+0278   1D81           00190         CLRR    T0CNT                   ;清定时器0计数值;T0没有自动重载器，所以计数值以256为基准，或者在中断里改变T0CNT值
+0279   000C           00191         RETURN
+                      00192 ;----------------------------
+027A                  00193 SCAN_LED:                                       ;处理触摸对应的输出（或其它输出口）
+027A   0B0F           00194         MOVAI   0X0F
+027B   1E34           00195         ANDAR   TOUCH_FLAG
+027C   3503           00196         JBCLR   Z
+027D   2800           00197         GOTO    SCAN_LED1_OFF
+027E                  00198 SCAN_LED1_ON:
+027E   3A06           00199         BSET    PIN_LED1
+027F   2800           00200         GOTO    SCAN_LED2
+0280                  00201 SCAN_LED1_OFF:
+0280   3E06           00202         BCLR    PIN_LED1
+0281   2800           00203         GOTO    SCAN_LED2
+                      00204 
+0282                  00205 SCAN_LED2:
+0282   000C           00206         RETURN
+                      00207 ;------------------------------------------------------------------------------------------------------------
+0283                  00208 START:                                          ;开始程序
+0283   000E           00209         CLRWDT                                  ;清看门狗定时器
+0284   2000           00210         CALL    CLR_RAM                 ;清零RAM
+0285   2000           00211         CALL    SET_OPTION              ;初始化特殊寄存器
+0286   2000           00212         CALL    SET_TOUCH_OPTION
+0287   2000           00213         CALL    SET_MAIN_T0
+                      00214 #if SET_UART_ENABLE                                     ;串口功能是否使能
+0288   2000           00215         CALL    SET_UART_9600BPS
+                      00216 #else
+                      00217 #endif
+0289   0000           00218         NOP
+028A   0000           00219         NOP
+028B                  00220 MAIN_LOOP:                                      ;P17按键中断唤醒
+028B   000E           00221         CLRWDT                                  ;清看门狗定时器
+028C   2000           00222         CALL    SCAN_TOUCH
+028D   301B           00223         JBSET   TIME_FG                 ;每2MS处理一次
+028E   2800           00224         GOTO    MAIN_LOOP
+028F                  00225 MAIN_LOOP_2MS:
+028F   3C1B           00226         BCLR    TIME_FG
+0290   2000           00227         CALL    SCAN_LED
+                      00228 
+                      00229 ;;---------------------------
+                      00230 #if SET_UART_ENABLE                                             ;串口功能是否使能
+0291   2000           00231         CALL    SCAN_UART_OUT                           ;串口输出子程序
+0292   3612           00232         JBCLR   UART_ON_FG
+0293   2800           00233         GOTO    MAIN_LOOP
+0294   2000           00234         CALL    OPEN_OUT_UART                           ;开启串口输出
+                      00235 #else
+                      00236 #endif
+                      00237 ;;---------------------------
+                      00238 
+0295   1634           00239         MOVAR   TOUCH_FLAG
+0296   3103           00240         JBSET   _Z
+0297   2800           00241         GOTO    MAIN_LOOP
+0298   3492           00242         JBCLR   WAKEUP_FG
+0299   2800           00243         GOTO    MAIN_LOOP
+                      00244 ;;---------------------------------------------------------
+                      00245 #if TOUCH_SLEEP_FG==0                           ;是否需要唤醒功能
+                      00246         GOTO    MAIN_LOOP
+                      00247 #else
+029A                  00248 MAIN_SLEEP:
+029A   0B00           00249         MOVAI   00000000B
+029B   1EEB           00250         ANDRA   TKCR0                                   ;TK触摸配置,BIT7=1开启TK,BIT6=1允许触摸充放电,BIT5/4为TK时钟滤波,BIT3:TK跳频,BIT2-0:TK振荡频率选择
+029C   0B00           00251         MOVAI   00000000B                               ;使能中断发生
+029D   158E           00252         MOVRA   INTECON                                 ;BIT7=T2IE,BIT6=LVDIE,BIT5=ADIE,BIT4=KBIE,BIT3=INT1,BIT2=INT0IE,BIT1=T1IE,BIT0=T0IE
+029E   3B8E           00253         BSET    GIE
+029F   0B00           00254         MOVAI   0x00
+02A0   158F           00255         MOVRA   INTFLAG                                 ;清中断发生标志
+02A1   0000           00256         NOP
+02A2   0000           00257         NOP
+02A3   000B           00258         STOP
+02A4   0000           00259         NOP
+02A5   0000           00260         NOP
+02A6   0B01           00261         MOVAI   00000001B                               ;使能中断发生
+02A7   158E           00262         MOVRA   INTECON                                 ;BIT7=T2IE,BIT6=LVDIE,BIT5=ADIE,BIT4=KBIE,BIT3=INT1,BIT2=INT0IE,BIT1=T1IE,BIT0=T0IE
+02A8   3B8E           00263         BSET    GIE
+02A9   0B00           00264         MOVAI   0x00
+02AA   158F           00265         MOVRA   INTFLAG                                 ;清中断发生标志
+02AB   3603           00266         JBCLR   TO
+02AC   2800           00267         GOTO    START
+02AD                  00268 WDT_WAKEUP:
+02AD   000E           00269         CLRWDT                                                  ;清看门狗
+02AE   2000           00270         CALL    SET_TOUCH_OPTION2
+02AF   2800           00271         GOTO    MAIN_LOOP
+                      00272 #endif
+                      00273 ;;;**********************************************************************************************************
+                      00274 ;;;**********************************************************************************************************
+02B0   2800           00275         GOTO    START
+                      00276 ;;;========================================================
+                      00277         END
+gpasm-2.2.31 (Mar 15 2022)   MC30P8160.asm      2023-4-3  11:58:18           PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+CLR_RAM                           00000249
+CLR_RAM_LOOP                      0000024D
+CMPCR0                            00000068
+CMPCR1                            00000069
+CMPCR2                            0000006A
+DDR1                              00000056
+FSR                               00000004
+INDF                              00000000
+INTE                              0000000E
+INTF                              0000000F
+INT_END                           0000023D
+INT_SUB                           00000236
+MAIN_LOOP                         0000028B
+MAIN_LOOP_2MS                     0000028F
+MAIN_SLEEP                        0000029A
+MCR                               00000008
+ODCON                             0000000C
+OPEN_OUT_UART                     000001C7
+P1                                00000006
+P1ADCR                            00000067
+P1KBCR                            00000065
+PCL                               00000002
+PCLATH                            0000000A
+PDCON                             0000000B
+PLAY_FLAG                         00000012
+PUCON                             0000000D
+PWM1CR0                           00000050
+PWM1CR1                           00000051
+PWM1CR2                           00000052
+SAVE_ACC                          00000010
+SAVE_STATUS                       00000011
+SCAN_LED                          0000027A
+SCAN_LED1_OFF                     00000280
+SCAN_LED1_ON                      0000027E
+SCAN_LED2                         00000282
+SCAN_TOUCH                        0000001E
+SCAN_TOUCH_STEP1                  00000025
+SCAN_TOUCH_STEP1_NEXT             00000054
+SCAN_TOUCH_STEP1_TONE0            0000002C
+SCAN_TOUCH_STEP1_TONE1            00000036
+SCAN_TOUCH_STEP1_TONE2            00000040
+SCAN_TOUCH_STEP1_TONE3            0000004A
+SCAN_TOUCH_STEP2                  00000063
+SCAN_TOUCH_STEP3                  00000074
+SCAN_TOUCH_STEP3_BAD              00000139
+SCAN_TOUCH_STEP3_BAKTONE0         00000153
+SCAN_TOUCH_STEP3_BAKTONE1         0000015D
+SCAN_TOUCH_STEP3_BAKTONE2         00000167
+SCAN_TOUCH_STEP3_BAKTONE3         00000171
+SCAN_TOUCH_STEP3_CHECK            000000C2
+SCAN_TOUCH_STEP3_CHECK_MAX        000000CB
+SCAN_TOUCH_STEP3_CHECK_NEXT       000000CF
+SCAN_TOUCH_STEP3_NEXT             0000017B
+SCAN_TOUCH_STEP3_NEXT1            00000181
+SCAN_TOUCH_STEP3_NORMAL           000000FA
+SCAN_TOUCH_STEP3_NORMAL2          00000102
+SCAN_TOUCH_STEP3_NORMAL_KEYHOLD   00000113
+SCAN_TOUCH_STEP3_NORMAL_KEYUNHOLD  0000011E
+SCAN_TOUCH_STEP3_PRE              000000DE
+SCAN_TOUCH_STEP3_PRE_MAX          000000EF
+SCAN_TOUCH_STEP3_PRE_NEXT         000000F1
+SCAN_TOUCH_STEP3_RECHECK          00000143
+SCAN_TOUCH_STEP3_RELEASE          00000130
+SCAN_TOUCH_STEP3_RELEASE_SET      00000136
+SCAN_TOUCH_STEP3_SAVE             00000145
+SCAN_TOUCH_STEP3_SAVEDEBOUNCE     0000011F
+SCAN_TOUCH_STEP3_SAVETONE0        00000158
+SCAN_TOUCH_STEP3_SAVETONE1        00000162
+SCAN_TOUCH_STEP3_SAVETONE2        0000016C
+SCAN_TOUCH_STEP3_SAVETONE3        00000176
+SCAN_TOUCH_STEP3_SAVE_DATA        0000014C
+SCAN_TOUCH_STEP3_TONE0            0000007E
+SCAN_TOUCH_STEP3_TONE1            0000008F
+SCAN_TOUCH_STEP3_TONE2            000000A0
+SCAN_TOUCH_STEP3_TONE3            000000B1
+SCAN_TOUCH_STEP3_TOPRESS          000000D1
+SCAN_TOUCH_STEP3_TORELEASE        00000127
+SCAN_UART_OUT                     000001CF
+SCAN_UART_OUTCHECKSUM             00000230
+SCAN_UART_OUTING                  00000232
+SCAN_UART_OUT_BASE0H              00000209
+SCAN_UART_OUT_BASE0L              00000207
+SCAN_UART_OUT_BASE1H              00000211
+SCAN_UART_OUT_BASE1L              0000020F
+SCAN_UART_OUT_BASE2H              00000219
+SCAN_UART_OUT_BASE2L              00000217
+SCAN_UART_OUT_BASE3H              00000221
+SCAN_UART_OUT_BASE3L              0000021F
+SCAN_UART_OUT_CHECK               0000022D
+SCAN_UART_OUT_DATA                000001E4
+SCAN_UART_OUT_DATA_END            000001F7
+SCAN_UART_OUT_ENDCODE             000001FA
+SCAN_UART_OUT_HEAD                000001DB
+SCAN_UART_OUT_HEAD1               00000223
+SCAN_UART_OUT_HEAD2               00000225
+SCAN_UART_OUT_HEAD3               00000227
+SCAN_UART_OUT_LIST                000001D4
+SCAN_UART_OUT_SAVE0H              00000205
+SCAN_UART_OUT_SAVE0L              00000203
+SCAN_UART_OUT_SAVE1H              0000020D
+SCAN_UART_OUT_SAVE1L              0000020B
+SCAN_UART_OUT_SAVE2H              00000215
+SCAN_UART_OUT_SAVE2L              00000213
+SCAN_UART_OUT_SAVE3H              0000021D
+SCAN_UART_OUT_SAVE3L              0000021B
+SET_MAIN_T0                       00000276
+SET_OPTION                        00000252
+SET_TOUCH_OPTION                  00000009
+SET_TOUCH_OPTION2                 00000015
+SET_UART_9600BPS                  000001C0
+START                             00000283
+STATUS                            00000003
+SUB_2BYTE                         0000018F
+T0CNT                             00000001
+T0CR                              00000009
+T0_INT                            00000243
+T1CNT                             0000005A
+T1CR                              00000059
+T1DATA                            0000005C
+T1DATB                            0000005D
+T1DATC                            0000005E
+T1DATD                            0000005F
+T1LOAD                            0000005B
+T1_INT                            00000246
+T2CNTH                            00000061
+T2CNTL                            00000062
+T2CR                              00000060
+T2LOADH                           00000063
+T2LOADL                           00000064
+TEMP0                             00000013
+TEMP1                             00000014
+TEMP2                             00000015
+TEMP3                             00000016
+TEMP4                             00000017
+TEMP5                             00000018
+TEMP6                             00000019
+TEMP7                             0000001A
+TKCNT0_BASEH                      00000022
+TKCNT0_BASEL                      00000023
+TKCNT0_SAVEH                      00000020
+TKCNT0_SAVEL                      00000021
+TKCNT1_BASEH                      00000026
+TKCNT1_BASEL                      00000027
+TKCNT1_SAVEH                      00000024
+TKCNT1_SAVEL                      00000025
+TKCNT2_BASEH                      0000002A
+TKCNT2_BASEL                      0000002B
+TKCNT2_SAVEH                      00000028
+TKCNT2_SAVEL                      00000029
+TKCNT3_BASEH                      0000002E
+TKCNT3_BASEL                      0000002F
+TKCNT3_SAVEH                      0000002C
+TKCNT3_SAVEL                      0000002D
+TKCNTH                            0000006E
+TKCNTH_NEW                        00000032
+TKCNTL                            0000006F
+TKCNTL_NEW                        00000033
+TKCR0                             0000006B
+TKCR1                             0000006C
+TKCR2                             0000006D
+TMRCR                             00000058
+TOUCH_DEBOUNCE1                   00000035
+TOUCH_DEBOUNCE2                   00000036
+TOUCH_DEBOUNCE3                   00000037
+TOUCH_DEBOUNCE4                   00000038
+TOUCH_FLAG                        00000034
+TOUCH_KEY                         0000000F
+TOUCH_KEY_NUM                     00000004
+TOUCH_SCAN_LIST                   00000031
+TOUCH_SCAN_TONE                   00000030
+TOUCH_TEMP1                       00000039
+TOUCH_TEMP2                       0000003A
+TOUCH_TEMP3                       0000003B
+TOUCH_TEMP4                       0000003C
+TOUCH_TEMP5                       0000003D
+TOUCH_TEMP6                       0000003E
+UART_OUT_CHECKSUM                 00000043
+UART_OUT_COUNT                    00000044
+UART_OUT_DATA                     00000040
+UART_OUT_DATA_TEMP                00000045
+UART_OUT_LIST                     00000041
+UART_OUT_LIST2                    00000042
+UART_SUB                          000001A1
+UART_SUB_NEXT                     000001B7
+UART_SUB_OUT                      000001B1
+UART_SUB_OUT_ENDBIT               000001B9
+UART_SUB_OUT_FG                   000001AD
+UART_SUB_OUT_HIGH                 000001B3
+UART_SUB_OUT_LOW                  000001B5
+UART_SUB_WAIT_NEXT                000001BC
+USE_FLAG                          0000001B
+WDT_WAKEUP                        000002AD
+_CONFIG0                          00008000
+_CONFIG1                          00008001
+__1K8160                          00000001
+C                                 STATUS,0
+CMPEN                             CMPCR0,7
+CMPIE                             CMPCR2,1
+CMPIF                             CMPCR2,0
+CMPIM                             CMPCR2,2
+CMPNS                             CMPCR0,5
+CMPNV                             CMPCR0,1
+CMPOE                             CMPCR0,0
+CMPOF                             MCR,5
+CMPPS                             CMPCR0,6
+DC                                STATUS,1
+DDR10                             DDR1,0
+DDR11                             DDR1,1
+DDR12                             DDR1,2
+DDR13                             DDR1,3
+DDR14                             DDR1,4
+DDR15                             DDR1,5
+EIS                               MCR,6
+EVDIS0                            CMPCR0,3
+EVDIS1                            CMPCR0,4
+EVDVS0                            CMPCR1,0
+EVDVS1                            CMPCR1,1
+EVDVS2                            CMPCR1,2
+EVDVS3                            CMPCR1,3
+EVDVS4                            CMPCR1,4
+EVDVS5                            CMPCR1,5
+FSR0                              FSR,0
+FSR1                              FSR,1
+FSR2                              FSR,2
+FSR3                              FSR,3
+FSR4                              FSR,4
+FSR5                              FSR,5
+FSR6                              FSR,6
+GIE                               INTE,7
+INDF0                             INDF,0
+INDF1                             INDF,1
+INDF2                             INDF,2
+INDF3                             INDF,3
+INDF4                             INDF,4
+INDF5                             INDF,5
+INDF6                             INDF,6
+INDF7                             INDF,7
+INTECON                           INTE
+INTFLAG                           INTF
+INTIE                             INTE,2
+INTIF                             INTF,2
+INTM                              T0CR,6
+KBIE                              INTE,1
+KBIF                              INTF,1
+KBIM                              P1KBCR
+P10D                              P1,0
+P10DC                             P1ADCR,0
+P10KE                             P1KBCR,0
+P10OD                             ODCON,0
+P10PD                             PDCON,0
+P10PU                             PUCON,0
+P11D                              P1,1
+P11DC                             P1ADCR,1
+P11KE                             P1KBCR,1
+P11OD                             ODCON,1
+P11PD                             PDCON,1
+P11PU                             PUCON,1
+P12D                              P1,2
+P12DC                             P1ADCR,2
+P12KE                             P1KBCR,2
+P12OD                             ODCON,2
+P12PD                             PDCON,2
+P12PU                             PUCON,2
+P13D                              P1,3
+P13DC                             P1ADCR,3
+P13KE                             P1KBCR,3
+P13OD                             ODCON,3
+P13PD                             PDCON,3
+P13PU                             PUCON,3
+P14D                              P1,4
+P14DC                             P1ADCR,4
+P14KE                             P1KBCR,4
+P14OD                             ODCON,4
+P14PD                             PDCON,4
+P14PU                             PUCON,4
+P15D                              P1,5
+P15DC                             P1ADCR,5
+P15KE                             P1KBCR,5
+P15OD                             ODCON,5
+P15PD                             PDCON,5
+P15PU                             PUCON,5
+PC0                               PCL,0
+PC1                               PCL,1
+PC2                               PCL,2
+PC3                               PCL,3
+PC4                               PCL,4
+PC5                               PCL,5
+PC6                               PCL,6
+PC7                               PCL,7
+PCH0                              PCLATH,0
+PCH1                              PCLATH,1
+PD                                STATUS,3
+PIN_LED1                          P1,4
+PIN_UART_TX                       P1,5
+PWM1ADB                           PWM1CR2,0
+PWM1AEN                           T1CR,5
+PWM1ANV                           PWM1CR1,2
+PWM1AOE                           T1CR,6
+PWM1BDB                           PWM1CR2,1
+PWM1BEN                           PWM1CR0,0
+PWM1BOE                           PWM1CR0,1
+PWM1CDB                           PWM1CR2,2
+PWM1CEN                           PWM1CR0,2
+PWM1COE                           PWM1CR0,3
+PWM1DDB                           PWM1CR2,3
+PWM1DEN                           PWM1CR0,4
+PWM1DOE                           PWM1CR0,5
+PWM1DOS                           PWM1CR1,3
+PWM1LG                            PWM1CR1,0
+PWM1MD                            PWM1CR1,1
+SET_SENS_LEVEL0                   0xEE
+SET_SENS_LEVEL1                   0xEE
+SET_SENS_LEVEL2                   0xEE
+SET_SENS_LEVEL3                   0xEE
+SET_TOUCH0_DEBOUNCEC              0X10
+SET_TOUCH0_ENABLE                 1
+SET_TOUCH0_PRE_LEVEL              0X80
+SET_TOUCH0_RELEA_LEVEL            0X80
+SET_TOUCH1_DEBOUNCEC              0X10
+SET_TOUCH1_ENABLE                 1
+SET_TOUCH1_PRE_LEVEL              0X80
+SET_TOUCH1_RELEA_LEVEL            0X80
+SET_TOUCH2_DEBOUNCEC              0X10
+SET_TOUCH2_ENABLE                 1
+SET_TOUCH2_PRE_LEVEL              0X80
+SET_TOUCH2_RELEA_LEVEL            0X80
+SET_TOUCH3_DEBOUNCEC              0X10
+SET_TOUCH3_ENABLE                 1
+SET_TOUCH3_PRE_LEVEL              0X80
+SET_TOUCH3_RELEA_LEVEL            0X80
+SET_TOUCH_DELAY_LEVEL             0X20
+SET_TOUCH_ENV2_LEVEL              0X20
+SET_TOUCH_ENV_LEVEL               0X10
+SET_UART_ENABLE                   1
+START_TK_FG                       PLAY_FLAG,0
+SUB_AH                            TEMP2
+SUB_AL                            TEMP3
+SUB_BH                            TEMP4
+SUB_BL                            TEMP5
+SUB_CH                            TEMP6
+SUB_CL                            TEMP7
+T0CNT0                            T0CNT,0
+T0CNT1                            T0CNT,1
+T0CNT2                            T0CNT,2
+T0CNT3                            T0CNT,3
+T0CNT4                            T0CNT,4
+T0CNT5                            T0CNT,5
+T0CNT6                            T0CNT,6
+T0CNT7                            T0CNT,7
+T0CSE                             T0CR,4
+T0IE                              INTE,0
+T0IF                              INTF,0
+T0PRS0                            T0CR,0
+T0PRS1                            T0CR,1
+T0PRS2                            T0CR,2
+T0PTA                             T0CR,3
+T0PTS                             T0CR,5
+T0TBS                             TMRCR,6
+T1CKS0                            T1CR,3
+T1CKS1                            T1CR,4
+T1CNT0                            T1CNT,0
+T1CNT1                            T1CNT,1
+T1CNT2                            T1CNT,2
+T1CNT3                            T1CNT,3
+T1CNT4                            T1CNT,4
+T1CNT5                            T1CNT,5
+T1CNT6                            T1CNT,6
+T1CNT7                            T1CNT,7
+T1DATA0                           T1DATA,0
+T1DATA1                           T1DATA,1
+T1DATA2                           T1DATA,2
+T1DATA3                           T1DATA,3
+T1DATA4                           T1DATA,4
+T1DATA5                           T1DATA,5
+T1DATA6                           T1DATA,6
+T1DATA7                           T1DATA,7
+T1DATB0                           T1DATB,0
+T1DATB1                           T1DATB,1
+T1DATB2                           T1DATB,2
+T1DATB3                           T1DATB,3
+T1DATB4                           T1DATB,4
+T1DATB5                           T1DATB,5
+T1DATB6                           T1DATB,6
+T1DATB7                           T1DATB,7
+T1DATC0                           T1DATC,0
+T1DATC1                           T1DATC,1
+T1DATC2                           T1DATC,2
+T1DATC3                           T1DATC,3
+T1DATC4                           T1DATC,4
+T1DATC5                           T1DATC,5
+T1DATC6                           T1DATC,6
+T1DATC7                           T1DATC,7
+T1DATD0                           T1DATD,0
+T1DATD1                           T1DATD,1
+T1DATD2                           T1DATD,2
+T1DATD3                           T1DATD,3
+T1DATD4                           T1DATD,4
+T1DATD5                           T1DATD,5
+T1DATD6                           T1DATD,6
+T1DATD7                           T1DATD,7
+T1EN                              T1CR,7
+T1IE                              TMRCR,1
+T1IF                              TMRCR,0
+T1LOAD0                           T1LOAD,0
+T1LOAD1                           T1LOAD,1
+T1LOAD10                          T2LOADH,2
+T1LOAD11                          T2LOADH,3
+T1LOAD12                          T2LOADH,4
+T1LOAD13                          T2LOADH,5
+T1LOAD14                          T2LOADH,6
+T1LOAD15                          T2LOADH,7
+T1LOAD2                           T1LOAD,2
+T1LOAD3                           T1LOAD,3
+T1LOAD4                           T1LOAD,4
+T1LOAD5                           T1LOAD,5
+T1LOAD6                           T1LOAD,6
+T1LOAD7                           T1LOAD,7
+T1LOAD8                           T2LOADH,0
+T1LOAD9                           T2LOADH,1
+T1PRS0                            T1CR,0
+T1PRS1                            T1CR,1
+T1PRS2                            T1CR,2
+T2CKS0                            T2CR,3
+T2CKS1                            T2CR,4
+T2CNT0                            T2CNTL,0
+T2CNT1                            T2CNTL,1
+T2CNT10                           T2CNTH,2
+T2CNT11                           T2CNTH,3
+T2CNT12                           T2CNTH,4
+T2CNT13                           T2CNTH,5
+T2CNT14                           T2CNTH,6
+T2CNT15                           T2CNTH,7
+T2CNT2                            T2CNTL,2
+T2CNT3                            T2CNTL,3
+T2CNT4                            T2CNTL,4
+T2CNT5                            T2CNTL,5
+T2CNT6                            T2CNTL,6
+T2CNT7                            T2CNTL,7
+T2CNT8                            T2CNTH,0
+T2CNT9                            T2CNTH,1
+T2EN                              T2CR,7
+T2IE                              TMRCR,3
+T2IF                              TMRCR,2
+T2LOAD0                           T2LOADL,0
+T2LOAD1                           T2LOADL,1
+T2LOAD2                           T2LOADL,2
+T2LOAD3                           T2LOADL,3
+T2LOAD4                           T2LOADL,4
+T2LOAD5                           T2LOADL,5
+T2LOAD6                           T2LOADL,6
+T2LOAD7                           T2LOADL,7
+T2MOD                             T2CR,6
+T2PRS0                            T2CR,0
+T2PRS1                            T2CR,1
+T2PRS2                            T2CR,2
+TEST_FG                           USE_FLAG,1
+TIME_FG                           USE_FLAG,0
+TKCFL                             TKCR0,5
+TKCHS0                            TKCR1,0
+TKCHS1                            TKCR1,1
+TKCHS2                            TKCR1,2
+TKCHS3                            TKCR1,3
+TKCNT0                            TKCNTL,0
+TKCNT1                            TKCNTL,1
+TKCNT10                           TKCNTH,2
+TKCNT11                           TKCNTH,3
+TKCNT12                           TKCNTH,4
+TKCNT13                           TKCNTH,5
+TKCNT14                           TKCNTH,6
+TKCNT15                           TKCNTH,7
+TKCNT2                            TKCNTL,2
+TKCNT3                            TKCNTL,3
+TKCNT4                            TKCNTL,4
+TKCNT5                            TKCNTL,5
+TKCNT6                            TKCNTL,6
+TKCNT7                            TKCNTL,7
+TKCNT8                            TKCNTH,0
+TKCNT9                            TKCNTH,1
+TKCNTL_OLD_TEMPH                  TEMP0
+TKCNTL_OLD_TEMPL                  TEMP1
+TKCON                             TKCR0,6
+TKEN                              TKCR0,7
+TKFJE                             TKCR0,3
+TKFS0                             TKCR0,0
+TKFS1                             TKCR0,1
+TKFS2                             TKCR0,2
+TKIE                              TKCR1,7
+TKIF                              TKCR1,6
+TK_SCANEND_FG                     PLAY_FLAG,2
+TO                                STATUS,4
+TOUCH_FLAG_0                      TOUCH_FLAG,0
+TOUCH_FLAG_1                      TOUCH_FLAG,1
+TOUCH_FLAG_2                      TOUCH_FLAG,2
+TOUCH_FLAG_3                      TOUCH_FLAG,3
+TOUCH_NEW_FLAG_0                  TOUCH_FLAG,4
+TOUCH_NEW_FLAG_1                  TOUCH_FLAG,5
+TOUCH_NEW_FLAG_2                  TOUCH_FLAG,6
+TOUCH_NEW_FLAG_3                  TOUCH_FLAG,7
+TOUCH_SLEEP_FG                    1
+UART_END_FG                       PLAY_FLAG,5
+UART_ON_FG                        PLAY_FLAG,4
+WAKEUP_FG                         PLAY_FLAG,1
+WDTEN                             MCR,7
+WKUP                              STATUS,7
+Z                                 STATUS,2
+_C                                C
+_T0EN                             T0EN
+_T0IF                             T0IF
+_TKCON                            TKCON
+_TKEN                             TKEN
+_Z                                Z
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

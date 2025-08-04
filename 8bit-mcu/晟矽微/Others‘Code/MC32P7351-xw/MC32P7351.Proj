@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project MCU="MC32P7351" ID="0x7351" MCU_Type="CRISC" Date="2012-08-28" VS="1.01">
+  <ProWindows>
+    <Explorer fName="MC32P7351">
+      <SouceCode fName="SourceCode">
+        <asmFile fName="MC32P7351.c" fPath="\MC32P7351.c" />
+        <asmFile fName="Init.c" fPath="\Init.c" />
+        <asmFile fName="ADC.c" fPath="\ADC.c" />
+      </SouceCode>
+      <SouceCode fName="Output">
+        <asmFile fName="MC32P7351.lst" fPath="\MC32P7351.lst" />
+        <asmFile fName="MC32P7351.s19" fPath="\MC32P7351.s19" />
+      </SouceCode>
+      <SouceCode fName="Debug">
+        <asmFile fName="User.h" fPath="\User.h" />
+        <asmFile fName="Define.h" fPath="\Define.h" />
+      </SouceCode>
+    </Explorer>
+  </ProWindows>
+  <Option Value="0" Value0="1e39" Value1="15" Value2="0" Value3="700" Value4="40" Value5="40" Value6="340" Value7="10" Value8="0" Value9="f" Value10="b00" Value11="0" Value12="0" Value13="0" />
+  <Compiler Name="gpasm.exe" />
+  <NewCompiler Name="false" />
+  <Language Name="C" />
+  <LoadFillMode Flag="flase" FillValue="0" />
+  <ChipVCCValue Value="0x01" />
+  <WatchSymbol Name="int_time0" Addr="002A" Value="??" BitFlag="False" Bit="0" DataRes="1" Array="False" />
+  <WatchSymbol Name="key_down" Addr="0028" Value="??" BitFlag="False" Bit="0" DataRes="1" Array="False" />
+</Project>

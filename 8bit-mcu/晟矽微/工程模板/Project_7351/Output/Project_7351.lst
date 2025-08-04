@@ -1,0 +1,1187 @@
+gplink-2.2.37 (Jan 22 2024)
+Listing File Generated: 2024-11-12  09:57:28
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           ;--------------------------------------------------------
+                                           ; external declarations
+                                           ;--------------------------------------------------------
+                                           	extern	_CLR_RAM
+                                           	extern	_IO_Init
+                                           	extern	_ADC_Init
+                                           	extern	_delay
+                                           	extern	_TIMER0_INT_Init
+                                           	extern	_TIMER1_INT_Init
+                                           	extern	_TIMER2_INT_Init
+                                           	extern	_TIMER3_INT_Init
+                                           	extern	_TIMER0_PWM_Init
+                                           	extern	_TIMER1_PWM_Init
+                                           	extern	_TIMER2_PWM_Init
+                                           	extern	_INDF0bits
+                                           	extern	_INDF1bits
+                                           	extern	_INDF2bits
+                                           	extern	_HIBYTEbits
+                                           	extern	_FSR0bits
+                                           	extern	_FSR1bits
+                                           	extern	_PCLbits
+                                           	extern	_PFLAGbits
+                                           	extern	_MCRbits
+                                           	extern	_INDF3bits
+                                           	extern	_INTEbits
+                                           	extern	_INTFbits
+                                           	extern	_DRVCRbits
+                                           	extern	_PFRCCRbits
+                                           	extern	_P1KBCRbits
+                                           	extern	_PFRCCALbits
+                                           	extern	_IOP0bits
+                                           	extern	_OEP0bits
+                                           	extern	_PUP0bits
+                                           	extern	_PDP0bits
+                                           	extern	_IOP1bits
+                                           	extern	_OEP1bits
+                                           	extern	_PUP1bits
+                                           	extern	_PDP1bits
+                                           	extern	_T0CRbits
+                                           	extern	_T0CNTbits
+                                           	extern	_T0LOADbits
+                                           	extern	_T0DATAbits
+                                           	extern	_T1CRbits
+                                           	extern	_T1CNTbits
+                                           	extern	_T1LOADbits
+                                           	extern	_T1DATAbits
+                                           	extern	_T2CRbits
+                                           	extern	_T2CNTbits
+                                           	extern	_T2LOADbits
+                                           	extern	_T2DATAbits
+                                           	extern	_T3CRbits
+                                           	extern	_T3CNTbits
+                                           	extern	_T3LOADbits
+                                           	extern	_PWM0DRbits
+                                           	extern	_PWM1DRbits
+                                           	extern	_PWM2DRbits
+                                           	extern	_PWMCR0bits
+                                           	extern	_PWMCR1bits
+                                           	extern	_OSCMRbits
+                                           	extern	_LVDCRbits
+                                           	extern	_ADCR0bits
+                                           	extern	_ADCR1bits
+                                           	extern	_ADCR2bits
+                                           	extern	_OSADJCRbits
+                                           	extern	_ADRHbits
+                                           	extern	_ADRLbits
+                                           	extern	_ADIOS0bits
+                                           	extern	_ADIOS1bits
+                                           	extern	_PMODbits
+                                           	extern	_PWMCR3bits
+                                           	extern	_PWMCR2bits
+                                           	extern	_PFRCAUXbits
+                                           	extern	_HIRCCALbits
+                                           	extern	_Flag2
+                                           	extern	_Flag_1
+                                           	extern	_Flag_2
+                                           	extern	_Flag_3
+                                           	extern	_INDF0
+                                           	extern	_INDF1
+                                           	extern	_INDF2
+                                           	extern	_HIBYTE
+                                           	extern	_FSR0
+                                           	extern	_FSR1
+                                           	extern	_PCL
+                                           	extern	_PFLAG
+                                           	extern	_MCR
+                                           	extern	_INDF3
+                                           	extern	_INTE
+                                           	extern	_INTF
+                                           	extern	_DRVCR
+                                           	extern	_PFRCCR
+                                           	extern	_P1KBCR
+                                           	extern	_PFRCCAL
+                                           	extern	_IOP0
+                                           	extern	_OEP0
+                                           	extern	_PUP0
+                                           	extern	_PDP0
+                                           	extern	_IOP1
+                                           	extern	_OEP1
+                                           	extern	_PUP1
+                                           	extern	_PDP1
+                                           	extern	_T0CR
+                                           	extern	_T0CNT
+                                           	extern	_T0LOAD
+                                           	extern	_T0DATA
+                                           	extern	_T1CR
+                                           	extern	_T1CNT
+                                           	extern	_T1LOAD
+                                           	extern	_T1DATA
+                                           	extern	_T2CR
+                                           	extern	_T2CNT
+                                           	extern	_T2LOAD
+                                           	extern	_T2DATA
+                                           	extern	_T3CR
+                                           	extern	_T3CNT
+                                           	extern	_T3LOAD
+                                           	extern	_PWM0DR
+                                           	extern	_PWM1DR
+                                           	extern	_PWM2DR
+                                           	extern	_PWMCR0
+                                           	extern	_PWMCR1
+                                           	extern	_OSCMR
+                                           	extern	_LVDCR
+                                           	extern	_ADCR0
+                                           	extern	_ADCR1
+                                           	extern	_ADCR2
+                                           	extern	_OSADJCR
+                                           	extern	_ADRH
+                                           	extern	_ADRL
+                                           	extern	_ADIOS0
+                                           	extern	_ADIOS1
+                                           	extern	_PMOD
+                                           	extern	_PWMCR3
+                                           	extern	_PWMCR2
+                                           	extern	_PFRCAUX
+                                           	extern	_HIRCCAL
+                                           ;--------------------------------------------------------
+                                           ; global declarations
+                                           ;--------------------------------------------------------
+                                           	global	_Sys_Init
+                                           	global	_main
+                                           	global	_int_isr
+                                           	global	_Flag1
+                                           	global	_abuf
+                                           	global	_statusbuf
+                                           
+                                           	global STK06
+                                           	global STK05
+                                           	global STK04
+                                           	global STK03
+                                           	global STK02
+                                           	global STK01
+                                           	global STK00
+                                           
+                                           sharebank udata_ovr 0x0000
+                                           STK06	res 1
+                                           STK05	res 1
+                                           STK04	res 1
+                                           STK03	res 1
+                                           STK02	res 1
+                                           STK01	res 1
+                                           STK00	res 1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global definitions
+                                           ;--------------------------------------------------------
+                                           UD_main_0	udata
+                                           _Flag1	res	1
+                                           
+                                           UD_main_1	udata
+                                           _abuf	res	1
+                                           
+                                           UD_main_2	udata
+                                           _statusbuf	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; absolute symbol definitions
+                                           ;--------------------------------------------------------
+                                           ;--------------------------------------------------------
+                                           ; compiler-defined variables
+                                           ;--------------------------------------------------------
+                                           UDL_main_0	udata
+                                           r0x1000	res	1
+                                           r0x1001	res	1
+                                           ;--------------------------------------------------------
+                                           ; initialized data
+                                           ;--------------------------------------------------------
+                                           
+                                           ;@Allocation info for local variables in function 'Sys_Init'
+                                           ;@Sys_Init CLR_RAM                   Allocated to registers ;size:2
+                                           ;@Sys_Init IO_Init                   Allocated to registers ;size:2
+                                           ;@Sys_Init ADC_Init                  Allocated to registers ;size:2
+                                           ;@Sys_Init delay                     Allocated to registers ;size:2
+                                           ;@Sys_Init TIMER0_INT_Init           Allocated to registers ;size:2
+                                           ;@Sys_Init TIMER1_INT_Init           Allocated to registers ;size:2
+                                           ;@Sys_Init TIMER2_INT_Init           Allocated to registers ;size:2
+                                           ;@Sys_Init TIMER3_INT_Init           Allocated to registers ;size:2
+                                           ;@Sys_Init TIMER0_PWM_Init           Allocated to registers ;size:2
+                                           ;@Sys_Init TIMER1_PWM_Init           Allocated to registers ;size:2
+                                           ;@Sys_Init TIMER2_PWM_Init           Allocated to registers ;size:2
+                                           ;@Sys_Init INDF0bits                 Allocated to registers ;size:1
+                                           ;@Sys_Init INDF1bits                 Allocated to registers ;size:1
+                                           ;@Sys_Init INDF2bits                 Allocated to registers ;size:1
+                                           ;@Sys_Init HIBYTEbits                Allocated to registers ;size:1
+                                           ;@Sys_Init FSR0bits                  Allocated to registers ;size:1
+                                           ;@Sys_Init FSR1bits                  Allocated to registers ;size:1
+                                           ;@Sys_Init PCLbits                   Allocated to registers ;size:1
+                                           ;@Sys_Init PFLAGbits                 Allocated to registers ;size:1
+                                           ;@Sys_Init MCRbits                   Allocated to registers ;size:1
+                                           ;@Sys_Init INDF3bits                 Allocated to registers ;size:1
+                                           ;@Sys_Init INTEbits                  Allocated to registers ;size:1
+                                           ;@Sys_Init INTFbits                  Allocated to registers ;size:1
+                                           ;@Sys_Init DRVCRbits                 Allocated to registers ;size:1
+                                           ;@Sys_Init PFRCCRbits                Allocated to registers ;size:1
+                                           ;@Sys_Init P1KBCRbits                Allocated to registers ;size:1
+                                           ;@Sys_Init PFRCCALbits               Allocated to registers ;size:1
+                                           ;@Sys_Init IOP0bits                  Allocated to registers ;size:1
+                                           ;@Sys_Init OEP0bits                  Allocated to registers ;size:1
+                                           ;@Sys_Init PUP0bits                  Allocated to registers ;size:1
+                                           ;@Sys_Init PDP0bits                  Allocated to registers ;size:1
+                                           ;@Sys_Init IOP1bits                  Allocated to registers ;size:1
+                                           ;@Sys_Init OEP1bits                  Allocated to registers ;size:1
+                                           ;@Sys_Init PUP1bits                  Allocated to registers ;size:1
+                                           ;@Sys_Init PDP1bits                  Allocated to registers ;size:1
+                                           ;@Sys_Init T0CRbits                  Allocated to registers ;size:1
+                                           ;@Sys_Init T0CNTbits                 Allocated to registers ;size:1
+                                           ;@Sys_Init T0LOADbits                Allocated to registers ;size:1
+                                           ;@Sys_Init T0DATAbits                Allocated to registers ;size:1
+                                           ;@Sys_Init T1CRbits                  Allocated to registers ;size:1
+                                           ;@Sys_Init T1CNTbits                 Allocated to registers ;size:1
+                                           ;@Sys_Init T1LOADbits                Allocated to registers ;size:1
+                                           ;@Sys_Init T1DATAbits                Allocated to registers ;size:1
+                                           ;@Sys_Init T2CRbits                  Allocated to registers ;size:1
+                                           ;@Sys_Init T2CNTbits                 Allocated to registers ;size:1
+                                           ;@Sys_Init T2LOADbits                Allocated to registers ;size:1
+                                           ;@Sys_Init T2DATAbits                Allocated to registers ;size:1
+                                           ;@Sys_Init T3CRbits                  Allocated to registers ;size:1
+                                           ;@Sys_Init T3CNTbits                 Allocated to registers ;size:1
+                                           ;@Sys_Init T3LOADbits                Allocated to registers ;size:1
+                                           ;@Sys_Init PWM0DRbits                Allocated to registers ;size:1
+                                           ;@Sys_Init PWM1DRbits                Allocated to registers ;size:1
+                                           ;@Sys_Init PWM2DRbits                Allocated to registers ;size:1
+                                           ;@Sys_Init PWMCR0bits                Allocated to registers ;size:1
+                                           ;@Sys_Init PWMCR1bits                Allocated to registers ;size:1
+                                           ;@Sys_Init OSCMRbits                 Allocated to registers ;size:1
+                                           ;@Sys_Init LVDCRbits                 Allocated to registers ;size:1
+                                           ;@Sys_Init ADCR0bits                 Allocated to registers ;size:1
+                                           ;@Sys_Init ADCR1bits                 Allocated to registers ;size:1
+                                           ;@Sys_Init ADCR2bits                 Allocated to registers ;size:1
+                                           ;@Sys_Init OSADJCRbits               Allocated to registers ;size:1
+                                           ;@Sys_Init ADRHbits                  Allocated to registers ;size:1
+                                           ;@Sys_Init ADRLbits                  Allocated to registers ;size:1
+                                           ;@Sys_Init ADIOS0bits                Allocated to registers ;size:1
+                                           ;@Sys_Init ADIOS1bits                Allocated to registers ;size:1
+                                           ;@Sys_Init PMODbits                  Allocated to registers ;size:1
+                                           ;@Sys_Init PWMCR3bits                Allocated to registers ;size:1
+                                           ;@Sys_Init PWMCR2bits                Allocated to registers ;size:1
+                                           ;@Sys_Init PFRCAUXbits               Allocated to registers ;size:1
+                                           ;@Sys_Init HIRCCALbits               Allocated to registers ;size:1
+                                           ;@Sys_Init Flag2                     Allocated to registers ;size:1
+                                           ;@Sys_Init Flag_1                    Allocated to registers ;size:1
+                                           ;@Sys_Init Flag_2                    Allocated to registers ;size:1
+                                           ;@Sys_Init Flag_3                    Allocated to registers ;size:1
+                                           ;@Sys_Init Flag1                     Allocated to registers ;size:1
+                                           ;@Sys_Init abuf                      Allocated to registers ;size:1
+                                           ;@Sys_Init statusbuf                 Allocated to registers ;size:1
+                                           ;@Sys_Init INDF0                     Allocated to registers ;size:1
+                                           ;@Sys_Init INDF1                     Allocated to registers ;size:1
+                                           ;@Sys_Init INDF2                     Allocated to registers ;size:1
+                                           ;@Sys_Init HIBYTE                    Allocated to registers ;size:1
+                                           ;@Sys_Init FSR0                      Allocated to registers ;size:1
+                                           ;@Sys_Init FSR1                      Allocated to registers ;size:1
+                                           ;@Sys_Init PCL                       Allocated to registers ;size:1
+                                           ;@Sys_Init PFLAG                     Allocated to registers ;size:1
+                                           ;@Sys_Init MCR                       Allocated to registers ;size:1
+                                           ;@Sys_Init INDF3                     Allocated to registers ;size:1
+                                           ;@Sys_Init INTE                      Allocated to registers ;size:1
+                                           ;@Sys_Init INTF                      Allocated to registers ;size:1
+                                           ;@Sys_Init DRVCR                     Allocated to registers ;size:1
+                                           ;@Sys_Init PFRCCR                    Allocated to registers ;size:1
+                                           ;@Sys_Init P1KBCR                    Allocated to registers ;size:1
+                                           ;@Sys_Init PFRCCAL                   Allocated to registers ;size:1
+                                           ;@Sys_Init IOP0                      Allocated to registers ;size:1
+                                           ;@Sys_Init OEP0                      Allocated to registers ;size:1
+                                           ;@Sys_Init PUP0                      Allocated to registers ;size:1
+                                           ;@Sys_Init PDP0                      Allocated to registers ;size:1
+                                           ;@Sys_Init IOP1                      Allocated to registers ;size:1
+                                           ;@Sys_Init OEP1                      Allocated to registers ;size:1
+                                           ;@Sys_Init PUP1                      Allocated to registers ;size:1
+                                           ;@Sys_Init PDP1                      Allocated to registers ;size:1
+                                           ;@Sys_Init T0CR                      Allocated to registers ;size:1
+                                           ;@Sys_Init T0CNT                     Allocated to registers ;size:1
+                                           ;@Sys_Init T0LOAD                    Allocated to registers ;size:1
+                                           ;@Sys_Init T0DATA                    Allocated to registers ;size:1
+                                           ;@Sys_Init T1CR                      Allocated to registers ;size:1
+                                           ;@Sys_Init T1CNT                     Allocated to registers ;size:1
+                                           ;@Sys_Init T1LOAD                    Allocated to registers ;size:1
+                                           ;@Sys_Init T1DATA                    Allocated to registers ;size:1
+                                           ;@Sys_Init T2CR                      Allocated to registers ;size:1
+                                           ;@Sys_Init T2CNT                     Allocated to registers ;size:1
+                                           ;@Sys_Init T2LOAD                    Allocated to registers ;size:1
+                                           ;@Sys_Init T2DATA                    Allocated to registers ;size:1
+                                           ;@Sys_Init T3CR                      Allocated to registers ;size:1
+                                           ;@Sys_Init T3CNT                     Allocated to registers ;size:1
+                                           ;@Sys_Init T3LOAD                    Allocated to registers ;size:1
+                                           ;@Sys_Init PWM0DR                    Allocated to registers ;size:1
+                                           ;@Sys_Init PWM1DR                    Allocated to registers ;size:1
+                                           ;@Sys_Init PWM2DR                    Allocated to registers ;size:1
+                                           ;@Sys_Init PWMCR0                    Allocated to registers ;size:1
+                                           ;@Sys_Init PWMCR1                    Allocated to registers ;size:1
+                                           ;@Sys_Init OSCMR                     Allocated to registers ;size:1
+                                           ;@Sys_Init LVDCR                     Allocated to registers ;size:1
+                                           ;@Sys_Init ADCR0                     Allocated to registers ;size:1
+                                           ;@Sys_Init ADCR1                     Allocated to registers ;size:1
+                                           ;@Sys_Init ADCR2                     Allocated to registers ;size:1
+                                           ;@Sys_Init OSADJCR                   Allocated to registers ;size:1
+                                           ;@Sys_Init ADRH                      Allocated to registers ;size:1
+                                           ;@Sys_Init ADRL                      Allocated to registers ;size:1
+                                           ;@Sys_Init ADIOS0                    Allocated to registers ;size:1
+                                           ;@Sys_Init ADIOS1                    Allocated to registers ;size:1
+                                           ;@Sys_Init PMOD                      Allocated to registers ;size:1
+                                           ;@Sys_Init PWMCR3                    Allocated to registers ;size:1
+                                           ;@Sys_Init PWMCR2                    Allocated to registers ;size:1
+                                           ;@Sys_Init PFRCAUX                   Allocated to registers ;size:1
+                                           ;@Sys_Init HIRCCAL                   Allocated to registers ;size:1
+                                           ;@end Allocation info for local variables in function 'Sys_Init';
+                                           ;@Allocation info for local variables in function 'main'
+                                           ;@end Allocation info for local variables in function 'main';
+                                           ;@Allocation info for local variables in function 'int_isr'
+                                           ;@end Allocation info for local variables in function 'int_isr';
+                                           
+                                           ;--------------------------------------------------------
+                                           ; overlayable items in internal ram 
+                                           ;--------------------------------------------------------
+                                           ;	udata_ovr
+                                           ;--------------------------------------------------------
+                                           ; reset vector 
+                                           ;--------------------------------------------------------
+                                           STARTUP	code 0x0000
+000000   a0b5     goto    0xb5             	goto	_main
+                                           ;--------------------------------------------------------
+                                           ; interrupt and initialization code
+                                           ;--------------------------------------------------------
+                                           c_interrupt	code	0x8
+                                           __sdcc_interrupt
+                                           ;***
+                                           ;  pBlock Stats: dbName = I
+                                           ;***
+                                           ;entry:  _int_isr	;Function start
+                                           ; 0 exit points
+                                           ;2 compiler assigned registers:
+                                           ;   r0x1000
+                                           ;   r0x1001
+                                           ;; Starting pCode block
+                                           _int_isr	;Function start
+                                           ; 0 exit points
+                                           ;	.line	51; "main.c"	__endasm;
+000008   560e     movra   0xe              	movra	_abuf
+000009   4587     swapar  0x187            	swapar	_PFLAG
+00000a   560f     movra   0xf              	movra	_statusbuf
+                                           ;	.line	53; "main.c"	if (T0IF & T0IE)
+00000b   760b     clrr    0xb              	CLRR	r0x1000
+00000c   f18b     jbclr   0x18b, 0         	JBCLR	_INTFbits,0
+00000d   660b     incr    0xb              	INCR	r0x1000
+00000e   760c     clrr    0xc              	CLRR	r0x1001
+00000f   f18a     jbclr   0x18a, 0         	JBCLR	_INTEbits,0
+000010   660c     incr    0xc              	INCR	r0x1001
+000011   580c     movar   0xc              	MOVAR	r0x1001
+000012   7a0b     andra   0xb              	ANDRA	r0x1000
+000013   3c00     movai   0                	MOVAI	0x00
+000014   5c0b     orar    0xb              	ORAR	r0x1000
+000015   f587     jbclr   0x187, 0x2       	JBCLR	PFLAG,2
+000016   a018     goto    0x18             	GOTO	_00116_DS_
+                                           ;	.line	55; "main.c"	T0IF = 0;
+000017   d18b     bclr    0x18b, 0         	BCLR	_INTFbits,0
+                                           _00116_DS_
+                                           ;	.line	59; "main.c"	if (T1IF & T1IE)
+000018   760b     clrr    0xb              	CLRR	r0x1000
+000019   f38b     jbclr   0x18b, 0x1       	JBCLR	_INTFbits,1
+00001a   660b     incr    0xb              	INCR	r0x1000
+00001b   760c     clrr    0xc              	CLRR	r0x1001
+00001c   f38a     jbclr   0x18a, 0x1       	JBCLR	_INTEbits,1
+00001d   660c     incr    0xc              	INCR	r0x1001
+00001e   580c     movar   0xc              	MOVAR	r0x1001
+00001f   7a0b     andra   0xb              	ANDRA	r0x1000
+000020   3c00     movai   0                	MOVAI	0x00
+000021   5c0b     orar    0xb              	ORAR	r0x1000
+000022   f587     jbclr   0x187, 0x2       	JBCLR	PFLAG,2
+000023   a025     goto    0x25             	GOTO	_00118_DS_
+                                           ;	.line	61; "main.c"	T1IF = 0;  	   	
+000024   d38b     bclr    0x18b, 0x1       	BCLR	_INTFbits,1
+                                           _00118_DS_
+                                           ;	.line	82; "main.c"	__endasm;
+000025   440f     swapar  0xf              	swapar	_statusbuf
+000026   5787     movra   0x187            	movra	_PFLAG
+000027   460e     swapr   0xe              	swapr	_abuf
+000028   440e     swapar  0xe              	swapar	_abuf
+                                           END_OF_INTERRUPT
+                                           ;	.line	83; "main.c"	}
+000029   000d     retie                    	RETIE	
+                                           
+                                           ;--------------------------------------------------------
+                                           ; code
+                                           ;--------------------------------------------------------
+                                           code_main	code
+                                           ;***
+                                           ;  pBlock Stats: dbName = M
+                                           ;***
+                                           ;entry:  _main	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;functions called:
+                                           ;   _Sys_Init
+                                           ;   _Sys_Init
+                                           ;; Starting pCode block
+                                           _main	;Function start
+                                           ; 2 exit points
+                                           ;	.line	32; "main.c"	Sys_Init();
+0000b5   80b8     call    0xb8             	CALL	_Sys_Init
+                                           _00110_DS_
+                                           ;	.line	33; "main.c"	while (1)
+0000b6   a0b6     goto    0xb6             	GOTO	_00110_DS_
+                                           ;	.line	37; "main.c"	}
+0000b7   000c     return                   	RETURN	
+                                           ; exit point of _main
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _Sys_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;functions called:
+                                           ;   _CLR_RAM
+                                           ;   _IO_Init
+                                           ;   _CLR_RAM
+                                           ;   _IO_Init
+                                           ;; Starting pCode block
+                                           _Sys_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	19; "main.c"	GIE = 0;
+0000b8   df88     bclr    0x188, 0x7       	BCLR	_MCRbits,7
+                                           ;	.line	20; "main.c"	CLR_RAM();
+0000b9   80a9     call    0xa9             	CALL	_CLR_RAM
+                                           ;	.line	21; "main.c"	IO_Init();
+0000ba   8097     call    0x97             	CALL	_IO_Init
+                                           ;	.line	26; "main.c"	GIE = 1;
+0000bb   cf88     bset    0x188, 0x7       	BSET	_MCRbits,7
+                                           ;	.line	27; "main.c"	}
+0000bc   000c     return                   	RETURN	
+                                           ; exit point of _Sys_Init
+                                           
+                                           
+                                           ;	code size estimation:
+                                           ;	   35+    0 =    35 instructions (   70 byte)
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SN-SDCC : SinoMCU ANSI-C Compiler
+                                           ; Version 2.0.0 (Dec 11 2019) (MINGW32)
+                                           ; This file was generated Tue Nov 12 09:57:28 2024
+                                           ;--------------------------------------------------------
+                                           ; MC32 port for the RISC core
+                                           ;--------------------------------------------------------
+                                           ;	.file	"Init.c"
+                                           	list	p=7351
+                                           	radix dec
+                                           	include "7351.inc"
+                                           		LIST
+                                           ;mc32p7351.inc    Standard Header File, Version 1.00 by Sinomcu
+                                           		NOLIST
+                                           ;--------------------------------------------------------
+                                           ; external declarations
+                                           ;--------------------------------------------------------
+                                           	extern	_Sys_Init
+                                           	extern	_INDF0bits
+                                           	extern	_INDF1bits
+                                           	extern	_INDF2bits
+                                           	extern	_HIBYTEbits
+                                           	extern	_FSR0bits
+                                           	extern	_FSR1bits
+                                           	extern	_PCLbits
+                                           	extern	_PFLAGbits
+                                           	extern	_MCRbits
+                                           	extern	_INDF3bits
+                                           	extern	_INTEbits
+                                           	extern	_INTFbits
+                                           	extern	_DRVCRbits
+                                           	extern	_PFRCCRbits
+                                           	extern	_P1KBCRbits
+                                           	extern	_PFRCCALbits
+                                           	extern	_IOP0bits
+                                           	extern	_OEP0bits
+                                           	extern	_PUP0bits
+                                           	extern	_PDP0bits
+                                           	extern	_IOP1bits
+                                           	extern	_OEP1bits
+                                           	extern	_PUP1bits
+                                           	extern	_PDP1bits
+                                           	extern	_T0CRbits
+                                           	extern	_T0CNTbits
+                                           	extern	_T0LOADbits
+                                           	extern	_T0DATAbits
+                                           	extern	_T1CRbits
+                                           	extern	_T1CNTbits
+                                           	extern	_T1LOADbits
+                                           	extern	_T1DATAbits
+                                           	extern	_T2CRbits
+                                           	extern	_T2CNTbits
+                                           	extern	_T2LOADbits
+                                           	extern	_T2DATAbits
+                                           	extern	_T3CRbits
+                                           	extern	_T3CNTbits
+                                           	extern	_T3LOADbits
+                                           	extern	_PWM0DRbits
+                                           	extern	_PWM1DRbits
+                                           	extern	_PWM2DRbits
+                                           	extern	_PWMCR0bits
+                                           	extern	_PWMCR1bits
+                                           	extern	_OSCMRbits
+                                           	extern	_LVDCRbits
+                                           	extern	_ADCR0bits
+                                           	extern	_ADCR1bits
+                                           	extern	_ADCR2bits
+                                           	extern	_OSADJCRbits
+                                           	extern	_ADRHbits
+                                           	extern	_ADRLbits
+                                           	extern	_ADIOS0bits
+                                           	extern	_ADIOS1bits
+                                           	extern	_PMODbits
+                                           	extern	_PWMCR3bits
+                                           	extern	_PWMCR2bits
+                                           	extern	_PFRCAUXbits
+                                           	extern	_HIRCCALbits
+                                           	extern	_Flag1
+                                           	extern	_Flag2
+                                           	extern	_Flag_1
+                                           	extern	_Flag_2
+                                           	extern	_Flag_3
+                                           	extern	_INDF0
+                                           	extern	_INDF1
+                                           	extern	_INDF2
+                                           	extern	_HIBYTE
+                                           	extern	_FSR0
+                                           	extern	_FSR1
+                                           	extern	_PCL
+                                           	extern	_PFLAG
+                                           	extern	_MCR
+                                           	extern	_INDF3
+                                           	extern	_INTE
+                                           	extern	_INTF
+                                           	extern	_DRVCR
+                                           	extern	_PFRCCR
+                                           	extern	_P1KBCR
+                                           	extern	_PFRCCAL
+                                           	extern	_IOP0
+                                           	extern	_OEP0
+                                           	extern	_PUP0
+                                           	extern	_PDP0
+                                           	extern	_IOP1
+                                           	extern	_OEP1
+                                           	extern	_PUP1
+                                           	extern	_PDP1
+                                           	extern	_T0CR
+                                           	extern	_T0CNT
+                                           	extern	_T0LOAD
+                                           	extern	_T0DATA
+                                           	extern	_T1CR
+                                           	extern	_T1CNT
+                                           	extern	_T1LOAD
+                                           	extern	_T1DATA
+                                           	extern	_T2CR
+                                           	extern	_T2CNT
+                                           	extern	_T2LOAD
+                                           	extern	_T2DATA
+                                           	extern	_T3CR
+                                           	extern	_T3CNT
+                                           	extern	_T3LOAD
+                                           	extern	_PWM0DR
+                                           	extern	_PWM1DR
+                                           	extern	_PWM2DR
+                                           	extern	_PWMCR0
+                                           	extern	_PWMCR1
+                                           	extern	_OSCMR
+                                           	extern	_LVDCR
+                                           	extern	_ADCR0
+                                           	extern	_ADCR1
+                                           	extern	_ADCR2
+                                           	extern	_OSADJCR
+                                           	extern	_ADRH
+                                           	extern	_ADRL
+                                           	extern	_ADIOS0
+                                           	extern	_ADIOS1
+                                           	extern	_PMOD
+                                           	extern	_PWMCR3
+                                           	extern	_PWMCR2
+                                           	extern	_PFRCAUX
+                                           	extern	_HIRCCAL
+                                           
+                                           	extern STK06
+                                           	extern STK05
+                                           	extern STK04
+                                           	extern STK03
+                                           	extern STK02
+                                           	extern STK01
+                                           	extern STK00
+                                           ;--------------------------------------------------------
+                                           ; global declarations
+                                           ;--------------------------------------------------------
+                                           	global	_delay
+                                           	global	_ADC_Init
+                                           	global	_TIMER2_PWM_Init
+                                           	global	_TIMER1_PWM_Init
+                                           	global	_TIMER0_PWM_Init
+                                           	global	_TIMER3_INT_Init
+                                           	global	_TIMER2_INT_Init
+                                           	global	_TIMER1_INT_Init
+                                           	global	_TIMER0_INT_Init
+                                           	global	_IO_Init
+                                           	global	_CLR_RAM
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global definitions
+                                           ;--------------------------------------------------------
+                                           ;--------------------------------------------------------
+                                           ; absolute symbol definitions
+                                           ;--------------------------------------------------------
+                                           ;--------------------------------------------------------
+                                           ; compiler-defined variables
+                                           ;--------------------------------------------------------
+                                           UDL_Init_0	udata
+                                           r0x1001	res	1
+                                           r0x1000	res	1
+                                           r0x1002	res	1
+                                           r0x1003	res	1
+                                           ;--------------------------------------------------------
+                                           ; initialized data
+                                           ;--------------------------------------------------------
+                                           
+                                           ;@Allocation info for local variables in function 'CLR_RAM'
+                                           ;@CLR_RAM Sys_Init                  Allocated to registers ;size:2
+                                           ;@CLR_RAM IO_Init                   Allocated to registers ;size:2
+                                           ;@CLR_RAM ADC_Init                  Allocated to registers ;size:2
+                                           ;@CLR_RAM delay                     Allocated to registers ;size:2
+                                           ;@CLR_RAM TIMER0_INT_Init           Allocated to registers ;size:2
+                                           ;@CLR_RAM TIMER1_INT_Init           Allocated to registers ;size:2
+                                           ;@CLR_RAM TIMER2_INT_Init           Allocated to registers ;size:2
+                                           ;@CLR_RAM TIMER3_INT_Init           Allocated to registers ;size:2
+                                           ;@CLR_RAM TIMER0_PWM_Init           Allocated to registers ;size:2
+                                           ;@CLR_RAM TIMER1_PWM_Init           Allocated to registers ;size:2
+                                           ;@CLR_RAM TIMER2_PWM_Init           Allocated to registers ;size:2
+                                           ;@CLR_RAM INDF0bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF1bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF2bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM HIBYTEbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM FSR0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM FSR1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PCLbits                   Allocated to registers ;size:1
+                                           ;@CLR_RAM PFLAGbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM MCRbits                   Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF3bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM INTEbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM INTFbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM DRVCRbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCCRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM P1KBCRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCCALbits               Allocated to registers ;size:1
+                                           ;@CLR_RAM IOP0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM OEP0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PUP0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PDP0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM IOP1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM OEP1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PUP1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PDP1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T0CRbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T0CNTbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM T0LOADbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T0DATAbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T1CRbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T1CNTbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM T1LOADbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T1DATAbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T2CRbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T2CNTbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM T2LOADbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T2DATAbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T3CRbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T3CNTbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM T3LOADbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM0DRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM1DRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM2DRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR0bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR1bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM OSCMRbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM LVDCRbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR0bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR1bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR2bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM OSADJCRbits               Allocated to registers ;size:1
+                                           ;@CLR_RAM ADRHbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM ADRLbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM ADIOS0bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM ADIOS1bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PMODbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR3bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR2bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCAUXbits               Allocated to registers ;size:1
+                                           ;@CLR_RAM HIRCCALbits               Allocated to registers ;size:1
+                                           ;@CLR_RAM Flag1                     Allocated to registers ;size:1
+                                           ;@CLR_RAM Flag2                     Allocated to registers ;size:1
+                                           ;@CLR_RAM Flag_1                    Allocated to registers ;size:1
+                                           ;@CLR_RAM Flag_2                    Allocated to registers ;size:1
+                                           ;@CLR_RAM Flag_3                    Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF0                     Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF1                     Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF2                     Allocated to registers ;size:1
+                                           ;@CLR_RAM HIBYTE                    Allocated to registers ;size:1
+                                           ;@CLR_RAM FSR0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM FSR1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PCL                       Allocated to registers ;size:1
+                                           ;@CLR_RAM PFLAG                     Allocated to registers ;size:1
+                                           ;@CLR_RAM MCR                       Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF3                     Allocated to registers ;size:1
+                                           ;@CLR_RAM INTE                      Allocated to registers ;size:1
+                                           ;@CLR_RAM INTF                      Allocated to registers ;size:1
+                                           ;@CLR_RAM DRVCR                     Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCCR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM P1KBCR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCCAL                   Allocated to registers ;size:1
+                                           ;@CLR_RAM IOP0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM OEP0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PUP0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PDP0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM IOP1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM OEP1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PUP1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PDP1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T0CR                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T0CNT                     Allocated to registers ;size:1
+                                           ;@CLR_RAM T0LOAD                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T0DATA                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T1CR                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T1CNT                     Allocated to registers ;size:1
+                                           ;@CLR_RAM T1LOAD                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T1DATA                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T2CR                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T2CNT                     Allocated to registers ;size:1
+                                           ;@CLR_RAM T2LOAD                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T2DATA                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T3CR                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T3CNT                     Allocated to registers ;size:1
+                                           ;@CLR_RAM T3LOAD                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM0DR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM1DR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM2DR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR0                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR1                    Allocated to registers ;size:1
+                                           ;@CLR_RAM OSCMR                     Allocated to registers ;size:1
+                                           ;@CLR_RAM LVDCR                     Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR0                     Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR1                     Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR2                     Allocated to registers ;size:1
+                                           ;@CLR_RAM OSADJCR                   Allocated to registers ;size:1
+                                           ;@CLR_RAM ADRH                      Allocated to registers ;size:1
+                                           ;@CLR_RAM ADRL                      Allocated to registers ;size:1
+                                           ;@CLR_RAM ADIOS0                    Allocated to registers ;size:1
+                                           ;@CLR_RAM ADIOS1                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PMOD                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR3                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR2                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCAUX                   Allocated to registers ;size:1
+                                           ;@CLR_RAM HIRCCAL                   Allocated to registers ;size:1
+                                           ;@end Allocation info for local variables in function 'CLR_RAM';
+                                           ;@Allocation info for local variables in function 'IO_Init'
+                                           ;@end Allocation info for local variables in function 'IO_Init';
+                                           ;@Allocation info for local variables in function 'TIMER0_INT_Init'
+                                           ;@end Allocation info for local variables in function 'TIMER0_INT_Init';
+                                           ;@Allocation info for local variables in function 'TIMER1_INT_Init'
+                                           ;@end Allocation info for local variables in function 'TIMER1_INT_Init';
+                                           ;@Allocation info for local variables in function 'TIMER2_INT_Init'
+                                           ;@end Allocation info for local variables in function 'TIMER2_INT_Init';
+                                           ;@Allocation info for local variables in function 'TIMER3_INT_Init'
+                                           ;@end Allocation info for local variables in function 'TIMER3_INT_Init';
+                                           ;@Allocation info for local variables in function 'TIMER0_PWM_Init'
+                                           ;@end Allocation info for local variables in function 'TIMER0_PWM_Init';
+                                           ;@Allocation info for local variables in function 'TIMER1_PWM_Init'
+                                           ;@end Allocation info for local variables in function 'TIMER1_PWM_Init';
+                                           ;@Allocation info for local variables in function 'TIMER2_PWM_Init'
+                                           ;@end Allocation info for local variables in function 'TIMER2_PWM_Init';
+                                           ;@Allocation info for local variables in function 'ADC_Init'
+                                           ;@end Allocation info for local variables in function 'ADC_Init';
+                                           ;@Allocation info for local variables in function 'delay'
+                                           ;@delay num                       Allocated to registers r0x1001 r0x1000 ;size:2
+                                           ;@delay i                         Allocated to registers r0x1002 r0x1003 ;size:2
+                                           ;@end Allocation info for local variables in function 'delay';
+                                           
+                                           ;--------------------------------------------------------
+                                           ; overlayable items in internal ram 
+                                           ;--------------------------------------------------------
+                                           ;	udata_ovr
+                                           ;--------------------------------------------------------
+                                           ; code
+                                           ;--------------------------------------------------------
+                                           code_Init	code
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _delay	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;5 compiler assigned registers:
+                                           ;   r0x1000
+                                           ;   STK00
+                                           ;   r0x1001
+                                           ;   r0x1002
+                                           ;   r0x1003
+                                           ;; Starting pCode block
+                                           _delay	;Function start
+                                           ; 2 exit points
+                                           ;	.line	229; "Init.c"	void delay(uint16_t num)
+00002a   5608     movra   0x8              	MOVRA	r0x1000
+00002b   5806     movar   0x6              	MOVAR	STK00
+00002c   5607     movra   0x7              	MOVRA	r0x1001
+                                           ;	.line	232; "Init.c"	for (i = 0; i < num; i ++)
+00002d   7609     clrr    0x9              	CLRR	r0x1002
+00002e   760a     clrr    0xa              	CLRR	r0x1003
+                                           _00150_DS_
+00002f   5808     movar   0x8              	MOVAR	r0x1000
+000030   480a     rsubar  0xa              	RSUBAR	r0x1003
+000031   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000032   a035     goto    0x35             	GOTO	_00163_DS_
+000033   5807     movar   0x7              	MOVAR	r0x1001
+000034   4809     rsubar  0x9              	RSUBAR	r0x1002
+                                           _00163_DS_
+000035   f187     jbclr   0x187, 0         	JBCLR	PFLAG,0
+000036   a03c     goto    0x3c             	GOTO	_00152_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	234; "Init.c"	Nop();
+000037   0000     nop                      	nop	
+                                           ;	.line	232; "Init.c"	for (i = 0; i < num; i ++)
+000038   6609     incr    0x9              	INCR	r0x1002
+000039   f587     jbclr   0x187, 0x2       	JBCLR	PFLAG,2
+00003a   660a     incr    0xa              	INCR	r0x1003
+00003b   a02f     goto    0x2f             	GOTO	_00150_DS_
+                                           _00152_DS_
+                                           ;	.line	236; "Init.c"	}
+00003c   000c     return                   	RETURN	
+                                           ; exit point of _delay
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _ADC_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _ADC_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	185; "Init.c"	OEP1 &= DEF_CLR_BIT0;                        //P10为输入口
+00003d   d195     bclr    0x195, 0         	BCLR	_OEP1,0
+                                           ;	.line	186; "Init.c"	OEP0 &= DEF_CLR_BIT1;                        //P01为输入口 
+00003e   d391     bclr    0x191, 0x1       	BCLR	_OEP0,1
+                                           ;	.line	188; "Init.c"	ADIOS0 = 0x20;                     //io类型选择  1:模拟输入  0:通用io
+00003f   3c20     movai   0x20             	MOVAI	0x20
+000040   57b6     movra   0x1b6            	MOVRA	_ADIOS0
+                                           ;	.line	191; "Init.c"	ADIOS1 = 0x00;                     //io类型选择  1:模拟输入  0:通用io
+000041   77b7     clrr    0x1b7            	CLRR	_ADIOS1
+                                           ;	.line	194; "Init.c"	PMOD = 0x20 | 0x07;                       //bit7-bit5 P17、P13、P01 io类型选择 1:模拟输入  0:通用io 
+000042   3c27     movai   0x27             	MOVAI	0x27
+000043   57bc     movra   0x1bc            	MOVRA	_PMOD
+                                           ;	.line	197; "Init.c"	ADCR0 = 0xfb;                                //使能ADC、12位数据H8L4
+000044   3cfb     movai   0xfb             	MOVAI	0xfb
+000045   57b0     movra   0x1b0            	MOVRA	_ADCR0
+                                           ;	.line	198; "Init.c"	ADCR1 = 0x80;                                //32分频、000内部2V、001内部3V、010内部4V、011VDD
+000046   3c80     movai   0x80             	MOVAI	0x80
+000047   57b1     movra   0x1b1            	MOVRA	_ADCR1
+                                           ;	.line	199; "Init.c"	ADCR2 = 0xff;                                //固定为15ADCLK 
+000048   3cff     movai   0xff             	MOVAI	0xff
+000049   57b2     movra   0x1b2            	MOVRA	_ADCR2
+                                           ;	.line	201; "Init.c"	}
+00004a   000c     return                   	RETURN	
+                                           ; exit point of _ADC_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _TIMER2_PWM_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _TIMER2_PWM_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	167; "Init.c"	T2CR = DEF_SET_BIT6 | PRS_4;     //使能PWM,CPU,4分频
+00004b   3c42     movai   0x42             	MOVAI	0x42
+00004c   57a0     movra   0x1a0            	MOVRA	_T2CR
+                                           ;	.line	168; "Init.c"	T2CNT = 100-1;
+00004d   3c63     movai   0x63             	MOVAI	0x63
+00004e   57a1     movra   0x1a1            	MOVRA	_T2CNT
+                                           ;	.line	169; "Init.c"	T2LOAD = 100-1;                                     
+00004f   3c63     movai   0x63             	MOVAI	0x63
+000050   57a2     movra   0x1a2            	MOVRA	_T2LOAD
+                                           ;	.line	170; "Init.c"	T2DATA = 25;
+000051   3c19     movai   0x19             	MOVAI	0x19
+000052   57a3     movra   0x1a3            	MOVRA	_T2DATA
+                                           ;	.line	171; "Init.c"	PWMCR1 = 0x00; 
+000053   77ad     clrr    0x1ad            	CLRR	_PWMCR1
+                                           ;	.line	172; "Init.c"	PWMCR2 = 0x03;                                         //4个时钟
+000054   3c03     movai   0x3              	MOVAI	0x03
+000055   57be     movra   0x1be            	MOVRA	_PWMCR2
+                                           ;	.line	173; "Init.c"	PWMCR3 |= DEF_SET_BIT6 | DEF_SET_BIT5 | DEF_SET_BIT4;  //使能FPWM,NPWM,正向输出
+000056   3c70     movai   0x70             	MOVAI	0x70
+000057   5fbd     orra    0x1bd            	ORRA	_PWMCR3
+                                           ;	.line	174; "Init.c"	T2EN = 1;
+000058   cfa0     bset    0x1a0, 0x7       	BSET	_T2CRbits,7
+                                           ;	.line	175; "Init.c"	}
+000059   000c     return                   	RETURN	
+                                           ; exit point of _TIMER2_PWM_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _TIMER1_PWM_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _TIMER1_PWM_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	143; "Init.c"	T1CR = DEF_SET_BIT6 | PRS_4;                    //使能PWM,CPU,4分频
+00005a   3c42     movai   0x42             	MOVAI	0x42
+00005b   579c     movra   0x19c            	MOVRA	_T1CR
+                                           ;	.line	144; "Init.c"	T1CNT = 100-1;
+00005c   3c63     movai   0x63             	MOVAI	0x63
+00005d   579d     movra   0x19d            	MOVRA	_T1CNT
+                                           ;	.line	145; "Init.c"	T1LOAD = 100-1;                                                  
+00005e   3c63     movai   0x63             	MOVAI	0x63
+00005f   579e     movra   0x19e            	MOVRA	_T1LOAD
+                                           ;	.line	146; "Init.c"	T1DATA = 25;
+000060   3c19     movai   0x19             	MOVAI	0x19
+000061   579f     movra   0x19f            	MOVRA	_T1DATA
+                                           ;	.line	149; "Init.c"	PWMCR1 = 0x00;                                                        //普通模式
+000062   77ad     clrr    0x1ad            	CLRR	_PWMCR1
+                                           ;	.line	150; "Init.c"	T1EN = 1;
+000063   cf9c     bset    0x19c, 0x7       	BSET	_T1CRbits,7
+                                           ;	.line	151; "Init.c"	}
+000064   000c     return                   	RETURN	
+                                           ; exit point of _TIMER1_PWM_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _TIMER0_PWM_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _TIMER0_PWM_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	120; "Init.c"	T0CR = DEF_SET_BIT6 | PRS_4;     //使能PWM,CPU,4频
+000065   3c42     movai   0x42             	MOVAI	0x42
+000066   5798     movra   0x198            	MOVRA	_T0CR
+                                           ;	.line	121; "Init.c"	T0CNT = 100-1;
+000067   3c63     movai   0x63             	MOVAI	0x63
+000068   5799     movra   0x199            	MOVRA	_T0CNT
+                                           ;	.line	122; "Init.c"	T0LOAD = 100-1;                                        
+000069   3c63     movai   0x63             	MOVAI	0x63
+00006a   579a     movra   0x19a            	MOVRA	_T0LOAD
+                                           ;	.line	123; "Init.c"	T0DATA = 25;
+00006b   3c19     movai   0x19             	MOVAI	0x19
+00006c   579b     movra   0x19b            	MOVRA	_T0DATA
+                                           ;	.line	124; "Init.c"	PWMCR0 = 0x00;                                         //正向输出
+00006d   77ac     clrr    0x1ac            	CLRR	_PWMCR0
+                                           ;	.line	125; "Init.c"	PWMCR1 = 0x00;                                         //普通模式
+00006e   77ad     clrr    0x1ad            	CLRR	_PWMCR1
+                                           ;	.line	127; "Init.c"	PWMCR3 = DEF_CLR_BIT2;                                 //P16端口输出
+00006f   3cfb     movai   0xfb             	MOVAI	0xfb
+000070   57bd     movra   0x1bd            	MOVRA	_PWMCR3
+                                           ;	.line	128; "Init.c"	T0EN = 1;
+000071   cf98     bset    0x198, 0x7       	BSET	_T0CRbits,7
+                                           ;	.line	129; "Init.c"	}
+000072   000c     return                   	RETURN	
+                                           ; exit point of _TIMER0_PWM_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _TIMER3_INT_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _TIMER3_INT_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	102; "Init.c"	T3CR = PRS_128;               //CPU,128分频
+000073   3c07     movai   0x7              	MOVAI	0x07
+000074   57a4     movra   0x1a4            	MOVRA	_T3CR
+                                           ;	.line	103; "Init.c"	T3CNT = 250 - 1;
+000075   3cf9     movai   0xf9             	MOVAI	0xf9
+000076   57a5     movra   0x1a5            	MOVRA	_T3CNT
+                                           ;	.line	104; "Init.c"	T3LOAD = 250 - 1;                  
+000077   3cf9     movai   0xf9             	MOVAI	0xf9
+000078   57a6     movra   0x1a6            	MOVRA	_T3LOAD
+                                           ;	.line	105; "Init.c"	T3EN = 1; 
+000079   cfa4     bset    0x1a4, 0x7       	BSET	_T3CRbits,7
+                                           ;	.line	106; "Init.c"	T3IE = 1;
+00007a   cf8a     bset    0x18a, 0x7       	BSET	_INTEbits,7
+                                           ;	.line	107; "Init.c"	}
+00007b   000c     return                   	RETURN	
+                                           ; exit point of _TIMER3_INT_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _TIMER2_INT_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _TIMER2_INT_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	86; "Init.c"	T2CR = PRS_8;   //CPU,8分频
+00007c   3c03     movai   0x3              	MOVAI	0x03
+00007d   57a0     movra   0x1a0            	MOVRA	_T2CR
+                                           ;	.line	87; "Init.c"	T2CNT = 100 - 1;
+00007e   3c63     movai   0x63             	MOVAI	0x63
+00007f   57a1     movra   0x1a1            	MOVRA	_T2CNT
+                                           ;	.line	88; "Init.c"	T2LOAD = 100 - 1;                 
+000080   3c63     movai   0x63             	MOVAI	0x63
+000081   57a2     movra   0x1a2            	MOVRA	_T2LOAD
+                                           ;	.line	89; "Init.c"	T2EN = 1;
+000082   cfa0     bset    0x1a0, 0x7       	BSET	_T2CRbits,7
+                                           ;	.line	90; "Init.c"	T2IE = 1;
+000083   cb8a     bset    0x18a, 0x5       	BSET	_INTEbits,5
+                                           ;	.line	91; "Init.c"	}
+000084   000c     return                   	RETURN	
+                                           ; exit point of _TIMER2_INT_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _TIMER1_INT_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _TIMER1_INT_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	70; "Init.c"	T1CR = PRS_32; //定时模式,CPU,32分频
+000085   3c05     movai   0x5              	MOVAI	0x05
+000086   579c     movra   0x19c            	MOVRA	_T1CR
+                                           ;	.line	71; "Init.c"	T1CNT = 250 -1;                 
+000087   3cf9     movai   0xf9             	MOVAI	0xf9
+000088   579d     movra   0x19d            	MOVRA	_T1CNT
+                                           ;	.line	72; "Init.c"	T1LOAD = 250 -1;
+000089   3cf9     movai   0xf9             	MOVAI	0xf9
+00008a   579e     movra   0x19e            	MOVRA	_T1LOAD
+                                           ;	.line	73; "Init.c"	T1EN = 1;
+00008b   cf9c     bset    0x19c, 0x7       	BSET	_T1CRbits,7
+                                           ;	.line	74; "Init.c"	T1IE = 1;
+00008c   c38a     bset    0x18a, 0x1       	BSET	_INTEbits,1
+                                           ;	.line	75; "Init.c"	}
+00008d   000c     return                   	RETURN	
+                                           ; exit point of _TIMER1_INT_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _TIMER0_INT_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _TIMER0_INT_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	54; "Init.c"	T0CR = PRS_4; //CPU,4分频
+00008e   3c02     movai   0x2              	MOVAI	0x02
+00008f   5798     movra   0x198            	MOVRA	_T0CR
+                                           ;	.line	55; "Init.c"	T0CNT = 100 -1;
+000090   3c63     movai   0x63             	MOVAI	0x63
+000091   5799     movra   0x199            	MOVRA	_T0CNT
+                                           ;	.line	56; "Init.c"	T0LOAD = 100 -1;                 
+000092   3c63     movai   0x63             	MOVAI	0x63
+000093   579a     movra   0x19a            	MOVRA	_T0LOAD
+                                           ;	.line	57; "Init.c"	T0EN = 1;
+000094   cf98     bset    0x198, 0x7       	BSET	_T0CRbits,7
+                                           ;	.line	58; "Init.c"	T0IE = 1;
+000095   c18a     bset    0x18a, 0         	BSET	_INTEbits,0
+                                           ;	.line	59; "Init.c"	}
+000096   000c     return                   	RETURN	
+                                           ; exit point of _TIMER0_INT_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _IO_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _IO_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	28; "Init.c"	IOP0 = 0x00;                       //io口数据位
+000097   7790     clrr    0x190            	CLRR	_IOP0
+                                           ;	.line	29; "Init.c"	OEP0 = 0xff;                       //io口方向 1:out  0:in
+000098   3cff     movai   0xff             	MOVAI	0xff
+000099   5791     movra   0x191            	MOVRA	_OEP0
+                                           ;	.line	30; "Init.c"	PUP0 = 0x00;                       //io口上拉电阻   1:enable  0:disable
+00009a   7792     clrr    0x192            	CLRR	_PUP0
+                                           ;	.line	31; "Init.c"	PDP0 = 0x00;                       //io口下拉电阻   1:enable  0:disable
+00009b   7793     clrr    0x193            	CLRR	_PDP0
+                                           ;	.line	33; "Init.c"	IOP1 = 0x00;                       //io口数据位
+00009c   7794     clrr    0x194            	CLRR	_IOP1
+                                           ;	.line	34; "Init.c"	OEP1 = 0xF7;                       //io口方向 1:out  0:in
+00009d   3cf7     movai   0xf7             	MOVAI	0xf7
+00009e   5795     movra   0x195            	MOVRA	_OEP1
+                                           ;	.line	35; "Init.c"	PUP1 = 0x08;                       //io口上拉电阻   1:enable  0:disable
+00009f   3c08     movai   0x8              	MOVAI	0x08
+0000a0   5796     movra   0x196            	MOVRA	_PUP1
+                                           ;	.line	36; "Init.c"	PDP1 = 0x00;                       //io口下拉电阻   1:enable  0:disable
+0000a1   7797     clrr    0x197            	CLRR	_PDP1
+                                           ;	.line	38; "Init.c"	PMOD = 0x07;                       //bit2-bit0 P13、P01、P00 io端口输出模式  1:推挽输出 0:开漏输出
+0000a2   3c07     movai   0x7              	MOVAI	0x07
+0000a3   57bc     movra   0x1bc            	MOVRA	_PMOD
+                                           ;	.line	40; "Init.c"	DRVCR = 0x80;                      //普通驱动
+0000a4   3c80     movai   0x80             	MOVAI	0x80
+0000a5   578c     movra   0x18c            	MOVRA	_DRVCR
+                                           ;	.line	42; "Init.c"	P1KBCR = 0x08;                      //P1才有IO唤醒功能  P17~P10
+0000a6   3c08     movai   0x8              	MOVAI	0x08
+0000a7   578e     movra   0x18e            	MOVRA	_P1KBCR
+                                           ;	.line	43; "Init.c"	}
+0000a8   000c     return                   	RETURN	
+                                           ; exit point of _IO_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _CLR_RAM	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _CLR_RAM	;Function start
+                                           ; 2 exit points
+                                           ;	.line	12; "Init.c"	for (FSR0 = 0; FSR0 < 0xff; FSR0++)
+0000a9   7784     clrr    0x184            	CLRR	_FSR0
+                                           ;;unsigned compare: left < lit(0xFF=255), size=1
+                                           _00107_DS_
+0000aa   3cff     movai   0xff             	MOVAI	0xff
+0000ab   4984     rsubar  0x184            	RSUBAR	_FSR0
+0000ac   f187     jbclr   0x187, 0         	JBCLR	PFLAG,0
+0000ad   a0b1     goto    0xb1             	GOTO	_00105_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	14; "Init.c"	INDF0 = 0x00;
+0000ae   7780     clrr    0x180            	CLRR	_INDF0
+                                           ;	.line	12; "Init.c"	for (FSR0 = 0; FSR0 < 0xff; FSR0++)
+0000af   6784     incr    0x184            	INCR	_FSR0
+0000b0   a0aa     goto    0xaa             	GOTO	_00107_DS_
+                                           _00105_DS_
+                                           ;	.line	16; "Init.c"	FSR0 = 0xFF;
+0000b1   3cff     movai   0xff             	MOVAI	0xff
+0000b2   5784     movra   0x184            	MOVRA	_FSR0
+                                           ;	.line	17; "Init.c"	INDF0 = 0x00;
+0000b3   7780     clrr    0x180            	CLRR	_INDF0
+                                           ;	.line	18; "Init.c"	}
+0000b4   000c     return                   	RETURN	
+                                           ; exit point of _CLR_RAM
+                                           
+                                           
+                                           ;	code size estimation:
+                                           ;	  138+    0 =   138 instructions (  276 byte)
+                                           
+                                           	end
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XX-------------- XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0100 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0140 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXX------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   182
+

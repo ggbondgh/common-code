@@ -1,0 +1,7 @@
+main(0)
+|--Sys_Init(1)
+|--|--CLR_RAM(2)
+|--|--IO_Init(2)
+|--|--TIMER0_PWM_Init(2)
+|--|--TIMER1_PWM_Init(2)
+|--|--TIMER2_PWM_Init(2)

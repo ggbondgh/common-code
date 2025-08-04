@@ -1,0 +1,2490 @@
+gpasm-2.2.37 (Jan 22 2024)   MC30P8160.asm      2024-10-31  10:13:09         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; external declarations
+                      00014 ;--------------------------------------------------------
+                      00015         extern  _INDFbits
+                      00016         extern  _T0CNTbits
+                      00017         extern  _PCLbits
+                      00018         extern  _STATUSbits
+                      00019         extern  _FSRbits
+                      00020         extern  _P1bits
+                      00021         extern  _MCRbits
+                      00022         extern  _T0CRbits
+                      00023         extern  _PCLATHbits
+                      00024         extern  _PDCONbits
+                      00025         extern  _ODCONbits
+                      00026         extern  _PUCONbits
+                      00027         extern  _INTEbits
+                      00028         extern  _INTFbits
+                      00029         extern  _PWM1CR0bits
+                      00030         extern  _PWM1CR1bits
+                      00031         extern  _PWM1CR2bits
+                      00032         extern  _DDR1bits
+                      00033         extern  _TMRCRbits
+                      00034         extern  _T1CRbits
+                      00035         extern  _T1CNTbits
+                      00036         extern  _T1LOADbits
+                      00037         extern  _T1DATAbits
+                      00038         extern  _T1DATBbits
+                      00039         extern  _T1DATCbits
+                      00040         extern  _T1DATDbits
+                      00041         extern  _T2CRbits
+                      00042         extern  _T2CNTHbits
+                      00043         extern  _T2CNTLbits
+                      00044         extern  _T2LOADHbits
+                      00045         extern  _T2LOADLbits
+                      00046         extern  _P1KBCRbits
+                      00047         extern  _P1ADCRbits
+                      00048         extern  _CMPCR0bits
+                      00049         extern  _CMPCR1bits
+                      00050         extern  _CMPCR2bits
+                      00051         extern  _TKCR0bits
+                      00052         extern  _TKCR1bits
+                      00053         extern  _TKCR2bits
+                      00054         extern  _TKCNTHbits
+                      00055         extern  _TKCNTLbits
+                      00056         extern  _INDF
+                      00057         extern  _T0CNT
+                      00058         extern  _PCL
+                      00059         extern  _STATUS
+                      00060         extern  _FSR
+                      00061         extern  _P1
+                      00062         extern  _MCR
+                      00063         extern  _T0CR
+                      00064         extern  _PCLATH
+                      00065         extern  _PDCON
+                      00066         extern  _ODCON
+                      00067         extern  _PUCON
+                      00068         extern  _INTE
+                      00069         extern  _INTF
+                      00070         extern  _PWM1CR0
+                      00071         extern  _PWM1CR1
+                      00072         extern  _PWM1CR2
+                      00073         extern  _DDR1
+                      00074         extern  _TMRCR
+                      00075         extern  _T1CR
+                      00076         extern  _T1CNT
+                      00077         extern  _T1LOAD
+                      00078         extern  _T1DATA
+                      00079         extern  _T1DATB
+                      00080         extern  _T1DATC
+                      00081         extern  _T1DATD
+                      00082         extern  _T2CR
+                      00083         extern  _T2CNTH
+                      00084         extern  _T2CNTL
+                      00085         extern  _T2LOADH
+                      00086         extern  _T2LOADL
+                      00087         extern  _P1KBCR
+                      00088         extern  _P1ADCR
+                      00089         extern  _CMPCR0
+                      00090         extern  _CMPCR1
+                      00091         extern  _CMPCR2
+                      00092         extern  _TKCR0
+                      00093         extern  _TKCR1
+                      00094         extern  _TKCR2
+                      00095         extern  _TKCNTH
+                      00096         extern  _TKCNTL
+                      00097 ;--------------------------------------------------------
+                      00098 ; global declarations
+                      00099 ;--------------------------------------------------------
+                      00100         global  _Delay_us_2
+                      00101         global  _Init_Sys
+                      00102         global  _Clr_Ram
+                      00103         global  _T1_PWM_Init
+                      00104         global  _IO_Init
+                      00105         global  _TOUCH_Init
+                      00106         global  _TK_Init
+                      00107         global  _Get_TK_Value
+                      00108         global  _TK0_Release_
+                      00109         global  _TK0_Scan
+                      00110         global  _TK1_Release_
+                      00111         global  _TK1_Scan
+                      00112         global  _TK1_value_Read
+                      00113         global  _TK0_value_Read
+                      00114         global  _PWM_W_OFF
+                      00115         global  _PWM_Y_OFF
+                      00116         global  _LED_PWM_Control
+                      00117         global  _TK_10S_Reset
+                      00118         global  _Sleep_mode
+                      00119         global  _main
+                      00120         global  _int_isr
+                      00121         global  _CSAVE_ACC
+                      00122         global  _CSAVE_STATUS
+                      00123         global  _CPLAY_FLAG
+                      00124         global  _flag1
+                      00125         global  _flag2
+                      00126         global  _flag3
+                      00127         global  _u16_get_val
+                      00128         global  _u16_release_val
+                      00129         global  _u16_temp_val
+                      00130         global  _u16_release_val_TK0
+                      00131         global  _u16_release_val_TK1
+                      00132         global  _u16_TK1_get_val_Min
+                      00133         global  _u16_TK0_get_val_Min
+                      00134         global  _u16_TK0_environment_val
+                      00135         global  _u16_TK0_environment_val_Sum
+                      00136         global  _u16_TK1_environment_val
+                      00137         global  _u16_TK1_environment_val_Sum
+                      00138         global  _TK0_Filter_Cnt
+                      00139         global  _TK0_Filter_Cnt_T
+                      00140         global  _TK1_Filter_Cnt
+                      00141         global  _TK1_Filter_Cnt_T
+                      00142         global  _FilterCnt_TK0
+                      00143         global  _FilterCnt_TK1
+                      00144         global  _SleepCnt
+                      00145         global  _PWM_Duty_W
+                      00146         global  _PWM_Duty_Y
+                      00147         global  _T_key_Value
+                      00148         global  _TK1_Key_Cnt
+                      00149         global  _TK0_Key_Cnt
+                      00150         global  _T0_5ms_Cnt
+                      00151         global  _u8_TK_Reset_Cnt
+                      00152         global  _u16_TK0_get_val_Temp
+                      00153         global  _u16_TK1_get_val_Temp
+                      00154 
+                      00155         global STK06
+                      00156         global STK05
+                      00157         global STK04
+                      00158         global STK03
+                      00159         global STK02
+                      00160         global STK01
+                      00161         global STK00
+                      00162 
+                      00163 sharebank udata_ovr 0x0010
+0008                  00164 STK06   res 1
+0008                  00165 STK05   res 1
+0009                  00166 STK04   res 1
+0009                  00167 STK03   res 1
+000A                  00168 STK02   res 1
+000A                  00169 STK01   res 1
+000B                  00170 STK00   res 1
+                      00171 
+                      00172 ;--------------------------------------------------------
+                      00173 ; global definitions
+                      00174 ;--------------------------------------------------------
+                      00175 UD_MC30P8160_0  udata
+0000                  00176 _CSAVE_ACC      res     1
+                      00177 
+                      00178 UD_MC30P8160_1  udata
+0000                  00179 _CSAVE_STATUS   res     1
+                      00180 
+                      00181 UD_MC30P8160_2  udata
+0000                  00182 _CPLAY_FLAG     res     1
+                      00183 
+                      00184 UD_MC30P8160_3  udata
+0000                  00185 _flag1  res     1
+                      00186 
+                      00187 UD_MC30P8160_4  udata
+0000                  00188 _flag2  res     1
+                      00189 
+                      00190 UD_MC30P8160_5  udata
+0000                  00191 _flag3  res     1
+                      00192 
+                      00193 UD_MC30P8160_6  udata
+0000                  00194 _u16_get_val    res     2
+                      00195 
+                      00196 UD_MC30P8160_7  udata
+0000                  00197 _u16_release_val        res     2
+                      00198 
+                      00199 UD_MC30P8160_8  udata
+0000                  00200 _u16_temp_val   res     2
+                      00201 
+                      00202 UD_MC30P8160_9  udata
+0000                  00203 _u16_release_val_TK0    res     2
+                      00204 
+                      00205 UD_MC30P8160_10 udata
+0000                  00206 _u16_release_val_TK1    res     2
+                      00207 
+                      00208 UD_MC30P8160_11 udata
+0000                  00209 _u16_TK1_get_val_Min    res     2
+                      00210 
+                      00211 UD_MC30P8160_12 udata
+0000                  00212 _u16_TK0_get_val_Min    res     2
+                      00213 
+                      00214 UD_MC30P8160_13 udata
+0000                  00215 _u16_TK0_environment_val        res     2
+                      00216 
+                      00217 UD_MC30P8160_14 udata
+0000                  00218 _u16_TK0_environment_val_Sum    res     2
+                      00219 
+                      00220 UD_MC30P8160_15 udata
+0000                  00221 _u16_TK1_environment_val        res     2
+                      00222 
+                      00223 UD_MC30P8160_16 udata
+0000                  00224 _u16_TK1_environment_val_Sum    res     2
+                      00225 
+                      00226 UD_MC30P8160_17 udata
+0000                  00227 _TK0_Filter_Cnt res     1
+                      00228 
+                      00229 UD_MC30P8160_18 udata
+0000                  00230 _TK0_Filter_Cnt_T       res     1
+                      00231 
+                      00232 UD_MC30P8160_19 udata
+0000                  00233 _TK1_Filter_Cnt res     1
+                      00234 
+                      00235 UD_MC30P8160_20 udata
+0000                  00236 _TK1_Filter_Cnt_T       res     1
+                      00237 
+                      00238 UD_MC30P8160_21 udata
+0000                  00239 _FilterCnt_TK0  res     1
+                      00240 
+                      00241 UD_MC30P8160_22 udata
+0000                  00242 _FilterCnt_TK1  res     1
+                      00243 
+                      00244 UD_MC30P8160_23 udata
+0000                  00245 _SleepCnt       res     1
+                      00246 
+                      00247 UD_MC30P8160_24 udata
+0000                  00248 _PWM_Duty_W     res     1
+                      00249 
+                      00250 UD_MC30P8160_25 udata
+0000                  00251 _PWM_Duty_Y     res     1
+                      00252 
+                      00253 UD_MC30P8160_26 udata
+0000                  00254 _T_key_Value    res     1
+                      00255 
+                      00256 UD_MC30P8160_27 udata
+0000                  00257 _TK1_Key_Cnt    res     1
+                      00258 
+                      00259 UD_MC30P8160_28 udata
+0000                  00260 _TK0_Key_Cnt    res     1
+                      00261 
+                      00262 UD_MC30P8160_29 udata
+0000                  00263 _T0_5ms_Cnt     res     1
+                      00264 
+                      00265 UD_MC30P8160_30 udata
+0000                  00266 _u8_TK_Reset_Cnt        res     2
+                      00267 
+                      00268 UD_MC30P8160_31 udata
+0000                  00269 _u16_TK0_get_val_Temp   res     2
+                      00270 
+                      00271 UD_MC30P8160_32 udata
+0000                  00272 _u16_TK1_get_val_Temp   res     2
+                      00273 
+                      00274 ;--------------------------------------------------------
+                      00275 ; absolute symbol definitions
+                      00276 ;--------------------------------------------------------
+                      00277 ;--------------------------------------------------------
+                      00278 ; compiler-defined variables
+                      00279 ;--------------------------------------------------------
+                      00280 UDL_MC30P8160_0 udata
+0000                  00281 r0x1029 res     1
+0000                  00282 r0x102A res     1
+0001                  00283 r0x102B res     1
+0001                  00284 r0x102D res     1
+0002                  00285 r0x102E res     1
+                      00286 ;--------------------------------------------------------
+                      00287 ; initialized data
+                      00288 ;--------------------------------------------------------
+                      00289 
+                      00290 ;@Allocation info for local variables in function 'Delay_us_2'
+                      00291 ;@Delay_us_2 Delay_us_2                Allocated to registers ;size:2
+                      00292 ;@Delay_us_2 INDFbits                  Allocated to registers ;size:1
+                      00293 ;@Delay_us_2 T0CNTbits                 Allocated to registers ;size:1
+                      00294 ;@Delay_us_2 PCLbits                   Allocated to registers ;size:1
+                      00295 ;@Delay_us_2 STATUSbits                Allocated to registers ;size:1
+                      00296 ;@Delay_us_2 FSRbits                   Allocated to registers ;size:1
+                      00297 ;@Delay_us_2 P1bits                    Allocated to registers ;size:1
+                      00298 ;@Delay_us_2 MCRbits                   Allocated to registers ;size:1
+                      00299 ;@Delay_us_2 T0CRbits                  Allocated to registers ;size:1
+                      00300 ;@Delay_us_2 PCLATHbits                Allocated to registers ;size:1
+                      00301 ;@Delay_us_2 PDCONbits                 Allocated to registers ;size:1
+                      00302 ;@Delay_us_2 ODCONbits                 Allocated to registers ;size:1
+                      00303 ;@Delay_us_2 PUCONbits                 Allocated to registers ;size:1
+                      00304 ;@Delay_us_2 INTEbits                  Allocated to registers ;size:1
+                      00305 ;@Delay_us_2 INTFbits                  Allocated to registers ;size:1
+                      00306 ;@Delay_us_2 PWM1CR0bits               Allocated to registers ;size:1
+                      00307 ;@Delay_us_2 PWM1CR1bits               Allocated to registers ;size:1
+                      00308 ;@Delay_us_2 PWM1CR2bits               Allocated to registers ;size:1
+                      00309 ;@Delay_us_2 DDR1bits                  Allocated to registers ;size:1
+                      00310 ;@Delay_us_2 TMRCRbits                 Allocated to registers ;size:1
+                      00311 ;@Delay_us_2 T1CRbits                  Allocated to registers ;size:1
+                      00312 ;@Delay_us_2 T1CNTbits                 Allocated to registers ;size:1
+                      00313 ;@Delay_us_2 T1LOADbits                Allocated to registers ;size:1
+                      00314 ;@Delay_us_2 T1DATAbits                Allocated to registers ;size:1
+                      00315 ;@Delay_us_2 T1DATBbits                Allocated to registers ;size:1
+                      00316 ;@Delay_us_2 T1DATCbits                Allocated to registers ;size:1
+                      00317 ;@Delay_us_2 T1DATDbits                Allocated to registers ;size:1
+                      00318 ;@Delay_us_2 T2CRbits                  Allocated to registers ;size:1
+                      00319 ;@Delay_us_2 T2CNTHbits                Allocated to registers ;size:1
+                      00320 ;@Delay_us_2 T2CNTLbits                Allocated to registers ;size:1
+                      00321 ;@Delay_us_2 T2LOADHbits               Allocated to registers ;size:1
+                      00322 ;@Delay_us_2 T2LOADLbits               Allocated to registers ;size:1
+                      00323 ;@Delay_us_2 P1KBCRbits                Allocated to registers ;size:1
+                      00324 ;@Delay_us_2 P1ADCRbits                Allocated to registers ;size:1
+                      00325 ;@Delay_us_2 CMPCR0bits                Allocated to registers ;size:1
+                      00326 ;@Delay_us_2 CMPCR1bits                Allocated to registers ;size:1
+                      00327 ;@Delay_us_2 CMPCR2bits                Allocated to registers ;size:1
+                      00328 ;@Delay_us_2 TKCR0bits                 Allocated to registers ;size:1
+                      00329 ;@Delay_us_2 TKCR1bits                 Allocated to registers ;size:1
+                      00330 ;@Delay_us_2 TKCR2bits                 Allocated to registers ;size:1
+                      00331 ;@Delay_us_2 TKCNTHbits                Allocated to registers ;size:1
+                      00332 ;@Delay_us_2 TKCNTLbits                Allocated to registers ;size:1
+                      00333 ;@Delay_us_2 CSAVE_ACC                 Allocated to registers ;size:1
+                      00334 ;@Delay_us_2 CSAVE_STATUS              Allocated to registers ;size:1
+                      00335 ;@Delay_us_2 CPLAY_FLAG                Allocated to registers ;size:1
+                      00336 ;@Delay_us_2 flag1                     Allocated to registers ;size:1
+                      00337 ;@Delay_us_2 flag2                     Allocated to registers ;size:1
+                      00338 ;@Delay_us_2 flag3                     Allocated to registers ;size:1
+                      00339 ;@Delay_us_2 u16_get_val               Allocated to registers ;size:2
+                      00340 ;@Delay_us_2 u16_release_val           Allocated to registers ;size:2
+                      00341 ;@Delay_us_2 u16_temp_val              Allocated to registers ;size:2
+                      00342 ;@Delay_us_2 u16_release_val_TK0       Allocated to registers ;size:2
+                      00343 ;@Delay_us_2 u16_release_val_TK1       Allocated to registers ;size:2
+                      00344 ;@Delay_us_2 u16_TK1_get_val_Min       Allocated to registers ;size:2
+                      00345 ;@Delay_us_2 u16_TK0_get_val_Min       Allocated to registers ;size:2
+                      00346 ;@Delay_us_2 u16_TK0_environment_val   Allocated to registers ;size:2
+                      00347 ;@Delay_us_2 u16_TK0_environment_val_Sum Allocated to registers ;size:2
+                      00348 ;@Delay_us_2 u16_TK1_environment_val   Allocated to registers ;size:2
+                      00349 ;@Delay_us_2 u16_TK1_environment_val_Sum Allocated to registers ;size:2
+                      00350 ;@Delay_us_2 TK0_Filter_Cnt            Allocated to registers ;size:1
+                      00351 ;@Delay_us_2 TK0_Filter_Cnt_T          Allocated to registers ;size:1
+                      00352 ;@Delay_us_2 TK1_Filter_Cnt            Allocated to registers ;size:1
+                      00353 ;@Delay_us_2 TK1_Filter_Cnt_T          Allocated to registers ;size:1
+                      00354 ;@Delay_us_2 FilterCnt_TK0             Allocated to registers ;size:1
+                      00355 ;@Delay_us_2 FilterCnt_TK1             Allocated to registers ;size:1
+                      00356 ;@Delay_us_2 SleepCnt                  Allocated to registers ;size:1
+                      00357 ;@Delay_us_2 PWM_Duty_W                Allocated to registers ;size:1
+                      00358 ;@Delay_us_2 PWM_Duty_Y                Allocated to registers ;size:1
+                      00359 ;@Delay_us_2 T_key_Value               Allocated to registers ;size:1
+                      00360 ;@Delay_us_2 TK1_Key_Cnt               Allocated to registers ;size:1
+                      00361 ;@Delay_us_2 TK0_Key_Cnt               Allocated to registers ;size:1
+                      00362 ;@Delay_us_2 T0_5ms_Cnt                Allocated to registers ;size:1
+                      00363 ;@Delay_us_2 u8_TK_Reset_Cnt           Allocated to registers ;size:2
+                      00364 ;@Delay_us_2 u16_TK0_get_val_Temp      Allocated to registers ;size:2
+                      00365 ;@Delay_us_2 u16_TK1_get_val_Temp      Allocated to registers ;size:2
+                      00366 ;@Delay_us_2 i                         Allocated to registers ;size:1
+                      00367 ;@Delay_us_2 INDF                      Allocated to registers ;size:1
+                      00368 ;@Delay_us_2 T0CNT                     Allocated to registers ;size:1
+                      00369 ;@Delay_us_2 PCL                       Allocated to registers ;size:1
+                      00370 ;@Delay_us_2 STATUS                    Allocated to registers ;size:1
+                      00371 ;@Delay_us_2 FSR                       Allocated to registers ;size:1
+                      00372 ;@Delay_us_2 P1                        Allocated to registers ;size:1
+                      00373 ;@Delay_us_2 MCR                       Allocated to registers ;size:1
+                      00374 ;@Delay_us_2 T0CR                      Allocated to registers ;size:1
+                      00375 ;@Delay_us_2 PCLATH                    Allocated to registers ;size:1
+                      00376 ;@Delay_us_2 PDCON                     Allocated to registers ;size:1
+                      00377 ;@Delay_us_2 ODCON                     Allocated to registers ;size:1
+                      00378 ;@Delay_us_2 PUCON                     Allocated to registers ;size:1
+                      00379 ;@Delay_us_2 INTE                      Allocated to registers ;size:1
+                      00380 ;@Delay_us_2 INTF                      Allocated to registers ;size:1
+                      00381 ;@Delay_us_2 PWM1CR0                   Allocated to registers ;size:1
+                      00382 ;@Delay_us_2 PWM1CR1                   Allocated to registers ;size:1
+                      00383 ;@Delay_us_2 PWM1CR2                   Allocated to registers ;size:1
+                      00384 ;@Delay_us_2 DDR1                      Allocated to registers ;size:1
+                      00385 ;@Delay_us_2 TMRCR                     Allocated to registers ;size:1
+                      00386 ;@Delay_us_2 T1CR                      Allocated to registers ;size:1
+                      00387 ;@Delay_us_2 T1CNT                     Allocated to registers ;size:1
+                      00388 ;@Delay_us_2 T1LOAD                    Allocated to registers ;size:1
+                      00389 ;@Delay_us_2 T1DATA                    Allocated to registers ;size:1
+                      00390 ;@Delay_us_2 T1DATB                    Allocated to registers ;size:1
+                      00391 ;@Delay_us_2 T1DATC                    Allocated to registers ;size:1
+                      00392 ;@Delay_us_2 T1DATD                    Allocated to registers ;size:1
+                      00393 ;@Delay_us_2 T2CR                      Allocated to registers ;size:1
+                      00394 ;@Delay_us_2 T2CNTH                    Allocated to registers ;size:1
+                      00395 ;@Delay_us_2 T2CNTL                    Allocated to registers ;size:1
+                      00396 ;@Delay_us_2 T2LOADH                   Allocated to registers ;size:1
+                      00397 ;@Delay_us_2 T2LOADL                   Allocated to registers ;size:1
+                      00398 ;@Delay_us_2 P1KBCR                    Allocated to registers ;size:1
+                      00399 ;@Delay_us_2 P1ADCR                    Allocated to registers ;size:1
+                      00400 ;@Delay_us_2 CMPCR0                    Allocated to registers ;size:1
+                      00401 ;@Delay_us_2 CMPCR1                    Allocated to registers ;size:1
+                      00402 ;@Delay_us_2 CMPCR2                    Allocated to registers ;size:1
+                      00403 ;@Delay_us_2 TKCR0                     Allocated to registers ;size:1
+                      00404 ;@Delay_us_2 TKCR1                     Allocated to registers ;size:1
+                      00405 ;@Delay_us_2 TKCR2                     Allocated to registers ;size:1
+                      00406 ;@Delay_us_2 TKCNTH                    Allocated to registers ;size:1
+                      00407 ;@Delay_us_2 TKCNTL                    Allocated to registers ;size:1
+                      00408 ;@end Allocation info for local variables in function 'Delay_us_2';
+                      00409 ;@Allocation info for local variables in function 'Init_Sys'
+                      00410 ;@end Allocation info for local variables in function 'Init_Sys';
+                      00411 ;@Allocation info for local variables in function 'Clr_Ram'
+                      00412 ;@end Allocation info for local variables in function 'Clr_Ram';
+                      00413 ;@Allocation info for local variables in function 'T1_PWM_Init'
+                      00414 ;@end Allocation info for local variables in function 'T1_PWM_Init';
+                      00415 ;@Allocation info for local variables in function 'IO_Init'
+                      00416 ;@end Allocation info for local variables in function 'IO_Init';
+                      00417 ;@Allocation info for local variables in function 'TOUCH_Init'
+                      00418 ;@end Allocation info for local variables in function 'TOUCH_Init';
+                      00419 ;@Allocation info for local variables in function 'TK_Init'
+                      00420 ;@end Allocation info for local variables in function 'TK_Init';
+                      00421 ;@Allocation info for local variables in function 'Get_TK_Value'
+                      00422 ;@end Allocation info for local variables in function 'Get_TK_Value';
+                      00423 ;@Allocation info for local variables in function 'TK0_Release_'
+                      00424 ;@end Allocation info for local variables in function 'TK0_Release_';
+                      00425 ;@Allocation info for local variables in function 'TK0_Scan'
+                      00426 ;@end Allocation info for local variables in function 'TK0_Scan';
+                      00427 ;@Allocation info for local variables in function 'TK1_Release_'
+                      00428 ;@end Allocation info for local variables in function 'TK1_Release_';
+                      00429 ;@Allocation info for local variables in function 'TK1_Scan'
+                      00430 ;@end Allocation info for local variables in function 'TK1_Scan';
+                      00431 ;@Allocation info for local variables in function 'TK1_value_Read'
+                      00432 ;@end Allocation info for local variables in function 'TK1_value_Read';
+                      00433 ;@Allocation info for local variables in function 'TK0_value_Read'
+                      00434 ;@end Allocation info for local variables in function 'TK0_value_Read';
+                      00435 ;@Allocation info for local variables in function 'PWM_W_OFF'
+                      00436 ;@end Allocation info for local variables in function 'PWM_W_OFF';
+                      00437 ;@Allocation info for local variables in function 'PWM_Y_OFF'
+                      00438 ;@end Allocation info for local variables in function 'PWM_Y_OFF';
+                      00439 ;@Allocation info for local variables in function 'LED_PWM_Control'
+                      00440 ;@end Allocation info for local variables in function 'LED_PWM_Control';
+                      00441 ;@Allocation info for local variables in function 'TK_10S_Reset'
+                      00442 ;@end Allocation info for local variables in function 'TK_10S_Reset';
+                      00443 ;@Allocation info for local variables in function 'Sleep_mode'
+                      00444 ;@end Allocation info for local variables in function 'Sleep_mode';
+                      00445 ;@Allocation info for local variables in function 'main'
+                      00446 ;@end Allocation info for local variables in function 'main';
+                      00447 ;@Allocation info for local variables in function 'int_isr'
+                      00448 ;@end Allocation info for local variables in function 'int_isr';
+                      00449 
+                      00450 ;--------------------------------------------------------
+                      00451 ; overlayable items in internal ram 
+                      00452 ;--------------------------------------------------------
+                      00453 ;       udata_ovr
+                      00454 ;--------------------------------------------------------
+                      00455 ; reset vector 
+                      00456 ;--------------------------------------------------------
+                      00457 STARTUP code 0x0000
+0000   2800           00458         goto    _main
+                      00459 ;--------------------------------------------------------
+                      00460 ; interrupt and initialization code
+                      00461 ;--------------------------------------------------------
+                      00462 c_interrupt     code    0x8
+0008                  00463 __sdcc_interrupt
+                      00464 ;***
+                      00465 ;  pBlock Stats: dbName = I
+                      00466 ;***
+                      00467 ;entry:  _int_isr       ;Function start
+                      00468 ; 0 exit points
+                      00469 ;; Starting pCode block
+0008                  00470 _int_isr        ;Function start
+                      00471 ; 0 exit points
+                      00472 ;       .line   898; "MC30P8160.c"      __endasm;
+0008   1580           00473         MOVRA   _CSAVE_ACC
+0009   1103           00474         SWAPAR  STATUS
+000A   1580           00475         MOVRA   _CSAVE_STATUS
+                      00476         
+                      00477 ;       .line   901; "MC30P8160.c"      if(T0IF)
+000B   3000           00478         JBSET   _INTFbits,0
+000C   2800           00479         GOTO    _00468_DS_
+                      00480 ;       .line   903; "MC30P8160.c"      T0IF   = 0; 
+000D   3C00           00481         BCLR    _INTFbits,0
+                      00482 ;       .line   904; "MC30P8160.c"      T0CNT = 217; // T0没有自动重载器，
+000E   0BD9           00483         MOVAI   0xd9
+000F   1580           00484         MOVRA   _T0CNT
+                      00485 ;       .line   906; "MC30P8160.c"      T0_5ms_Flag = 1;
+0010   3A00           00486         BSET    _flag1,4
+                      00487 ;       .line   909; "MC30P8160.c"      T0_5ms_Cnt ++;
+0011   1980           00488         INCR    _T0_5ms_Cnt
+                      00489 ;;unsigned compare: left < lit(0x2=2), size=1
+                      00490 ;       .line   910; "MC30P8160.c"      if(T0_5ms_Cnt >= 2)
+0012   0B02           00491         MOVAI   0x02
+0013   1200           00492         RSUBAR  _T0_5ms_Cnt
+0014   3003           00493         JBSET   STATUS,0
+0015   2800           00494         GOTO    _00468_DS_
+                      00495 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00496 ;       .line   912; "MC30P8160.c"      T0_5ms_Cnt = 0;
+0016   1D80           00497         CLRR    _T0_5ms_Cnt
+                      00498 ;       .line   913; "MC30P8160.c"      T0_10ms_Flag = 1;
+0017   3A80           00499         BSET    _flag1,5
+0018                  00500 _00468_DS_
+                      00501 ;       .line   918; "MC30P8160.c"      if(T1IF)
+0018   3000           00502         JBSET   _TMRCRbits,0
+0019   2800           00503         GOTO    _00470_DS_
+                      00504 ;       .line   920; "MC30P8160.c"      T1IF   = 0; 
+001A   3C00           00505         BCLR    _TMRCRbits,0
+001B                  00506 _00470_DS_
+                      00507 ;       .line   931; "MC30P8160.c"      __endasm;
+001B   1100           00508         SWAPAR  _CSAVE_STATUS
+001C   1583           00509         MOVRA   STATUS
+001D   1180           00510         SWAPR   _CSAVE_ACC
+001E   1100           00511         SWAPAR  _CSAVE_ACC
+                      00512         
+001F                  00513 END_OF_INTERRUPT
+                      00514 ;       .line   932; "MC30P8160.c"      }
+001F   000D           00515         RETIE   
+                      00516 
+                      00517 ;--------------------------------------------------------
+                      00518 ; code
+                      00519 ;--------------------------------------------------------
+                      00520 code_MC30P8160  code
+                      00521 ;***
+                      00522 ;  pBlock Stats: dbName = M
+                      00523 ;***
+                      00524 ;entry:  _main  ;Function start
+                      00525 ; 2 exit points
+                      00526 ;has an exit
+                      00527 ;functions called:
+                      00528 ;   _Clr_Ram
+                      00529 ;   _Init_Sys
+                      00530 ;   _IO_Init
+                      00531 ;   _Delay_us_2
+                      00532 ;   _TOUCH_Init
+                      00533 ;   _T1_PWM_Init
+                      00534 ;   _TK0_Scan
+                      00535 ;   _TK1_Scan
+                      00536 ;   _TK0_value_Read
+                      00537 ;   _TK1_value_Read
+                      00538 ;   _LED_PWM_Control
+                      00539 ;   _TK_10S_Reset
+                      00540 ;   _Sleep_mode
+                      00541 ;   _Clr_Ram
+                      00542 ;   _Init_Sys
+                      00543 ;   _IO_Init
+                      00544 ;   _Delay_us_2
+                      00545 ;   _TOUCH_Init
+                      00546 ;   _T1_PWM_Init
+                      00547 ;   _TK0_Scan
+                      00548 ;   _TK1_Scan
+                      00549 ;   _TK0_value_Read
+                      00550 ;   _TK1_value_Read
+                      00551 ;   _LED_PWM_Control
+                      00552 ;   _TK_10S_Reset
+                      00553 ;   _Sleep_mode
+                      00554 ;; Starting pCode block
+0000                  00555 _main   ;Function start
+                      00556 ; 2 exit points
+                      00557 ;       .line   835; "MC30P8160.c"      Clr_Ram();
+0000   2000           00558         CALL    _Clr_Ram
+                      00559 ;       .line   836; "MC30P8160.c"      Init_Sys();
+0001   2000           00560         CALL    _Init_Sys
+                      00561 ;       .line   838; "MC30P8160.c"      IO_Init();
+0002   2000           00562         CALL    _IO_Init
+                      00563 ;       .line   840; "MC30P8160.c"      Delay_us_2(0x5020); // 4M 约100ms
+0003   0B20           00564         MOVAI   0x20
+0004   2000           00565         CALL    _Delay_us_2
+                      00566 ;       .line   842; "MC30P8160.c"      TOUCH_Init(); // 设置触摸寄存器 
+0005   2000           00567         CALL    _TOUCH_Init
+                      00568 ;       .line   844; "MC30P8160.c"      T1_PWM_Init();
+0006   2000           00569         CALL    _T1_PWM_Init
+                      00570 ;       .line   845; "MC30P8160.c"      SleepCnt = 0xff;
+0007   0BFF           00571         MOVAI   0xff
+0008   1580           00572         MOVRA   _SleepCnt
+                      00573 ;       .line   847; "MC30P8160.c"      PWM_Duty_W = 0xff; // 
+0009   0BFF           00574         MOVAI   0xff
+000A   1580           00575         MOVRA   _PWM_Duty_W
+                      00576 ;       .line   848; "MC30P8160.c"      PWM_Duty_Y = 0xff; // 
+000B   0BFF           00577         MOVAI   0xff
+000C   1580           00578         MOVRA   _PWM_Duty_Y
+                      00579 ;       .line   850; "MC30P8160.c"      W_AS_Flag = 1;
+000D   3B80           00580         BSET    _flag1,7
+                      00581 ;       .line   851; "MC30P8160.c"      Y_AS_Flag = 1;
+000E   3800           00582         BSET    _flag3,0
+                      00583 ;       .line   852; "MC30P8160.c"      Pre_T_Key0_Release = 1;
+000F   3880           00584         BSET    _flag1,1
+                      00585 ;       .line   853; "MC30P8160.c"      u16_TK0_get_val_Min = 0xFFFF;
+0010   0BFF           00586         MOVAI   0xff
+0011   1580           00587         MOVRA   _u16_TK0_get_val_Min
+0012   1580           00588         MOVRA   (_u16_TK0_get_val_Min + 1)
+                      00589 ;       .line   854; "MC30P8160.c"      u16_TK1_get_val_Min = 0xFFFF;
+0013   0BFF           00590         MOVAI   0xff
+0014   1580           00591         MOVRA   _u16_TK1_get_val_Min
+0015   1580           00592         MOVRA   (_u16_TK1_get_val_Min + 1)
+0016                  00593 _00460_DS_
+                      00594 ;       .line   858; "MC30P8160.c"      if(T0_5ms_Flag)
+0016   3200           00595         JBSET   _flag1,4
+0017   2800           00596         GOTO    _00456_DS_
+                      00597 ;       .line   860; "MC30P8160.c"      T0_5ms_Flag = 0;
+0018   3E00           00598         BCLR    _flag1,4
+                      00599 ;       .line   862; "MC30P8160.c"      TK0_Scan();                                
+0019   2000           00600         CALL    _TK0_Scan
+                      00601 ;       .line   863; "MC30P8160.c"      TK1_Scan();                             
+001A   2000           00602         CALL    _TK1_Scan
+001B                  00603 _00456_DS_
+                      00604 ;       .line   869; "MC30P8160.c"      if(T0_10ms_Flag) 
+001B   3280           00605         JBSET   _flag1,5
+001C   2800           00606         GOTO    _00458_DS_
+                      00607 ;       .line   871; "MC30P8160.c"      T0_10ms_Flag = 0;
+001D   3E80           00608         BCLR    _flag1,5
+                      00609 ;       .line   873; "MC30P8160.c"      TK0_value_Read();
+001E   2000           00610         CALL    _TK0_value_Read
+                      00611 ;       .line   874; "MC30P8160.c"      TK1_value_Read();
+001F   2000           00612         CALL    _TK1_value_Read
+                      00613 ;       .line   876; "MC30P8160.c"      LED_PWM_Control();                       
+0020   2000           00614         CALL    _LED_PWM_Control
+                      00615 ;       .line   878; "MC30P8160.c"      TK_10S_Reset();
+0021   2000           00616         CALL    _TK_10S_Reset
+                      00617 ;       .line   879; "MC30P8160.c"      Sleep_mode();
+0022   2000           00618         CALL    _Sleep_mode
+0023                  00619 _00458_DS_
+                      00620 ;       .line   882; "MC30P8160.c"      WDT_Clear();
+0023   000E           00621         CLRWDT  
+0024   2800           00622         GOTO    _00460_DS_
+                      00623 ;       .line   885; "MC30P8160.c"      }
+0025   000C           00624         RETURN  
+                      00625 ; exit point of _main
+                      00626 
+                      00627 ;***
+                      00628 ;  pBlock Stats: dbName = C
+                      00629 ;***
+                      00630 ;entry:  _Sleep_mode    ;Function start
+                      00631 ; 2 exit points
+                      00632 ;has an exit
+                      00633 ;; Starting pCode block
+0026                  00634 _Sleep_mode     ;Function start
+                      00635 ; 2 exit points
+                      00636 ;       .line   798; "MC30P8160.c"      if(SleepCnt) 
+0026   0B00           00637         MOVAI   0x00
+0027   1700           00638         ORAR    _SleepCnt
+0028   3503           00639         JBCLR   STATUS,2
+0029   2800           00640         GOTO    _00444_DS_
+                      00641 ;       .line   800; "MC30P8160.c"      SleepCnt--;
+002A   1B80           00642         DECR    _SleepCnt
+002B                  00643 _00444_DS_
+                      00644 ;       .line   803; "MC30P8160.c"      if(W_Power_Flag || Y_Power_Flag)
+002B   3400           00645         JBCLR   _flag2,0
+002C   2800           00646         GOTO    _00445_DS_
+002D   3280           00647         JBSET   _flag2,5
+002E   2800           00648         GOTO    _00446_DS_
+002F                  00649 _00445_DS_
+                      00650 ;       .line   805; "MC30P8160.c"      SleepCnt = 0xFF; // 2.55s
+002F   0BFF           00651         MOVAI   0xff
+0030   1580           00652         MOVRA   _SleepCnt
+0031                  00653 _00446_DS_
+                      00654 ;       .line   809; "MC30P8160.c"      if(!SleepCnt)
+0031   0B00           00655         MOVAI   0x00
+0032   1700           00656         ORAR    _SleepCnt
+0033   3103           00657         JBSET   STATUS,2
+0034   2800           00658         GOTO    _00450_DS_
+                      00659 ;       .line   812; "MC30P8160.c"      TKEN = 0;       //关闭TK
+0035   3F80           00660         BCLR    _TKCR0bits,7
+                      00661 ;       .line   815; "MC30P8160.c"      SLEEP();   //休眠两种编写方式(方式二)
+0036   000B           00662         STOP    
+                      00663 ;       .line   819; "MC30P8160.c"      TKEN = 1;          //打开TK
+0037   3B80           00664         BSET    _TKCR0bits,7
+                      00665 ;       .line   822; "MC30P8160.c"      T0_5ms_Flag = 1;
+0038   3A00           00666         BSET    _flag1,4
+                      00667 ;       .line   823; "MC30P8160.c"      T0_10ms_Flag = 1;
+0039   3A80           00668         BSET    _flag1,5
+003A                  00669 _00450_DS_
+                      00670 ;       .line   826; "MC30P8160.c"      }
+003A   000C           00671         RETURN  
+                      00672 ; exit point of _Sleep_mode
+                      00673 
+                      00674 ;***
+                      00675 ;  pBlock Stats: dbName = C
+                      00676 ;***
+                      00677 ;entry:  _TK_10S_Reset  ;Function start
+                      00678 ; 2 exit points
+                      00679 ;has an exit
+                      00680 ;functions called:
+                      00681 ;   _TK0_Release_
+                      00682 ;   _TK1_Release_
+                      00683 ;   _TK0_Release_
+                      00684 ;   _TK1_Release_
+                      00685 ;; Starting pCode block
+003B                  00686 _TK_10S_Reset   ;Function start
+                      00687 ; 2 exit points
+                      00688 ;       .line   777; "MC30P8160.c"      if (T_Key0_Signal || T_Key1_Signal)
+003B   3400           00689         JBCLR   _flag1,0
+003C   2800           00690         GOTO    _00424_DS_
+003D   3180           00691         JBSET   _flag2,3
+003E   2800           00692         GOTO    _00425_DS_
+003F                  00693 _00424_DS_
+                      00694 ;       .line   779; "MC30P8160.c"      u8_TK_Reset_Cnt++;
+003F   1980           00695         INCR    _u8_TK_Reset_Cnt
+0040   3503           00696         JBCLR   STATUS,2
+0041   1980           00697         INCR    (_u8_TK_Reset_Cnt + 1)
+                      00698 ;;unsigned compare: left < lit(0x3E8=1000), size=2
+                      00699 ;       .line   780; "MC30P8160.c"      if (u8_TK_Reset_Cnt >= 1000) // 10s
+0042   0B03           00700         MOVAI   0x03
+0043   1200           00701         RSUBAR  (_u8_TK_Reset_Cnt + 1)
+0044   3103           00702         JBSET   STATUS,2
+0045   2800           00703         GOTO    _00438_DS_
+0046   0BE8           00704         MOVAI   0xe8
+0047   1200           00705         RSUBAR  _u8_TK_Reset_Cnt
+0048                  00706 _00438_DS_
+0048   3003           00707         JBSET   STATUS,0
+0049   2800           00708         GOTO    _00428_DS_
+                      00709 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00710 ;       .line   783; "MC30P8160.c"      TK0_Release_();
+004A   2000           00711         CALL    _TK0_Release_
+                      00712 ;       .line   784; "MC30P8160.c"      TK1_Release_();
+004B   2000           00713         CALL    _TK1_Release_
+004C   2800           00714         GOTO    _00428_DS_
+004D                  00715 _00425_DS_
+                      00716 ;       .line   789; "MC30P8160.c"      u8_TK_Reset_Cnt = 0;
+004D   1D80           00717         CLRR    _u8_TK_Reset_Cnt
+004E   1D80           00718         CLRR    (_u8_TK_Reset_Cnt + 1)
+004F                  00719 _00428_DS_
+                      00720 ;       .line   792; "MC30P8160.c"      }
+004F   000C           00721         RETURN  
+                      00722 ; exit point of _TK_10S_Reset
+                      00723 
+                      00724 ;***
+                      00725 ;  pBlock Stats: dbName = C
+                      00726 ;***
+                      00727 ;entry:  _LED_PWM_Control       ;Function start
+                      00728 ; 2 exit points
+                      00729 ;has an exit
+                      00730 ;functions called:
+                      00731 ;   _PWM_W_OFF
+                      00732 ;   _PWM_Y_OFF
+                      00733 ;   _PWM_W_OFF
+                      00734 ;   _PWM_Y_OFF
+                      00735 ;1 compiler assigned register :
+                      00736 ;   r0x1029
+                      00737 ;; Starting pCode block
+0050                  00738 _LED_PWM_Control        ;Function start
+                      00739 ; 2 exit points
+                      00740 ;       .line   709; "MC30P8160.c"      if(PWM_Change_KeyFlg == 1)      //按键值改变更新状态
+0050   1D80           00741         CLRR    r0x1029
+0051   3480           00742         JBCLR   _flag2,1
+0052   1980           00743         INCR    r0x1029
+0053   1600           00744         MOVAR   r0x1029
+0054   0801           00745         XORAI   0x01
+0055   3103           00746         JBSET   STATUS,2
+0056   2800           00747         GOTO    _00392_DS_
+                      00748 ;       .line   711; "MC30P8160.c"      PWM_Change_KeyFlg = 0;
+0057   3C80           00749         BCLR    _flag2,1
+                      00750 ;       .line   713; "MC30P8160.c"      if(W_Power_Flag == 0)
+0058   3400           00751         JBCLR   _flag2,0
+0059   2800           00752         GOTO    _00386_DS_
+                      00753 ;       .line   715; "MC30P8160.c"      PWM_W_OFF();                    
+005A   2000           00754         CALL    _PWM_W_OFF
+005B   2800           00755         GOTO    _00387_DS_
+005C                  00756 _00386_DS_
+                      00757 ;       .line   719; "MC30P8160.c"      T1DATD = PWM_Duty_W; //PWM_Duty_W
+005C   1600           00758         MOVAR   _PWM_Duty_W
+005D   1580           00759         MOVRA   _T1DATD
+                      00760 ;       .line   720; "MC30P8160.c"      PWM1DOE = 1; //打开端口输出脉宽调制波形
+005E   3A80           00761         BSET    _PWM1CR0bits,5
+                      00762 ;       .line   721; "MC30P8160.c"      PWM1DEN = 1; //打开 PWM1D 功能  
+005F   3A00           00763         BSET    _PWM1CR0bits,4
+0060                  00764 _00387_DS_
+                      00765 ;       .line   724; "MC30P8160.c"      if (Y_Power_Flag == 0)
+0060   3680           00766         JBCLR   _flag2,5
+0061   2800           00767         GOTO    _00389_DS_
+                      00768 ;       .line   726; "MC30P8160.c"      PWM_Y_OFF();
+0062   2000           00769         CALL    _PWM_Y_OFF
+0063   2800           00770         GOTO    _00392_DS_
+0064                  00771 _00389_DS_
+                      00772 ;       .line   730; "MC30P8160.c"      T1DATC = PWM_Duty_Y;
+0064   1600           00773         MOVAR   _PWM_Duty_Y
+0065   1580           00774         MOVRA   _T1DATC
+                      00775 ;       .line   731; "MC30P8160.c"      PWM1COE = 1; //打开端口输出脉宽调制波形
+0066   3980           00776         BSET    _PWM1CR0bits,3
+                      00777 ;       .line   732; "MC30P8160.c"      PWM1CEN = 1; //打开 PWM1D 功能  
+0067   3900           00778         BSET    _PWM1CR0bits,2
+0068                  00779 _00392_DS_
+                      00780 ;       .line   737; "MC30P8160.c"      if(TK1_Long_press_Flag) //长按无极调光（255极）
+0068   3180           00781         JBSET   _flag1,3
+0069   2800           00782         GOTO    _00404_DS_
+                      00783 ;       .line   739; "MC30P8160.c"      if(Y_AS_Flag && Y_Power_Flag)           //逐渐变暗
+006A   3000           00784         JBSET   _flag3,0
+006B   2800           00785         GOTO    _00400_DS_
+006C   3280           00786         JBSET   _flag2,5
+006D   2800           00787         GOTO    _00400_DS_
+                      00788 ;;unsigned compare: left < lit(0xFF=255), size=1
+                      00789 ;       .line   741; "MC30P8160.c"      if(PWM_Duty_Y < 255) //最大亮度 100%
+006E   0BFF           00790         MOVAI   0xff
+006F   1200           00791         RSUBAR  _PWM_Duty_Y
+0070   3403           00792         JBCLR   STATUS,0
+0071   2800           00793         GOTO    _00404_DS_
+                      00794 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00795 ;       .line   743; "MC30P8160.c"      PWM_Duty_Y ++;
+0072   1980           00796         INCR    _PWM_Duty_Y
+0073   2800           00797         GOTO    _00404_DS_
+0074                  00798 _00400_DS_
+                      00799 ;       .line   746; "MC30P8160.c"      else if(Y_Power_Flag)   //逐渐变亮
+0074   3280           00800         JBSET   _flag2,5
+0075   2800           00801         GOTO    _00404_DS_
+                      00802 ;;swapping arguments (AOP_TYPEs 1/3)
+                      00803 ;;unsigned compare: left >= lit(0xD=13), size=1
+                      00804 ;       .line   748; "MC30P8160.c"      if(PWM_Duty_Y > 12 ) //最小亮度PWM值：255 * 5%，
+0076   0B0D           00805         MOVAI   0x0d
+0077   1200           00806         RSUBAR  _PWM_Duty_Y
+0078   3003           00807         JBSET   STATUS,0
+0079   2800           00808         GOTO    _00404_DS_
+                      00809 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00810 ;       .line   750; "MC30P8160.c"      PWM_Duty_Y --; 
+007A   1B80           00811         DECR    _PWM_Duty_Y
+007B                  00812 _00404_DS_
+                      00813 ;       .line   755; "MC30P8160.c"      if (TK0_Long_press_Flag) //长按无极调光（255极）
+007B   3300           00814         JBSET   _flag1,6
+007C   2800           00815         GOTO    _00417_DS_
+                      00816 ;       .line   757; "MC30P8160.c"      if (W_AS_Flag && W_Power_Flag)          //逐渐变暗
+007D   3380           00817         JBSET   _flag1,7
+007E   2800           00818         GOTO    _00412_DS_
+007F   3000           00819         JBSET   _flag2,0
+0080   2800           00820         GOTO    _00412_DS_
+                      00821 ;;unsigned compare: left < lit(0xFF=255), size=1
+                      00822 ;       .line   759; "MC30P8160.c"      if (PWM_Duty_W < 255) //最大亮度 100%
+0081   0BFF           00823         MOVAI   0xff
+0082   1200           00824         RSUBAR  _PWM_Duty_W
+0083   3403           00825         JBCLR   STATUS,0
+0084   2800           00826         GOTO    _00417_DS_
+                      00827 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00828 ;       .line   761; "MC30P8160.c"      PWM_Duty_W++;
+0085   1980           00829         INCR    _PWM_Duty_W
+0086   2800           00830         GOTO    _00417_DS_
+0087                  00831 _00412_DS_
+                      00832 ;       .line   764; "MC30P8160.c"      else if(W_Power_Flag)   //逐渐变亮
+0087   3000           00833         JBSET   _flag2,0
+0088   2800           00834         GOTO    _00417_DS_
+                      00835 ;;swapping arguments (AOP_TYPEs 1/3)
+                      00836 ;;unsigned compare: left >= lit(0xD=13), size=1
+                      00837 ;       .line   766; "MC30P8160.c"      if (PWM_Duty_W > 12) //最小亮度PWM值：255 * 8%，
+0089   0B0D           00838         MOVAI   0x0d
+008A   1200           00839         RSUBAR  _PWM_Duty_W
+008B   3003           00840         JBSET   STATUS,0
+008C   2800           00841         GOTO    _00417_DS_
+                      00842 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00843 ;       .line   768; "MC30P8160.c"      PWM_Duty_W--;
+008D   1B80           00844         DECR    _PWM_Duty_W
+008E                  00845 _00417_DS_
+                      00846 ;       .line   772; "MC30P8160.c"      }
+008E   000C           00847         RETURN  
+                      00848 ; exit point of _LED_PWM_Control
+                      00849 
+                      00850 ;***
+                      00851 ;  pBlock Stats: dbName = C
+                      00852 ;***
+                      00853 ;entry:  _PWM_Y_OFF     ;Function start
+                      00854 ; 2 exit points
+                      00855 ;has an exit
+                      00856 ;; Starting pCode block
+008F                  00857 _PWM_Y_OFF      ;Function start
+                      00858 ; 2 exit points
+                      00859 ;       .line   701; "MC30P8160.c"      T1DATC = 0;
+008F   1D80           00860         CLRR    _T1DATC
+                      00861 ;       .line   702; "MC30P8160.c"      PWM1COE = 0; //禁止端口输出脉宽调制波形；
+0090   3D80           00862         BCLR    _PWM1CR0bits,3
+                      00863 ;       .line   703; "MC30P8160.c"      PWM1CEN = 0; //关闭 PWM1C 功能；
+0091   3D00           00864         BCLR    _PWM1CR0bits,2
+                      00865 ;       .line   704; "MC30P8160.c"      }
+0092   000C           00866         RETURN  
+                      00867 ; exit point of _PWM_Y_OFF
+                      00868 
+                      00869 ;***
+                      00870 ;  pBlock Stats: dbName = C
+                      00871 ;***
+                      00872 ;entry:  _PWM_W_OFF     ;Function start
+                      00873 ; 2 exit points
+                      00874 ;has an exit
+                      00875 ;; Starting pCode block
+0093                  00876 _PWM_W_OFF      ;Function start
+                      00877 ; 2 exit points
+                      00878 ;       .line   694; "MC30P8160.c"      T1DATD = 0;
+0093   1D80           00879         CLRR    _T1DATD
+                      00880 ;       .line   695; "MC30P8160.c"      PWM1DOE = 0; //禁止端口输出脉宽调制波形；
+0094   3E80           00881         BCLR    _PWM1CR0bits,5
+                      00882 ;       .line   696; "MC30P8160.c"      PWM1DEN = 0; //关闭 PWM1D 功能；
+0095   3E00           00883         BCLR    _PWM1CR0bits,4
+                      00884 ;       .line   697; "MC30P8160.c"      }
+0096   000C           00885         RETURN  
+                      00886 ; exit point of _PWM_W_OFF
+                      00887 
+                      00888 ;***
+                      00889 ;  pBlock Stats: dbName = C
+                      00890 ;***
+                      00891 ;entry:  _TK0_value_Read        ;Function start
+                      00892 ; 2 exit points
+                      00893 ;has an exit
+                      00894 ;2 compiler assigned registers:
+                      00895 ;   r0x1029
+                      00896 ;   r0x102A
+                      00897 ;; Starting pCode block
+0097                  00898 _TK0_value_Read ;Function start
+                      00899 ; 2 exit points
+                      00900 ;       .line   648; "MC30P8160.c"      if(T_Key0_Signal && TK0_Key_Release_Flag == 0) //有按键按下
+0097   3000           00901         JBSET   _flag1,0
+0098   2800           00902         GOTO    _00369_DS_
+0099   3500           00903         JBCLR   _flag2,2
+009A   2800           00904         GOTO    _00369_DS_
+                      00905 ;       .line   650; "MC30P8160.c"      TK0_Key_Cnt++;
+009B   1980           00906         INCR    _TK0_Key_Cnt
+                      00907 ;       .line   652; "MC30P8160.c"      PWM_Change_KeyFlg = 1;
+009C   3880           00908         BSET    _flag2,1
+                      00909 ;       .line   654; "MC30P8160.c"      if (TK0_Key_Cnt == 60) //600ms
+009D   1600           00910         MOVAR   _TK0_Key_Cnt
+009E   083C           00911         XORAI   0x3c
+009F   3103           00912         JBSET   STATUS,2
+00A0   2800           00913         GOTO    _00372_DS_
+                      00914 ;       .line   656; "MC30P8160.c"      TK1_Key_Release_Flag = 1;
+00A1   3B80           00915         BSET    _flag2,7
+                      00916 ;       .line   659; "MC30P8160.c"      if (TK0_Long_press_Flag == 0)
+00A2   3700           00917         JBCLR   _flag1,6
+00A3   2800           00918         GOTO    _00372_DS_
+                      00919 ;       .line   661; "MC30P8160.c"      TK0_Long_press_Flag = 1;        //长按标志位置1
+00A4   3B00           00920         BSET    _flag1,6
+                      00921 ;       .line   663; "MC30P8160.c"      PWM_Change_KeyFlg = 1;
+00A5   3880           00922         BSET    _flag2,1
+                      00923 ;       .line   665; "MC30P8160.c"      W_AS_Flag = !W_AS_Flag;         //调亮调暗标志位状态变换
+00A6   1D80           00924         CLRR    r0x1029
+00A7   3780           00925         JBCLR   _flag1,7
+00A8   1980           00926         INCR    r0x1029
+00A9   1600           00927         MOVAR   r0x1029
+00AA   0B00           00928         MOVAI   0x00
+00AB   3503           00929         JBCLR   STATUS,2
+00AC   0B01           00930         MOVAI   0x01
+00AD   1580           00931         MOVRA   r0x1029
+                      00932 ;;1     MOVRA   r0x102A
+                      00933 ;;102   MOVAR   r0x102A
+00AE   1300           00934         RRAR    r0x1029
+00AF   3003           00935         JBSET   STATUS,0
+00B0   3F80           00936         BCLR    _flag1,7
+00B1   3403           00937         JBCLR   STATUS,0
+00B2   3B80           00938         BSET    _flag1,7
+00B3   2800           00939         GOTO    _00372_DS_
+00B4                  00940 _00369_DS_
+                      00941 ;       .line   669; "MC30P8160.c"      else if(T_Key0_Signal == 0)
+00B4   3400           00942         JBCLR   _flag1,0
+00B5   2800           00943         GOTO    _00372_DS_
+                      00944 ;       .line   671; "MC30P8160.c"      TK0_Long_press_Flag = 0;
+00B6   3F00           00945         BCLR    _flag1,6
+                      00946 ;;swapping arguments (AOP_TYPEs 1/3)
+                      00947 ;;unsigned compare: left >= lit(0x2=2), size=1
+                      00948 ;       .line   673; "MC30P8160.c"      if (TK0_Key_Cnt > 1 && TK0_Key_Cnt < 60)
+00B7   0B02           00949         MOVAI   0x02
+00B8   1200           00950         RSUBAR  _TK0_Key_Cnt
+00B9   3003           00951         JBSET   STATUS,0
+00BA   2800           00952         GOTO    _00364_DS_
+                      00953 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00954 ;;unsigned compare: left < lit(0x3C=60), size=1
+00BB   0B3C           00955         MOVAI   0x3c
+00BC   1200           00956         RSUBAR  _TK0_Key_Cnt
+00BD   3403           00957         JBCLR   STATUS,0
+00BE   2800           00958         GOTO    _00364_DS_
+                      00959 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00960 ;       .line   675; "MC30P8160.c"      PWM_Change_KeyFlg = 1;
+00BF   3880           00961         BSET    _flag2,1
+                      00962 ;       .line   677; "MC30P8160.c"      if (W_Power_Flag)
+00C0   3000           00963         JBSET   _flag2,0
+00C1   2800           00964         GOTO    _00361_DS_
+                      00965 ;       .line   679; "MC30P8160.c"      W_Power_Flag = 0;
+00C2   3C00           00966         BCLR    _flag2,0
+00C3   2800           00967         GOTO    _00364_DS_
+00C4                  00968 _00361_DS_
+                      00969 ;       .line   683; "MC30P8160.c"      W_Power_Flag = 1;
+00C4   3800           00970         BSET    _flag2,0
+00C5                  00971 _00364_DS_
+                      00972 ;       .line   687; "MC30P8160.c"      TK0_Key_Release_Flag = 0;
+00C5   3D00           00973         BCLR    _flag2,2
+                      00974 ;       .line   688; "MC30P8160.c"      TK0_Key_Cnt = 0;
+00C6   1D80           00975         CLRR    _TK0_Key_Cnt
+00C7                  00976 _00372_DS_
+                      00977 ;       .line   690; "MC30P8160.c"      }
+00C7   000C           00978         RETURN  
+                      00979 ; exit point of _TK0_value_Read
+                      00980 
+                      00981 ;***
+                      00982 ;  pBlock Stats: dbName = C
+                      00983 ;***
+                      00984 ;entry:  _TK1_value_Read        ;Function start
+                      00985 ; 2 exit points
+                      00986 ;has an exit
+                      00987 ;2 compiler assigned registers:
+                      00988 ;   r0x1029
+                      00989 ;   r0x102A
+                      00990 ;; Starting pCode block
+00C8                  00991 _TK1_value_Read ;Function start
+                      00992 ; 2 exit points
+                      00993 ;       .line   601; "MC30P8160.c"      if(T_Key1_Signal && TK1_Key_Release_Flag == 0) //有按键按下
+00C8   3180           00994         JBSET   _flag2,3
+00C9   2800           00995         GOTO    _00348_DS_
+00CA   3780           00996         JBCLR   _flag2,7
+00CB   2800           00997         GOTO    _00348_DS_
+                      00998 ;       .line   603; "MC30P8160.c"      TK1_Key_Cnt ++;
+00CC   1980           00999         INCR    _TK1_Key_Cnt
+                      01000 ;       .line   605; "MC30P8160.c"      PWM_Change_KeyFlg = 1;
+00CD   3880           01001         BSET    _flag2,1
+                      01002 ;       .line   607; "MC30P8160.c"      if(TK1_Key_Cnt == 60) //600ms
+00CE   1600           01003         MOVAR   _TK1_Key_Cnt
+00CF   083C           01004         XORAI   0x3c
+00D0   3103           01005         JBSET   STATUS,2
+00D1   2800           01006         GOTO    _00351_DS_
+                      01007 ;       .line   609; "MC30P8160.c"      TK0_Key_Release_Flag = 1;
+00D2   3900           01008         BSET    _flag2,2
+                      01009 ;       .line   612; "MC30P8160.c"      if(TK1_Long_press_Flag == 0)
+00D3   3580           01010         JBCLR   _flag1,3
+00D4   2800           01011         GOTO    _00351_DS_
+                      01012 ;       .line   614; "MC30P8160.c"      TK1_Long_press_Flag = 1;        //长按标志位置1
+00D5   3980           01013         BSET    _flag1,3
+                      01014 ;       .line   616; "MC30P8160.c"      PWM_Change_KeyFlg = 1;
+00D6   3880           01015         BSET    _flag2,1
+                      01016 ;       .line   618; "MC30P8160.c"      Y_AS_Flag = !Y_AS_Flag;         //调亮调暗标志位状态变换
+00D7   1D80           01017         CLRR    r0x1029
+00D8   3400           01018         JBCLR   _flag3,0
+00D9   1980           01019         INCR    r0x1029
+00DA   1600           01020         MOVAR   r0x1029
+00DB   0B00           01021         MOVAI   0x00
+00DC   3503           01022         JBCLR   STATUS,2
+00DD   0B01           01023         MOVAI   0x01
+00DE   1580           01024         MOVRA   r0x1029
+                      01025 ;;1     MOVRA   r0x102A
+                      01026 ;;101   MOVAR   r0x102A
+00DF   1300           01027         RRAR    r0x1029
+00E0   3003           01028         JBSET   STATUS,0
+00E1   3C00           01029         BCLR    _flag3,0
+00E2   3403           01030         JBCLR   STATUS,0
+00E3   3800           01031         BSET    _flag3,0
+00E4   2800           01032         GOTO    _00351_DS_
+00E5                  01033 _00348_DS_
+                      01034 ;       .line   623; "MC30P8160.c"      else if(T_Key1_Signal == 0)
+00E5   3580           01035         JBCLR   _flag2,3
+00E6   2800           01036         GOTO    _00351_DS_
+                      01037 ;       .line   625; "MC30P8160.c"      TK1_Long_press_Flag = 0;        //长按标志位清0
+00E7   3D80           01038         BCLR    _flag1,3
+                      01039 ;;swapping arguments (AOP_TYPEs 1/3)
+                      01040 ;;unsigned compare: left >= lit(0x2=2), size=1
+                      01041 ;       .line   627; "MC30P8160.c"      if(TK1_Key_Cnt > 1 && TK1_Key_Cnt < 60)
+00E8   0B02           01042         MOVAI   0x02
+00E9   1200           01043         RSUBAR  _TK1_Key_Cnt
+00EA   3003           01044         JBSET   STATUS,0
+00EB   2800           01045         GOTO    _00343_DS_
+                      01046 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01047 ;;unsigned compare: left < lit(0x3C=60), size=1
+00EC   0B3C           01048         MOVAI   0x3c
+00ED   1200           01049         RSUBAR  _TK1_Key_Cnt
+00EE   3403           01050         JBCLR   STATUS,0
+00EF   2800           01051         GOTO    _00343_DS_
+                      01052 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01053 ;       .line   629; "MC30P8160.c"      PWM_Change_KeyFlg = 1;
+00F0   3880           01054         BSET    _flag2,1
+                      01055 ;       .line   631; "MC30P8160.c"      if (Y_Power_Flag)
+00F1   3280           01056         JBSET   _flag2,5
+00F2   2800           01057         GOTO    _00340_DS_
+                      01058 ;       .line   633; "MC30P8160.c"      Y_Power_Flag = 0;
+00F3   3E80           01059         BCLR    _flag2,5
+00F4   2800           01060         GOTO    _00343_DS_
+00F5                  01061 _00340_DS_
+                      01062 ;       .line   637; "MC30P8160.c"      Y_Power_Flag = 1;
+00F5   3A80           01063         BSET    _flag2,5
+00F6                  01064 _00343_DS_
+                      01065 ;       .line   640; "MC30P8160.c"      TK1_Key_Release_Flag = 0;
+00F6   3F80           01066         BCLR    _flag2,7
+                      01067 ;       .line   641; "MC30P8160.c"      TK1_Key_Cnt = 0;
+00F7   1D80           01068         CLRR    _TK1_Key_Cnt
+00F8                  01069 _00351_DS_
+                      01070 ;       .line   643; "MC30P8160.c"      }
+00F8   000C           01071         RETURN  
+                      01072 ; exit point of _TK1_value_Read
+                      01073 
+                      01074 ;***
+                      01075 ;  pBlock Stats: dbName = C
+                      01076 ;***
+                      01077 ;entry:  _TK1_Scan      ;Function start
+                      01078 ; 2 exit points
+                      01079 ;has an exit
+                      01080 ;functions called:
+                      01081 ;   _TK_Init
+                      01082 ;   _Get_TK_Value
+                      01083 ;   _TK1_Release_
+                      01084 ;   _TK_Init
+                      01085 ;   _Get_TK_Value
+                      01086 ;   _TK1_Release_
+                      01087 ;2 compiler assigned registers:
+                      01088 ;   r0x102D
+                      01089 ;   r0x102E
+                      01090 ;; Starting pCode block
+00F9                  01091 _TK1_Scan       ;Function start
+                      01092 ; 2 exit points
+                      01093 ;       .line   489; "MC30P8160.c"      DDR1 |= 0x02;     // 1： 端口作为输入口          0： 端口作为输出口
+00F9   3880           01094         BSET    _DDR1,1
+                      01095 ;       .line   490; "MC30P8160.c"      P1ADCR |= 0x02;   // 0 使能端口的数字 I/O 功能； 1 关闭端口的数字 I/O 功能；
+00FA   3880           01096         BSET    _P1ADCR,1
+                      01097 ;       .line   492; "MC30P8160.c"      TKCR1 = 0x01; // 写0000_0000 bit0-1: 01 TK1 选择相应按键输入通道
+00FB   0B01           01098         MOVAI   0x01
+00FC   1580           01099         MOVRA   _TKCR1
+                      01100 ;       .line   493; "MC30P8160.c"      TK_Init();
+00FD   2000           01101         CALL    _TK_Init
+                      01102 ;       .line   495; "MC30P8160.c"      Get_TK_Value();
+00FE   2000           01103         CALL    _Get_TK_Value
+                      01104 ;       .line   498; "MC30P8160.c"      DDR1 &= 0xFD;     // 1： 端口作为输入口         0： 端口作为输出口
+00FF   3C80           01105         BCLR    _DDR1,1
+                      01106 ;       .line   499; "MC30P8160.c"      P1ADCR &= 0xFD;   // 1 关闭端口的数字 I/O 功能； 0 使能端口的数字 I/O 功能； 
+0100   3C80           01107         BCLR    _P1ADCR,1
+                      01108 ;       .line   500; "MC30P8160.c"      P10D = 0;
+0101   3C00           01109         BCLR    _P1bits,0
+                      01110 ;       .line   507; "MC30P8160.c"      u16_TK1_get_val_Temp = u16_get_val;
+0102   1600           01111         MOVAR   _u16_get_val
+0103   1580           01112         MOVRA   _u16_TK1_get_val_Temp
+0104   1600           01113         MOVAR   (_u16_get_val + 1)
+0105   1580           01114         MOVRA   (_u16_TK1_get_val_Temp + 1)
+                      01115 ;       .line   514; "MC30P8160.c"      if(Pre_T_Key1_Release) 
+0106   3200           01116         JBSET   _flag2,4
+0107   2800           01117         GOTO    _00271_DS_
+                      01118 ;       .line   516; "MC30P8160.c"      u16_temp_val = u16_get_val + Const_SEN_T_Key1;
+0108   0B2D           01119         MOVAI   0x2d
+0109   1F00           01120         ADDAR   _u16_get_val
+010A   1580           01121         MOVRA   _u16_temp_val
+010B   1D80           01122         CLRR    (_u16_temp_val + 1)
+010C   1480           01123         RLR     (_u16_temp_val + 1)
+010D   1600           01124         MOVAR   (_u16_get_val + 1)
+010E   1F80           01125         ADDRA   (_u16_temp_val + 1)
+                      01126 ;       .line   518; "MC30P8160.c"      if(u16_temp_val < u16_TK1_environment_val)       //按下
+010F   1600           01127         MOVAR   (_u16_TK1_environment_val + 1)
+0110   1200           01128         RSUBAR  (_u16_temp_val + 1)
+0111   3103           01129         JBSET   STATUS,2
+0112   2800           01130         GOTO    _00323_DS_
+0113   1600           01131         MOVAR   _u16_TK1_environment_val
+0114   1200           01132         RSUBAR  _u16_temp_val
+0115                  01133 _00323_DS_
+0115   3403           01134         JBCLR   STATUS,0
+0116   2800           01135         GOTO    _00260_DS_
+                      01136 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01137 ;       .line   520; "MC30P8160.c"      SleepCnt = 0xFF;
+0117   0BFF           01138         MOVAI   0xff
+0118   1580           01139         MOVRA   _SleepCnt
+                      01140 ;       .line   521; "MC30P8160.c"      FilterCnt_TK1 ++;
+0119   1980           01141         INCR    _FilterCnt_TK1
+                      01142 ;;swapping arguments (AOP_TYPEs 1/3)
+                      01143 ;;unsigned compare: left >= lit(0xC=12), size=1
+                      01144 ;       .line   522; "MC30P8160.c"      if(FilterCnt_TK1 > FilterCnt_Value)
+011A   0B0C           01145         MOVAI   0x0c
+011B   1200           01146         RSUBAR  _FilterCnt_TK1
+011C   3003           01147         JBSET   STATUS,0
+011D   2800           01148         GOTO    _00273_DS_
+                      01149 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01150 ;       .line   524; "MC30P8160.c"      T_Key1_Signal = 1;
+011E   3980           01151         BSET    _flag2,3
+                      01152 ;       .line   525; "MC30P8160.c"      Pre_T_Key1_Release = 0;
+011F   3E00           01153         BCLR    _flag2,4
+                      01154 ;       .line   526; "MC30P8160.c"      u16_release_val_TK1 = u16_TK1_environment_val - Const_SEN_T_Key1; //
+0120   0BD3           01155         MOVAI   0xd3
+0121   1F00           01156         ADDAR   _u16_TK1_environment_val
+0122   1580           01157         MOVRA   _u16_release_val_TK1
+0123   0BFF           01158         MOVAI   0xff
+0124   1580           01159         MOVRA   (_u16_release_val_TK1 + 1)
+0125   1600           01160         MOVAR   (_u16_TK1_environment_val + 1)
+0126   3403           01161         JBCLR   STATUS,0
+0127   1800           01162         JZAR    (_u16_TK1_environment_val + 1)
+0128   1F80           01163         ADDRA   (_u16_release_val_TK1 + 1)
+0129   2800           01164         GOTO    _00273_DS_
+012A                  01165 _00260_DS_
+                      01166 ;       .line   531; "MC30P8160.c"      FilterCnt_TK1 = 0;
+012A   1D80           01167         CLRR    _FilterCnt_TK1
+                      01168 ;       .line   533; "MC30P8160.c"      if(SleepCnt)
+012B   0B00           01169         MOVAI   0x00
+012C   1700           01170         ORAR    _SleepCnt
+012D   3503           01171         JBCLR   STATUS,2
+012E   2800           01172         GOTO    _00253_DS_
+                      01173 ;       .line   535; "MC30P8160.c"      TK1_Filter_Cnt_T ++;
+012F   1980           01174         INCR    _TK1_Filter_Cnt_T
+                      01175 ;;unsigned compare: left < lit(0x4=4), size=1
+                      01176 ;       .line   537; "MC30P8160.c"      if(TK1_Filter_Cnt_T >= 4)
+0130   0B04           01177         MOVAI   0x04
+0131   1200           01178         RSUBAR  _TK1_Filter_Cnt_T
+0132   3003           01179         JBSET   STATUS,0
+0133   2800           01180         GOTO    _00247_DS_
+                      01181 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01182 ;       .line   539; "MC30P8160.c"      TK1_Filter_Cnt_T = 0;
+0134   1D80           01183         CLRR    _TK1_Filter_Cnt_T
+                      01184 ;       .line   540; "MC30P8160.c"      u16_TK1_environment_val_Sum += u16_get_val;
+0135   1600           01185         MOVAR   _u16_get_val
+0136   1F80           01186         ADDRA   _u16_TK1_environment_val_Sum
+0137   1600           01187         MOVAR   (_u16_get_val + 1)
+0138   3403           01188         JBCLR   STATUS,0
+0139   1800           01189         JZAR    (_u16_get_val + 1)
+013A   1F80           01190         ADDRA   (_u16_TK1_environment_val_Sum + 1)
+                      01191 ;       .line   541; "MC30P8160.c"      TK1_Filter_Cnt++;
+013B   1980           01192         INCR    _TK1_Filter_Cnt
+                      01193 ;;swapping arguments (AOP_TYPEs 1/3)
+                      01194 ;;unsigned compare: left >= lit(0x8=8), size=1
+013C                  01195 _00247_DS_
+                      01196 ;       .line   544; "MC30P8160.c"      if(TK1_Filter_Cnt > 7)
+013C   0B08           01197         MOVAI   0x08
+013D   1200           01198         RSUBAR  _TK1_Filter_Cnt
+013E   3003           01199         JBSET   STATUS,0
+013F   2800           01200         GOTO    _00254_DS_
+                      01201 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01202 ;       .line   546; "MC30P8160.c"      TK1_Filter_Cnt = 0;
+0140   1D80           01203         CLRR    _TK1_Filter_Cnt
+                      01204 ;;shiftRight_Left2ResultLit:5339: shCount=1, size=2, sign=0, same=0, offr=0
+                      01205 ;       .line   547; "MC30P8160.c"      u16_TK1_environment_val = u16_TK1_environment_val_Sum >> 3;
+0141   3C03           01206         BCLR    STATUS,0
+0142   1300           01207         RRAR    (_u16_TK1_environment_val_Sum + 1)
+0143   1580           01208         MOVRA   (_u16_TK1_environment_val + 1)
+0144   1300           01209         RRAR    _u16_TK1_environment_val_Sum
+0145   1580           01210         MOVRA   _u16_TK1_environment_val
+                      01211 ;;shiftRight_Left2ResultLit:5339: shCount=1, size=2, sign=0, same=1, offr=0
+0146   3C03           01212         BCLR    STATUS,0
+0147   1380           01213         RRR     (_u16_TK1_environment_val + 1)
+0148   1380           01214         RRR     _u16_TK1_environment_val
+                      01215 ;;shiftRight_Left2ResultLit:5339: shCount=1, size=2, sign=0, same=1, offr=0
+0149   3C03           01216         BCLR    STATUS,0
+014A   1380           01217         RRR     (_u16_TK1_environment_val + 1)
+014B   1380           01218         RRR     _u16_TK1_environment_val
+                      01219 ;       .line   548; "MC30P8160.c"      u16_TK1_environment_val_Sum = 0;
+014C   1D80           01220         CLRR    _u16_TK1_environment_val_Sum
+014D   1D80           01221         CLRR    (_u16_TK1_environment_val_Sum + 1)
+                      01222 ;       .line   550; "MC30P8160.c"      if(TK1_Release_Flag)
+014E   3300           01223         JBSET   _flag2,6
+014F   2800           01224         GOTO    _00254_DS_
+                      01225 ;       .line   552; "MC30P8160.c"      TK1_Release_Flag = 0;
+0150   3F00           01226         BCLR    _flag2,6
+                      01227 ;       .line   553; "MC30P8160.c"      u16_TK1_environment_val = u16_get_val;
+0151   1600           01228         MOVAR   _u16_get_val
+0152   1580           01229         MOVRA   _u16_TK1_environment_val
+0153   1600           01230         MOVAR   (_u16_get_val + 1)
+0154   1580           01231         MOVRA   (_u16_TK1_environment_val + 1)
+0155   2800           01232         GOTO    _00254_DS_
+0156                  01233 _00253_DS_
+                      01234 ;       .line   559; "MC30P8160.c"      u16_TK1_environment_val = u16_get_val;
+0156   1600           01235         MOVAR   _u16_get_val
+0157   1580           01236         MOVRA   _u16_TK1_environment_val
+0158   1600           01237         MOVAR   (_u16_get_val + 1)
+0159   1580           01238         MOVRA   (_u16_TK1_environment_val + 1)
+                      01239 ;       .line   560; "MC30P8160.c"      u16_TK1_environment_val_Sum = 0;
+015A   1D80           01240         CLRR    _u16_TK1_environment_val_Sum
+015B   1D80           01241         CLRR    (_u16_TK1_environment_val_Sum + 1)
+                      01242 ;       .line   561; "MC30P8160.c"      TK1_Filter_Cnt = 0;
+015C   1D80           01243         CLRR    _TK1_Filter_Cnt
+015D                  01244 _00254_DS_
+                      01245 ;       .line   564; "MC30P8160.c"      if(TK1_Release_Flag == 1)
+015D   1D80           01246         CLRR    r0x102D
+015E   3700           01247         JBCLR   _flag2,6
+015F   1980           01248         INCR    r0x102D
+0160   1600           01249         MOVAR   r0x102D
+0161   0801           01250         XORAI   0x01
+0162   3103           01251         JBSET   STATUS,2
+0163   2800           01252         GOTO    _00273_DS_
+                      01253 ;       .line   566; "MC30P8160.c"      if(u16_get_val > u16_TK1_environment_val)
+0164   1600           01254         MOVAR   (_u16_get_val + 1)
+0165   1200           01255         RSUBAR  (_u16_TK1_environment_val + 1)
+0166   3103           01256         JBSET   STATUS,2
+0167   2800           01257         GOTO    _00327_DS_
+0168   1600           01258         MOVAR   _u16_get_val
+0169   1200           01259         RSUBAR  _u16_TK1_environment_val
+016A                  01260 _00327_DS_
+016A   3403           01261         JBCLR   STATUS,0
+016B   2800           01262         GOTO    _00273_DS_
+                      01263 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01264 ;       .line   568; "MC30P8160.c"      u16_TK1_environment_val = u16_get_val;
+016C   1600           01265         MOVAR   _u16_get_val
+016D   1580           01266         MOVRA   _u16_TK1_environment_val
+016E   1600           01267         MOVAR   (_u16_get_val + 1)
+016F   1580           01268         MOVRA   (_u16_TK1_environment_val + 1)
+0170   2800           01269         GOTO    _00273_DS_
+0171                  01270 _00271_DS_
+                      01271 ;       .line   575; "MC30P8160.c"      if(u16_get_val < u16_TK1_get_val_Min)
+0171   1600           01272         MOVAR   (_u16_TK1_get_val_Min + 1)
+0172   1200           01273         RSUBAR  (_u16_get_val + 1)
+0173   3103           01274         JBSET   STATUS,2
+0174   2800           01275         GOTO    _00328_DS_
+0175   1600           01276         MOVAR   _u16_TK1_get_val_Min
+0176   1200           01277         RSUBAR  _u16_get_val
+0177                  01278 _00328_DS_
+0177   3403           01279         JBCLR   STATUS,0
+0178   2800           01280         GOTO    _00263_DS_
+                      01281 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01282 ;       .line   577; "MC30P8160.c"      u16_TK1_get_val_Min = u16_get_val;
+0179   1600           01283         MOVAR   _u16_get_val
+017A   1580           01284         MOVRA   _u16_TK1_get_val_Min
+017B   1600           01285         MOVAR   (_u16_get_val + 1)
+017C   1580           01286         MOVRA   (_u16_TK1_get_val_Min + 1)
+017D                  01287 _00263_DS_
+                      01288 ;       .line   580; "MC30P8160.c"      u16_temp_val = u16_release_val_TK1 + Const_SEN_T_Key1 + u16_TK1_get_val_Min;
+017D   0B2D           01289         MOVAI   0x2d
+017E   1F00           01290         ADDAR   _u16_release_val_TK1
+017F   1580           01291         MOVRA   r0x102D
+0180   1D80           01292         CLRR    r0x102E
+0181   1480           01293         RLR     r0x102E
+0182   1600           01294         MOVAR   (_u16_release_val_TK1 + 1)
+0183   1F80           01295         ADDRA   r0x102E
+0184   1600           01296         MOVAR   _u16_TK1_get_val_Min
+0185   1F00           01297         ADDAR   r0x102D
+0186   1580           01298         MOVRA   _u16_temp_val
+0187   1600           01299         MOVAR   r0x102E
+0188   1580           01300         MOVRA   (_u16_temp_val + 1)
+0189   1600           01301         MOVAR   (_u16_TK1_get_val_Min + 1)
+018A   3403           01302         JBCLR   STATUS,0
+018B   1800           01303         JZAR    (_u16_TK1_get_val_Min + 1)
+018C   1F80           01304         ADDRA   (_u16_temp_val + 1)
+                      01305 ;;shiftRight_Left2ResultLit:5339: shCount=1, size=2, sign=0, same=1, offr=0
+                      01306 ;       .line   581; "MC30P8160.c"      u16_temp_val = u16_temp_val >> 1;
+018D   3C03           01307         BCLR    STATUS,0
+018E   1380           01308         RRR     (_u16_temp_val + 1)
+018F   1380           01309         RRR     _u16_temp_val
+                      01310 ;       .line   583; "MC30P8160.c"      if(u16_get_val > u16_release_val_TK1 || u16_get_val > u16_temp_val)     //松开
+0190   1600           01311         MOVAR   (_u16_get_val + 1)
+0191   1200           01312         RSUBAR  (_u16_release_val_TK1 + 1)
+0192   3103           01313         JBSET   STATUS,2
+0193   2800           01314         GOTO    _00329_DS_
+0194   1600           01315         MOVAR   _u16_get_val
+0195   1200           01316         RSUBAR  _u16_release_val_TK1
+0196                  01317 _00329_DS_
+0196   3003           01318         JBSET   STATUS,0
+0197   2800           01319         GOTO    _00266_DS_
+                      01320 ;;genSkipc:3291: created from rifx:013B5EFC
+0198   1600           01321         MOVAR   (_u16_get_val + 1)
+0199   1200           01322         RSUBAR  (_u16_temp_val + 1)
+019A   3103           01323         JBSET   STATUS,2
+019B   2800           01324         GOTO    _00330_DS_
+019C   1600           01325         MOVAR   _u16_get_val
+019D   1200           01326         RSUBAR  _u16_temp_val
+019E                  01327 _00330_DS_
+019E   3403           01328         JBCLR   STATUS,0
+019F   2800           01329         GOTO    _00267_DS_
+                      01330 ;;genSkipc:3291: created from rifx:013B5EFC
+01A0                  01331 _00266_DS_
+                      01332 ;       .line   585; "MC30P8160.c"      FilterCnt_TK1 ++;
+01A0   1980           01333         INCR    _FilterCnt_TK1
+                      01334 ;;unsigned compare: left < lit(0x4=4), size=1
+                      01335 ;       .line   586; "MC30P8160.c"      if(FilterCnt_TK1 >= 4) //触摸松开滤波 20ms
+01A1   0B04           01336         MOVAI   0x04
+01A2   1200           01337         RSUBAR  _FilterCnt_TK1
+01A3   3003           01338         JBSET   STATUS,0
+01A4   2800           01339         GOTO    _00273_DS_
+                      01340 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01341 ;       .line   588; "MC30P8160.c"      TK1_Release_();                                 
+01A5   2000           01342         CALL    _TK1_Release_
+01A6   2800           01343         GOTO    _00273_DS_
+01A7                  01344 _00267_DS_
+                      01345 ;       .line   593; "MC30P8160.c"      FilterCnt_TK1 = 0;
+01A7   1D80           01346         CLRR    _FilterCnt_TK1
+01A8                  01347 _00273_DS_
+                      01348 ;       .line   596; "MC30P8160.c"      }
+01A8   000C           01349         RETURN  
+                      01350 ; exit point of _TK1_Scan
+                      01351 
+                      01352 ;***
+                      01353 ;  pBlock Stats: dbName = C
+                      01354 ;***
+                      01355 ;entry:  _TK1_Release_  ;Function start
+                      01356 ; 2 exit points
+                      01357 ;has an exit
+                      01358 ;; Starting pCode block
+01A9                  01359 _TK1_Release_   ;Function start
+                      01360 ; 2 exit points
+                      01361 ;       .line   472; "MC30P8160.c"      FilterCnt_TK1 = 0;
+01A9   1D80           01362         CLRR    _FilterCnt_TK1
+                      01363 ;       .line   474; "MC30P8160.c"      T_Key1_Signal = 0;
+01AA   3D80           01364         BCLR    _flag2,3
+                      01365 ;       .line   476; "MC30P8160.c"      Pre_T_Key1_Release = 1;                                 
+01AB   3A00           01366         BSET    _flag2,4
+                      01367 ;       .line   477; "MC30P8160.c"      u16_TK1_environment_val = u16_TK1_get_val_Temp;
+01AC   1600           01368         MOVAR   _u16_TK1_get_val_Temp
+01AD   1580           01369         MOVRA   _u16_TK1_environment_val
+01AE   1600           01370         MOVAR   (_u16_TK1_get_val_Temp + 1)
+01AF   1580           01371         MOVRA   (_u16_TK1_environment_val + 1)
+                      01372 ;       .line   478; "MC30P8160.c"      TK1_Filter_Cnt = 0;
+01B0   1D80           01373         CLRR    _TK1_Filter_Cnt
+                      01374 ;       .line   479; "MC30P8160.c"      u16_TK1_environment_val_Sum = 0;
+01B1   1D80           01375         CLRR    _u16_TK1_environment_val_Sum
+01B2   1D80           01376         CLRR    (_u16_TK1_environment_val_Sum + 1)
+                      01377 ;       .line   481; "MC30P8160.c"      TK1_Release_Flag = 1;
+01B3   3B00           01378         BSET    _flag2,6
+                      01379 ;       .line   483; "MC30P8160.c"      u16_TK1_get_val_Min = 0xFFFF;
+01B4   0BFF           01380         MOVAI   0xff
+01B5   1580           01381         MOVRA   _u16_TK1_get_val_Min
+01B6   1580           01382         MOVRA   (_u16_TK1_get_val_Min + 1)
+                      01383 ;       .line   484; "MC30P8160.c"      }
+01B7   000C           01384         RETURN  
+                      01385 ; exit point of _TK1_Release_
+                      01386 
+                      01387 ;***
+                      01388 ;  pBlock Stats: dbName = C
+                      01389 ;***
+                      01390 ;entry:  _TK0_Scan      ;Function start
+                      01391 ; 2 exit points
+                      01392 ;has an exit
+                      01393 ;functions called:
+                      01394 ;   _TK_Init
+                      01395 ;   _Get_TK_Value
+                      01396 ;   _TK0_Release_
+                      01397 ;   _TK_Init
+                      01398 ;   _Get_TK_Value
+                      01399 ;   _TK0_Release_
+                      01400 ;2 compiler assigned registers:
+                      01401 ;   r0x102D
+                      01402 ;   r0x102E
+                      01403 ;; Starting pCode block
+01B8                  01404 _TK0_Scan       ;Function start
+                      01405 ; 2 exit points
+                      01406 ;       .line   358; "MC30P8160.c"      DDR1 |= 0x01;     // 1： 端口作为输入口          0： 端口作为输出口
+01B8   3800           01407         BSET    _DDR1,0
+                      01408 ;       .line   359; "MC30P8160.c"      P1ADCR |= 0x01;   // 0 使能端口的数字 I/O 功能； 1 关闭端口的数字 I/O 功能；
+01B9   3800           01409         BSET    _P1ADCR,0
+                      01410 ;       .line   361; "MC30P8160.c"      TKCR1 = 0x00; // 写0000_0000 bit0-1: 00 TK0 选择相应按键输入通道
+01BA   1D80           01411         CLRR    _TKCR1
+                      01412 ;       .line   362; "MC30P8160.c"      TK_Init();
+01BB   2000           01413         CALL    _TK_Init
+                      01414 ;       .line   364; "MC30P8160.c"      Get_TK_Value();
+01BC   2000           01415         CALL    _Get_TK_Value
+                      01416 ;       .line   367; "MC30P8160.c"      DDR1 &= 0xFE;     // 1： 端口作为输入口         0： 端口作为输出口
+01BD   3C00           01417         BCLR    _DDR1,0
+                      01418 ;       .line   368; "MC30P8160.c"      P1ADCR &= 0xFE;   // 1 关闭端口的数字 I/O 功能； 0 使能端口的数字 I/O 功能； 
+01BE   3C00           01419         BCLR    _P1ADCR,0
+                      01420 ;       .line   369; "MC30P8160.c"      P10D = 0;
+01BF   3C00           01421         BCLR    _P1bits,0
+                      01422 ;       .line   376; "MC30P8160.c"      u16_TK0_get_val_Temp = u16_get_val;
+01C0   1600           01423         MOVAR   _u16_get_val
+01C1   1580           01424         MOVRA   _u16_TK0_get_val_Temp
+01C2   1600           01425         MOVAR   (_u16_get_val + 1)
+01C3   1580           01426         MOVRA   (_u16_TK0_get_val_Temp + 1)
+                      01427 ;       .line   383; "MC30P8160.c"      if(Pre_T_Key0_Release) 
+01C4   3080           01428         JBSET   _flag1,1
+01C5   2800           01429         GOTO    _00176_DS_
+                      01430 ;       .line   385; "MC30P8160.c"      u16_temp_val = u16_get_val + Const_SEN_T_Key0;
+01C6   0B2D           01431         MOVAI   0x2d
+01C7   1F00           01432         ADDAR   _u16_get_val
+01C8   1580           01433         MOVRA   _u16_temp_val
+01C9   1D80           01434         CLRR    (_u16_temp_val + 1)
+01CA   1480           01435         RLR     (_u16_temp_val + 1)
+01CB   1600           01436         MOVAR   (_u16_get_val + 1)
+01CC   1F80           01437         ADDRA   (_u16_temp_val + 1)
+                      01438 ;       .line   387; "MC30P8160.c"      if(u16_temp_val < u16_TK0_environment_val)       //按下
+01CD   1600           01439         MOVAR   (_u16_TK0_environment_val + 1)
+01CE   1200           01440         RSUBAR  (_u16_temp_val + 1)
+01CF   3103           01441         JBSET   STATUS,2
+01D0   2800           01442         GOTO    _00228_DS_
+01D1   1600           01443         MOVAR   _u16_TK0_environment_val
+01D2   1200           01444         RSUBAR  _u16_temp_val
+01D3                  01445 _00228_DS_
+01D3   3403           01446         JBCLR   STATUS,0
+01D4   2800           01447         GOTO    _00165_DS_
+                      01448 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01449 ;       .line   389; "MC30P8160.c"      SleepCnt = 0xFF;
+01D5   0BFF           01450         MOVAI   0xff
+01D6   1580           01451         MOVRA   _SleepCnt
+                      01452 ;       .line   390; "MC30P8160.c"      FilterCnt_TK0 ++;
+01D7   1980           01453         INCR    _FilterCnt_TK0
+                      01454 ;;swapping arguments (AOP_TYPEs 1/3)
+                      01455 ;;unsigned compare: left >= lit(0xC=12), size=1
+                      01456 ;       .line   391; "MC30P8160.c"      if(FilterCnt_TK0 > FilterCnt_Value)
+01D8   0B0C           01457         MOVAI   0x0c
+01D9   1200           01458         RSUBAR  _FilterCnt_TK0
+01DA   3003           01459         JBSET   STATUS,0
+01DB   2800           01460         GOTO    _00178_DS_
+                      01461 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01462 ;       .line   393; "MC30P8160.c"      T_Key0_Signal = 1;
+01DC   3800           01463         BSET    _flag1,0
+                      01464 ;       .line   394; "MC30P8160.c"      Pre_T_Key0_Release = 0;
+01DD   3C80           01465         BCLR    _flag1,1
+                      01466 ;       .line   395; "MC30P8160.c"      u16_release_val_TK0 = u16_TK0_environment_val - Const_SEN_T_Key0; //
+01DE   0BD3           01467         MOVAI   0xd3
+01DF   1F00           01468         ADDAR   _u16_TK0_environment_val
+01E0   1580           01469         MOVRA   _u16_release_val_TK0
+01E1   0BFF           01470         MOVAI   0xff
+01E2   1580           01471         MOVRA   (_u16_release_val_TK0 + 1)
+01E3   1600           01472         MOVAR   (_u16_TK0_environment_val + 1)
+01E4   3403           01473         JBCLR   STATUS,0
+01E5   1800           01474         JZAR    (_u16_TK0_environment_val + 1)
+01E6   1F80           01475         ADDRA   (_u16_release_val_TK0 + 1)
+01E7   2800           01476         GOTO    _00178_DS_
+01E8                  01477 _00165_DS_
+                      01478 ;       .line   400; "MC30P8160.c"      FilterCnt_TK0 = 0;
+01E8   1D80           01479         CLRR    _FilterCnt_TK0
+                      01480 ;       .line   402; "MC30P8160.c"      if(SleepCnt)
+01E9   0B00           01481         MOVAI   0x00
+01EA   1700           01482         ORAR    _SleepCnt
+01EB   3503           01483         JBCLR   STATUS,2
+01EC   2800           01484         GOTO    _00158_DS_
+                      01485 ;       .line   405; "MC30P8160.c"      TK0_Filter_Cnt_T ++;
+01ED   1980           01486         INCR    _TK0_Filter_Cnt_T
+                      01487 ;;unsigned compare: left < lit(0x4=4), size=1
+                      01488 ;       .line   407; "MC30P8160.c"      if(TK0_Filter_Cnt_T >= 4)
+01EE   0B04           01489         MOVAI   0x04
+01EF   1200           01490         RSUBAR  _TK0_Filter_Cnt_T
+01F0   3003           01491         JBSET   STATUS,0
+01F1   2800           01492         GOTO    _00159_DS_
+                      01493 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01494 ;       .line   409; "MC30P8160.c"      TK0_Filter_Cnt_T = 0;
+01F2   1D80           01495         CLRR    _TK0_Filter_Cnt_T
+                      01496 ;       .line   410; "MC30P8160.c"      u16_TK0_environment_val_Sum += u16_get_val;
+01F3   1600           01497         MOVAR   _u16_get_val
+01F4   1F80           01498         ADDRA   _u16_TK0_environment_val_Sum
+01F5   1600           01499         MOVAR   (_u16_get_val + 1)
+01F6   3403           01500         JBCLR   STATUS,0
+01F7   1800           01501         JZAR    (_u16_get_val + 1)
+01F8   1F80           01502         ADDRA   (_u16_TK0_environment_val_Sum + 1)
+                      01503 ;       .line   412; "MC30P8160.c"      TK0_Filter_Cnt ++;                                              
+01F9   1980           01504         INCR    _TK0_Filter_Cnt
+                      01505 ;;swapping arguments (AOP_TYPEs 1/3)
+                      01506 ;;unsigned compare: left >= lit(0x8=8), size=1
+                      01507 ;       .line   413; "MC30P8160.c"      if(TK0_Filter_Cnt > 7)
+01FA   0B08           01508         MOVAI   0x08
+01FB   1200           01509         RSUBAR  _TK0_Filter_Cnt
+01FC   3003           01510         JBSET   STATUS,0
+01FD   2800           01511         GOTO    _00159_DS_
+                      01512 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01513 ;       .line   415; "MC30P8160.c"      TK0_Filter_Cnt = 0;
+01FE   1D80           01514         CLRR    _TK0_Filter_Cnt
+                      01515 ;;shiftRight_Left2ResultLit:5339: shCount=1, size=2, sign=0, same=0, offr=0
+                      01516 ;       .line   416; "MC30P8160.c"      u16_TK0_environment_val = u16_TK0_environment_val_Sum >> 3;
+01FF   3C03           01517         BCLR    STATUS,0
+0200   1300           01518         RRAR    (_u16_TK0_environment_val_Sum + 1)
+0201   1580           01519         MOVRA   (_u16_TK0_environment_val + 1)
+0202   1300           01520         RRAR    _u16_TK0_environment_val_Sum
+0203   1580           01521         MOVRA   _u16_TK0_environment_val
+                      01522 ;;shiftRight_Left2ResultLit:5339: shCount=1, size=2, sign=0, same=1, offr=0
+0204   3C03           01523         BCLR    STATUS,0
+0205   1380           01524         RRR     (_u16_TK0_environment_val + 1)
+0206   1380           01525         RRR     _u16_TK0_environment_val
+                      01526 ;;shiftRight_Left2ResultLit:5339: shCount=1, size=2, sign=0, same=1, offr=0
+0207   3C03           01527         BCLR    STATUS,0
+0208   1380           01528         RRR     (_u16_TK0_environment_val + 1)
+0209   1380           01529         RRR     _u16_TK0_environment_val
+                      01530 ;       .line   417; "MC30P8160.c"      u16_TK0_environment_val_Sum = 0;
+020A   1D80           01531         CLRR    _u16_TK0_environment_val_Sum
+020B   1D80           01532         CLRR    (_u16_TK0_environment_val_Sum + 1)
+                      01533 ;       .line   419; "MC30P8160.c"      if(TK0_Release_Flag)
+020C   3100           01534         JBSET   _flag1,2
+020D   2800           01535         GOTO    _00159_DS_
+                      01536 ;       .line   421; "MC30P8160.c"      TK0_Release_Flag = 0;
+020E   3D00           01537         BCLR    _flag1,2
+                      01538 ;       .line   422; "MC30P8160.c"      u16_TK0_environment_val = u16_get_val;
+020F   1600           01539         MOVAR   _u16_get_val
+0210   1580           01540         MOVRA   _u16_TK0_environment_val
+0211   1600           01541         MOVAR   (_u16_get_val + 1)
+0212   1580           01542         MOVRA   (_u16_TK0_environment_val + 1)
+0213   2800           01543         GOTO    _00159_DS_
+0214                  01544 _00158_DS_
+                      01545 ;       .line   429; "MC30P8160.c"      u16_TK0_environment_val = u16_get_val;
+0214   1600           01546         MOVAR   _u16_get_val
+0215   1580           01547         MOVRA   _u16_TK0_environment_val
+0216   1600           01548         MOVAR   (_u16_get_val + 1)
+0217   1580           01549         MOVRA   (_u16_TK0_environment_val + 1)
+                      01550 ;       .line   430; "MC30P8160.c"      u16_TK0_environment_val_Sum = 0;
+0218   1D80           01551         CLRR    _u16_TK0_environment_val_Sum
+0219   1D80           01552         CLRR    (_u16_TK0_environment_val_Sum + 1)
+                      01553 ;       .line   431; "MC30P8160.c"      TK0_Filter_Cnt = 0;
+021A   1D80           01554         CLRR    _TK0_Filter_Cnt
+021B                  01555 _00159_DS_
+                      01556 ;       .line   434; "MC30P8160.c"      if(TK0_Release_Flag == 1)
+021B   1D80           01557         CLRR    r0x102D
+021C   3500           01558         JBCLR   _flag1,2
+021D   1980           01559         INCR    r0x102D
+021E   1600           01560         MOVAR   r0x102D
+021F   0801           01561         XORAI   0x01
+0220   3103           01562         JBSET   STATUS,2
+0221   2800           01563         GOTO    _00178_DS_
+                      01564 ;       .line   436; "MC30P8160.c"      if(u16_get_val > u16_TK0_environment_val)
+0222   1600           01565         MOVAR   (_u16_get_val + 1)
+0223   1200           01566         RSUBAR  (_u16_TK0_environment_val + 1)
+0224   3103           01567         JBSET   STATUS,2
+0225   2800           01568         GOTO    _00232_DS_
+0226   1600           01569         MOVAR   _u16_get_val
+0227   1200           01570         RSUBAR  _u16_TK0_environment_val
+0228                  01571 _00232_DS_
+0228   3403           01572         JBCLR   STATUS,0
+0229   2800           01573         GOTO    _00178_DS_
+                      01574 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01575 ;       .line   438; "MC30P8160.c"      u16_TK0_environment_val = u16_get_val;
+022A   1600           01576         MOVAR   _u16_get_val
+022B   1580           01577         MOVRA   _u16_TK0_environment_val
+022C   1600           01578         MOVAR   (_u16_get_val + 1)
+022D   1580           01579         MOVRA   (_u16_TK0_environment_val + 1)
+022E   2800           01580         GOTO    _00178_DS_
+022F                  01581 _00176_DS_
+                      01582 ;       .line   447; "MC30P8160.c"      if(u16_get_val < u16_TK0_get_val_Min)
+022F   1600           01583         MOVAR   (_u16_TK0_get_val_Min + 1)
+0230   1200           01584         RSUBAR  (_u16_get_val + 1)
+0231   3103           01585         JBSET   STATUS,2
+0232   2800           01586         GOTO    _00233_DS_
+0233   1600           01587         MOVAR   _u16_TK0_get_val_Min
+0234   1200           01588         RSUBAR  _u16_get_val
+0235                  01589 _00233_DS_
+0235   3403           01590         JBCLR   STATUS,0
+0236   2800           01591         GOTO    _00168_DS_
+                      01592 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01593 ;       .line   449; "MC30P8160.c"      u16_TK0_get_val_Min = u16_get_val;
+0237   1600           01594         MOVAR   _u16_get_val
+0238   1580           01595         MOVRA   _u16_TK0_get_val_Min
+0239   1600           01596         MOVAR   (_u16_get_val + 1)
+023A   1580           01597         MOVRA   (_u16_TK0_get_val_Min + 1)
+023B                  01598 _00168_DS_
+                      01599 ;       .line   452; "MC30P8160.c"      u16_temp_val = u16_release_val_TK0 + Const_SEN_T_Key0 + u16_TK0_get_val_Min;
+023B   0B2D           01600         MOVAI   0x2d
+023C   1F00           01601         ADDAR   _u16_release_val_TK0
+023D   1580           01602         MOVRA   r0x102D
+023E   1D80           01603         CLRR    r0x102E
+023F   1480           01604         RLR     r0x102E
+0240   1600           01605         MOVAR   (_u16_release_val_TK0 + 1)
+0241   1F80           01606         ADDRA   r0x102E
+0242   1600           01607         MOVAR   _u16_TK0_get_val_Min
+0243   1F00           01608         ADDAR   r0x102D
+0244   1580           01609         MOVRA   _u16_temp_val
+0245   1600           01610         MOVAR   r0x102E
+0246   1580           01611         MOVRA   (_u16_temp_val + 1)
+0247   1600           01612         MOVAR   (_u16_TK0_get_val_Min + 1)
+0248   3403           01613         JBCLR   STATUS,0
+0249   1800           01614         JZAR    (_u16_TK0_get_val_Min + 1)
+024A   1F80           01615         ADDRA   (_u16_temp_val + 1)
+                      01616 ;;shiftRight_Left2ResultLit:5339: shCount=1, size=2, sign=0, same=1, offr=0
+                      01617 ;       .line   453; "MC30P8160.c"      u16_temp_val = u16_temp_val >> 1;
+024B   3C03           01618         BCLR    STATUS,0
+024C   1380           01619         RRR     (_u16_temp_val + 1)
+024D   1380           01620         RRR     _u16_temp_val
+                      01621 ;       .line   455; "MC30P8160.c"      if(u16_get_val > u16_release_val_TK0 || u16_get_val > u16_temp_val)     //松开
+024E   1600           01622         MOVAR   (_u16_get_val + 1)
+024F   1200           01623         RSUBAR  (_u16_release_val_TK0 + 1)
+0250   3103           01624         JBSET   STATUS,2
+0251   2800           01625         GOTO    _00234_DS_
+0252   1600           01626         MOVAR   _u16_get_val
+0253   1200           01627         RSUBAR  _u16_release_val_TK0
+0254                  01628 _00234_DS_
+0254   3003           01629         JBSET   STATUS,0
+0255   2800           01630         GOTO    _00171_DS_
+                      01631 ;;genSkipc:3291: created from rifx:013B5EFC
+0256   1600           01632         MOVAR   (_u16_get_val + 1)
+0257   1200           01633         RSUBAR  (_u16_temp_val + 1)
+0258   3103           01634         JBSET   STATUS,2
+0259   2800           01635         GOTO    _00235_DS_
+025A   1600           01636         MOVAR   _u16_get_val
+025B   1200           01637         RSUBAR  _u16_temp_val
+025C                  01638 _00235_DS_
+025C   3403           01639         JBCLR   STATUS,0
+025D   2800           01640         GOTO    _00172_DS_
+                      01641 ;;genSkipc:3291: created from rifx:013B5EFC
+025E                  01642 _00171_DS_
+                      01643 ;       .line   457; "MC30P8160.c"      FilterCnt_TK0 ++;
+025E   1980           01644         INCR    _FilterCnt_TK0
+                      01645 ;;unsigned compare: left < lit(0x4=4), size=1
+                      01646 ;       .line   458; "MC30P8160.c"      if(FilterCnt_TK0 >= 4) //触摸松开滤波 20ms
+025F   0B04           01647         MOVAI   0x04
+0260   1200           01648         RSUBAR  _FilterCnt_TK0
+0261   3003           01649         JBSET   STATUS,0
+0262   2800           01650         GOTO    _00178_DS_
+                      01651 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01652 ;       .line   460; "MC30P8160.c"      TK0_Release_();         
+0263   2000           01653         CALL    _TK0_Release_
+0264   2800           01654         GOTO    _00178_DS_
+0265                  01655 _00172_DS_
+                      01656 ;       .line   465; "MC30P8160.c"      FilterCnt_TK0 = 0;
+0265   1D80           01657         CLRR    _FilterCnt_TK0
+0266                  01658 _00178_DS_
+                      01659 ;       .line   468; "MC30P8160.c"      }
+0266   000C           01660         RETURN  
+                      01661 ; exit point of _TK0_Scan
+                      01662 
+                      01663 ;***
+                      01664 ;  pBlock Stats: dbName = C
+                      01665 ;***
+                      01666 ;entry:  _TK0_Release_  ;Function start
+                      01667 ; 2 exit points
+                      01668 ;has an exit
+                      01669 ;; Starting pCode block
+0267                  01670 _TK0_Release_   ;Function start
+                      01671 ; 2 exit points
+                      01672 ;       .line   344; "MC30P8160.c"      FilterCnt_TK0 = 0;
+0267   1D80           01673         CLRR    _FilterCnt_TK0
+                      01674 ;       .line   345; "MC30P8160.c"      T_Key0_Signal = 0;
+0268   3C00           01675         BCLR    _flag1,0
+                      01676 ;       .line   346; "MC30P8160.c"      Pre_T_Key0_Release = 1;                                 
+0269   3880           01677         BSET    _flag1,1
+                      01678 ;       .line   347; "MC30P8160.c"      u16_TK0_environment_val = u16_TK0_get_val_Temp;;
+026A   1600           01679         MOVAR   _u16_TK0_get_val_Temp
+026B   1580           01680         MOVRA   _u16_TK0_environment_val
+026C   1600           01681         MOVAR   (_u16_TK0_get_val_Temp + 1)
+026D   1580           01682         MOVRA   (_u16_TK0_environment_val + 1)
+                      01683 ;       .line   348; "MC30P8160.c"      TK0_Filter_Cnt = 0;
+026E   1D80           01684         CLRR    _TK0_Filter_Cnt
+                      01685 ;       .line   349; "MC30P8160.c"      u16_TK0_environment_val_Sum = 0;
+026F   1D80           01686         CLRR    _u16_TK0_environment_val_Sum
+0270   1D80           01687         CLRR    (_u16_TK0_environment_val_Sum + 1)
+                      01688 ;       .line   351; "MC30P8160.c"      TK0_Release_Flag = 1;
+0271   3900           01689         BSET    _flag1,2
+                      01690 ;       .line   352; "MC30P8160.c"      u16_TK0_get_val_Min = 0xFFFF;
+0272   0BFF           01691         MOVAI   0xff
+0273   1580           01692         MOVRA   _u16_TK0_get_val_Min
+0274   1580           01693         MOVRA   (_u16_TK0_get_val_Min + 1)
+                      01694 ;       .line   353; "MC30P8160.c"      }
+0275   000C           01695         RETURN  
+                      01696 ; exit point of _TK0_Release_
+                      01697 
+                      01698 ;***
+                      01699 ;  pBlock Stats: dbName = C
+                      01700 ;***
+                      01701 ;entry:  _Get_TK_Value  ;Function start
+                      01702 ; 2 exit points
+                      01703 ;has an exit
+                      01704 ;4 compiler assigned registers:
+                      01705 ;   r0x1029
+                      01706 ;   r0x102A
+                      01707 ;   r0x102B
+                      01708 ;   r0x102C
+                      01709 ;; Starting pCode block
+0276                  01710 _Get_TK_Value   ;Function start
+                      01711 ; 2 exit points
+0276                  01712 _00138_DS_
+                      01713 ;       .line   330; "MC30P8160.c"      while(TKCF == 1)
+0276   1D80           01714         CLRR    r0x1029
+0277   3680           01715         JBCLR   _TKCR1bits,5
+0278   1980           01716         INCR    r0x1029
+0279   1600           01717         MOVAR   r0x1029
+027A   0801           01718         XORAI   0x01
+027B   3103           01719         JBSET   STATUS,2
+027C   2800           01720         GOTO    _00140_DS_
+                      01721 ;       .line   332; "MC30P8160.c"      WDT_Clear();
+027D   000E           01722         CLRWDT  
+027E   2800           01723         GOTO    _00138_DS_
+027F                  01724 _00140_DS_
+                      01725 ;       .line   335; "MC30P8160.c"      u16_get_val =  (TKCNTH << 8) | TKCNTL;
+027F   1600           01726         MOVAR   _TKCNTH
+0280   1580           01727         MOVRA   r0x102B
+0281   1580           01728         MOVRA   r0x1029
+0282   1D80           01729         CLRR    r0x102A
+                      01730 ;;104   MOVAR   r0x1029
+                      01731 ;;99    CLRR    r0x102C
+0283   1600           01732         MOVAR   _TKCNTL
+0284   1580           01733         MOVRA   _u16_get_val
+0285   1580           01734         MOVRA   r0x1029
+0286   1D80           01735         CLRR    r0x102A
+                      01736 ;;103   MOVAR   r0x1029
+                      01737 ;;100   ORAR    r0x102C
+0287   0B00           01738         MOVAI   0x00
+0288   1700           01739         ORAR    r0x102B
+0289   1580           01740         MOVRA   (_u16_get_val + 1)
+                      01741 ;       .line   337; "MC30P8160.c"      TKCON = 0;  // 关闭 TKM 电容充放计数；
+028A   3F00           01742         BCLR    _TKCR0bits,6
+                      01743 ;       .line   338; "MC30P8160.c"      TKCNTH = 0; // 清TOUCH读数,必须手工清零
+028B   1D80           01744         CLRR    _TKCNTH
+                      01745 ;       .line   339; "MC30P8160.c"      TKCNTL = 0;
+028C   1D80           01746         CLRR    _TKCNTL
+                      01747 ;       .line   340; "MC30P8160.c"      }
+028D   000C           01748         RETURN  
+                      01749 ; exit point of _Get_TK_Value
+                      01750 
+                      01751 ;***
+                      01752 ;  pBlock Stats: dbName = C
+                      01753 ;***
+                      01754 ;entry:  _TK_Init       ;Function start
+                      01755 ; 2 exit points
+                      01756 ;has an exit
+                      01757 ;; Starting pCode block
+028E                  01758 _TK_Init        ;Function start
+                      01759 ; 2 exit points
+                      01760 ;       .line   302; "MC30P8160.c"      TKCR1 &= 0x03; // 关闭触摸, 不改变通道选择位 bit 0-1
+028E   0B03           01761         MOVAI   0x03
+028F   1E80           01762         ANDRA   _TKCR1
+                      01763 ;       .line   303; "MC30P8160.c"      TKCNTH = 0;
+0290   1D80           01764         CLRR    _TKCNTH
+                      01765 ;       .line   304; "MC30P8160.c"      TKCNTL = 0;
+0291   1D80           01766         CLRR    _TKCNTL
+                      01767 ;       .line   306; "MC30P8160.c"      T2MOD = 1;   // 单次计时模式（触摸模式）
+0292   3B00           01768         BSET    _T2CRbits,6
+                      01769 ;       .line   308; "MC30P8160.c"      T2CR = 0x4A;   // 01_0_01_010 FOSC 16M 4分频 4M
+0293   0B4A           01770         MOVAI   0x4a
+0294   1580           01771         MOVRA   _T2CR
+                      01772 ;       .line   310; "MC30P8160.c"      T2LOADH = TK_SENS_LEVEL_H1;
+0295   0B0E           01773         MOVAI   0x0e
+0296   1580           01774         MOVRA   _T2LOADH
+                      01775 ;       .line   311; "MC30P8160.c"      T2LOADL = TK_SENS_LEVEL_L;
+0297   0BFF           01776         MOVAI   0xff
+0298   1580           01777         MOVRA   _T2LOADL
+                      01778 ;       .line   316; "MC30P8160.c"      TKCR0 = 0xF4;  // 写1111_0000 bit0-3: 000 TK0 选择 4.8MHz
+0299   0BF4           01779         MOVAI   0xf4
+029A   1580           01780         MOVRA   _TKCR0
+                      01781 ;       .line   319; "MC30P8160.c"      TKCFL = 1;       // TKM 计数时钟滤波时间（典型值）为 50ns；
+029B   3A80           01782         BSET    _TKCR0bits,5
+                      01783 ;       .line   322; "MC30P8160.c"      TKFJE = 0;      // 关闭 TKM 自动跳频功能
+029C   3D80           01784         BCLR    _TKCR0bits,3
+                      01785 ;       .line   323; "MC30P8160.c"      T2EN = 1;       // 开启定时器 T2
+029D   3B80           01786         BSET    _T2CRbits,7
+                      01787 ;       .line   324; "MC30P8160.c"      TKCON = 1;      // 允许 TKM 电容充放计数
+029E   3B00           01788         BSET    _TKCR0bits,6
+                      01789 ;       .line   325; "MC30P8160.c"      TKEN = 1;       // 开启 TKM                     
+029F   3B80           01790         BSET    _TKCR0bits,7
+                      01791 ;       .line   326; "MC30P8160.c"      }
+02A0   000C           01792         RETURN  
+                      01793 ; exit point of _TK_Init
+                      01794 
+                      01795 ;***
+                      01796 ;  pBlock Stats: dbName = C
+                      01797 ;***
+                      01798 ;entry:  _TOUCH_Init    ;Function start
+                      01799 ; 2 exit points
+                      01800 ;has an exit
+                      01801 ;; Starting pCode block
+02A1                  01802 _TOUCH_Init     ;Function start
+                      01803 ; 2 exit points
+                      01804 ;       .line   296; "MC30P8160.c"      __endasm;
+02A1   3DD8           01805         BCLR    TMRCR,3
+02A2   0B00           01806         MOVAI   00000000B
+02A3   15EB           01807         MOVRA   TKCR0
+02A4   0BFF           01808         MOVAI   11111111B
+02A5   15ED           01809         MOVRA   TKCR2
+02A6   000C           01810         RETURN
+                      01811 ;       .line   297; "MC30P8160.c"      }
+02A7   000C           01812         RETURN  
+                      01813 ; exit point of _TOUCH_Init
+                      01814 
+                      01815 ;***
+                      01816 ;  pBlock Stats: dbName = C
+                      01817 ;***
+                      01818 ;entry:  _IO_Init       ;Function start
+                      01819 ; 2 exit points
+                      01820 ;has an exit
+                      01821 ;; Starting pCode block
+02A8                  01822 _IO_Init        ;Function start
+                      01823 ; 2 exit points
+                      01824 ;       .line   256; "MC30P8160.c"      P1 = 0x00; //   P1nD – P1n 端口数据位（n=5-0）
+02A8   1D80           01825         CLRR    _P1
+                      01826 ;       .line   259; "MC30P8160.c"      DDR1 = 0x33;       // DR1n – P1n 端口方向控制位（n=5-0）  0： 端口作为输出口
+02A9   0B33           01827         MOVAI   0x33
+02AA   1580           01828         MOVRA   _DDR1
+                      01829 ;       .line   263; "MC30P8160.c"      P1ADCR = 0x33;   // 0 使能端口的数字 I/O 功能； 1 关闭端口的数字 I/O 功能；
+02AB   0B33           01830         MOVAI   0x33
+02AC   1580           01831         MOVRA   _P1ADCR
+                      01832 ;       .line   266; "MC30P8160.c"      PUCON = 0xFF; //  1：端口内部上拉电阻无效；  0：端口内部上拉电阻有效
+02AD   0BFF           01833         MOVAI   0xff
+02AE   1580           01834         MOVRA   _PUCON
+                      01835 ;       .line   267; "MC30P8160.c"      PDCON = 0xFF; //  1：端口内部下拉电阻无效；  0：端口内部下拉电阻有效
+02AF   0BFF           01836         MOVAI   0xff
+02B0   1580           01837         MOVRA   _PDCON
+                      01838 ;       .line   269; "MC30P8160.c"      ODCON = 0x00; // 0： 端口输出时为推挽输出   1 开漏输出
+02B1   1D80           01839         CLRR    _ODCON
+                      01840 ;       .line   272; "MC30P8160.c"      }
+02B2   000C           01841         RETURN  
+                      01842 ; exit point of _IO_Init
+                      01843 
+                      01844 ;***
+                      01845 ;  pBlock Stats: dbName = C
+                      01846 ;***
+                      01847 ;entry:  _T1_PWM_Init   ;Function start
+                      01848 ; 2 exit points
+                      01849 ;has an exit
+                      01850 ;; Starting pCode block
+02B3                  01851 _T1_PWM_Init    ;Function start
+                      01852 ; 2 exit points
+                      01853 ;       .line   248; "MC30P8160.c"      T1CR = 0x89;    // 100_01_001 使能T1、时钟为FOSC、2分频
+02B3   0B89           01854         MOVAI   0x89
+02B4   1580           01855         MOVRA   _T1CR
+                      01856 ;       .line   249; "MC30P8160.c"      T1CNT = 255-1;
+02B5   0BFE           01857         MOVAI   0xfe
+02B6   1580           01858         MOVRA   _T1CNT
+                      01859 ;       .line   250; "MC30P8160.c"      T1LOAD = 255-1;                 //31k
+02B7   0BFE           01860         MOVAI   0xfe
+02B8   1580           01861         MOVRA   _T1LOAD
+                      01862 ;       .line   251; "MC30P8160.c"      }
+02B9   000C           01863         RETURN  
+                      01864 ; exit point of _T1_PWM_Init
+                      01865 
+                      01866 ;***
+                      01867 ;  pBlock Stats: dbName = C
+                      01868 ;***
+                      01869 ;entry:  _Clr_Ram       ;Function start
+                      01870 ; 2 exit points
+                      01871 ;has an exit
+                      01872 ;; Starting pCode block
+02BA                  01873 _Clr_Ram        ;Function start
+                      01874 ; 2 exit points
+                      01875 ;       .line   242; "MC30P8160.c"      __endasm;
+02BA                  01876 CLR_RAM:
+02BA   0B4F           01877         MOVAI   0X4F
+02BB   1584           01878         MOVRA   FSR
+02BC   0B3F           01879         MOVAI   0X3F
+02BD   15CF           01880         MOVRA   0X4F ;
+02BE                  01881 CLR_RAM_LOOP:
+02BE   1B84           01882         DECR    FSR
+02BF   1D80           01883         CLRR    INDF
+02C0   1ACF           01884         DJZR    0X4F
+02C1   2800           01885         GOTO    CLR_RAM_LOOP
+02C2   000C           01886         RETURN
+                      01887         
+                      01888 ;       .line   243; "MC30P8160.c"      }   
+02C3   000C           01889         RETURN  
+                      01890 ; exit point of _Clr_Ram
+                      01891 
+                      01892 ;***
+                      01893 ;  pBlock Stats: dbName = C
+                      01894 ;***
+                      01895 ;entry:  _Init_Sys      ;Function start
+                      01896 ; 2 exit points
+                      01897 ;has an exit
+                      01898 ;; Starting pCode block
+02C4                  01899 _Init_Sys       ;Function start
+                      01900 ; 2 exit points
+                      01901 ;       .line   222; "MC30P8160.c"      __endasm;
+02C4                  01902 SET_OPTION:
+02C4   0B07           01903         MOVAI   00000111B
+02C5   1589           01904         MOVRA   T0CR
+02C6   0BD9           01905         MOVAI   217
+02C7   1D81           01906         CLRR    T0CNT
+02C8   0B01           01907         MOVAI   00000001B
+02C9   158E           01908         MOVRA   INTE
+02CA   3B8E           01909         BSET    INTE,7
+02CB   0B00           01910         MOVAI   0x00
+02CC   158F           01911         MOVRA   INTF
+02CD   0B00           01912         MOVAI   0x00
+02CE   15E5           01913         MOVRA   P1KBCR
+02CF   000C           01914         RETURN
+                      01915         
+                      01916 ;       .line   223; "MC30P8160.c"      } 
+02D0   000C           01917         RETURN  
+                      01918 ; exit point of _Init_Sys
+                      01919 
+                      01920 ;***
+                      01921 ;  pBlock Stats: dbName = C
+                      01922 ;***
+                      01923 ;entry:  _Delay_us_2    ;Function start
+                      01924 ; 2 exit points
+                      01925 ;has an exit
+                      01926 ;1 compiler assigned register :
+                      01927 ;   r0x1029
+                      01928 ;; Starting pCode block
+02D1                  01929 _Delay_us_2     ;Function start
+                      01930 ; 2 exit points
+                      01931 ;       .line   119; "MC30P8160.c"      void Delay_us_2(uint8_t i)
+02D1   1580           01932         MOVRA   r0x1029
+02D2                  01933 _00107_DS_
+                      01934 ;       .line   121; "MC30P8160.c"      for(; i>0; i--)
+02D2   0B00           01935         MOVAI   0x00
+02D3   1700           01936         ORAR    r0x1029
+02D4   3503           01937         JBCLR   STATUS,2
+02D5   2800           01938         GOTO    _00109_DS_
+                      01939 ;       .line   123; "MC30P8160.c"      WDT_Clear();
+02D6   000E           01940         CLRWDT  
+                      01941 ;       .line   124; "MC30P8160.c"      Nop();
+02D7   0000           01942         nop     
+                      01943 ;       .line   125; "MC30P8160.c"      Nop();
+02D8   0000           01944         nop     
+                      01945 ;       .line   126; "MC30P8160.c"      Nop();
+02D9   0000           01946         nop     
+                      01947 ;       .line   127; "MC30P8160.c"      Nop();
+02DA   0000           01948         nop     
+                      01949 ;       .line   121; "MC30P8160.c"      for(; i>0; i--)
+02DB   1B80           01950         DECR    r0x1029
+02DC   2800           01951         GOTO    _00107_DS_
+02DD                  01952 _00109_DS_
+                      01953 ;       .line   129; "MC30P8160.c"      }
+02DD   000C           01954         RETURN  
+                      01955 ; exit point of _Delay_us_2
+                      01956 
+                      01957 
+                      01958 ;       code size estimation:
+                      01959 ;         716+    0 =   716 instructions ( 1432 byte)
+                      01960 
+                      01961         end
+gpasm-2.2.37 (Jan 22 2024)   MC30P8160.asm      2024-10-31  10:13:09         PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+CLR_RAM                           000002BA
+CLR_RAM_LOOP                      000002BE
+CMPCR0                            00000068
+CMPCR1                            00000069
+CMPCR2                            0000006A
+DDR1                              00000056
+END_OF_INTERRUPT                  0000001F
+FSR                               00000004
+INDF                              00000000
+INTE                              0000000E
+INTF                              0000000F
+MCR                               00000008
+ODCON                             0000000C
+P1                                00000006
+P1ADCR                            00000067
+P1KBCR                            00000065
+PCL                               00000002
+PCLATH                            0000000A
+PDCON                             0000000B
+PUCON                             0000000D
+PWM1CR0                           00000050
+PWM1CR1                           00000051
+PWM1CR2                           00000052
+SET_OPTION                        000002C4
+STATUS                            00000003
+STK00                             00000016
+STK01                             00000015
+STK02                             00000014
+STK03                             00000013
+STK04                             00000012
+STK05                             00000011
+STK06                             00000010
+T0CNT                             00000001
+T0CR                              00000009
+T1CNT                             0000005A
+T1CR                              00000059
+T1DATA                            0000005C
+T1DATB                            0000005D
+T1DATC                            0000005E
+T1DATD                            0000005F
+T1LOAD                            0000005B
+T2CNTH                            00000061
+T2CNTL                            00000062
+T2CR                              00000060
+T2LOADH                           00000063
+T2LOADL                           00000064
+TKCNTH                            0000006E
+TKCNTL                            0000006F
+TKCR0                             0000006B
+TKCR1                             0000006C
+TKCR2                             0000006D
+TMRCR                             00000058
+_00107_DS_                        000002D2
+_00109_DS_                        000002DD
+_00138_DS_                        00000276
+_00140_DS_                        0000027F
+_00158_DS_                        00000214
+_00159_DS_                        0000021B
+_00165_DS_                        000001E8
+_00168_DS_                        0000023B
+_00171_DS_                        0000025E
+_00172_DS_                        00000265
+_00176_DS_                        0000022F
+_00178_DS_                        00000266
+_00228_DS_                        000001D3
+_00232_DS_                        00000228
+_00233_DS_                        00000235
+_00234_DS_                        00000254
+_00235_DS_                        0000025C
+_00247_DS_                        0000013C
+_00253_DS_                        00000156
+_00254_DS_                        0000015D
+_00260_DS_                        0000012A
+_00263_DS_                        0000017D
+_00266_DS_                        000001A0
+_00267_DS_                        000001A7
+_00271_DS_                        00000171
+_00273_DS_                        000001A8
+_00323_DS_                        00000115
+_00327_DS_                        0000016A
+_00328_DS_                        00000177
+_00329_DS_                        00000196
+_00330_DS_                        0000019E
+_00340_DS_                        000000F5
+_00343_DS_                        000000F6
+_00348_DS_                        000000E5
+_00351_DS_                        000000F8
+_00361_DS_                        000000C4
+_00364_DS_                        000000C5
+_00369_DS_                        000000B4
+_00372_DS_                        000000C7
+_00386_DS_                        0000005C
+_00387_DS_                        00000060
+_00389_DS_                        00000064
+_00392_DS_                        00000068
+_00400_DS_                        00000074
+_00404_DS_                        0000007B
+_00412_DS_                        00000087
+_00417_DS_                        0000008E
+_00424_DS_                        0000003F
+_00425_DS_                        0000004D
+_00428_DS_                        0000004F
+_00438_DS_                        00000048
+_00444_DS_                        0000002B
+_00445_DS_                        0000002F
+_00446_DS_                        00000031
+_00450_DS_                        0000003A
+_00456_DS_                        0000001B
+_00458_DS_                        00000023
+_00460_DS_                        00000016
+_00468_DS_                        00000018
+_00470_DS_                        0000001B
+_CMPCR0                           00000000
+_CMPCR0bits                       00000000
+_CMPCR1                           00000000
+_CMPCR1bits                       00000000
+_CMPCR2                           00000000
+_CMPCR2bits                       00000000
+_CONFIG0                          00008000
+_CONFIG1                          00008001
+_CPLAY_FLAG                       00000000
+_CSAVE_ACC                        00000000
+_CSAVE_STATUS                     00000000
+_Clr_Ram                          000002BA
+_DDR1                             00000000
+_DDR1bits                         00000000
+_Delay_us_2                       000002D1
+_FSR                              00000000
+_FSRbits                          00000000
+_FilterCnt_TK0                    00000000
+_FilterCnt_TK1                    00000000
+_Get_TK_Value                     00000276
+_INDF                             00000000
+_INDFbits                         00000000
+_INTE                             00000000
+_INTEbits                         00000000
+_INTF                             00000000
+_INTFbits                         00000000
+_IO_Init                          000002A8
+_Init_Sys                         000002C4
+_LED_PWM_Control                  00000050
+_MCR                              00000000
+_MCRbits                          00000000
+_ODCON                            00000000
+_ODCONbits                        00000000
+_P1                               00000000
+_P1ADCR                           00000000
+_P1ADCRbits                       00000000
+_P1KBCR                           00000000
+_P1KBCRbits                       00000000
+_P1bits                           00000000
+_PCL                              00000000
+_PCLATH                           00000000
+_PCLATHbits                       00000000
+_PCLbits                          00000000
+_PDCON                            00000000
+_PDCONbits                        00000000
+_PUCON                            00000000
+_PUCONbits                        00000000
+_PWM1CR0                          00000000
+_PWM1CR0bits                      00000000
+_PWM1CR1                          00000000
+_PWM1CR1bits                      00000000
+_PWM1CR2                          00000000
+_PWM1CR2bits                      00000000
+_PWM_Duty_W                       00000000
+_PWM_Duty_Y                       00000000
+_PWM_W_OFF                        00000093
+_PWM_Y_OFF                        0000008F
+_STATUS                           00000000
+_STATUSbits                       00000000
+_SleepCnt                         00000000
+_Sleep_mode                       00000026
+_T0CNT                            00000000
+_T0CNTbits                        00000000
+_T0CR                             00000000
+_T0CRbits                         00000000
+_T0_5ms_Cnt                       00000000
+_T1CNT                            00000000
+_T1CNTbits                        00000000
+_T1CR                             00000000
+_T1CRbits                         00000000
+_T1DATA                           00000000
+_T1DATAbits                       00000000
+_T1DATB                           00000000
+_T1DATBbits                       00000000
+_T1DATC                           00000000
+_T1DATCbits                       00000000
+_T1DATD                           00000000
+_T1DATDbits                       00000000
+_T1LOAD                           00000000
+_T1LOADbits                       00000000
+_T1_PWM_Init                      000002B3
+_T2CNTH                           00000000
+_T2CNTHbits                       00000000
+_T2CNTL                           00000000
+_T2CNTLbits                       00000000
+_T2CR                             00000000
+_T2CRbits                         00000000
+_T2LOADH                          00000000
+_T2LOADHbits                      00000000
+_T2LOADL                          00000000
+_T2LOADLbits                      00000000
+_TK0_Filter_Cnt                   00000000
+_TK0_Filter_Cnt_T                 00000000
+_TK0_Key_Cnt                      00000000
+_TK0_Release_                     00000267
+_TK0_Scan                         000001B8
+_TK0_value_Read                   00000097
+_TK1_Filter_Cnt                   00000000
+_TK1_Filter_Cnt_T                 00000000
+_TK1_Key_Cnt                      00000000
+_TK1_Release_                     000001A9
+_TK1_Scan                         000000F9
+_TK1_value_Read                   000000C8
+_TKCNTH                           00000000
+_TKCNTHbits                       00000000
+_TKCNTL                           00000000
+_TKCNTLbits                       00000000
+_TKCR0                            00000000
+_TKCR0bits                        00000000
+_TKCR1                            00000000
+_TKCR1bits                        00000000
+_TKCR2                            00000000
+_TKCR2bits                        00000000
+_TK_10S_Reset                     0000003B
+_TK_Init                          0000028E
+_TMRCR                            00000000
+_TMRCRbits                        00000000
+_TOUCH_Init                       000002A1
+_T_key_Value                      00000000
+__1K8160                          00000001
+__sdcc_interrupt                  00000008
+_flag1                            00000000
+_flag2                            00000000
+_flag3                            00000000
+_int_isr                          00000008
+_main                             00000000
+_u16_TK0_environment_val          00000000
+_u16_TK0_environment_val_Sum      00000000
+_u16_TK0_get_val_Min              00000000
+_u16_TK0_get_val_Temp             00000000
+_u16_TK1_environment_val          00000000
+_u16_TK1_environment_val_Sum      00000000
+_u16_TK1_get_val_Min              00000000
+_u16_TK1_get_val_Temp             00000000
+_u16_get_val                      00000000
+_u16_release_val                  00000000
+_u16_release_val_TK0              00000000
+_u16_release_val_TK1              00000000
+_u16_temp_val                     00000000
+_u8_TK_Reset_Cnt                  00000000
+r0x1029                           00000000
+r0x102A                           00000001
+r0x102B                           00000002
+r0x102D                           00000003
+r0x102E                           00000004
+C                                 STATUS,0
+CMPEN                             CMPCR0,7
+CMPHY                             CMPCR0,2
+CMPIE                             CMPCR2,1
+CMPIF                             CMPCR2,0
+CMPIM                             CMPCR2,2
+CMPNS                             CMPCR0,5
+CMPNV                             CMPCR0,1
+CMPOE                             CMPCR0,0
+CMPOF                             MCR,5
+CMPPS                             CMPCR0,6
+DC                                STATUS,1
+DDR10                             DDR1,0
+DDR11                             DDR1,1
+DDR12                             DDR1,2
+DDR13                             DDR1,3
+DDR14                             DDR1,4
+DDR15                             DDR1,5
+EIS                               MCR,6
+EVDIS0                            CMPCR0,3
+EVDIS1                            CMPCR0,4
+EVDVS0                            CMPCR1,0
+EVDVS1                            CMPCR1,1
+EVDVS2                            CMPCR1,2
+EVDVS3                            CMPCR1,3
+EVDVS4                            CMPCR1,4
+EVDVS5                            CMPCR1,5
+FSR0                              FSR,0
+FSR1                              FSR,1
+FSR2                              FSR,2
+FSR3                              FSR,3
+FSR4                              FSR,4
+FSR5                              FSR,5
+FSR6                              FSR,6
+GIE                               INTE,7
+INDF0                             INDF,0
+INDF1                             INDF,1
+INDF2                             INDF,2
+INDF3                             INDF,3
+INDF4                             INDF,4
+INDF5                             INDF,5
+INDF6                             INDF,6
+INDF7                             INDF,7
+INTIE                             INTE,2
+INTIF                             INTF,2
+INTM                              T0CR,6
+KBIE                              INTE,1
+KBIF                              INTF,1
+P10D                              P1,0
+P10DC                             P1ADCR,0
+P10KE                             P1KBCR,0
+P10OD                             ODCON,0
+P10PD                             PDCON,0
+P10PU                             PUCON,0
+P11D                              P1,1
+P11DC                             P1ADCR,1
+P11KE                             P1KBCR,1
+P11OD                             ODCON,1
+P11PD                             PDCON,1
+P11PU                             PUCON,1
+P12D                              P1,2
+P12DC                             P1ADCR,2
+P12KE                             P1KBCR,2
+P12OD                             ODCON,2
+P12PD                             PDCON,2
+P12PU                             PUCON,2
+P13D                              P1,3
+P13DC                             P1ADCR,3
+P13KE                             P1KBCR,3
+P13OD                             ODCON,3
+P13PD                             PDCON,3
+P13PU                             PUCON,3
+P14D                              P1,4
+P14DC                             P1ADCR,4
+P14KE                             P1KBCR,4
+P14OD                             ODCON,4
+P14PD                             PDCON,4
+P14PU                             PUCON,4
+P15D                              P1,5
+P15DC                             P1ADCR,5
+P15KE                             P1KBCR,5
+P15OD                             ODCON,5
+P15PD                             PDCON,5
+P15PU                             PUCON,5
+PC0                               PCL,0
+PC1                               PCL,1
+PC2                               PCL,2
+PC3                               PCL,3
+PC4                               PCL,4
+PC5                               PCL,5
+PC6                               PCL,6
+PC7                               PCL,7
+PCH0                              PCLATH,0
+PCH1                              PCLATH,1
+PD                                STATUS,3
+PWM1ADB                           PWM1CR2,0
+PWM1AEN                           T1CR,5
+PWM1ANV                           PWM1CR1,2
+PWM1AOE                           T1CR,6
+PWM1BDB                           PWM1CR2,1
+PWM1BEN                           PWM1CR0,0
+PWM1BOE                           PWM1CR0,1
+PWM1CDB                           PWM1CR2,2
+PWM1CEN                           PWM1CR0,2
+PWM1COE                           PWM1CR0,3
+PWM1DDB                           PWM1CR2,3
+PWM1DEN                           PWM1CR0,4
+PWM1DOE                           PWM1CR0,5
+PWM1DOS                           PWM1CR1,3
+PWM1LG                            PWM1CR1,0
+PWM1MD                            PWM1CR1,1
+T0CNT0                            T0CNT,0
+T0CNT1                            T0CNT,1
+T0CNT2                            T0CNT,2
+T0CNT3                            T0CNT,3
+T0CNT4                            T0CNT,4
+T0CNT5                            T0CNT,5
+T0CNT6                            T0CNT,6
+T0CNT7                            T0CNT,7
+T0CSE                             T0CR,4
+T0IE                              INTE,0
+T0IF                              INTF,0
+T0PRS0                            T0CR,0
+T0PRS1                            T0CR,1
+T0PRS2                            T0CR,2
+T0PTA                             T0CR,3
+T0PTS                             T0CR,5
+T0TBS                             TMRCR,6
+T1CKS0                            T1CR,3
+T1CKS1                            T1CR,4
+T1CNT0                            T1CNT,0
+T1CNT1                            T1CNT,1
+T1CNT2                            T1CNT,2
+T1CNT3                            T1CNT,3
+T1CNT4                            T1CNT,4
+T1CNT5                            T1CNT,5
+T1CNT6                            T1CNT,6
+T1CNT7                            T1CNT,7
+T1DATA0                           T1DATA,0
+T1DATA1                           T1DATA,1
+T1DATA2                           T1DATA,2
+T1DATA3                           T1DATA,3
+T1DATA4                           T1DATA,4
+T1DATA5                           T1DATA,5
+T1DATA6                           T1DATA,6
+T1DATA7                           T1DATA,7
+T1DATB0                           T1DATB,0
+T1DATB1                           T1DATB,1
+T1DATB2                           T1DATB,2
+T1DATB3                           T1DATB,3
+T1DATB4                           T1DATB,4
+T1DATB5                           T1DATB,5
+T1DATB6                           T1DATB,6
+T1DATB7                           T1DATB,7
+T1DATC0                           T1DATC,0
+T1DATC1                           T1DATC,1
+T1DATC2                           T1DATC,2
+T1DATC3                           T1DATC,3
+T1DATC4                           T1DATC,4
+T1DATC5                           T1DATC,5
+T1DATC6                           T1DATC,6
+T1DATC7                           T1DATC,7
+T1DATD0                           T1DATD,0
+T1DATD1                           T1DATD,1
+T1DATD2                           T1DATD,2
+T1DATD3                           T1DATD,3
+T1DATD4                           T1DATD,4
+T1DATD5                           T1DATD,5
+T1DATD6                           T1DATD,6
+T1DATD7                           T1DATD,7
+T1EN                              T1CR,7
+T1IE                              TMRCR,1
+T1IF                              TMRCR,0
+T1LOAD0                           T1LOAD,0
+T1LOAD1                           T1LOAD,1
+T1LOAD2                           T1LOAD,2
+T1LOAD3                           T1LOAD,3
+T1LOAD4                           T1LOAD,4
+T1LOAD5                           T1LOAD,5
+T1LOAD6                           T1LOAD,6
+T1LOAD7                           T1LOAD,7
+T1PRS0                            T1CR,0
+T1PRS1                            T1CR,1
+T1PRS2                            T1CR,2
+T2CKS0                            T2CR,3
+T2CKS1                            T2CR,4
+T2CNT0                            T2CNTL,0
+T2CNT1                            T2CNTL,1
+T2CNT10                           T2CNTH,2
+T2CNT11                           T2CNTH,3
+T2CNT12                           T2CNTH,4
+T2CNT13                           T2CNTH,5
+T2CNT14                           T2CNTH,6
+T2CNT15                           T2CNTH,7
+T2CNT2                            T2CNTL,2
+T2CNT3                            T2CNTL,3
+T2CNT4                            T2CNTL,4
+T2CNT5                            T2CNTL,5
+T2CNT6                            T2CNTL,6
+T2CNT7                            T2CNTL,7
+T2CNT8                            T2CNTH,0
+T2CNT9                            T2CNTH,1
+T2EN                              T2CR,7
+T2IE                              TMRCR,3
+T2IF                              TMRCR,2
+T2LOAD0                           T2LOADL,0
+T2LOAD1                           T2LOADL,1
+T2LOAD10                          T2LOADH,2
+T2LOAD11                          T2LOADH,3
+T2LOAD12                          T2LOADH,4
+T2LOAD13                          T2LOADH,5
+T2LOAD14                          T2LOADH,6
+T2LOAD15                          T2LOADH,7
+T2LOAD2                           T2LOADL,2
+T2LOAD3                           T2LOADL,3
+T2LOAD4                           T2LOADL,4
+T2LOAD5                           T2LOADL,5
+T2LOAD6                           T2LOADL,6
+T2LOAD7                           T2LOADL,7
+T2LOAD8                           T2LOADH,0
+T2LOAD9                           T2LOADH,1
+T2MOD                             T2CR,6
+T2PRS0                            T2CR,0
+T2PRS1                            T2CR,1
+T2PRS2                            T2CR,2
+TKCF                              TKCR1,5
+TKCFL                             TKCR0,5
+TKCHS0                            TKCR1,0
+TKCHS1                            TKCR1,1
+TKCNT0                            TKCNTL,0
+TKCNT1                            TKCNTL,1
+TKCNT10                           TKCNTH,2
+TKCNT11                           TKCNTH,3
+TKCNT12                           TKCNTH,4
+TKCNT13                           TKCNTH,5
+TKCNT14                           TKCNTH,6
+TKCNT15                           TKCNTH,7
+TKCNT2                            TKCNTL,2
+TKCNT3                            TKCNTL,3
+TKCNT4                            TKCNTL,4
+TKCNT5                            TKCNTL,5
+TKCNT6                            TKCNTL,6
+TKCNT7                            TKCNTL,7
+TKCNT8                            TKCNTH,0
+TKCNT9                            TKCNTH,1
+TKCON                             TKCR0,6
+TKEN                              TKCR0,7
+TKFJ0                             TKCR2,0
+TKFJ1                             TKCR2,1
+TKFJ2                             TKCR2,2
+TKFJ3                             TKCR2,3
+TKFJ4                             TKCR2,4
+TKFJ5                             TKCR2,5
+TKFJ6                             TKCR2,6
+TKFJ7                             TKCR2,7
+TKFJE                             TKCR0,3
+TKFS0                             TKCR0,0
+TKFS1                             TKCR0,1
+TKFS2                             TKCR0,2
+TKIE                              TKCR1,7
+TKIF                              TKCR1,6
+TO                                STATUS,4
+WDTEN                             MCR,7
+WKUP                              STATUS,7
+Z                                 STATUS,2
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

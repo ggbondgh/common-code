@@ -1,0 +1,1042 @@
+gpasm-2.2.31 (Mar 15 2022)   D:\WORK\项目\触摸类芯片\MC30P8160\VER1_例程\ASM版\MC30P8160_TK.asm2023-3-22  10:21:36          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;;;****************************************************************************
+                      00002 ;;;****************************************************************************
+                      00003 ;;;****************************************************************************
+                      00004 ;; 触摸程序
+                      00005 ;; 初始化触摸参数:                              CALL    SET_TOUCH_OPTION
+                      00006 ;; 调用入口:                                    CALL    SCAN_TOUCH
+                      00007 ;;--------------------------
+                      00008 
+                      00009 ;-------------------------------------------------------------------------------------
+0000                  00010 SET_TOUCH_OPTION:
+Error[113]  : Symbol not previously defined (TOUCH_KEY).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0000   0B00           00011         MOVAI   TOUCH_KEY                               ;00001111B
+Error[113]  : Symbol not previously defined (P1ADCR).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0001   1580           00012         MOVRA   P1ADCR                                  ;设定对应的TK口为非数字功能，1为非数字功能
+Error[113]  : Symbol not previously defined (DDR1).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0002   1580           00013         MOVRA   DDR1                                    ;输入/输出；1为输入，0为输出
+Error[113]  : Symbol not previously defined (TOUCH_FLAG).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0003   1580           00014         MOVRA   TOUCH_FLAG
+Error[113]  : Symbol not previously defined (TOUCH_FLAG).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0004   1180           00015         SWAPR   TOUCH_FLAG                              ;将对应的TK 使能触摸点要刷新基准数据（TOUCH_NEW_FLAG）
+Error[128]  : Missing argument(s).
+0005                  00016         BCLR    T2IE                                    ;不需要T2中断，TK采用扫描方式
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0005   0BC8           00017         MOVAI   11001000B                               ;定时器0配置,BIT7为定时器2开启,BIT6为定时器2连续/单次计数模式,BIT4-3:时钟源选定,BIT0-2:定时器分频
+Error[113]  : Symbol not previously defined (T2CR).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0006   1780           00018         ORRA    T2CR                                    ;开启T2定时器，并且为单次计时模式
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0007   0B00           00019         MOVAI   00000000B
+Error[113]  : Symbol not previously defined (TKCR0).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0008   1580           00020         MOVRA   TKCR0                                   ;TK触摸配置,BIT7=1开启TK,BIT6=1允许触摸充放电,BIT5/4为TK时钟滤波,BIT3:TK跳频,BIT2-0:TK振荡频率选择
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0009   0BFF           00021         MOVAI   11111111B                               ;选择通道0
+Error[113]  : Symbol not previously defined (TKCR2).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+000A   1580           00022         MOVRA   TKCR2                                   ;TK触摸配置,BIT7=1使能TK计数,BIT6:TKM计数中断,BIT2/0:选定触摸通道
+000B                  00023 SET_TOUCH_OPTION2:                                      ;休眠唤醒后重新设定触摸参数
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_LIST).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+000B   1D80           00024         CLRR    TOUCH_SCAN_LIST
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_TONE).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+000C   1D80           00025         CLRR    TOUCH_SCAN_TONE
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE1).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+000D   1D80           00026         CLRR    TOUCH_DEBOUNCE1
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE2).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+000E   1D80           00027         CLRR    TOUCH_DEBOUNCE2
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE3).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+000F   1D80           00028         CLRR    TOUCH_DEBOUNCE3
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE4).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0010   1D80           00029         CLRR    TOUCH_DEBOUNCE4
+Error[128]  : Missing argument(s).
+0011                  00030         BCLR    TK_SCANEND_FG                   ;所有TK的扫描完成
+Error[128]  : Missing argument(s).
+0011                  00031         BSET    WAKEUP_FG                               ;看门狗唤醒
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0011   000C           00032         RETURN
+                      00033 ;-------------------------------------------------------------------------------------
+0012                  00034 SCAN_TOUCH:
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_LIST).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0012   1600           00035         MOVAR   TOUCH_SCAN_LIST                 ;扫描触摸的步骤
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0013   0D03           00036         ANDAI   0X03
+Error[113]  : Symbol not previously defined (PCL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0014   1F80           00037         ADDRA   PCL
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0015   2800           00038         GOTO    SCAN_TOUCH_STEP1                ;设定扫描通道和扫描参数，并开启触摸
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0016   2800           00039         GOTO    SCAN_TOUCH_STEP2                ;等待触摸计数完成，并屏蔽杂波
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0017   2800           00040         GOTO    SCAN_TOUCH_STEP3                ;分析每个通道的读数（滤波和消抖）,确认是否触发触摸按键
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_LIST).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0018   1D80           00041         CLRR    TOUCH_SCAN_LIST
+                      00042 ;       GOTO    SCAN_TOUCH_STEP1                ;设定扫描通道和扫描参数，并开启触摸
+                      00043 ;;---------------------------------------------------------
+0019                  00044 SCAN_TOUCH_STEP1:
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_TONE).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0019   1600           00045         MOVAR   TOUCH_SCAN_TONE                 ;扫描通道数
+Error[152]  : Executable code and data must be defined in an appropriate section.
+001A   0D03           00046         ANDAI   0X03
+Error[113]  : Symbol not previously defined (PCL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+001B   1F80           00047         ADDRA   PCL
+Error[113]  : Symbol not previously defined (SET_TOUCH0_ENABLE).
+                      00048 #if SET_TOUCH0_ENABLE                           ;第0个触摸点是否使能
+                      00049         GOTO    SCAN_TOUCH_STEP1_TONE0
+                      00050 #else
+                      00051 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH1_ENABLE).
+                      00052 #if SET_TOUCH1_ENABLE                           ;第1个触摸点是否使能
+                      00053         GOTO    SCAN_TOUCH_STEP1_TONE1
+                      00054 #else
+                      00055 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH2_ENABLE).
+                      00056 #if SET_TOUCH2_ENABLE                           ;第2个触摸点是否使能
+                      00057         GOTO    SCAN_TOUCH_STEP1_TONE2
+                      00058 #else
+                      00059 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH3_ENABLE).
+                      00060 #if SET_TOUCH3_ENABLE                           ;第3个触摸点是否使能
+                      00061         GOTO    SCAN_TOUCH_STEP1_TONE3
+                      00062 #else
+                      00063 #endif
+                      00064 ;;---------------------------
+Error[113]  : Symbol not previously defined (SET_TOUCH0_ENABLE).
+                      00065 #if SET_TOUCH0_ENABLE                           ;第0个触摸点是否使能
+                      00066 SCAN_TOUCH_STEP1_TONE0:
+                      00067         MOVAI   00000001B                               ;1-输出,0-输入
+                      00068         ORRA    DDR1                                    ;设相应的触摸通道(TK0-P10）为输入口
+                      00069         ORRA    P1ADCR                                  ;设相应的触摸通道(TK0-P10）关闭数字功能
+                      00070         MOVAI   00000000B                               ;选择通道0
+                      00071         MOVRA   TKCR1                                   ;TK触摸配置,BIT7=1使能TK计数,BIT6:TKM计数中断,BIT2/0:选定触摸通道
+                      00072         BCLR    START_TK_FG
+                      00073         JBCLR   TOUCH_NEW_FLAG_0
+                      00074         BSET    START_TK_FG
+                      00075         MOVAI   SET_SENS_LEVEL0
+                      00076         GOTO    SCAN_TOUCH_STEP1_NEXT
+                      00077 #else
+                      00078 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH1_ENABLE).
+                      00079 #if SET_TOUCH1_ENABLE                           ;第1个触摸点是否使能
+                      00080 SCAN_TOUCH_STEP1_TONE1:
+                      00081         MOVAI   00000010B                               ;1-输出,0-输入
+                      00082         ORRA    DDR1                                    ;设相应的触摸通道(TK0-P10）为输入口
+                      00083         ORRA    P1ADCR                                  ;设相应的触摸通道(TK0-P10）关闭数字功能
+                      00084         MOVAI   00000001B                               ;选择通道0
+                      00085         MOVRA   TKCR1                                   ;TK触摸配置,BIT7=1使能TK计数,BIT6:TKM计数中断,BIT2/0:选定触摸通道
+                      00086         BCLR    START_TK_FG
+                      00087         JBCLR   TOUCH_NEW_FLAG_1
+                      00088         BSET    START_TK_FG
+                      00089         MOVAI   SET_SENS_LEVEL1
+                      00090         GOTO    SCAN_TOUCH_STEP1_NEXT
+                      00091 #else
+                      00092 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH2_ENABLE).
+                      00093 #if SET_TOUCH2_ENABLE                           ;第2个触摸点是否使能
+                      00094 SCAN_TOUCH_STEP1_TONE2:
+                      00095         MOVAI   00000100B                               ;1-输出,0-输入
+                      00096         ORRA    DDR1                                    ;设相应的触摸通道(TK0-P10）为输入口
+                      00097         ORRA    P1ADCR                                  ;设相应的触摸通道(TK0-P10）关闭数字功能
+                      00098         MOVAI   00000010B                               ;选择通道0
+                      00099         MOVRA   TKCR1                                   ;TK触摸配置,BIT7=1使能TK计数,BIT6:TKM计数中断,BIT2/0:选定触摸通道
+                      00100         BCLR    START_TK_FG
+                      00101         JBCLR   TOUCH_NEW_FLAG_2
+                      00102         BSET    START_TK_FG
+                      00103         MOVAI   SET_SENS_LEVEL2
+                      00104         GOTO    SCAN_TOUCH_STEP1_NEXT
+                      00105 #else
+                      00106 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH3_ENABLE).
+                      00107 #if SET_TOUCH3_ENABLE                           ;第3个触摸点是否使能
+                      00108 SCAN_TOUCH_STEP1_TONE3:
+                      00109         MOVAI   00001000B                               ;1-输出,0-输入
+                      00110         ORRA    DDR1                                    ;设相应的触摸通道(TK0-P10）为输入口
+                      00111         ORRA    P1ADCR                                  ;设相应的触摸通道(TK0-P10）关闭数字功能
+                      00112         MOVAI   00000011B                               ;选择通道0
+                      00113         MOVRA   TKCR1                                   ;TK触摸配置,BIT7=1使能TK计数,BIT6:TKM计数中断,BIT2/0:选定触摸通道
+                      00114         BCLR    START_TK_FG
+                      00115         JBCLR   TOUCH_NEW_FLAG_3
+                      00116         BSET    START_TK_FG
+                      00117         MOVAI   SET_SENS_LEVEL3
+                      00118         GOTO    SCAN_TOUCH_STEP1_NEXT
+                      00119 #else
+                      00120 #endif
+                      00121 ;;---------------------------
+001C                  00122 SCAN_TOUCH_STEP1_NEXT:
+Error[113]  : Symbol not previously defined (T2CNTH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+001C   1580           00123         MOVRA   T2CNTH                                  ;设定定时器0计数值(16位高地址)
+Error[113]  : Symbol not previously defined (T2LOADH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+001D   1580           00124         MOVRA   T2LOADH                                 ;设定定时器0重装计数值(16位高地址)
+Error[152]  : Executable code and data must be defined in an appropriate section.
+001E   0BFA           00125         MOVAI   250
+Error[113]  : Symbol not previously defined (T2CNTL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+001F   1580           00126         MOVRA   T2CNTL                                  ;设定定时器0计数值(16位低地址)
+Error[113]  : Symbol not previously defined (T2LOADL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0020   1580           00127         MOVRA   T2LOADL                                 ;设定定时器0重装计数值(16位低地址)
+                      00128 
+Error[113]  : Symbol not previously defined (TKCNTH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0021   1D80           00129         CLRR    TKCNTH
+Error[113]  : Symbol not previously defined (TKCNTL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0022   1D80           00130         CLRR    TKCNTL                                  ;清TOUCH读数,必须手工清零
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0023   0BC8           00131         MOVAI   11001000B
+Error[113]  : Symbol not previously defined (TKCR0).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0024   1780           00132         ORRA    TKCR0                                   ;TK触摸配置,BIT7=1开启TK,BIT6=1允许触摸充放电,BIT5/4为TK时钟滤波,BIT3:TK跳频,BIT2-0:TK振荡频率选择
+Error[128]  : Missing argument(s).
+0025                  00133         BSET    TKCON                                   ;开始电容充放电
+Error[128]  : Missing argument(s).
+0025                  00134         BSET    TKEN
+Error[128]  : Missing argument(s).
+0025                  00135         BSET    T2EN
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0025   0B01           00136         MOVAI   0X01
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_LIST).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0026   1580           00137         MOVRA   TOUCH_SCAN_LIST
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0027   000C           00138         RETURN
+                      00139 ;;---------------------------------------------------------
+0028                  00140 SCAN_TOUCH_STEP2:
+Error[128]  : Missing argument(s).
+0028                  00141         JBSET   T2IF
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0028   000C           00142         RETURN
+Error[128]  : Missing argument(s).
+0029                  00143         BCLR    T2IF                                    ;触摸计数完成
+                      00144 
+Error[113]  : Symbol not previously defined (TKCNTH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0029   1600           00145         MOVAR   TKCNTH
+Error[113]  : Symbol not previously defined (TKCNTH_NEW).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+002A   1580           00146         MOVRA   TKCNTH_NEW
+Error[113]  : Symbol not previously defined (TKCNTL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+002B   1600           00147         MOVAR   TKCNTL
+Error[113]  : Symbol not previously defined (TKCNTL_NEW).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+002C   1580           00148         MOVRA   TKCNTL_NEW
+Error[128]  : Missing argument(s).
+002D                  00149         BCLR    TKCON
+Error[113]  : Symbol not previously defined (TKCNTH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+002D   1D80           00150         CLRR    TKCNTH
+Error[113]  : Symbol not previously defined (TKCNTL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+002E   1D80           00151         CLRR    TKCNTL                                  ;清TOUCH读数,必须手工清零
+                      00152 
+Error[113]  : Symbol not previously defined (TOUCH_KEY).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+002F   0B00           00153         MOVAI   TOUCH_KEY                               ;I/O口数字功能设定,0是有效
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0030   080F           00154         XORAI   00001111B
+Error[113]  : Symbol not previously defined (P1ADCR).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0031   1E80           00155         ANDRA   P1ADCR                                  ;设定对应的TK口为数字功能，0为数字功能
+Error[113]  : Symbol not previously defined (DDR1).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0032   1E80           00156         ANDRA   DDR1                                    ;设相应的触摸通道(TK0-TK3）为输出口
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0033   0B02           00157         MOVAI   0X02
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_LIST).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0034   1580           00158         MOVRA   TOUCH_SCAN_LIST
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0035   000C           00159         RETURN
+                      00160 ;;---------------------------------------------------------
+0036                  00161 SCAN_TOUCH_STEP3:
+Error[128]  : Missing argument(s).
+0036                  00162         JBCLR   START_TK_FG                                     ;启动的前一段时间，可以不考虑数据差值
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0036   2800           00163         GOTO    SCAN_TOUCH_STEP3_SAVE
+Error[113]  : Symbol not previously defined (TKCNTL_NEW).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0037   1600           00164         MOVAR   TKCNTL_NEW
+                      00165 
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_TONE).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0038   1600           00166         MOVAR   TOUCH_SCAN_TONE                         ;扫描通道数
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0039   0D07           00167         ANDAI   0X07
+Error[113]  : Symbol not previously defined (PCL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+003A   1F80           00168         ADDRA   PCL
+Error[113]  : Symbol not previously defined (SET_TOUCH0_ENABLE).
+                      00169 #if SET_TOUCH0_ENABLE                                   ;第0个触摸点是否使能
+                      00170         GOTO    SCAN_TOUCH_STEP3_TONE0
+                      00171 #else
+                      00172 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH1_ENABLE).
+                      00173 #if SET_TOUCH1_ENABLE                                   ;第1个触摸点是否使能
+                      00174         GOTO    SCAN_TOUCH_STEP3_TONE1
+                      00175 #else
+                      00176 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH2_ENABLE).
+                      00177 #if SET_TOUCH2_ENABLE                                   ;第2个触摸点是否使能
+                      00178         GOTO    SCAN_TOUCH_STEP3_TONE2
+                      00179 #else
+                      00180 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH3_ENABLE).
+                      00181 #if SET_TOUCH3_ENABLE                                   ;第3个触摸点是否使能
+                      00182         GOTO    SCAN_TOUCH_STEP3_TONE3
+                      00183 #else
+                      00184 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH0_ENABLE).
+                      00185 #if SET_TOUCH0_ENABLE                                   ;第0个触摸点是否使能
+                      00186 SCAN_TOUCH_STEP3_TONE0:
+                      00187         MOVAR   TKCNT0_SAVEH
+                      00188         MOVRA   TKCNTL_OLD_TEMPH
+                      00189         MOVAR   TKCNT0_SAVEL
+                      00190         MOVRA   TKCNTL_OLD_TEMPL                        ;把保存的这个通道的读数值提取出来
+                      00191         MOVAI   SET_TOUCH0_PRE_LEVEL            ;触摸按下的阀值
+                      00192         MOVRA   TOUCH_TEMP1
+                      00193         MOVAI   SET_TOUCH0_RELEA_LEVEL          ;触摸离开的阀值
+                      00194         MOVRA   TOUCH_TEMP2
+                      00195         MOVAI   00000001B
+                      00196         MOVRA   TOUCH_TEMP3                                     ;对应触摸通道0
+                      00197         MOVAI   SET_TOUCH0_DEBOUNCEC            ;通道消抖处理次数,即连续多少次响应按键为有效
+                      00198         MOVRA   TOUCH_TEMP4
+                      00199         MOVAR   TKCNT0_BASEL
+                      00200         MOVRA   TOUCH_TEMP5
+                      00201         MOVAR   TKCNT0_BASEH
+                      00202         MOVRA   TOUCH_TEMP6
+                      00203         GOTO    SCAN_TOUCH_STEP3_CHECK
+                      00204 #else
+                      00205 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH1_ENABLE).
+                      00206 #if SET_TOUCH1_ENABLE                                   ;第1个触摸点是否使能
+                      00207 SCAN_TOUCH_STEP3_TONE1:
+                      00208         MOVAR   TKCNT1_SAVEH
+                      00209         MOVRA   TKCNTL_OLD_TEMPH
+                      00210         MOVAR   TKCNT1_SAVEL
+                      00211         MOVRA   TKCNTL_OLD_TEMPL                        ;把保存的这个通道的读数值提取出来
+                      00212         MOVAI   SET_TOUCH1_PRE_LEVEL            ;触摸按下的阀值
+                      00213         MOVRA   TOUCH_TEMP1
+                      00214         MOVAI   SET_TOUCH1_RELEA_LEVEL          ;触摸离开的阀值
+                      00215         MOVRA   TOUCH_TEMP2
+                      00216         MOVAI   00000010B
+                      00217         MOVRA   TOUCH_TEMP3                                     ;对应触摸通道1
+                      00218         MOVAI   SET_TOUCH1_DEBOUNCEC            ;通道消抖处理次数,即连续多少次响应按键为有效
+                      00219         MOVRA   TOUCH_TEMP4
+                      00220         MOVAR   TKCNT1_BASEL
+                      00221         MOVRA   TOUCH_TEMP5
+                      00222         MOVAR   TKCNT1_BASEH
+                      00223         MOVRA   TOUCH_TEMP6
+                      00224         GOTO    SCAN_TOUCH_STEP3_CHECK
+                      00225 #else
+                      00226 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH2_ENABLE).
+                      00227 #if SET_TOUCH2_ENABLE                                   ;第2个触摸点是否使能
+                      00228 SCAN_TOUCH_STEP3_TONE2:
+                      00229         MOVAR   TKCNT2_SAVEH
+                      00230         MOVRA   TKCNTL_OLD_TEMPH
+                      00231         MOVAR   TKCNT2_SAVEL
+                      00232         MOVRA   TKCNTL_OLD_TEMPL                        ;把保存的这个通道的读数值提取出来
+                      00233         MOVAI   SET_TOUCH2_PRE_LEVEL            ;触摸按下的阀值
+                      00234         MOVRA   TOUCH_TEMP1
+                      00235         MOVAI   SET_TOUCH2_RELEA_LEVEL          ;触摸离开的阀值
+                      00236         MOVRA   TOUCH_TEMP2
+                      00237         MOVAI   00000100B
+                      00238         MOVRA   TOUCH_TEMP3                                     ;对应触摸通道2
+                      00239         MOVAI   SET_TOUCH2_DEBOUNCEC            ;通道消抖处理次数,即连续多少次响应按键为有效
+                      00240         MOVRA   TOUCH_TEMP4
+                      00241         MOVAR   TKCNT2_BASEL
+                      00242         MOVRA   TOUCH_TEMP5
+                      00243         MOVAR   TKCNT2_BASEH
+                      00244         MOVRA   TOUCH_TEMP6
+                      00245         GOTO    SCAN_TOUCH_STEP3_CHECK
+                      00246 #else
+                      00247 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH3_ENABLE).
+                      00248 #if SET_TOUCH3_ENABLE                                   ;第3个触摸点是否使能
+                      00249 SCAN_TOUCH_STEP3_TONE3:
+                      00250         MOVAR   TKCNT3_SAVEH
+                      00251         MOVRA   TKCNTL_OLD_TEMPH
+                      00252         MOVAR   TKCNT3_SAVEL
+                      00253         MOVRA   TKCNTL_OLD_TEMPL                        ;把保存的这个通道的读数值提取出来
+                      00254         MOVAI   SET_TOUCH3_PRE_LEVEL            ;触摸按下的阀值
+                      00255         MOVRA   TOUCH_TEMP1
+                      00256         MOVAI   SET_TOUCH3_RELEA_LEVEL          ;触摸离开的阀值
+                      00257         MOVRA   TOUCH_TEMP2
+                      00258         MOVAI   00001000B
+                      00259         MOVRA   TOUCH_TEMP3                                     ;对应触摸通道3
+                      00260         MOVAI   SET_TOUCH3_DEBOUNCEC            ;通道消抖处理次数,即连续多少次响应按键为有效
+                      00261         MOVRA   TOUCH_TEMP4
+                      00262         MOVAR   TKCNT3_BASEL
+                      00263         MOVRA   TOUCH_TEMP5
+                      00264         MOVAR   TKCNT3_BASEH
+                      00265         MOVRA   TOUCH_TEMP6
+                      00266         GOTO    SCAN_TOUCH_STEP3_CHECK
+                      00267 #else
+                      00268 #endif
+                      00269 ;;---------------------------
+003B                  00270 SCAN_TOUCH_STEP3_CHECK:
+Error[113]  : Symbol not previously defined (TKCNTL_NEW).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+003B   1600           00271         MOVAR   TKCNTL_NEW
+Error[113]  : Symbol not previously defined (SUB_AL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+003C   1580           00272         MOVRA   SUB_AL
+Error[113]  : Symbol not previously defined (TKCNTH_NEW).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+003D   1600           00273         MOVAR   TKCNTH_NEW
+Error[113]  : Symbol not previously defined (SUB_AH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+003E   1580           00274         MOVRA   SUB_AH
+Error[113]  : Symbol not previously defined (TKCNTL_OLD_TEMPL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+003F   1600           00275         MOVAR   TKCNTL_OLD_TEMPL
+Error[113]  : Symbol not previously defined (SUB_BL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0040   1580           00276         MOVRA   SUB_BL
+Error[113]  : Symbol not previously defined (TKCNTL_OLD_TEMPH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0041   1600           00277         MOVAR   TKCNTL_OLD_TEMPH
+Error[113]  : Symbol not previously defined (SUB_BH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0042   1580           00278         MOVRA   SUB_BH
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0043   2000           00279         CALL    SUB_2BYTE                                       ;判断新旧值的差值
+0044                  00280 SCAN_TOUCH_STEP3_CHECK_MAX:
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0044   0B70           00281         MOVAI   0X70
+Error[113]  : Symbol not previously defined (SUB_CH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0045   1E00           00282         ANDAR   SUB_CH                                          ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+Error[128]  : Missing argument(s).
+0046                  00283         JBSET   _Z
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0046   2800           00284         GOTO    SCAN_TOUCH_STEP3_BAD            ;数据差值超过0X1000H,错误，再次扫描当前触摸通道
+                      00285 ;---------------------------
+0047                  00286 SCAN_TOUCH_STEP3_CHECK_NEXT:
+Error[113]  : Symbol not previously defined (SUB_CH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0047   3380           00287         JBSET   SUB_CH,7
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0048   2800           00288         GOTO    SCAN_TOUCH_STEP3_TORELEASE      ;旧值小于或等于新值，离开触摸的趋势
+0049                  00289 SCAN_TOUCH_STEP3_TOPRESS:                               ;旧值大于新值，按下触摸的趋势
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0049   0B7F           00290         MOVAI   0X7F
+Error[113]  : Symbol not previously defined (SUB_CH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+004A   1E00           00291         ANDAR   SUB_CH                                          ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+Error[128]  : Missing argument(s).
+004B                  00292         JBSET   _Z
+Error[152]  : Executable code and data must be defined in an appropriate section.
+004B   2800           00293         GOTO    SCAN_TOUCH_STEP3_PRE            ;数据差值超过0X100H,大于阀值，确定有按下动作
+Error[113]  : Symbol not previously defined (TOUCH_TEMP1).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+004C   1600           00294         MOVAR   TOUCH_TEMP1                                             ;新旧数据差值
+Error[113]  : Symbol not previously defined (SUB_CL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+004D   1200           00295         RSUBAR  SUB_CL                                  ;(TKCNTL_OLD - TKCNTL_NEW) - TOUCH0_PRE_LEVEL ,判断差值与触摸阀值大小
+Error[128]  : Missing argument(s).
+004E                  00296         JBCLR   _C
+Error[152]  : Executable code and data must be defined in an appropriate section.
+004E   2800           00297         GOTO    SCAN_TOUCH_STEP3_PRE            ;差值大于阀值，确认有按下动作
+Error[113]  : Symbol not previously defined (SET_TOUCH_ENV_LEVEL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+004F   0B00           00298         MOVAI   SET_TOUCH_ENV_LEVEL
+Error[113]  : Symbol not previously defined (SUB_CL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0050   1200           00299         RSUBAR  SUB_CL
+Error[128]  : Missing argument(s).
+0051                  00300         JBCLR   _C
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0051   2800           00301         GOTO    SCAN_TOUCH_STEP3_SAVEDEBOUNCE   ;差值大于环境阀值小于触摸阀值，按下趋势，消抖处理，如一直没有过触摸阀值，则重新刷新保存值与基准值
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0052   2800           00302         GOTO    SCAN_TOUCH_STEP3_NORMAL         ;差值小于环境阀值，去保存值(TKCNTx_SAVE)与基准值(TKCNTx_BASE)的差值
+0053                  00303 SCAN_TOUCH_STEP3_PRE:                                   ;差值大于等于阀值，触摸确认有按下
+Error[113]  : Symbol not previously defined (TKCNTL_NEW).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0053   1600           00304         MOVAR   TKCNTL_NEW
+Error[113]  : Symbol not previously defined (SUB_AL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0054   1580           00305         MOVRA   SUB_AL
+Error[113]  : Symbol not previously defined (TKCNTH_NEW).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0055   1600           00306         MOVAR   TKCNTH_NEW
+Error[113]  : Symbol not previously defined (SUB_AH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0056   1580           00307         MOVRA   SUB_AH
+Error[113]  : Symbol not previously defined (TOUCH_TEMP5).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0057   1600           00308         MOVAR   TOUCH_TEMP5
+Error[113]  : Symbol not previously defined (SUB_BL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0058   1580           00309         MOVRA   SUB_BL
+Error[113]  : Symbol not previously defined (TOUCH_TEMP6).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0059   1600           00310         MOVAR   TOUCH_TEMP6
+Error[113]  : Symbol not previously defined (SUB_BH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+005A   1580           00311         MOVRA   SUB_BH
+Error[152]  : Executable code and data must be defined in an appropriate section.
+005B   2000           00312         CALL    SUB_2BYTE                                       ;判断新值与基础值的差值
+Error[152]  : Executable code and data must be defined in an appropriate section.
+005C   0B70           00313         MOVAI   0X70
+Error[113]  : Symbol not previously defined (SUB_CH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+005D   1E00           00314         ANDAR   SUB_CH                                          ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+Error[128]  : Missing argument(s).
+005E                  00315         JBSET   _Z
+Error[152]  : Executable code and data must be defined in an appropriate section.
+005E   2800           00316         GOTO    SCAN_TOUCH_STEP3_BAD            ;数据差值超过0X1000H,暂定为错误/（判断是否是新的触摸值远大于基础值）
+Error[113]  : Symbol not previously defined (SET_TOUCH_ENV2_LEVEL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+005F   0B00           00317         MOVAI   SET_TOUCH_ENV2_LEVEL
+Error[113]  : Symbol not previously defined (SUB_CL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0060   1200           00318         RSUBAR  SUB_CL                                          ;按下动作时，当前值(TKCNTx_NEW)与基准值(TKCNTx_BASE)差值大于环境值（第二级阀值）
+Error[128]  : Missing argument(s).
+0061                  00319         JBSET   _C
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0061   2800           00320         GOTO    SCAN_TOUCH_STEP3_BAD            ;差值小于在环境阀值，（可能是异常），更新当前数据但不置触摸标志
+0062                  00321 SCAN_TOUCH_STEP3_PRE_MAX:
+Error[113]  : Symbol not previously defined (SUB_CH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0062   3380           00322         JBSET   SUB_CH,7
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0063   2800           00323         GOTO    SCAN_TOUCH_STEP3_BAD            ;新的触摸值远大于基础值，（可能是异常），更新当前数据但不置触摸标志
+0064                  00324 SCAN_TOUCH_STEP3_PRE_NEXT:
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE1).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0064   1D80           00325         CLRR    TOUCH_DEBOUNCE1
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE2).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0065   1980           00326         INCR    TOUCH_DEBOUNCE2                         ;通道消抖处理次数,即连续多少次响应按键为有效
+Error[113]  : Symbol not previously defined (TOUCH_TEMP4).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0066   1600           00327         MOVAR   TOUCH_TEMP4
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE2).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0067   1200           00328         RSUBAR  TOUCH_DEBOUNCE2
+Error[128]  : Missing argument(s).
+0068                  00329         JBSET   _C
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0068   2800           00330         GOTO    SCAN_TOUCH_STEP3_RECHECK        ;消抖没有处理完，再次扫描当前触摸通道
+Error[113]  : Symbol not previously defined (TOUCH_TEMP3).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0069   1600           00331         MOVAR   TOUCH_TEMP3
+Error[113]  : Symbol not previously defined (TOUCH_FLAG).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+006A   1780           00332         ORRA    TOUCH_FLAG                                      ;对应的触摸通道标志置位
+Error[152]  : Executable code and data must be defined in an appropriate section.
+006B   2800           00333         GOTO    SCAN_TOUCH_STEP3_SAVE_DATA      ;按下状态，只刷新保存值
+                      00334 ;----------------------------------------------------------
+006C                  00335 SCAN_TOUCH_STEP3_NORMAL:                                ;新值和保存值得差值在环境阀值范围的，全部再比较保存值(TKCNTx_SAVE)与基准值(TKCNTx_BASE)的差值
+Error[113]  : Symbol not previously defined (TOUCH_SLEEP_FG).
+                      00336 #if TOUCH_SLEEP_FG                                              ;有唤醒功能时调用
+                      00337         JBCLR   WAKEUP_FG
+                      00338         GOTO    SCAN_TOUCH_STEP3_NORMAL2        ;休眠刚唤醒时不需要再消抖
+                      00339 #else
+                      00340 #endif
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE3).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+006C   1980           00341         INCR    TOUCH_DEBOUNCE3
+Error[113]  : Symbol not previously defined (SET_TOUCH_DELAY_LEVEL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+006D   0B00           00342         MOVAI   SET_TOUCH_DELAY_LEVEL           ;触摸重适应时间（缓慢靠近按键允许响应时间，设定时间短时，缓慢靠近按键当作环境适应，不响应）
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE3).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+006E   1200           00343         RSUBAR  TOUCH_DEBOUNCE3
+Error[128]  : Missing argument(s).
+006F                  00344         JBSET   _C
+Error[152]  : Executable code and data must be defined in an appropriate section.
+006F   2800           00345         GOTO    SCAN_TOUCH_STEP3_RECHECK        ;消抖没有处理完，再次扫描当前触摸通道
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE3).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0070   1D80           00346         CLRR    TOUCH_DEBOUNCE3
+0071                  00347 SCAN_TOUCH_STEP3_NORMAL2:
+Error[113]  : Symbol not previously defined (TKCNTL_OLD_TEMPL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0071   1600           00348         MOVAR   TKCNTL_OLD_TEMPL
+Error[113]  : Symbol not previously defined (SUB_AL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0072   1580           00349         MOVRA   SUB_AL
+Error[113]  : Symbol not previously defined (TKCNTL_OLD_TEMPH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0073   1600           00350         MOVAR   TKCNTL_OLD_TEMPH
+Error[113]  : Symbol not previously defined (SUB_AH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0074   1580           00351         MOVRA   SUB_AH
+Error[113]  : Symbol not previously defined (TOUCH_TEMP5).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0075   1600           00352         MOVAR   TOUCH_TEMP5
+Error[113]  : Symbol not previously defined (SUB_BL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0076   1580           00353         MOVRA   SUB_BL
+Error[113]  : Symbol not previously defined (TOUCH_TEMP6).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0077   1600           00354         MOVAR   TOUCH_TEMP6
+Error[113]  : Symbol not previously defined (SUB_BH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0078   1580           00355         MOVRA   SUB_BH
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0079   2000           00356         CALL    SUB_2BYTE                                       ;判断新值与基础值的差值
+Error[152]  : Executable code and data must be defined in an appropriate section.
+007A   0B70           00357         MOVAI   0X70
+Error[113]  : Symbol not previously defined (SUB_CH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+007B   1E00           00358         ANDAR   SUB_CH                                          ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+Error[128]  : Missing argument(s).
+007C                  00359         JBSET   _Z
+Error[152]  : Executable code and data must be defined in an appropriate section.
+007C   2800           00360         GOTO    SCAN_TOUCH_STEP3_BAD            ;数据差值超过0X1000H,暂定为错误
+Error[113]  : Symbol not previously defined (TOUCH_TEMP3).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+007D   1600           00361         MOVAR   TOUCH_TEMP3
+Error[113]  : Symbol not previously defined (TOUCH_FLAG).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+007E   1E00           00362         ANDAR   TOUCH_FLAG                                      ;对应的触摸通道标志置位
+Error[128]  : Missing argument(s).
+007F                  00363         JBCLR   _Z
+Error[152]  : Executable code and data must be defined in an appropriate section.
+007F   2800           00364         GOTO    SCAN_TOUCH_STEP3_NORMAL_KEYUNHOLD
+0080                  00365 SCAN_TOUCH_STEP3_NORMAL_KEYHOLD:                ;触摸按键按下状态
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0080   0B7F           00366         MOVAI   0X7F
+Error[113]  : Symbol not previously defined (SUB_CH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0081   1E00           00367         ANDAR   SUB_CH                                          ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+Error[128]  : Missing argument(s).
+0082                  00368         JBSET   _Z
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0082   2800           00369         GOTO    SCAN_TOUCH_STEP3_SAVE_DATA      ;数据差值超过0X100H或大于阀值，确定按下动作正常
+Error[113]  : Symbol not previously defined (SET_TOUCH_ENV2_LEVEL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0083   0B00           00370         MOVAI   SET_TOUCH_ENV2_LEVEL
+Error[113]  : Symbol not previously defined (SUB_CL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0084   1200           00371         RSUBAR  SUB_CL                                          ;按下动作时，保存值(TKCNTx_SAVE)必须小于基准值(TKCNTx_BASE)，且差值大于环境值（第二级阀值）
+Error[128]  : Missing argument(s).
+0085                  00372         JBSET   _C
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0085   2800           00373         GOTO    SCAN_TOUCH_STEP3_BAD            ;差值小于在环境阀值，错误
+Error[113]  : Symbol not previously defined (SUB_CH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0086   3380           00374         JBSET   SUB_CH,7
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0087   2800           00375         GOTO    SCAN_TOUCH_STEP3_BAD            ;保存值(TKCNTx_SAVE)大于基准值(TKCNTx_BASE)，错误
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0088   2800           00376         GOTO    SCAN_TOUCH_STEP3_SAVE_DATA      ;按下状态，只刷新保存值
+0089                  00377 SCAN_TOUCH_STEP3_NORMAL_KEYUNHOLD:              ;触摸按键松开状态
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0089   2800           00378         GOTO    SCAN_TOUCH_STEP3_SAVE           ;差值小于在环境阀值，数据正常，刷新保存值(TKCNTx_SAVE)和基准值(TKCNTx_BASE)，然后继续扫描TK
+                      00379 ;----------------------------
+008A                  00380 SCAN_TOUCH_STEP3_SAVEDEBOUNCE:
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE3).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+008A   1980           00381         INCR    TOUCH_DEBOUNCE3
+Error[113]  : Symbol not previously defined (TOUCH_SLEEP_FG).
+                      00382 #if TOUCH_SLEEP_FG                                              ;有唤醒功能时调用
+                      00383         MOVAI   0X10
+                      00384         JBSET   WAKEUP_FG
+                      00385         MOVAI   0XF0
+                      00386 #else
+Error[152]  : Executable code and data must be defined in an appropriate section.
+008B   0BF0           00387         MOVAI   0XF0
+                      00388 #endif
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE3).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+008C   1200           00389         RSUBAR  TOUCH_DEBOUNCE3
+Error[128]  : Missing argument(s).
+008D                  00390         JBSET   _C
+Error[152]  : Executable code and data must be defined in an appropriate section.
+008D   2800           00391         GOTO    SCAN_TOUCH_STEP3_RECHECK        ;消抖没有处理完，再次扫描当前触摸通道
+Error[152]  : Executable code and data must be defined in an appropriate section.
+008E   2800           00392         GOTO    SCAN_TOUCH_STEP3_SAVE_DATA      ;按下状态，只刷新保存值
+                      00393 ;----------------------------------------------------------
+008F                  00394 SCAN_TOUCH_STEP3_TORELEASE:                             ;旧值小于或等于新值，离开触摸的趋势
+Error[152]  : Executable code and data must be defined in an appropriate section.
+008F   0B7F           00395         MOVAI   0X7F
+Error[113]  : Symbol not previously defined (SUB_CH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0090   1E00           00396         ANDAR   SUB_CH                                          ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+Error[128]  : Missing argument(s).
+0091                  00397         JBSET   _Z
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0091   2800           00398         GOTO    SCAN_TOUCH_STEP3_RELEASE        ;数据差值超过0X100H或大于阀值，确定松开动作正常
+Error[113]  : Symbol not previously defined (TOUCH_TEMP2).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0092   1600           00399         MOVAR   TOUCH_TEMP2                                             ;新旧数据差值
+Error[113]  : Symbol not previously defined (SUB_CL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0093   1200           00400         RSUBAR  SUB_CL                                          ;(TKCNTL_NEW - TKCNTL_OLD) - TOUCH0_RELA_LEVEL ,判断差值与离开触摸阀值大小
+Error[128]  : Missing argument(s).
+0094                  00401         JBCLR   _C
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0094   2800           00402         GOTO    SCAN_TOUCH_STEP3_RELEASE        ;差值大于阀值，确认有松开动作
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0095   2800           00403         GOTO    SCAN_TOUCH_STEP3_NORMAL         ;差值小于环境阀值，去保存值(TKCNTx_SAVE)与基准值(TKCNTx_BASE)的差值
+0096                  00404 SCAN_TOUCH_STEP3_RELEASE:                       ;差值大于等于阀值，触摸确认有离开
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE2).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0096   1D80           00405         CLRR    TOUCH_DEBOUNCE2
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE1).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0097   1980           00406         INCR    TOUCH_DEBOUNCE1                         ;通道消抖处理次数,即连续多少次响应按键为有效
+Error[113]  : Symbol not previously defined (TOUCH_TEMP4).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0098   1600           00407         MOVAR   TOUCH_TEMP4
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE1).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+0099   1200           00408         RSUBAR  TOUCH_DEBOUNCE1
+Error[128]  : Missing argument(s).
+009A                  00409         JBSET   _C
+Error[152]  : Executable code and data must be defined in an appropriate section.
+009A   2800           00410         GOTO    SCAN_TOUCH_STEP3_RECHECK        ;消抖没有处理完，再次扫描当前触摸通道
+009B                  00411 SCAN_TOUCH_STEP3_RELEASE_SET:                   ;触摸确认有离开
+Error[113]  : Symbol not previously defined (TOUCH_TEMP3).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+009B   1C00           00412         COMAR   TOUCH_TEMP3
+Error[113]  : Symbol not previously defined (TOUCH_FLAG).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+009C   1E80           00413         ANDRA   TOUCH_FLAG                                      ;对应的触摸通道标志清零
+Error[152]  : Executable code and data must be defined in an appropriate section.
+009D   2800           00414         GOTO    SCAN_TOUCH_STEP3_SAVE_DATA      ;按下状态，只刷新保存值
+                      00415 ;       GOTO    SCAN_TOUCH_STEP3_SAVE
+                      00416 ;;---------------------------
+009E                  00417 SCAN_TOUCH_STEP3_BAD:
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE4).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+009E   1980           00418         INCR    TOUCH_DEBOUNCE4                         ;通道消抖处理次数,即连续多少次响应按键为有效
+Error[113]  : Symbol not previously defined (TOUCH_TEMP4).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+009F   1600           00419         MOVAR   TOUCH_TEMP4
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE4).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00A0   1200           00420         RSUBAR  TOUCH_DEBOUNCE4
+Error[128]  : Missing argument(s).
+00A1                  00421         JBSET   _C
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00A1   2800           00422         GOTO    SCAN_TOUCH_STEP3_RECHECK        ;消抖没有处理完，再次扫描当前触摸通道
+Error[113]  : Symbol not previously defined (TOUCH_TEMP3).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00A2   1C00           00423         COMAR   TOUCH_TEMP3
+Error[113]  : Symbol not previously defined (TOUCH_FLAG).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00A3   1E80           00424         ANDRA   TOUCH_FLAG                                      ;将对应的TK标志取消
+Error[113]  : Symbol not previously defined (TOUCH_TEMP3).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00A4   1100           00425         SWAPAR  TOUCH_TEMP3
+Error[113]  : Symbol not previously defined (TOUCH_FLAG).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00A5   1780           00426         ORRA    TOUCH_FLAG                                      ;相应的TK重新扫描TOUCH_NEW_FLAG
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00A6   2800           00427         GOTO    SCAN_TOUCH_STEP3_NEXT
+                      00428 ;;---------------------------
+00A7                  00429 SCAN_TOUCH_STEP3_RECHECK:
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_LIST).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00A7   1D80           00430         CLRR    TOUCH_SCAN_LIST
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00A8   000C           00431         RETURN
+                      00432 ;;---------------------------
+00A9                  00433 SCAN_TOUCH_STEP3_SAVE:
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_TONE).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00A9   1600           00434         MOVAR   TOUCH_SCAN_TONE                         ;扫描通道数
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00AA   0D03           00435         ANDAI   0X03
+Error[113]  : Symbol not previously defined (PCL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00AB   1F80           00436         ADDRA   PCL
+Error[113]  : Symbol not previously defined (SET_TOUCH0_ENABLE).
+                      00437 #if SET_TOUCH0_ENABLE                           ;第0个触摸点是否使能
+                      00438         GOTO    SCAN_TOUCH_STEP3_BAKTONE0
+                      00439 #else
+                      00440 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH1_ENABLE).
+                      00441 #if SET_TOUCH1_ENABLE                           ;第1个触摸点是否使能
+                      00442         GOTO    SCAN_TOUCH_STEP3_BAKTONE1
+                      00443 #else
+                      00444 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH2_ENABLE).
+                      00445 #if SET_TOUCH2_ENABLE                           ;第2个触摸点是否使能
+                      00446         GOTO    SCAN_TOUCH_STEP3_BAKTONE2
+                      00447 #else
+                      00448 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH3_ENABLE).
+                      00449 #if SET_TOUCH3_ENABLE                           ;第3个触摸点是否使能
+                      00450         GOTO    SCAN_TOUCH_STEP3_BAKTONE3
+                      00451 #else
+                      00452 #endif
+                      00453 ;---------------------------
+00AC                  00454 SCAN_TOUCH_STEP3_SAVE_DATA:                             ;保存当前触摸读数
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_TONE).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00AC   1600           00455         MOVAR   TOUCH_SCAN_TONE                         ;扫描通道数
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00AD   0D03           00456         ANDAI   0X03
+Error[113]  : Symbol not previously defined (PCL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00AE   1F80           00457         ADDRA   PCL
+Error[113]  : Symbol not previously defined (SET_TOUCH0_ENABLE).
+                      00458 #if SET_TOUCH0_ENABLE                           ;第0个触摸点是否使能
+                      00459         GOTO    SCAN_TOUCH_STEP3_SAVETONE0
+                      00460 #else
+                      00461 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH1_ENABLE).
+                      00462 #if SET_TOUCH1_ENABLE                           ;第1个触摸点是否使能
+                      00463         GOTO    SCAN_TOUCH_STEP3_SAVETONE1
+                      00464 #else
+                      00465 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH2_ENABLE).
+                      00466 #if SET_TOUCH2_ENABLE                           ;第2个触摸点是否使能
+                      00467         GOTO    SCAN_TOUCH_STEP3_SAVETONE2
+                      00468 #else
+                      00469 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH3_ENABLE).
+                      00470 #if SET_TOUCH3_ENABLE                           ;第3个触摸点是否使能
+                      00471         GOTO    SCAN_TOUCH_STEP3_SAVETONE3
+                      00472 #else
+                      00473 #endif
+                      00474 ;---------------------------
+Error[113]  : Symbol not previously defined (SET_TOUCH0_ENABLE).
+                      00475 #if SET_TOUCH0_ENABLE                                   ;第0个触摸点是否使能
+                      00476 SCAN_TOUCH_STEP3_BAKTONE0:
+                      00477         MOVAR   TKCNTL_NEW
+                      00478         MOVRA   TKCNT0_BASEL
+                      00479         MOVAR   TKCNTH_NEW
+                      00480         MOVRA   TKCNT0_BASEH
+                      00481         BCLR    TOUCH_NEW_FLAG_0
+                      00482 SCAN_TOUCH_STEP3_SAVETONE0:
+                      00483         MOVAR   TKCNTL_NEW
+                      00484         MOVRA   TKCNT0_SAVEL
+                      00485         MOVAR   TKCNTH_NEW
+                      00486         MOVRA   TKCNT0_SAVEH
+                      00487         GOTO    SCAN_TOUCH_STEP3_NEXT
+                      00488 #else
+                      00489 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH1_ENABLE).
+                      00490 #if SET_TOUCH1_ENABLE                                   ;第1个触摸点是否使能
+                      00491 SCAN_TOUCH_STEP3_BAKTONE1:
+                      00492         MOVAR   TKCNTL_NEW
+                      00493         MOVRA   TKCNT1_BASEL
+                      00494         MOVAR   TKCNTH_NEW
+                      00495         MOVRA   TKCNT1_BASEH
+                      00496         BCLR    TOUCH_NEW_FLAG_1
+                      00497 SCAN_TOUCH_STEP3_SAVETONE1:
+                      00498         MOVAR   TKCNTL_NEW
+                      00499         MOVRA   TKCNT1_SAVEL
+                      00500         MOVAR   TKCNTH_NEW
+                      00501         MOVRA   TKCNT1_SAVEH
+                      00502         GOTO    SCAN_TOUCH_STEP3_NEXT
+                      00503 #else
+                      00504 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH2_ENABLE).
+                      00505 #if SET_TOUCH2_ENABLE                                   ;第2个触摸点是否使能
+                      00506 SCAN_TOUCH_STEP3_BAKTONE2:
+                      00507         MOVAR   TKCNTL_NEW
+                      00508         MOVRA   TKCNT2_BASEL
+                      00509         MOVAR   TKCNTH_NEW
+                      00510         MOVRA   TKCNT2_BASEH
+                      00511         BCLR    TOUCH_NEW_FLAG_2
+                      00512 SCAN_TOUCH_STEP3_SAVETONE2:
+                      00513         MOVAR   TKCNTL_NEW
+                      00514         MOVRA   TKCNT2_SAVEL
+                      00515         MOVAR   TKCNTH_NEW
+                      00516         MOVRA   TKCNT2_SAVEH
+                      00517         GOTO    SCAN_TOUCH_STEP3_NEXT
+                      00518 #else
+                      00519 #endif
+Error[113]  : Symbol not previously defined (SET_TOUCH3_ENABLE).
+                      00520 #if SET_TOUCH3_ENABLE                                   ;第3个触摸点是否使能
+                      00521 SCAN_TOUCH_STEP3_BAKTONE3:
+                      00522         MOVAR   TKCNTL_NEW
+                      00523         MOVRA   TKCNT3_BASEL
+                      00524         MOVAR   TKCNTH_NEW
+                      00525         MOVRA   TKCNT3_BASEH
+                      00526         BCLR    TOUCH_NEW_FLAG_3
+                      00527 SCAN_TOUCH_STEP3_SAVETONE3:
+                      00528         MOVAR   TKCNTL_NEW
+                      00529         MOVRA   TKCNT3_SAVEL
+                      00530         MOVAR   TKCNTH_NEW
+                      00531         MOVRA   TKCNT3_SAVEH
+                      00532         GOTO    SCAN_TOUCH_STEP3_NEXT
+                      00533 #else
+                      00534 #endif
+                      00535 ;---------------------------
+00AF                  00536 SCAN_TOUCH_STEP3_NEXT:
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_TONE).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00AF   1980           00537         INCR    TOUCH_SCAN_TONE                         ;扫描下一通道，将所有触摸口暂时设为输出，防止误动作
+Error[113]  : Symbol not previously defined (TOUCH_KEY_NUM).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00B0   0B00           00538         MOVAI   TOUCH_KEY_NUM
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_TONE).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00B1   1200           00539         RSUBAR  TOUCH_SCAN_TONE
+Error[128]  : Missing argument(s).
+00B2                  00540         JBSET   C
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00B2   2800           00541         GOTO    SCAN_TOUCH_STEP3_NEXT1
+Error[113]  : Symbol not previously defined (TOUCH_SLEEP_FG).
+                      00542 #if TOUCH_SLEEP_FG                                      ;有唤醒功能时调用
+                      00543         BSET    TK_SCANEND_FG                   ;所有TK的扫描完成
+                      00544 #else
+Error[128]  : Missing argument(s).
+00B3                  00545         BSET    TK_SCANEND_FG                   ;所有TK的扫描完成
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_TONE).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00B3   1D80           00546         CLRR    TOUCH_SCAN_TONE
+                      00547 #endif
+00B4                  00548 SCAN_TOUCH_STEP3_NEXT1:
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE1).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00B4   1D80           00549         CLRR    TOUCH_DEBOUNCE1
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE2).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00B5   1D80           00550         CLRR    TOUCH_DEBOUNCE2
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE3).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00B6   1D80           00551         CLRR    TOUCH_DEBOUNCE3
+Error[113]  : Symbol not previously defined (TOUCH_DEBOUNCE4).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00B7   1D80           00552         CLRR    TOUCH_DEBOUNCE4
+Error[113]  : Symbol not previously defined (TOUCH_SCAN_LIST).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00B8   1D80           00553         CLRR    TOUCH_SCAN_LIST
+                      00554 
+Error[113]  : Symbol not previously defined (TOUCH_SLEEP_FG).
+                      00555 #if TOUCH_SLEEP_FG                                      ;有唤醒功能时调用
+                      00556         MOVAI   TOUCH_KEY_NUM
+                      00557         RSUBAR  TOUCH_SCAN_TONE
+                      00558         JBSET   _C
+                      00559         RETURN
+                      00560         CLRR    TOUCH_SCAN_TONE
+                      00561         JBSET   WAKEUP_FG
+                      00562         RETURN
+                      00563         BCLR    WAKEUP_FG
+                      00564 #else
+                      00565 #endif
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00B9   000C           00566         RETURN
+                      00567 ;------------------------------------------------
+00BA                  00568 SUB_2BYTE:                                                              ;减法子程序（SUB_AH/L-SUB_BH/L=SUB_CH/L)(适用于2个数据相差不超过15BIT)
+                      00569 ;SUB_AH/L为被减数高/低8位，SUB_BH/L为减数高/低8位，差值存在SUB_CH/L，且SUB_CH-bit7为零时表示减法运算结果无溢出，为1时表示运算结果有溢出
+                      00570 ;如果两数相差超过0XFF，则以0XFF为最大差值
+Error[128]  : Missing argument(s).
+00BA                  00571         BCLR    _C
+Error[113]  : Symbol not previously defined (SUB_BL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00BA   1600           00572         MOVAR   SUB_BL
+Error[113]  : Symbol not previously defined (SUB_AL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00BB   1200           00573         RSUBAR  SUB_AL
+Error[113]  : Symbol not previously defined (SUB_CL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00BC   1580           00574         MOVRA   SUB_CL
+Error[113]  : Symbol not previously defined (SUB_BH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00BD   1600           00575         MOVAR   SUB_BH
+Error[113]  : Symbol not previously defined (SUB_AH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00BE   0600           00576         RSBCAR  SUB_AH
+Error[113]  : Symbol not previously defined (SUB_CH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00BF   1580           00577         MOVRA   SUB_CH
+Error[113]  : Symbol not previously defined (SUB_CH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00C0   3F80           00578         BCLR    SUB_CH,7                                        ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+Error[128]  : Missing argument(s).
+00C1                  00579         JBCLR   _C
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00C1   000C           00580         RETURN
+Error[113]  : Symbol not previously defined (SUB_AL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00C2   1600           00581         MOVAR   SUB_AL
+Error[113]  : Symbol not previously defined (SUB_BL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00C3   1200           00582         RSUBAR  SUB_BL
+Error[113]  : Symbol not previously defined (SUB_CL).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00C4   1580           00583         MOVRA   SUB_CL
+Error[113]  : Symbol not previously defined (SUB_AH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00C5   1600           00584         MOVAR   SUB_AH
+Error[113]  : Symbol not previously defined (SUB_BH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00C6   0600           00585         RSBCAR  SUB_BH
+Error[113]  : Symbol not previously defined (SUB_CH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00C7   1580           00586         MOVRA   SUB_CH
+Error[113]  : Symbol not previously defined (SUB_CH).
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00C8   3B80           00587         BSET    SUB_CH,7                                        ;SUB_CH/L为两数据的差值，SUB_AH/L>SUB_BH/L则SUB_CH.7位为0，否则为1
+Error[152]  : Executable code and data must be defined in an appropriate section.
+00C9   000C           00588         RETURN
+                      00589 ;**********************************************************************************************************
+                      00590 
+Error[125]  : Illegal condition (EOF encountered before END)
+gpasm-2.2.31 (Mar 15 2022)   D:\WORK\项目\触摸类芯片\MC30P8160\VER1_例程\ASM版\MC30P8160_TK.asm2023-3-22  10:21:36          PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+SCAN_TOUCH                        00000012
+SCAN_TOUCH_STEP1                  00000019
+SCAN_TOUCH_STEP1_NEXT             0000001C
+SCAN_TOUCH_STEP2                  00000028
+SCAN_TOUCH_STEP3                  00000036
+SCAN_TOUCH_STEP3_BAD              0000009E
+SCAN_TOUCH_STEP3_CHECK            0000003B
+SCAN_TOUCH_STEP3_CHECK_MAX        00000044
+SCAN_TOUCH_STEP3_CHECK_NEXT       00000047
+SCAN_TOUCH_STEP3_NEXT             000000AF
+SCAN_TOUCH_STEP3_NEXT1            000000B4
+SCAN_TOUCH_STEP3_NORMAL           0000006C
+SCAN_TOUCH_STEP3_NORMAL2          00000071
+SCAN_TOUCH_STEP3_NORMAL_KEYHOLD   00000080
+SCAN_TOUCH_STEP3_NORMAL_KEYUNHOLD  00000089
+SCAN_TOUCH_STEP3_PRE              00000053
+SCAN_TOUCH_STEP3_PRE_MAX          00000062
+SCAN_TOUCH_STEP3_PRE_NEXT         00000064
+SCAN_TOUCH_STEP3_RECHECK          000000A7
+SCAN_TOUCH_STEP3_RELEASE          00000096
+SCAN_TOUCH_STEP3_RELEASE_SET      0000009B
+SCAN_TOUCH_STEP3_SAVE             000000A9
+SCAN_TOUCH_STEP3_SAVEDEBOUNCE     0000008A
+SCAN_TOUCH_STEP3_SAVE_DATA        000000AC
+SCAN_TOUCH_STEP3_TOPRESS          00000049
+SCAN_TOUCH_STEP3_TORELEASE        0000008F
+SET_TOUCH_OPTION                  00000000
+SET_TOUCH_OPTION2                 0000000B
+SUB_2BYTE                         000000BA
+__1K8160                          00000001
+
+Errors   :   404
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

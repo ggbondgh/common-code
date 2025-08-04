@@ -1,0 +1,1318 @@
+gpasm-2.2.37 (Jan 22 2024)   MC32P7351.asm      2024-11-13  10:01:29         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SN-SDCC : SinoMCU ANSI-C Compiler
+                      00003 ; Version 2.0.0 (Dec 11 2019) (MINGW32)
+                      00004 ; This file was generated Wed Nov 13 10:01:29 2024
+                      00005 ;--------------------------------------------------------
+                      00006 ; MC32 port for the RISC core
+                      00007 ;--------------------------------------------------------
+                      00008 ;       .file   "MC32P7351.c"
+                      00009         list    p=7351
+                      00010         radix dec
+                      00011         include "7351.inc"
+                      00001                 LIST
+                      00002 ;mc32p7351.inc    Standard Header File, Version 1.00 by Sinomcu
+                      00688                 LIST
+                      00012 ;--------------------------------------------------------
+                      00013 ; external declarations
+                      00014 ;--------------------------------------------------------
+                      00015         extern  _CLR_RAM
+                      00016         extern  _IO_Init
+                      00017         extern  _TIMER0_INT_Init
+                      00018         extern  _TIMER1_INT_Init
+                      00019         extern  _TIMER2_INT_Init
+                      00020         extern  _TIMER3_INT_Init
+                      00021         extern  _TIMER0_PWM_Init
+                      00022         extern  _TIMER1_PWM_Init
+                      00023         extern  _TIMER2_PWM_Init
+                      00024         extern  _ADC_Init
+                      00025         extern  _Scan_ADC
+                      00026         extern  _Set_ADC_Channel
+                      00027         extern  _ADC_Get_Value_Average
+                      00028         extern  _delay
+                      00029         extern  _INDF0bits
+                      00030         extern  _INDF1bits
+                      00031         extern  _INDF2bits
+                      00032         extern  _HIBYTEbits
+                      00033         extern  _FSR0bits
+                      00034         extern  _FSR1bits
+                      00035         extern  _PCLbits
+                      00036         extern  _PFLAGbits
+                      00037         extern  _MCRbits
+                      00038         extern  _INDF3bits
+                      00039         extern  _INTEbits
+                      00040         extern  _INTFbits
+                      00041         extern  _DRVCRbits
+                      00042         extern  _PFRCCRbits
+                      00043         extern  _P1KBCRbits
+                      00044         extern  _PFRCCALbits
+                      00045         extern  _IOP0bits
+                      00046         extern  _OEP0bits
+                      00047         extern  _PUP0bits
+                      00048         extern  _PDP0bits
+                      00049         extern  _IOP1bits
+                      00050         extern  _OEP1bits
+                      00051         extern  _PUP1bits
+                      00052         extern  _PDP1bits
+                      00053         extern  _T0CRbits
+                      00054         extern  _T0CNTbits
+                      00055         extern  _T0LOADbits
+                      00056         extern  _T0DATAbits
+                      00057         extern  _T1CRbits
+                      00058         extern  _T1CNTbits
+                      00059         extern  _T1LOADbits
+                      00060         extern  _T1DATAbits
+                      00061         extern  _T2CRbits
+                      00062         extern  _T2CNTbits
+                      00063         extern  _T2LOADbits
+                      00064         extern  _T2DATAbits
+                      00065         extern  _T3CRbits
+                      00066         extern  _T3CNTbits
+                      00067         extern  _T3LOADbits
+                      00068         extern  _PWM0DRbits
+                      00069         extern  _PWM1DRbits
+                      00070         extern  _PWM2DRbits
+                      00071         extern  _PWMCR0bits
+                      00072         extern  _PWMCR1bits
+                      00073         extern  _OSCMRbits
+                      00074         extern  _LVDCRbits
+                      00075         extern  _ADCR0bits
+                      00076         extern  _ADCR1bits
+                      00077         extern  _ADCR2bits
+                      00078         extern  _OSADJCRbits
+                      00079         extern  _ADRHbits
+                      00080         extern  _ADRLbits
+                      00081         extern  _ADIOS0bits
+                      00082         extern  _ADIOS1bits
+                      00083         extern  _PMODbits
+                      00084         extern  _PWMCR3bits
+                      00085         extern  _PWMCR2bits
+                      00086         extern  _PFRCAUXbits
+                      00087         extern  _HIRCCALbits
+                      00088         extern  _flag2
+                      00089         extern  _adc_data
+                      00090         extern  _INDF0
+                      00091         extern  _INDF1
+                      00092         extern  _INDF2
+                      00093         extern  _HIBYTE
+                      00094         extern  _FSR0
+                      00095         extern  _FSR1
+                      00096         extern  _PCL
+                      00097         extern  _PFLAG
+                      00098         extern  _MCR
+                      00099         extern  _INDF3
+                      00100         extern  _INTE
+                      00101         extern  _INTF
+                      00102         extern  _DRVCR
+                      00103         extern  _PFRCCR
+                      00104         extern  _P1KBCR
+                      00105         extern  _PFRCCAL
+                      00106         extern  _IOP0
+                      00107         extern  _OEP0
+                      00108         extern  _PUP0
+                      00109         extern  _PDP0
+                      00110         extern  _IOP1
+                      00111         extern  _OEP1
+                      00112         extern  _PUP1
+                      00113         extern  _PDP1
+                      00114         extern  _T0CR
+                      00115         extern  _T0CNT
+                      00116         extern  _T0LOAD
+                      00117         extern  _T0DATA
+                      00118         extern  _T1CR
+                      00119         extern  _T1CNT
+                      00120         extern  _T1LOAD
+                      00121         extern  _T1DATA
+                      00122         extern  _T2CR
+                      00123         extern  _T2CNT
+                      00124         extern  _T2LOAD
+                      00125         extern  _T2DATA
+                      00126         extern  _T3CR
+                      00127         extern  _T3CNT
+                      00128         extern  _T3LOAD
+                      00129         extern  _PWM0DR
+                      00130         extern  _PWM1DR
+                      00131         extern  _PWM2DR
+                      00132         extern  _PWMCR0
+                      00133         extern  _PWMCR1
+                      00134         extern  _OSCMR
+                      00135         extern  _LVDCR
+                      00136         extern  _ADCR0
+                      00137         extern  _ADCR1
+                      00138         extern  _ADCR2
+                      00139         extern  _OSADJCR
+                      00140         extern  _ADRH
+                      00141         extern  _ADRL
+                      00142         extern  _ADIOS0
+                      00143         extern  _ADIOS1
+                      00144         extern  _PMOD
+                      00145         extern  _PWMCR3
+                      00146         extern  _PWMCR2
+                      00147         extern  _PFRCAUX
+                      00148         extern  _HIRCCAL
+                      00149 ;--------------------------------------------------------
+                      00150 ; global declarations
+                      00151 ;--------------------------------------------------------
+                      00152         global  _Sleep_Func
+                      00153         global  _Scan_Key
+                      00154         global  _Sys_Init
+                      00155         global  _main
+                      00156         global  _int_isr
+                      00157         global  _abuf
+                      00158         global  _statusbuf
+                      00159         global  _sleep_time
+                      00160         global  _key_per
+                      00161         global  _key_cur
+                      00162         global  _key_down
+                      00163         global  _key_keep
+                      00164         global  _int_time0
+                      00165         global  _Flag1
+                      00166         global  _Flag2
+                      00167 
+                      00168         global STK06
+                      00169         global STK05
+                      00170         global STK04
+                      00171         global STK03
+                      00172         global STK02
+                      00173         global STK01
+                      00174         global STK00
+                      00175 
+                      00176 sharebank udata_ovr 0x0000
+0000                  00177 STK06   res 1
+0000                  00178 STK05   res 1
+0001                  00179 STK04   res 1
+0001                  00180 STK03   res 1
+0002                  00181 STK02   res 1
+0002                  00182 STK01   res 1
+0003                  00183 STK00   res 1
+                      00184 
+                      00185 ;--------------------------------------------------------
+                      00186 ; global definitions
+                      00187 ;--------------------------------------------------------
+                      00188 UD_MC32P7351_0  udata
+0000                  00189 _abuf   res     1
+                      00190 
+                      00191 UD_MC32P7351_1  udata
+0000                  00192 _statusbuf      res     1
+                      00193 
+                      00194 UD_MC32P7351_2  udata
+0000                  00195 _sleep_time     res     1
+                      00196 
+                      00197 UD_MC32P7351_3  udata
+0000                  00198 _key_per        res     1
+                      00199 
+                      00200 UD_MC32P7351_4  udata
+0000                  00201 _key_cur        res     1
+                      00202 
+                      00203 UD_MC32P7351_5  udata
+0000                  00204 _key_down       res     1
+                      00205 
+                      00206 UD_MC32P7351_6  udata
+0000                  00207 _key_keep       res     1
+                      00208 
+                      00209 UD_MC32P7351_7  udata
+0000                  00210 _int_time0      res     1
+                      00211 
+                      00212 UD_MC32P7351_8  udata
+0000                  00213 _Flag1  res     1
+                      00214 
+                      00215 UD_MC32P7351_9  udata
+0000                  00216 _Flag2  res     1
+                      00217 
+                      00218 ;--------------------------------------------------------
+                      00219 ; absolute symbol definitions
+                      00220 ;--------------------------------------------------------
+                      00221 ;--------------------------------------------------------
+                      00222 ; compiler-defined variables
+                      00223 ;--------------------------------------------------------
+                      00224 UDL_MC32P7351_0 udata
+0000                  00225 r0x1008 res     1
+0000                  00226 r0x1009 res     1
+0001                  00227 r0x100A res     1
+                      00228 ;--------------------------------------------------------
+                      00229 ; initialized data
+                      00230 ;--------------------------------------------------------
+                      00231 
+                      00232 ;@Allocation info for local variables in function 'Sys_Init'
+                      00233 ;@Sys_Init CLR_RAM                   Allocated to registers ;size:2
+                      00234 ;@Sys_Init IO_Init                   Allocated to registers ;size:2
+                      00235 ;@Sys_Init TIMER0_INT_Init           Allocated to registers ;size:2
+                      00236 ;@Sys_Init TIMER1_INT_Init           Allocated to registers ;size:2
+                      00237 ;@Sys_Init TIMER2_INT_Init           Allocated to registers ;size:2
+                      00238 ;@Sys_Init TIMER3_INT_Init           Allocated to registers ;size:2
+                      00239 ;@Sys_Init TIMER0_PWM_Init           Allocated to registers ;size:2
+                      00240 ;@Sys_Init TIMER1_PWM_Init           Allocated to registers ;size:2
+                      00241 ;@Sys_Init TIMER2_PWM_Init           Allocated to registers ;size:2
+                      00242 ;@Sys_Init ADC_Init                  Allocated to registers ;size:2
+                      00243 ;@Sys_Init Scan_ADC                  Allocated to registers ;size:2
+                      00244 ;@Sys_Init Set_ADC_Channel           Allocated to registers ;size:2
+                      00245 ;@Sys_Init ADC_Get_Value_Average     Allocated to registers ;size:2
+                      00246 ;@Sys_Init Scan_Key                  Allocated to registers ;size:2
+                      00247 ;@Sys_Init Sleep_Func                Allocated to registers ;size:2
+                      00248 ;@Sys_Init delay                     Allocated to registers ;size:2
+                      00249 ;@Sys_Init INDF0bits                 Allocated to registers ;size:1
+                      00250 ;@Sys_Init INDF1bits                 Allocated to registers ;size:1
+                      00251 ;@Sys_Init INDF2bits                 Allocated to registers ;size:1
+                      00252 ;@Sys_Init HIBYTEbits                Allocated to registers ;size:1
+                      00253 ;@Sys_Init FSR0bits                  Allocated to registers ;size:1
+                      00254 ;@Sys_Init FSR1bits                  Allocated to registers ;size:1
+                      00255 ;@Sys_Init PCLbits                   Allocated to registers ;size:1
+                      00256 ;@Sys_Init PFLAGbits                 Allocated to registers ;size:1
+                      00257 ;@Sys_Init MCRbits                   Allocated to registers ;size:1
+                      00258 ;@Sys_Init INDF3bits                 Allocated to registers ;size:1
+                      00259 ;@Sys_Init INTEbits                  Allocated to registers ;size:1
+                      00260 ;@Sys_Init INTFbits                  Allocated to registers ;size:1
+                      00261 ;@Sys_Init DRVCRbits                 Allocated to registers ;size:1
+                      00262 ;@Sys_Init PFRCCRbits                Allocated to registers ;size:1
+                      00263 ;@Sys_Init P1KBCRbits                Allocated to registers ;size:1
+                      00264 ;@Sys_Init PFRCCALbits               Allocated to registers ;size:1
+                      00265 ;@Sys_Init IOP0bits                  Allocated to registers ;size:1
+                      00266 ;@Sys_Init OEP0bits                  Allocated to registers ;size:1
+                      00267 ;@Sys_Init PUP0bits                  Allocated to registers ;size:1
+                      00268 ;@Sys_Init PDP0bits                  Allocated to registers ;size:1
+                      00269 ;@Sys_Init IOP1bits                  Allocated to registers ;size:1
+                      00270 ;@Sys_Init OEP1bits                  Allocated to registers ;size:1
+                      00271 ;@Sys_Init PUP1bits                  Allocated to registers ;size:1
+                      00272 ;@Sys_Init PDP1bits                  Allocated to registers ;size:1
+                      00273 ;@Sys_Init T0CRbits                  Allocated to registers ;size:1
+                      00274 ;@Sys_Init T0CNTbits                 Allocated to registers ;size:1
+                      00275 ;@Sys_Init T0LOADbits                Allocated to registers ;size:1
+                      00276 ;@Sys_Init T0DATAbits                Allocated to registers ;size:1
+                      00277 ;@Sys_Init T1CRbits                  Allocated to registers ;size:1
+                      00278 ;@Sys_Init T1CNTbits                 Allocated to registers ;size:1
+                      00279 ;@Sys_Init T1LOADbits                Allocated to registers ;size:1
+                      00280 ;@Sys_Init T1DATAbits                Allocated to registers ;size:1
+                      00281 ;@Sys_Init T2CRbits                  Allocated to registers ;size:1
+                      00282 ;@Sys_Init T2CNTbits                 Allocated to registers ;size:1
+                      00283 ;@Sys_Init T2LOADbits                Allocated to registers ;size:1
+                      00284 ;@Sys_Init T2DATAbits                Allocated to registers ;size:1
+                      00285 ;@Sys_Init T3CRbits                  Allocated to registers ;size:1
+                      00286 ;@Sys_Init T3CNTbits                 Allocated to registers ;size:1
+                      00287 ;@Sys_Init T3LOADbits                Allocated to registers ;size:1
+                      00288 ;@Sys_Init PWM0DRbits                Allocated to registers ;size:1
+                      00289 ;@Sys_Init PWM1DRbits                Allocated to registers ;size:1
+                      00290 ;@Sys_Init PWM2DRbits                Allocated to registers ;size:1
+                      00291 ;@Sys_Init PWMCR0bits                Allocated to registers ;size:1
+                      00292 ;@Sys_Init PWMCR1bits                Allocated to registers ;size:1
+                      00293 ;@Sys_Init OSCMRbits                 Allocated to registers ;size:1
+                      00294 ;@Sys_Init LVDCRbits                 Allocated to registers ;size:1
+                      00295 ;@Sys_Init ADCR0bits                 Allocated to registers ;size:1
+                      00296 ;@Sys_Init ADCR1bits                 Allocated to registers ;size:1
+                      00297 ;@Sys_Init ADCR2bits                 Allocated to registers ;size:1
+                      00298 ;@Sys_Init OSADJCRbits               Allocated to registers ;size:1
+                      00299 ;@Sys_Init ADRHbits                  Allocated to registers ;size:1
+                      00300 ;@Sys_Init ADRLbits                  Allocated to registers ;size:1
+                      00301 ;@Sys_Init ADIOS0bits                Allocated to registers ;size:1
+                      00302 ;@Sys_Init ADIOS1bits                Allocated to registers ;size:1
+                      00303 ;@Sys_Init PMODbits                  Allocated to registers ;size:1
+                      00304 ;@Sys_Init PWMCR3bits                Allocated to registers ;size:1
+                      00305 ;@Sys_Init PWMCR2bits                Allocated to registers ;size:1
+                      00306 ;@Sys_Init PFRCAUXbits               Allocated to registers ;size:1
+                      00307 ;@Sys_Init HIRCCALbits               Allocated to registers ;size:1
+                      00308 ;@Sys_Init flag2                     Allocated to registers ;size:1
+                      00309 ;@Sys_Init adc_data                  Allocated to registers ;size:2
+                      00310 ;@Sys_Init abuf                      Allocated to registers ;size:1
+                      00311 ;@Sys_Init statusbuf                 Allocated to registers ;size:1
+                      00312 ;@Sys_Init sleep_time                Allocated to registers ;size:1
+                      00313 ;@Sys_Init key_per                   Allocated to registers ;size:1
+                      00314 ;@Sys_Init key_cur                   Allocated to registers ;size:1
+                      00315 ;@Sys_Init key_down                  Allocated to registers ;size:1
+                      00316 ;@Sys_Init key_keep                  Allocated to registers ;size:1
+                      00317 ;@Sys_Init int_time0                 Allocated to registers ;size:1
+                      00318 ;@Sys_Init Flag1                     Allocated to registers ;size:1
+                      00319 ;@Sys_Init Flag2                     Allocated to registers ;size:1
+                      00320 ;@Sys_Init INDF0                     Allocated to registers ;size:1
+                      00321 ;@Sys_Init INDF1                     Allocated to registers ;size:1
+                      00322 ;@Sys_Init INDF2                     Allocated to registers ;size:1
+                      00323 ;@Sys_Init HIBYTE                    Allocated to registers ;size:1
+                      00324 ;@Sys_Init FSR0                      Allocated to registers ;size:1
+                      00325 ;@Sys_Init FSR1                      Allocated to registers ;size:1
+                      00326 ;@Sys_Init PCL                       Allocated to registers ;size:1
+                      00327 ;@Sys_Init PFLAG                     Allocated to registers ;size:1
+                      00328 ;@Sys_Init MCR                       Allocated to registers ;size:1
+                      00329 ;@Sys_Init INDF3                     Allocated to registers ;size:1
+                      00330 ;@Sys_Init INTE                      Allocated to registers ;size:1
+                      00331 ;@Sys_Init INTF                      Allocated to registers ;size:1
+                      00332 ;@Sys_Init DRVCR                     Allocated to registers ;size:1
+                      00333 ;@Sys_Init PFRCCR                    Allocated to registers ;size:1
+                      00334 ;@Sys_Init P1KBCR                    Allocated to registers ;size:1
+                      00335 ;@Sys_Init PFRCCAL                   Allocated to registers ;size:1
+                      00336 ;@Sys_Init IOP0                      Allocated to registers ;size:1
+                      00337 ;@Sys_Init OEP0                      Allocated to registers ;size:1
+                      00338 ;@Sys_Init PUP0                      Allocated to registers ;size:1
+                      00339 ;@Sys_Init PDP0                      Allocated to registers ;size:1
+                      00340 ;@Sys_Init IOP1                      Allocated to registers ;size:1
+                      00341 ;@Sys_Init OEP1                      Allocated to registers ;size:1
+                      00342 ;@Sys_Init PUP1                      Allocated to registers ;size:1
+                      00343 ;@Sys_Init PDP1                      Allocated to registers ;size:1
+                      00344 ;@Sys_Init T0CR                      Allocated to registers ;size:1
+                      00345 ;@Sys_Init T0CNT                     Allocated to registers ;size:1
+                      00346 ;@Sys_Init T0LOAD                    Allocated to registers ;size:1
+                      00347 ;@Sys_Init T0DATA                    Allocated to registers ;size:1
+                      00348 ;@Sys_Init T1CR                      Allocated to registers ;size:1
+                      00349 ;@Sys_Init T1CNT                     Allocated to registers ;size:1
+                      00350 ;@Sys_Init T1LOAD                    Allocated to registers ;size:1
+                      00351 ;@Sys_Init T1DATA                    Allocated to registers ;size:1
+                      00352 ;@Sys_Init T2CR                      Allocated to registers ;size:1
+                      00353 ;@Sys_Init T2CNT                     Allocated to registers ;size:1
+                      00354 ;@Sys_Init T2LOAD                    Allocated to registers ;size:1
+                      00355 ;@Sys_Init T2DATA                    Allocated to registers ;size:1
+                      00356 ;@Sys_Init T3CR                      Allocated to registers ;size:1
+                      00357 ;@Sys_Init T3CNT                     Allocated to registers ;size:1
+                      00358 ;@Sys_Init T3LOAD                    Allocated to registers ;size:1
+                      00359 ;@Sys_Init PWM0DR                    Allocated to registers ;size:1
+                      00360 ;@Sys_Init PWM1DR                    Allocated to registers ;size:1
+                      00361 ;@Sys_Init PWM2DR                    Allocated to registers ;size:1
+                      00362 ;@Sys_Init PWMCR0                    Allocated to registers ;size:1
+                      00363 ;@Sys_Init PWMCR1                    Allocated to registers ;size:1
+                      00364 ;@Sys_Init OSCMR                     Allocated to registers ;size:1
+                      00365 ;@Sys_Init LVDCR                     Allocated to registers ;size:1
+                      00366 ;@Sys_Init ADCR0                     Allocated to registers ;size:1
+                      00367 ;@Sys_Init ADCR1                     Allocated to registers ;size:1
+                      00368 ;@Sys_Init ADCR2                     Allocated to registers ;size:1
+                      00369 ;@Sys_Init OSADJCR                   Allocated to registers ;size:1
+                      00370 ;@Sys_Init ADRH                      Allocated to registers ;size:1
+                      00371 ;@Sys_Init ADRL                      Allocated to registers ;size:1
+                      00372 ;@Sys_Init ADIOS0                    Allocated to registers ;size:1
+                      00373 ;@Sys_Init ADIOS1                    Allocated to registers ;size:1
+                      00374 ;@Sys_Init PMOD                      Allocated to registers ;size:1
+                      00375 ;@Sys_Init PWMCR3                    Allocated to registers ;size:1
+                      00376 ;@Sys_Init PWMCR2                    Allocated to registers ;size:1
+                      00377 ;@Sys_Init PFRCAUX                   Allocated to registers ;size:1
+                      00378 ;@Sys_Init HIRCCAL                   Allocated to registers ;size:1
+                      00379 ;@end Allocation info for local variables in function 'Sys_Init';
+                      00380 ;@Allocation info for local variables in function 'main'
+                      00381 ;@end Allocation info for local variables in function 'main';
+                      00382 ;@Allocation info for local variables in function 'Scan_Key'
+                      00383 ;@end Allocation info for local variables in function 'Scan_Key';
+                      00384 ;@Allocation info for local variables in function 'Sleep_Func'
+                      00385 ;@end Allocation info for local variables in function 'Sleep_Func';
+                      00386 ;@Allocation info for local variables in function 'int_isr'
+                      00387 ;@end Allocation info for local variables in function 'int_isr';
+                      00388 
+                      00389 ;--------------------------------------------------------
+                      00390 ; overlayable items in internal ram 
+                      00391 ;--------------------------------------------------------
+                      00392 ;       udata_ovr
+                      00393 ;--------------------------------------------------------
+                      00394 ; reset vector 
+                      00395 ;--------------------------------------------------------
+                      00396 STARTUP code 0x0000
+0000   A000           00397         goto    _main
+                      00398 ;--------------------------------------------------------
+                      00399 ; interrupt and initialization code
+                      00400 ;--------------------------------------------------------
+                      00401 c_interrupt     code    0x8
+0008                  00402 __sdcc_interrupt
+                      00403 ;***
+                      00404 ;  pBlock Stats: dbName = I
+                      00405 ;***
+                      00406 ;entry:  _int_isr       ;Function start
+                      00407 ; 0 exit points
+                      00408 ;2 compiler assigned registers:
+                      00409 ;   r0x1009
+                      00410 ;   r0x100A
+                      00411 ;; Starting pCode block
+0008                  00412 _int_isr        ;Function start
+                      00413 ; 0 exit points
+                      00414 ;       .line   134; "MC32P7351.c"      __endasm;
+0008   5600           00415         movra   _abuf
+0009   4400           00416         swapar  _PFLAG
+000A   5600           00417         movra   _statusbuf
+                      00418 ;       .line   136; "MC32P7351.c"      if (T0IF & T0IE)        //100us
+000B   7600           00419         CLRR    r0x1009
+000C   F000           00420         JBCLR   _INTFbits,0
+000D   6600           00421         INCR    r0x1009
+000E   7600           00422         CLRR    r0x100A
+000F   F000           00423         JBCLR   _INTEbits,0
+0010   6600           00424         INCR    r0x100A
+0011   5800           00425         MOVAR   r0x100A
+0012   7A00           00426         ANDRA   r0x1009
+0013   3C00           00427         MOVAI   0x00
+0014   5C00           00428         ORAR    r0x1009
+0015   F587           00429         JBCLR   PFLAG,2
+0016   A000           00430         GOTO    _00137_DS_
+                      00431 ;       .line   139; "MC32P7351.c"      T0IF = 0;
+0017   D000           00432         BCLR    _INTFbits,0
+0018                  00433 _00137_DS_
+                      00434 ;       .line   142; "MC32P7351.c"      if (T1IF & T1IE)        //2ms
+0018   7600           00435         CLRR    r0x1009
+0019   F200           00436         JBCLR   _INTFbits,1
+001A   6600           00437         INCR    r0x1009
+001B   7600           00438         CLRR    r0x100A
+001C   F200           00439         JBCLR   _INTEbits,1
+001D   6600           00440         INCR    r0x100A
+001E   5800           00441         MOVAR   r0x100A
+001F   7A00           00442         ANDRA   r0x1009
+0020   3C00           00443         MOVAI   0x00
+0021   5C00           00444         ORAR    r0x1009
+0022   F587           00445         JBCLR   PFLAG,2
+0023   A000           00446         GOTO    _00139_DS_
+                      00447 ;       .line   144; "MC32P7351.c"      P11D = !P11D;
+0024   7600           00448         CLRR    r0x1009
+0025   F200           00449         JBCLR   _IOP1bits,1
+0026   6600           00450         INCR    r0x1009
+0027   5800           00451         MOVAR   r0x1009
+0028   3C00           00452         MOVAI   0x00
+0029   F587           00453         JBCLR   PFLAG,2
+002A   3C01           00454         MOVAI   0x01
+002B   5600           00455         MOVRA   r0x1009
+002C   5600           00456         MOVRA   r0x100A
+                      00457 ;;99    MOVAR   r0x100A
+002D   4C00           00458         RRAR    r0x1009
+002E   E187           00459         JBSET   PFLAG,0
+002F   D200           00460         BCLR    _IOP1bits,1
+0030   F187           00461         JBCLR   PFLAG,0
+0031   C200           00462         BSET    _IOP1bits,1
+                      00463 ;       .line   145; "MC32P7351.c"      T1IF = 0;
+0032   D200           00464         BCLR    _INTFbits,1
+                      00465 ;       .line   146; "MC32P7351.c"      T1_flag         =       1;
+0033   C200           00466         BSET    _Flag1,1
+0034                  00467 _00139_DS_
+                      00468 ;       .line   166; "MC32P7351.c"      __endasm;
+0034   4400           00469         swapar  _statusbuf
+0035   5600           00470         movra   _PFLAG
+0036   4600           00471         swapr   _abuf
+0037   4400           00472         swapar  _abuf
+0038                  00473 END_OF_INTERRUPT
+                      00474 ;       .line   167; "MC32P7351.c"      }
+0038   000D           00475         RETIE   
+                      00476 
+                      00477 ;--------------------------------------------------------
+                      00478 ; code
+                      00479 ;--------------------------------------------------------
+                      00480 code_MC32P7351  code
+                      00481 ;***
+                      00482 ;  pBlock Stats: dbName = M
+                      00483 ;***
+                      00484 ;entry:  _main  ;Function start
+                      00485 ; 2 exit points
+                      00486 ;has an exit
+                      00487 ;functions called:
+                      00488 ;   _Sys_Init
+                      00489 ;   _Scan_ADC
+                      00490 ;   _Scan_Key
+                      00491 ;   _Sys_Init
+                      00492 ;   _Scan_ADC
+                      00493 ;   _Scan_Key
+                      00494 ;; Starting pCode block
+0000                  00495 _main   ;Function start
+                      00496 ; 2 exit points
+                      00497 ;       .line   44; "MC32P7351.c"       Sys_Init();
+0000   8000           00498         CALL    _Sys_Init
+0001                  00499 _00114_DS_
+                      00500 ;       .line   47; "MC32P7351.c"       if(T1_flag)   //2ms
+0001   E200           00501         JBSET   _Flag1,1
+0002   A000           00502         GOTO    _00114_DS_
+                      00503 ;       .line   49; "MC32P7351.c"       T1_flag = 0;
+0003   D200           00504         BCLR    _Flag1,1
+                      00505 ;       .line   50; "MC32P7351.c"       ClrWdt();
+0004   000E           00506         clrwdt  
+                      00507 ;       .line   51; "MC32P7351.c"       Scan_ADC();     //采样+求平均的时间 =1ms
+0005   8000           00508         CALL    _Scan_ADC
+                      00509 ;       .line   55; "MC32P7351.c"       if(++int_time0 >= 10)   //2ms*10 =20ms
+0006   6600           00510         INCR    _int_time0
+                      00511 ;;unsigned compare: left < lit(0xA=10), size=1
+0007   3C0A           00512         MOVAI   0x0a
+0008   4800           00513         RSUBAR  _int_time0
+0009   E187           00514         JBSET   PFLAG,0
+000A   A000           00515         GOTO    _00114_DS_
+                      00516 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00517 ;       .line   57; "MC32P7351.c"       int_time0 = 0 ;
+000B   7600           00518         CLRR    _int_time0
+                      00519 ;       .line   58; "MC32P7351.c"       Scan_Key();         //按键扫描
+000C   8000           00520         CALL    _Scan_Key
+000D   A000           00521         GOTO    _00114_DS_
+                      00522 ;       .line   63; "MC32P7351.c"       }
+000E   000C           00523         RETURN  
+                      00524 ; exit point of _main
+                      00525 
+                      00526 ;***
+                      00527 ;  pBlock Stats: dbName = C
+                      00528 ;***
+                      00529 ;entry:  _Sleep_Func    ;Function start
+                      00530 ; 2 exit points
+                      00531 ;has an exit
+                      00532 ;; Starting pCode block
+000F                  00533 _Sleep_Func     ;Function start
+                      00534 ; 2 exit points
+                      00535 ;       .line   95; "MC32P7351.c"       if(!ON_flag)
+000F   F000           00536         JBCLR   _Flag2,0
+0010   A000           00537         GOTO    _00129_DS_
+                      00538 ;       .line   97; "MC32P7351.c"       if(++sleep_time >= 100) //2ms*100 =200ms
+0011   6600           00539         INCR    _sleep_time
+                      00540 ;;unsigned compare: left < lit(0x64=100), size=1
+0012   3C64           00541         MOVAI   0x64
+0013   4800           00542         RSUBAR  _sleep_time
+0014   E187           00543         JBSET   PFLAG,0
+0015   A000           00544         GOTO    _00131_DS_
+                      00545 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00546 ;       .line   99; "MC32P7351.c"       sleep_time = 0;
+0016   7600           00547         CLRR    _sleep_time
+                      00548 ;       .line   100; "MC32P7351.c"      GIE = 0;
+0017   DE00           00549         BCLR    _MCRbits,7
+                      00550 ;       .line   101; "MC32P7351.c"      KBIF = 0;
+0018   D800           00551         BCLR    _INTFbits,4
+                      00552 ;       .line   102; "MC32P7351.c"      KBIE = 1;
+0019   C800           00553         BSET    _INTEbits,4
+                      00554 ;       .line   104; "MC32P7351.c"      Nop();
+001A   0000           00555         nop     
+                      00556 ;       .line   105; "MC32P7351.c"      Nop();
+001B   0000           00557         nop     
+                      00558 ;       .line   106; "MC32P7351.c"      Stop();
+001C   000B           00559         stop    
+                      00560 ;       .line   107; "MC32P7351.c"      Nop();
+001D   0000           00561         nop     
+                      00562 ;       .line   108; "MC32P7351.c"      Nop();
+001E   0000           00563         nop     
+                      00564 ;       .line   109; "MC32P7351.c"      KBIE = 0;
+001F   D800           00565         BCLR    _INTEbits,4
+                      00566 ;       .line   110; "MC32P7351.c"      KBIF = 0;
+0020   D800           00567         BCLR    _INTFbits,4
+                      00568 ;       .line   111; "MC32P7351.c"      GIE = 1;
+0021   CE00           00569         BSET    _MCRbits,7
+0022   A000           00570         GOTO    _00131_DS_
+0023                  00571 _00129_DS_
+                      00572 ;       .line   116; "MC32P7351.c"      sleep_time = 0;
+0023   7600           00573         CLRR    _sleep_time
+0024                  00574 _00131_DS_
+                      00575 ;       .line   118; "MC32P7351.c"      }
+0024   000C           00576         RETURN  
+                      00577 ; exit point of _Sleep_Func
+                      00578 
+                      00579 ;***
+                      00580 ;  pBlock Stats: dbName = C
+                      00581 ;***
+                      00582 ;entry:  _Scan_Key      ;Function start
+                      00583 ; 2 exit points
+                      00584 ;has an exit
+                      00585 ;1 compiler assigned register :
+                      00586 ;   r0x1008
+                      00587 ;; Starting pCode block
+0025                  00588 _Scan_Key       ;Function start
+                      00589 ; 2 exit points
+                      00590 ;       .line   73; "MC32P7351.c"       key_per = key_cur;      
+0025   5800           00591         MOVAR   _key_cur
+0026   5600           00592         MOVRA   _key_per
+                      00593 ;       .line   75; "MC32P7351.c"       key_cur = (~IOP1)&0x08;                 //低有效
+0027   7000           00594         COMAR   _IOP1
+0028   5600           00595         MOVRA   r0x1008
+0029   3C08           00596         MOVAI   0x08
+002A   7800           00597         ANDAR   r0x1008
+002B   5600           00598         MOVRA   _key_cur
+                      00599 ;       .line   77; "MC32P7351.c"       key_down = (~key_per) & key_cur;
+002C   7000           00600         COMAR   _key_per
+002D   5600           00601         MOVRA   r0x1008
+002E   5800           00602         MOVAR   _key_cur
+002F   7800           00603         ANDAR   r0x1008
+0030   5600           00604         MOVRA   _key_down
+                      00605 ;       .line   78; "MC32P7351.c"       key_keep = key_per & key_cur;
+0031   5800           00606         MOVAR   _key_cur
+0032   7800           00607         ANDAR   _key_per
+0033   5600           00608         MOVRA   _key_keep
+                      00609 ;       .line   80; "MC32P7351.c"       if(key_down & Key)
+0034   5800           00610         MOVAR   _key_down
+0035   5600           00611         MOVRA   r0x1008
+0036   E600           00612         JBSET   r0x1008,3
+0037   A000           00613         GOTO    _00121_DS_
+                      00614 ;       .line   82; "MC32P7351.c"       key_keep = 1;
+0038   3C01           00615         MOVAI   0x01
+0039   5600           00616         MOVRA   _key_keep
+003A                  00617 _00121_DS_
+                      00618 ;       .line   85; "MC32P7351.c"       }
+003A   000C           00619         RETURN  
+                      00620 ; exit point of _Scan_Key
+                      00621 
+                      00622 ;***
+                      00623 ;  pBlock Stats: dbName = C
+                      00624 ;***
+                      00625 ;entry:  _Sys_Init      ;Function start
+                      00626 ; 2 exit points
+                      00627 ;has an exit
+                      00628 ;functions called:
+                      00629 ;   _CLR_RAM
+                      00630 ;   _IO_Init
+                      00631 ;   _TIMER0_INT_Init
+                      00632 ;   _TIMER1_INT_Init
+                      00633 ;   _ADC_Init
+                      00634 ;   _CLR_RAM
+                      00635 ;   _IO_Init
+                      00636 ;   _TIMER0_INT_Init
+                      00637 ;   _TIMER1_INT_Init
+                      00638 ;   _ADC_Init
+                      00639 ;; Starting pCode block
+003B                  00640 _Sys_Init       ;Function start
+                      00641 ; 2 exit points
+                      00642 ;       .line   23; "MC32P7351.c"       GIE = 0;
+003B   DE00           00643         BCLR    _MCRbits,7
+                      00644 ;       .line   24; "MC32P7351.c"       CLR_RAM();
+003C   8000           00645         CALL    _CLR_RAM
+                      00646 ;       .line   25; "MC32P7351.c"       IO_Init();
+003D   8000           00647         CALL    _IO_Init
+                      00648 ;       .line   26; "MC32P7351.c"       TIMER0_INT_Init();      
+003E   8000           00649         CALL    _TIMER0_INT_Init
+                      00650 ;       .line   27; "MC32P7351.c"       TIMER1_INT_Init();
+003F   8000           00651         CALL    _TIMER1_INT_Init
+                      00652 ;       .line   33; "MC32P7351.c"       ADC_Init();
+0040   8000           00653         CALL    _ADC_Init
+                      00654 ;       .line   34; "MC32P7351.c"       GIE = 1;
+0041   CE00           00655         BSET    _MCRbits,7
+                      00656 ;       .line   35; "MC32P7351.c"       }
+0042   000C           00657         RETURN  
+                      00658 ; exit point of _Sys_Init
+                      00659 
+                      00660 
+                      00661 ;       code size estimation:
+                      00662 ;         103+    0 =   103 instructions (  206 byte)
+                      00663 
+                      00664         end
+gpasm-2.2.37 (Jan 22 2024)   MC32P7351.asm      2024-11-13  10:01:29         PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+ADCR0                             000001B0
+ADCR1                             000001B1
+ADCR2                             000001B2
+ADIOS0                            000001B6
+ADIOS1                            000001B7
+ADRH                              000001B4
+ADRL                              000001B5
+DRVCR                             0000018C
+END_OF_INTERRUPT                  00000038
+FSR0                              00000184
+FSR1                              00000185
+HIBYTE                            00000183
+HIRCCAL                           000001FC
+INDF0                             00000180
+INDF1                             00000181
+INDF2                             00000182
+INDF3                             00000189
+INTE                              0000018A
+INTF                              0000018B
+IOP0                              00000190
+IOP1                              00000194
+LVDCR                             000001AF
+MCR                               00000188
+OEP0                              00000191
+OEP1                              00000195
+OSADJCR                           000001B3
+OSCMR                             000001AE
+P1KBCR                            0000018E
+PCL                               00000186
+PDP0                              00000193
+PDP1                              00000197
+PFLAG                             00000187
+PFRCAUX                           000001FB
+PFRCCAL                           0000018F
+PFRCCR                            0000018D
+PMOD                              000001BC
+PUP0                              00000192
+PUP1                              00000196
+PWM0DR                            000001A8
+PWM1DR                            000001A9
+PWM2DR                            000001AA
+PWMCR0                            000001AC
+PWMCR1                            000001AD
+PWMCR2                            000001BE
+PWMCR3                            000001BD
+STK00                             00000006
+STK01                             00000005
+STK02                             00000004
+STK03                             00000003
+STK04                             00000002
+STK05                             00000001
+STK06                             00000000
+T0CNT                             00000199
+T0CR                              00000198
+T0DATA                            0000019B
+T0LOAD                            0000019A
+T1CNT                             0000019D
+T1CR                              0000019C
+T1DATA                            0000019F
+T1LOAD                            0000019E
+T2CNT                             000001A1
+T2CR                              000001A0
+T2DATA                            000001A3
+T2LOAD                            000001A2
+T3CNT                             000001A5
+T3CR                              000001A4
+T3LOAD                            000001A6
+_00114_DS_                        00000001
+_00121_DS_                        0000003A
+_00129_DS_                        00000023
+_00131_DS_                        00000024
+_00137_DS_                        00000018
+_00139_DS_                        00000034
+_ADCR0                            00000000
+_ADCR0bits                        00000000
+_ADCR1                            00000000
+_ADCR1bits                        00000000
+_ADCR2                            00000000
+_ADCR2bits                        00000000
+_ADC_Get_Value_Average            00000000
+_ADC_Init                         00000000
+_ADIOS0                           00000000
+_ADIOS0bits                       00000000
+_ADIOS1                           00000000
+_ADIOS1bits                       00000000
+_ADRH                             00000000
+_ADRHbits                         00000000
+_ADRL                             00000000
+_ADRLbits                         00000000
+_CLR_RAM                          00000000
+_CONFIG0                          00008000
+_CONFIG1                          00008001
+_DRVCR                            00000000
+_DRVCRbits                        00000000
+_FSR0                             00000000
+_FSR0bits                         00000000
+_FSR1                             00000000
+_FSR1bits                         00000000
+_Flag1                            00000000
+_Flag2                            00000000
+_HIBYTE                           00000000
+_HIBYTEbits                       00000000
+_HIRCCAL                          00000000
+_HIRCCALbits                      00000000
+_INDF0                            00000000
+_INDF0bits                        00000000
+_INDF1                            00000000
+_INDF1bits                        00000000
+_INDF2                            00000000
+_INDF2bits                        00000000
+_INDF3                            00000000
+_INDF3bits                        00000000
+_INTE                             00000000
+_INTEbits                         00000000
+_INTF                             00000000
+_INTFbits                         00000000
+_IOP0                             00000000
+_IOP0bits                         00000000
+_IOP1                             00000000
+_IOP1bits                         00000000
+_IO_Init                          00000000
+_LVDCR                            00000000
+_LVDCRbits                        00000000
+_MCR                              00000000
+_MCRbits                          00000000
+_OEP0                             00000000
+_OEP0bits                         00000000
+_OEP1                             00000000
+_OEP1bits                         00000000
+_OSADJCR                          00000000
+_OSADJCRbits                      00000000
+_OSCMR                            00000000
+_OSCMRbits                        00000000
+_P1KBCR                           00000000
+_P1KBCRbits                       00000000
+_PCL                              00000000
+_PCLbits                          00000000
+_PDP0                             00000000
+_PDP0bits                         00000000
+_PDP1                             00000000
+_PDP1bits                         00000000
+_PFLAG                            00000000
+_PFLAGbits                        00000000
+_PFRCAUX                          00000000
+_PFRCAUXbits                      00000000
+_PFRCCAL                          00000000
+_PFRCCALbits                      00000000
+_PFRCCR                           00000000
+_PFRCCRbits                       00000000
+_PMOD                             00000000
+_PMODbits                         00000000
+_PUP0                             00000000
+_PUP0bits                         00000000
+_PUP1                             00000000
+_PUP1bits                         00000000
+_PWM0DR                           00000000
+_PWM0DRbits                       00000000
+_PWM1DR                           00000000
+_PWM1DRbits                       00000000
+_PWM2DR                           00000000
+_PWM2DRbits                       00000000
+_PWMCR0                           00000000
+_PWMCR0bits                       00000000
+_PWMCR1                           00000000
+_PWMCR1bits                       00000000
+_PWMCR2                           00000000
+_PWMCR2bits                       00000000
+_PWMCR3                           00000000
+_PWMCR3bits                       00000000
+_Scan_ADC                         00000000
+_Scan_Key                         00000025
+_Set_ADC_Channel                  00000000
+_Sleep_Func                       0000000F
+_Sys_Init                         0000003B
+_T0CNT                            00000000
+_T0CNTbits                        00000000
+_T0CR                             00000000
+_T0CRbits                         00000000
+_T0DATA                           00000000
+_T0DATAbits                       00000000
+_T0LOAD                           00000000
+_T0LOADbits                       00000000
+_T1CNT                            00000000
+_T1CNTbits                        00000000
+_T1CR                             00000000
+_T1CRbits                         00000000
+_T1DATA                           00000000
+_T1DATAbits                       00000000
+_T1LOAD                           00000000
+_T1LOADbits                       00000000
+_T2CNT                            00000000
+_T2CNTbits                        00000000
+_T2CR                             00000000
+_T2CRbits                         00000000
+_T2DATA                           00000000
+_T2DATAbits                       00000000
+_T2LOAD                           00000000
+_T2LOADbits                       00000000
+_T3CNT                            00000000
+_T3CNTbits                        00000000
+_T3CR                             00000000
+_T3CRbits                         00000000
+_T3LOAD                           00000000
+_T3LOADbits                       00000000
+_TIMER0_INT_Init                  00000000
+_TIMER0_PWM_Init                  00000000
+_TIMER1_INT_Init                  00000000
+_TIMER1_PWM_Init                  00000000
+_TIMER2_INT_Init                  00000000
+_TIMER2_PWM_Init                  00000000
+_TIMER3_INT_Init                  00000000
+__32P7351                         00000001
+__sdcc_interrupt                  00000008
+_abuf                             00000000
+_adc_data                         00000000
+_delay                            00000000
+_flag2                            00000000
+_int_isr                          00000008
+_int_time0                        00000000
+_key_cur                          00000000
+_key_down                         00000000
+_key_keep                         00000000
+_key_per                          00000000
+_main                             00000000
+_sleep_time                       00000000
+_statusbuf                        00000000
+r0x1008                           00000000
+r0x1009                           00000001
+r0x100A                           00000002
+ADCHS0                            ADCR0,4
+ADCHS1                            ADCR0,5
+ADCHS2                            ADCR0,6
+ADCHS3                            ADCR0,7
+ADCKS0                            ADCR1,5
+ADCKS1                            ADCR1,6
+ADCKS2                            ADCR1,7
+ADEN                              ADCR0,0
+ADEOC                             ADCR0,1
+ADIE                              INTE,6
+ADIF                              INTF,6
+ADR0                              ADRL,0
+ADR1                              ADRL,1
+ADR10                             ADRH,6
+ADR11                             ADRH,7
+ADR2                              ADRL,2
+ADR3                              ADRL,3
+ADR4                              ADRH,0
+ADR5                              ADRH,1
+ADR6                              ADRH,2
+ADR7                              ADRH,3
+ADR8                              ADRH,4
+ADR9                              ADRH,5
+ADRSEL                            ADCR0,3
+ADSPS0                            ADCR2,0
+ADSPS1                            ADCR2,1
+ADSPS2                            ADCR2,2
+ADSPS3                            ADCR2,3
+ADVRS0                            ADCR1,0
+ADVRS1                            ADCR1,1
+ADVRS2                            ADCR1,2
+BUZ0OE                            T0CR,5
+BUZ1OE                            T1CR,5
+BUZ2OE                            T2CR,5
+C                                 PFLAG,0
+CDRV                              DRVCR,7
+CLKS                              OSCMR,2
+DC                                PFLAG,1
+FPWM1F0                           PWMCR0,0
+FPWM1F1                           PWMCR0,1
+FPWM1NV                           PWMCR0,5
+FPWM1OE                           PWMCR0,7
+FPWM1R0                           PWMCR0,2
+FPWM1R1                           PWMCR0,3
+FPWM2E0                           PWMCR2,0
+FPWM2E1                           PWMCR2,1
+FPWM2E2                           PWMCR2,2
+FPWM2E3                           PWMCR2,3
+FPWM2E4                           PWMCR2,4
+FPWM2E5                           PWMCR2,5
+FPWM2NV                           PWMCR3,7
+FPWM2OE                           PWMCR3,6
+FSR00                             FSR0,0
+FSR01                             FSR0,1
+FSR02                             FSR0,2
+FSR03                             FSR0,3
+FSR04                             FSR0,4
+FSR05                             FSR0,5
+FSR06                             FSR0,6
+FSR07                             FSR0,7
+FSR10                             FSR1,0
+FSR11                             FSR1,1
+FSR12                             FSR1,2
+FSR13                             FSR1,3
+FSR14                             FSR1,4
+FSR15                             FSR1,5
+FSR16                             FSR1,6
+FSR17                             FSR1,7
+GIE                               MCR,7
+HFEN                              OSCMR,0
+HIBYTE0                           HIBYTE,0
+HIBYTE1                           HIBYTE,1
+HIBYTE2                           HIBYTE,2
+HIBYTE3                           HIBYTE,3
+HIBYTE4                           HIBYTE,4
+HIBYTE5                           HIBYTE,5
+HIBYTE6                           HIBYTE,6
+HIBYTE7                           HIBYTE,7
+HIRCCAL0                          HIRCCAL,0
+HIRCCAL1                          HIRCCAL,1
+HIRCCAL2                          HIRCCAL,2
+HIRCCAL3                          HIRCCAL,3
+HIRCCAL4                          HIRCCAL,4
+HIRCCAL5                          HIRCCAL,5
+HIRCCAL6                          HIRCCAL,6
+HIRCCAL7                          HIRCCAL,7
+INDF00                            INDF0,0
+INDF01                            INDF0,1
+INDF02                            INDF0,2
+INDF03                            INDF0,3
+INDF04                            INDF0,4
+INDF05                            INDF0,5
+INDF06                            INDF0,6
+INDF07                            INDF0,7
+INDF10                            INDF1,0
+INDF11                            INDF1,1
+INDF12                            INDF1,2
+INDF13                            INDF1,3
+INDF14                            INDF1,4
+INDF15                            INDF1,5
+INDF16                            INDF1,6
+INDF17                            INDF1,7
+INDF20                            INDF2,0
+INDF21                            INDF2,1
+INDF22                            INDF2,2
+INDF23                            INDF2,3
+INDF24                            INDF2,4
+INDF25                            INDF2,5
+INDF26                            INDF2,6
+INDF27                            INDF2,7
+INDF30                            INDF3,0
+INDF31                            INDF3,1
+INDF32                            INDF3,2
+INDF33                            INDF3,3
+INDF34                            INDF3,4
+INDF35                            INDF3,5
+INDF36                            INDF3,6
+INDF37                            INDF3,7
+INT0IE                            INTE,2
+INT0IF                            INTF,2
+INT0M0                            MCR,0
+INT0M1                            MCR,1
+INT1IE                            INTE,3
+INT1IF                            INTF,3
+INT1M0                            MCR,2
+INT1M1                            MCR,3
+KBIE                              INTE,4
+KBIF                              INTF,4
+LDRV                              DRVCR,6
+LFEN                              OSCMR,1
+LVDEN                             LVDCR,7
+LVDF                              LVDCR,0
+LVDVS0                            LVDCR,3
+LVDVS1                            LVDCR,4
+LVDVS2                            LVDCR,5
+LVDVS3                            LVDCR,6
+NFPWM2OE                          PWMCR3,4
+NPWM2OE                           PWMCR3,5
+OSADJEN                           OSADJCR,7
+OSADJT0                           OSADJCR,0
+OSADJT1                           OSADJCR,1
+OSADJT2                           OSADJCR,2
+OSADJT3                           OSADJCR,3
+OSADJT4                           OSADJCR,4
+OSADJT5                           OSADJCR,5
+OSADJTD                           OSADJCR,6
+P00D                              IOP0,0
+P00DC                             ADIOS0,0
+P00OE                             OEP0,0
+P00OM                             PMOD,0
+P00PD                             PDP0,0
+P00PU                             PUP0,0
+P01D                              IOP0,1
+P01DC                             PMOD,5
+P01OE                             OEP0,1
+P01OM                             PMOD,1
+P01PD                             PDP0,1
+P01PU                             PUP0,1
+P02D                              IOP0,2
+P02DC                             ADIOS0,1
+P02OE                             OEP0,2
+P02PD                             PDP0,2
+P02PU                             PUP0,2
+P03D                              IOP0,3
+P03DC                             ADIOS0,2
+P03OE                             OEP0,3
+P03PD                             PDP0,3
+P03PU                             PUP0,3
+P04D                              IOP0,4
+P04DC                             ADIOS0,3
+P04OE                             OEP0,4
+P04PD                             PDP0,4
+P04PU                             PUP0,4
+P05D                              IOP0,5
+P05DC                             ADIOS0,4
+P05OE                             OEP0,5
+P05PD                             PDP0,5
+P05PU                             PUP0,5
+P10D                              IOP1,0
+P10DC                             ADIOS0,5
+P10KE                             P1KBCR,0
+P10OE                             OEP1,0
+P10PD                             PDP1,0
+P10PU                             PUP1,0
+P11D                              IOP1,1
+P11DC                             ADIOS0,6
+P11KE                             P1KBCR,1
+P11OE                             OEP1,1
+P11PD                             PDP1,1
+P11PU                             PUP1,1
+P12D                              IOP1,2
+P12DC                             ADIOS0,7
+P12KE                             P1KBCR,2
+P12OE                             OEP1,2
+P12PD                             PDP1,2
+P12PU                             PUP1,2
+P13D                              IOP1,3
+P13DC                             PMOD,6
+P13KE                             P1KBCR,3
+P13OE                             OEP1,3
+P13OM                             PMOD,2
+P13PD                             PDP1,3
+P13PU                             PUP1,3
+P14D                              IOP1,4
+P14DC                             ADIOS1,0
+P14KE                             P1KBCR,4
+P14OE                             OEP1,4
+P14PD                             PDP1,4
+P14PU                             PUP1,4
+P15D                              IOP1,5
+P15DC                             ADIOS1,1
+P15KE                             P1KBCR,5
+P15OE                             OEP1,5
+P15PD                             PDP1,5
+P15PU                             PUP1,5
+P16D                              IOP1,6
+P16KE                             P1KBCR,6
+P16OE                             OEP1,6
+P16PD                             PDP1,6
+P16PU                             PUP1,6
+P17D                              IOP1,7
+P17DC                             PMOD,7
+P17KE                             P1KBCR,7
+P17OE                             OEP1,7
+P17PD                             PDP1,7
+P17PU                             PUP1,7
+PC0                               PCL,0
+PC1                               PCL,1
+PC2                               PCL,2
+PC3                               PCL,3
+PC4                               PCL,4
+PC5                               PCL,5
+PC6                               PCL,6
+PC7                               PCL,7
+PD                                MCR,4
+PDLY0                             DRVCR,2
+PDLY1                             DRVCR,3
+PDRV0                             DRVCR,4
+PDRV1                             DRVCR,5
+PFRCAUX0                          PFRCAUX,0
+PFRCAUX1                          PFRCAUX,1
+PFRCAUX2                          PFRCAUX,2
+PFRCCAL0                          PFRCCAL,0
+PFRCCAL1                          PFRCCAL,1
+PFRCCAL2                          PFRCCAL,2
+PFRCCAL3                          PFRCCAL,3
+PFRCCAL4                          PFRCCAL,4
+PFRCCAL5                          PFRCCAL,5
+PFRCCAL6                          PFRCCAL,6
+PFRCCAL7                          PFRCCAL,7
+PFRCEN                            PFRCCR,7
+PSPD0                             DRVCR,0
+PSPD1                             DRVCR,1
+PWM0CHS                           PWMCR3,2
+PWM0D0                            PWM0DR,0
+PWM0D1                            PWM0DR,1
+PWM0D2                            PWM0DR,2
+PWM0EC                            T0CR,6
+PWM0MD                            PWMCR1,0
+PWM0NV                            PWMCR0,4
+PWM1D0                            PWM1DR,0
+PWM1D1                            PWM1DR,1
+PWM1D2                            PWM1DR,2
+PWM1EC                            T1CR,6
+PWM1MD                            PWMCR1,1
+PWM2D0                            PWM2DR,0
+PWM2D1                            PWM2DR,1
+PWM2D2                            PWM2DR,2
+PWM2EC                            T2CR,6
+PWM2MD                            PWMCR1,2
+PWM2NV                            PWMCR0,6
+RESS0                             ADCR1,3
+STBH                              OSCMR,4
+STBL                              OSCMR,5
+T0CKS0                            T0CR,3
+T0CKS1                            T0CR,4
+T0CKS2                            PFRCCR,0
+T0CKS3                            PFRCCR,1
+T0CNT0                            T0CNT,0
+T0CNT1                            T0CNT,1
+T0CNT2                            T0CNT,2
+T0CNT3                            T0CNT,3
+T0CNT4                            T0CNT,4
+T0CNT5                            T0CNT,5
+T0CNT6                            T0CNT,6
+T0CNT7                            T0CNT,7
+T0DATA0                           T0DATA,0
+T0DATA1                           T0DATA,1
+T0DATA2                           T0DATA,2
+T0DATA3                           T0DATA,3
+T0DATA4                           T0DATA,4
+T0DATA5                           T0DATA,5
+T0DATA6                           T0DATA,6
+T0DATA7                           T0DATA,7
+T0EN                              T0CR,7
+T0IE                              INTE,0
+T0IF                              INTF,0
+T0LOAD0                           T0LOAD,0
+T0LOAD1                           T0LOAD,1
+T0LOAD2                           T0LOAD,2
+T0LOAD3                           T0LOAD,3
+T0LOAD4                           T0LOAD,4
+T0LOAD5                           T0LOAD,5
+T0LOAD6                           T0LOAD,6
+T0LOAD7                           T0LOAD,7
+T0PRS0                            T0CR,0
+T0PRS1                            T0CR,1
+T0PRS2                            T0CR,2
+T1CKS0                            T1CR,3
+T1CKS1                            T1CR,4
+T1CKS2                            PFRCCR,2
+T1CKS3                            PFRCCR,3
+T1CNT0                            T1CNT,0
+T1CNT1                            T1CNT,1
+T1CNT2                            T1CNT,2
+T1CNT3                            T1CNT,3
+T1CNT4                            T1CNT,4
+T1CNT5                            T1CNT,5
+T1CNT6                            T1CNT,6
+T1CNT7                            T1CNT,7
+T1DATA0                           T1DATA,0
+T1DATA1                           T1DATA,1
+T1DATA2                           T1DATA,2
+T1DATA3                           T1DATA,3
+T1DATA4                           T1DATA,4
+T1DATA5                           T1DATA,5
+T1DATA6                           T1DATA,6
+T1DATA7                           T1DATA,7
+T1EN                              T1CR,7
+T1IE                              INTE,1
+T1IF                              INTF,1
+T1LOAD0                           T1LOAD,0
+T1LOAD1                           T1LOAD,1
+T1LOAD2                           T1LOAD,2
+T1LOAD3                           T1LOAD,3
+T1LOAD4                           T1LOAD,4
+T1LOAD5                           T1LOAD,5
+T1LOAD6                           T1LOAD,6
+T1LOAD7                           T1LOAD,7
+T1PRS0                            T1CR,0
+T1PRS1                            T1CR,1
+T1PRS2                            T1CR,2
+T2CKS0                            T2CR,3
+T2CKS1                            T2CR,4
+T2CKS2                            PFRCCR,4
+T2CKS3                            PFRCCR,5
+T2CNT0                            T2CNT,0
+T2CNT1                            T2CNT,1
+T2CNT2                            T2CNT,2
+T2CNT3                            T2CNT,3
+T2CNT4                            T2CNT,4
+T2CNT5                            T2CNT,5
+T2CNT6                            T2CNT,6
+T2CNT7                            T2CNT,7
+T2DATA0                           T2DATA,0
+T2DATA1                           T2DATA,1
+T2DATA2                           T2DATA,2
+T2DATA3                           T2DATA,3
+T2DATA4                           T2DATA,4
+T2DATA5                           T2DATA,5
+T2DATA6                           T2DATA,6
+T2DATA7                           T2DATA,7
+T2EN                              T2CR,7
+T2IE                              INTE,5
+T2IF                              INTF,5
+T2LOAD0                           T2LOAD,0
+T2LOAD1                           T2LOAD,1
+T2LOAD2                           T2LOAD,2
+T2LOAD3                           T2LOAD,3
+T2LOAD4                           T2LOAD,4
+T2LOAD5                           T2LOAD,5
+T2LOAD6                           T2LOAD,6
+T2LOAD7                           T2LOAD,7
+T2PRS0                            T2CR,0
+T2PRS1                            T2CR,1
+T2PRS2                            T2CR,2
+T3CKS0                            T3CR,3
+T3CKS1                            T3CR,4
+T3CNT0                            T3CNT,0
+T3CNT1                            T3CNT,1
+T3CNT2                            T3CNT,2
+T3CNT3                            T3CNT,3
+T3CNT4                            T3CNT,4
+T3CNT5                            T3CNT,5
+T3CNT6                            T3CNT,6
+T3CNT7                            T3CNT,7
+T3EN                              T3CR,7
+T3IE                              INTE,7
+T3IF                              INTF,7
+T3LOAD0                           T3LOAD,0
+T3LOAD1                           T3LOAD,1
+T3LOAD2                           T3LOAD,2
+T3LOAD3                           T3LOAD,3
+T3LOAD4                           T3LOAD,4
+T3LOAD5                           T3LOAD,5
+T3LOAD6                           T3LOAD,6
+T3LOAD7                           T3LOAD,7
+T3PRS0                            T3CR,0
+T3PRS1                            T3CR,1
+T3PRS2                            T3CR,2
+TMRCKS0                           PWMCR1,3
+TMRCKS1                           PWMCR1,4
+TO                                MCR,5
+Z                                 PFLAG,2
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

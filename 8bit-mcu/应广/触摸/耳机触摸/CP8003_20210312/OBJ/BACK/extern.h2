@@ -1,0 +1,311 @@
+
+System_DIV		EQU	8					//	16MHz/8 = 2MIPS
+System_Clock	EQU	16000000/System_DIV	//	Used at UART, PS2, ...
+
+enum
+{	//	不占用 RAM
+	KEY_SENSE	=	0x20
+};	/*/
+enum
+{ // 占用兩個 RAM
+	KEY_SENSE_0	=	0x20,
+	KEY_SENSE_1	=	0x20,
+	KEY_SENSE_2	=	0x20
+};	//*/
+
+idx_Mov_Multi	=>	0
+cnt_Mov_Multi	=>	8
+#define	TC_Discharge	0
+//#define	TC_DIV			8
+
+// Time Unit: 20ms
+#define	Key_Mode_0			1
+#define	Key_Debounce_0		15		// p_Touch_0入耳延遲
+//#define	Key_Debounce_1		15		// p_Touch_1入耳延遲
+//#define	Key_Debounce_2		15		// p_Touch_2入耳延遲
+#define	KEY_TIMEOUT_TIME	500		// 多久沒按進入省電模式
+
+//			Status				0		1
+//	GPIO=0		(O)Open-Drain	Low		Float
+//	GPIO=1		(U)Pull-Up		Low		Pull High
+//	GPIO=2		(P)Push-Pull	Low		High
+//	GPIO=3		(S)Line-Driver	Float	High
+//	SENSE_LEVEL	0(Low) ~ 3(High)	// 靈敏度
+#if	_SYS(VAR.BUILD)
+//	F8
+	.switch	_SYS(ASM:LOOP)
+	.case ++
+		#define	Pin7			p_Ear
+		#define	Pin8			p_Touch
+		#define	EAR_ACTIVE		1
+		#define	EAR_GPIO		0
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		2
+		#define	TC_SENSE		0
+		.OutFile	"OUT/CP8003-EHOTHP0_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	Pin7			p_Ear
+		#define	Pin8			p_Touch
+		#define	EAR_ACTIVE		1
+		#define	EAR_GPIO		0
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		2
+		#define	TC_SENSE		3
+		.OutFile	"OUT/CP8003-EHOTHP3_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	Pin7			p_Ear
+		#define	Pin8			p_Touch
+		#define	EAR_ACTIVE		1
+		#define	EAR_GPIO		1
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		2
+		#define	TC_SENSE		0
+		.OutFile	"OUT/CP8003-EHUTHP0_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	Pin7			p_Ear
+		#define	Pin8			p_Touch
+		#define	EAR_ACTIVE		1
+		#define	EAR_GPIO		1
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		2
+		#define	TC_SENSE		3
+		.OutFile	"OUT/CP8003-EHUTHP3_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	Pin7			p_Ear
+		#define	Pin8			p_Touch
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		0
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		2
+		#define	TC_SENSE		0
+		.OutFile	"OUT/CP8003-ELOTHP0_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	Pin7			p_Ear
+		#define	Pin8			p_Touch
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		0
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		2
+		#define	TC_SENSE		3
+		.OutFile	"OUT/CP8003-ELOTHP3_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	Pin7			p_Ear
+		#define	Pin8			p_Touch
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		0
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		3
+		#define	TC_SENSE		0
+		.OutFile	"OUT/CP8003-ELOTHS0_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	Pin7			p_Ear
+		#define	Pin8			p_Touch
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		0
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		3
+		#define	TC_SENSE		3
+		.OutFile	"OUT/CP8003-ELOTHS3_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	Pin7			p_Ear
+		#define	Pin8			p_Touch
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		1
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		2
+		#define	TC_SENSE		0
+		.OutFile	"OUT/CP8003-ELUTHP0_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	Pin7			p_Ear
+		#define	Pin8			p_Touch
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		1
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		2
+		#define	TC_SENSE		3
+		.OutFile	"OUT/CP8003-ELUTHP3_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		0
+		#define	EAR_ACTIVE		1
+		#define	EAR_GPIO		0
+		#define	TC_SENSE		0
+		.OutFile	"OUT/CP8003-THOEHO0_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		0
+		#define	EAR_ACTIVE		1
+		#define	EAR_GPIO		0
+		#define	TC_SENSE		3
+		.OutFile	"OUT/CP8003-THOEHO3_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		0
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		0
+		#define	TC_SENSE		0
+		.OutFile	"OUT/CP8003-THOELO0_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		0
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		0
+		#define	TC_SENSE		3
+		.OutFile	"OUT/CP8003-THOELO3_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		1
+		#define	EAR_ACTIVE		1
+		#define	EAR_GPIO		1
+		#define	TC_SENSE		0
+		.OutFile	"OUT/CP8003-THUEHU0_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		1
+		#define	EAR_ACTIVE		1
+		#define	EAR_GPIO		1
+		#define	TC_SENSE		3
+		.OutFile	"OUT/CP8003-THUEHU3_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		1
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		1
+		#define	TC_SENSE		0
+		.OutFile	"OUT/CP8003-THUELU0_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	1
+		#define	TOUCH_GPIO		1
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		1
+		#define	TC_SENSE		3
+		.OutFile	"OUT/CP8003-THUELU3_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	0
+		#define	TOUCH_GPIO		0
+		#define	EAR_ACTIVE		1
+		#define	EAR_GPIO		0
+		#define	TC_SENSE		0
+		.OutFile	"OUT/CP8003-TLOEHO0_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	0
+		#define	TOUCH_GPIO		0
+		#define	EAR_ACTIVE		1
+		#define	EAR_GPIO		0
+		#define	TC_SENSE		3
+		.OutFile	"OUT/CP8003-TLOEHO3_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	0
+		#define	TOUCH_GPIO		0
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		0
+		#define	TC_SENSE		0
+		.OutFile	"OUT/CP8003-TLOELO0_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	0
+		#define	TOUCH_GPIO		0
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		0
+		#define	TC_SENSE		3
+		.OutFile	"OUT/CP8003-TLOELO3_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	0
+		#define	TOUCH_GPIO		1
+		#define	EAR_ACTIVE		1
+		#define	EAR_GPIO		1
+		#define	TC_SENSE		0
+		.OutFile	"OUT/CP8003-TLUEHU0_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	0
+		#define	TOUCH_GPIO		1
+		#define	EAR_ACTIVE		1
+		#define	EAR_GPIO		1
+		#define	TC_SENSE		3
+		.OutFile	"OUT/CP8003-TLUEHU3_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	0
+		#define	TOUCH_GPIO		1
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		1
+		#define	TC_SENSE		0
+		.OutFile	"OUT/CP8003-TLUELU0_0x%X_%Tyymmdd.PDK"
+		.ReAssembly
+	.case ++
+		#define	TOUCH_ACTIVE	0
+		#define	TOUCH_GPIO		1
+		#define	EAR_ACTIVE		0
+		#define	EAR_GPIO		1
+		#define	TC_SENSE		3
+		.OutFile	"OUT/CP8003-TLUELU3_0x%X_%Tyymmdd.PDK"
+	.ends
+	#define	LOG				PA.0
+#else
+//	F7 or F10
+	#define	TOUCH_ACTIVE	0
+	#define	TOUCH_GPIO		1
+	#define	EAR_ACTIVE		0
+	#define	EAR_GPIO		1
+	#define	TC_SENSE		3
+	#define	LOG				PA.0
+#endif
+
+#ifndef	Pin7
+#define	Pin7	p_Touch
+#endif
+#ifndef	Pin8
+#define	Pin8	p_Ear
+#endif
+
+p_Touch_0		BIT	PA.4	(In);
+p_Touch_1		BIT	PA.5	(In);
+p_Touch_2		BIT	PA.6	(In);
+Pin7			BIT	LOG		(In);
+Pin8			BIT	PA.3	(In);
+// PA.0/PA.5若設定成2(Push-Pull)將無法使用Log
+UART_Out		EQU			LOG
+UART_In			EQU			LOG
+
+cnt_Touch_Pin	EQU			3
+
+WORD	T3src, T3val, T3res;
+BYTE	CalibrationILRC = 0, T3cnt;
+WORD	Key_Reset, Key_Timeout, Uart_Receive, Uart_Timerout, Uart_Transmit;
+BYTE	Key_Pulse, Key_State, Key_Status, Key_Temp, Key_Width, Uart_Bit, Uart_Shift, Uart_Status;
+BIT		f_Key_Change	:	Key_State.7;
+BIT		f_Must_Work		:	Key_State.6;
+BIT		f_Key_2			:	Key_State.2;
+BIT		f_Key_1			:	Key_State.1;
+BIT		f_Key_0			:	Key_State.0;
+BIT		f_Key_Sleep		:	Key_Status.6;
+BIT		f_Key_Touch		:	Key_Status.5;
+BIT		f_Key_Ear		:	Key_Status.4;
+BIT		f_Key_Skip_2	:	Key_Status.2;
+BIT		f_Key_Skip_1	:	Key_Status.1;
+BIT		f_Key_Skip_0	:	Key_Status.0;
+BIT		f_Uart_IHRC		:	Uart_Status.2;
+BIT		f_Uart_Mode		:	Uart_Status.1;
+BIT		f_Uart_Receive	:	Uart_Status.0;

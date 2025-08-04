@@ -1,0 +1,292 @@
+
+0000000F            00074 TOUCH_KEY                       EQU     0 at 0x111B  xxxx.x  0000 to 0000
+0009   0B0F           00011         MOVAI   TOUCH_KEY                               ;0 at 0x111B  xxxx.x  0000 to 0000
+000F   0BC8           00017         MOVAI   1 at 0x000B  xxxx.x  0000 to 0000
+0011   0B00           00019         MOVAI   0 at 0x000B  xxxx.x  0000 to 0000
+0013   0BFF           00021         MOVAI   1 at 0x111B  xxxx.x  0000 to 0000
+002C   0B01           00067         MOVAI   0 at 0x001B  xxxx.x  0000 to 0000
+002F   0B00           00070         MOVAI   0 at 0x000B  xxxx.x  0000 to 0000
+0036   0B02           00081         MOVAI   0 at 0x010B  xxxx.x  0000 to 0000
+0039   0B01           00084         MOVAI   0 at 0x001B  xxxx.x  0000 to 0000
+0040   0B04           00095         MOVAI   0 at 0x100B  xxxx.x  0000 to 0000
+0043   0B02           00098         MOVAI   0 at 0x010B  xxxx.x  0000 to 0000
+004A   0B08           00109         MOVAI   0 at 0x000B  xxxx.x  0000 to 0000
+004D   0B03           00112         MOVAI   0 at 0x011B  xxxx.x  0000 to 0000
+005B   0BC8           00131         MOVAI   1 at 0x000B  xxxx.x  0000 to 0000
+006E   080F           00154         XORAI   0 at 0x111B  xxxx.x  0000 to 0000
+0086   0B01           00195         MOVAI   0 at 0x001B  xxxx.x  0000 to 0000
+0097   0B02           00216         MOVAI   0 at 0x010B  xxxx.x  0000 to 0000
+00A8   0B04           00237         MOVAI   0 at 0x100B  xxxx.x  0000 to 0000
+00B9   0B08           00258         MOVAI   0 at 0x000B  xxxx.x  0000 to 0000
+01C0   0B8B           00074         MOVAI   1 at 0x011B  xxxx.x  0000 to 0000
+00081 ;       MOVAI   1 at 0x011B  xxxx.x  0000 to 0000
+00083 ;       MOVAI   208                                             ;选择HOSC时钟源，32M 16分频，单计数时间长度为1000000/( at 0x0000  xxxx.x  0000 to 0000
+0252   0B0F           00130         MOVAI   0 at 0x111B  xxxx.x  0000 to 0000
+0254   0B0F           00132         MOVAI   0 at 0x111B  xxxx.x  0000 to 0000
+0256   0B00           00134         MOVAI   0 at 0x000B  xxxx.x  0000 to 0000
+00145 ;       MOVAI   0 at 0x011B  xxxx.x  0000 to 0000
+025E   0B00           00150         MOVAI   0 at 0x000B  xxxx.x  0000 to 0000
+0262   0B00           00154         MOVAI   0 at 0x000B  xxxx.x  0000 to 0000
+0264   0B00           00156         MOVAI   0 at 0x000B  xxxx.x  0000 to 0000
+0266   0B00           00158         MOVAI   0 at 0x000B  xxxx.x  0000 to 0000
+0268   0B00           00160         MOVAI   0 at 0x000B  xxxx.x  0000 to 0000
+00167 ;       MOVAI   0 at 0x010B  xxxx.x  0000 to 0000
+026E   0B01           00175         MOVAI   0 at 0x001B  xxxx.x  0000 to 0000
+0276   0B03           00188         MOVAI   0 at 0x011B  xxxx.x  0000 to 0000
+029A   0B00           00249         MOVAI   0 at 0x000B  xxxx.x  0000 to 0000
+029C   0B00           00251         MOVAI   0 at 0x000B  xxxx.x  0000 to 0000
+02A6   0B01           00261         MOVAI   0 at 0x001B  xxxx.x  0000 to 0000
+CLR_RAM                            at 0x0249  xxxx.x  0000 to 0000
+CLR_RAM_LOOP                       at 0x024D  xxxx.x  0000 to 0000
+CMPCR0                             at 0x0068  xxxx.x  0000 to 0000
+CMPCR1                             at 0x0069  xxxx.x  0000 to 0000
+CMPCR2                             at 0x006A  xxxx.x  0000 to 0000
+DDR1                               at 0x0056  xxxx.x  0000 to 0000
+FSR                                at 0x0004  xxxx.x  0000 to 0000
+INDF                               at 0x0000  xxxx.x  0000 to 0000
+INTE                               at 0x000E  xxxx.x  0000 to 0000
+INTF                               at 0x000F  xxxx.x  0000 to 0000
+INT_END                            at 0x023D  xxxx.x  0000 to 0000
+INT_SUB                            at 0x0236  xxxx.x  0000 to 0000
+MAIN_LOOP                          at 0x028B  xxxx.x  0000 to 0000
+MAIN_LOOP_2MS                      at 0x028F  xxxx.x  0000 to 0000
+MAIN_SLEEP                         at 0x029A  xxxx.x  0000 to 0000
+MCR                                at 0x0008  xxxx.x  0000 to 0000
+ODCON                              at 0x000C  xxxx.x  0000 to 0000
+OPEN_OUT_UART                      at 0x01C7  xxxx.x  0000 to 0000
+P1                                 at 0x0006  xxxx.x  0000 to 0000
+P1ADCR                             at 0x0067  xxxx.x  0000 to 0000
+P1KBCR                             at 0x0065  xxxx.x  0000 to 0000
+PCL                                at 0x0002  xxxx.x  0000 to 0000
+PCLATH                             at 0x000A  xxxx.x  0000 to 0000
+PDCON                              at 0x000B  xxxx.x  0000 to 0000
+PLAY_FLAG                          at 0x0012  xxxx.x  0000 to 0000
+PUCON                              at 0x000D  xxxx.x  0000 to 0000
+PWM1CR0                            at 0x0050  xxxx.x  0000 to 0000
+PWM1CR1                            at 0x0051  xxxx.x  0000 to 0000
+PWM1CR2                            at 0x0052  xxxx.x  0000 to 0000
+SAVE_ACC                           at 0x0010  xxxx.x  0000 to 0000
+SAVE_STATUS                        at 0x0011  xxxx.x  0000 to 0000
+SCAN_LED                           at 0x027A  xxxx.x  0000 to 0000
+SCAN_LED1_OFF                      at 0x0280  xxxx.x  0000 to 0000
+SCAN_LED1_ON                       at 0x027E  xxxx.x  0000 to 0000
+SCAN_LED2                          at 0x0282  xxxx.x  0000 to 0000
+SCAN_TOUCH                         at 0x001E  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP1                   at 0x0025  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP1_NEXT              at 0x0054  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP1_TONE0             at 0x002C  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP1_TONE1             at 0x0036  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP1_TONE2             at 0x0040  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP1_TONE3             at 0x004A  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP2                   at 0x0063  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3                   at 0x0074  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_BAD               at 0x0139  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_BAKTONE0          at 0x0153  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_BAKTONE1          at 0x015D  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_BAKTONE2          at 0x0167  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_BAKTONE3          at 0x0171  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_CHECK             at 0x00C2  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_CHECK_MAX         at 0x00CB  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_CHECK_NEXT        at 0x00CF  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_NEXT              at 0x017B  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_NEXT1             at 0x0181  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_NORMAL            at 0x00FA  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_NORMAL2           at 0x0102  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_NORMAL_KEYHOLD    at 0x0113  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_NORMAL_KEYUNHOLD   at 0x011E  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_PRE               at 0x00DE  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_PRE_MAX           at 0x00EF  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_PRE_NEXT          at 0x00F1  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_RECHECK           at 0x0143  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_RELEASE           at 0x0130  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_RELEASE_SET       at 0x0136  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_SAVE              at 0x0145  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_SAVEDEBOUNCE      at 0x011F  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_SAVETONE0         at 0x0158  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_SAVETONE1         at 0x0162  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_SAVETONE2         at 0x016C  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_SAVETONE3         at 0x0176  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_SAVE_DATA         at 0x014C  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_TONE0             at 0x007E  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_TONE1             at 0x008F  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_TONE2             at 0x00A0  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_TONE3             at 0x00B1  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_TOPRESS           at 0x00D1  xxxx.x  0000 to 0000
+SCAN_TOUCH_STEP3_TORELEASE         at 0x0127  xxxx.x  0000 to 0000
+SCAN_UART_OUT                      at 0x01CF  xxxx.x  0000 to 0000
+SCAN_UART_OUTCHECKSUM              at 0x0230  xxxx.x  0000 to 0000
+SCAN_UART_OUTING                   at 0x0232  xxxx.x  0000 to 0000
+SCAN_UART_OUT_BASE0H               at 0x0209  xxxx.x  0000 to 0000
+SCAN_UART_OUT_BASE0L               at 0x0207  xxxx.x  0000 to 0000
+SCAN_UART_OUT_BASE1H               at 0x0211  xxxx.x  0000 to 0000
+SCAN_UART_OUT_BASE1L               at 0x020F  xxxx.x  0000 to 0000
+SCAN_UART_OUT_BASE2H               at 0x0219  xxxx.x  0000 to 0000
+SCAN_UART_OUT_BASE2L               at 0x0217  xxxx.x  0000 to 0000
+SCAN_UART_OUT_BASE3H               at 0x0221  xxxx.x  0000 to 0000
+SCAN_UART_OUT_BASE3L               at 0x021F  xxxx.x  0000 to 0000
+SCAN_UART_OUT_CHECK                at 0x022D  xxxx.x  0000 to 0000
+SCAN_UART_OUT_DATA                 at 0x01E4  xxxx.x  0000 to 0000
+SCAN_UART_OUT_DATA_END             at 0x01F7  xxxx.x  0000 to 0000
+SCAN_UART_OUT_ENDCODE              at 0x01FA  xxxx.x  0000 to 0000
+SCAN_UART_OUT_HEAD                 at 0x01DB  xxxx.x  0000 to 0000
+SCAN_UART_OUT_HEAD1                at 0x0223  xxxx.x  0000 to 0000
+SCAN_UART_OUT_HEAD2                at 0x0225  xxxx.x  0000 to 0000
+SCAN_UART_OUT_HEAD3                at 0x0227  xxxx.x  0000 to 0000
+SCAN_UART_OUT_LIST                 at 0x01D4  xxxx.x  0000 to 0000
+SCAN_UART_OUT_SAVE0H               at 0x0205  xxxx.x  0000 to 0000
+SCAN_UART_OUT_SAVE0L               at 0x0203  xxxx.x  0000 to 0000
+SCAN_UART_OUT_SAVE1H               at 0x020D  xxxx.x  0000 to 0000
+SCAN_UART_OUT_SAVE1L               at 0x020B  xxxx.x  0000 to 0000
+SCAN_UART_OUT_SAVE2H               at 0x0215  xxxx.x  0000 to 0000
+SCAN_UART_OUT_SAVE2L               at 0x0213  xxxx.x  0000 to 0000
+SCAN_UART_OUT_SAVE3H               at 0x021D  xxxx.x  0000 to 0000
+SCAN_UART_OUT_SAVE3L               at 0x021B  xxxx.x  0000 to 0000
+SET_MAIN_T0                        at 0x0276  xxxx.x  0000 to 0000
+SET_OPTION                         at 0x0252  xxxx.x  0000 to 0000
+SET_TOUCH_OPTION                   at 0x0009  xxxx.x  0000 to 0000
+SET_TOUCH_OPTION2                  at 0x0015  xxxx.x  0000 to 0000
+SET_UART_9600BPS                   at 0x01C0  xxxx.x  0000 to 0000
+START                              at 0x0283  xxxx.x  0000 to 0000
+STATUS                             at 0x0003  xxxx.x  0000 to 0000
+SUB_2BYTE                          at 0x018F  xxxx.x  0000 to 0000
+T0CNT                              at 0x0001  xxxx.x  0000 to 0000
+T0CR                               at 0x0009  xxxx.x  0000 to 0000
+T0_INT                             at 0x0243  xxxx.x  0000 to 0000
+T1CNT                              at 0x005A  xxxx.x  0000 to 0000
+T1CR                               at 0x0059  xxxx.x  0000 to 0000
+T1DATA                             at 0x005C  xxxx.x  0000 to 0000
+T1DATB                             at 0x005D  xxxx.x  0000 to 0000
+T1DATC                             at 0x005E  xxxx.x  0000 to 0000
+T1DATD                             at 0x005F  xxxx.x  0000 to 0000
+T1LOAD                             at 0x005B  xxxx.x  0000 to 0000
+T1_INT                             at 0x0246  xxxx.x  0000 to 0000
+T2CNTH                             at 0x0061  xxxx.x  0000 to 0000
+T2CNTL                             at 0x0062  xxxx.x  0000 to 0000
+T2CR                               at 0x0060  xxxx.x  0000 to 0000
+T2LOADH                            at 0x0063  xxxx.x  0000 to 0000
+T2LOADL                            at 0x0064  xxxx.x  0000 to 0000
+TEMP0                              at 0x0013  xxxx.x  0000 to 0000
+TEMP1                              at 0x0014  xxxx.x  0000 to 0000
+TEMP2                              at 0x0015  xxxx.x  0000 to 0000
+TEMP3                              at 0x0016  xxxx.x  0000 to 0000
+TEMP4                              at 0x0017  xxxx.x  0000 to 0000
+TEMP5                              at 0x0018  xxxx.x  0000 to 0000
+TEMP6                              at 0x0019  xxxx.x  0000 to 0000
+TEMP7                              at 0x001A  xxxx.x  0000 to 0000
+TKCNT0_BASEH                       at 0x0022  xxxx.x  0000 to 0000
+TKCNT0_BASEL                       at 0x0023  xxxx.x  0000 to 0000
+TKCNT0_SAVEH                       at 0x0020  xxxx.x  0000 to 0000
+TKCNT0_SAVEL                       at 0x0021  xxxx.x  0000 to 0000
+TKCNT1_BASEH                       at 0x0026  xxxx.x  0000 to 0000
+TKCNT1_BASEL                       at 0x0027  xxxx.x  0000 to 0000
+TKCNT1_SAVEH                       at 0x0024  xxxx.x  0000 to 0000
+TKCNT1_SAVEL                       at 0x0025  xxxx.x  0000 to 0000
+TKCNT2_BASEH                       at 0x002A  xxxx.x  0000 to 0000
+TKCNT2_BASEL                       at 0x002B  xxxx.x  0000 to 0000
+TKCNT2_SAVEH                       at 0x0028  xxxx.x  0000 to 0000
+TKCNT2_SAVEL                       at 0x0029  xxxx.x  0000 to 0000
+TKCNT3_BASEH                       at 0x002E  xxxx.x  0000 to 0000
+TKCNT3_BASEL                       at 0x002F  xxxx.x  0000 to 0000
+TKCNT3_SAVEH                       at 0x002C  xxxx.x  0000 to 0000
+TKCNT3_SAVEL                       at 0x002D  xxxx.x  0000 to 0000
+TKCNTH                             at 0x006E  xxxx.x  0000 to 0000
+TKCNTH_NEW                         at 0x0032  xxxx.x  0000 to 0000
+TKCNTL                             at 0x006F  xxxx.x  0000 to 0000
+TKCNTL_NEW                         at 0x0033  xxxx.x  0000 to 0000
+TKCR0                              at 0x006B  xxxx.x  0000 to 0000
+TKCR1                              at 0x006C  xxxx.x  0000 to 0000
+TKCR2                              at 0x006D  xxxx.x  0000 to 0000
+TMRCR                              at 0x0058  xxxx.x  0000 to 0000
+TOUCH_DEBOUNCE1                    at 0x0035  xxxx.x  0000 to 0000
+TOUCH_DEBOUNCE2                    at 0x0036  xxxx.x  0000 to 0000
+TOUCH_DEBOUNCE3                    at 0x0037  xxxx.x  0000 to 0000
+TOUCH_DEBOUNCE4                    at 0x0038  xxxx.x  0000 to 0000
+TOUCH_FLAG                         at 0x0034  xxxx.x  0000 to 0000
+TOUCH_KEY                          at 0x000F  xxxx.x  0000 to 0000
+TOUCH_KEY_NUM                      at 0x0004  xxxx.x  0000 to 0000
+TOUCH_SCAN_LIST                    at 0x0031  xxxx.x  0000 to 0000
+TOUCH_SCAN_TONE                    at 0x0030  xxxx.x  0000 to 0000
+TOUCH_TEMP1                        at 0x0039  xxxx.x  0000 to 0000
+TOUCH_TEMP2                        at 0x003A  xxxx.x  0000 to 0000
+TOUCH_TEMP3                        at 0x003B  xxxx.x  0000 to 0000
+TOUCH_TEMP4                        at 0x003C  xxxx.x  0000 to 0000
+TOUCH_TEMP5                        at 0x003D  xxxx.x  0000 to 0000
+TOUCH_TEMP6                        at 0x003E  xxxx.x  0000 to 0000
+UART_OUT_CHECKSUM                  at 0x0043  xxxx.x  0000 to 0000
+UART_OUT_COUNT                     at 0x0044  xxxx.x  0000 to 0000
+UART_OUT_DATA                      at 0x0040  xxxx.x  0000 to 0000
+UART_OUT_DATA_TEMP                 at 0x0045  xxxx.x  0000 to 0000
+UART_OUT_LIST                      at 0x0041  xxxx.x  0000 to 0000
+UART_OUT_LIST2                     at 0x0042  xxxx.x  0000 to 0000
+UART_SUB                           at 0x01A1  xxxx.x  0000 to 0000
+UART_SUB_NEXT                      at 0x01B7  xxxx.x  0000 to 0000
+UART_SUB_OUT                       at 0x01B1  xxxx.x  0000 to 0000
+UART_SUB_OUT_ENDBIT                at 0x01B9  xxxx.x  0000 to 0000
+UART_SUB_OUT_FG                    at 0x01AD  xxxx.x  0000 to 0000
+UART_SUB_OUT_HIGH                  at 0x01B3  xxxx.x  0000 to 0000
+UART_SUB_OUT_LOW                   at 0x01B5  xxxx.x  0000 to 0000
+UART_SUB_WAIT_NEXT                 at 0x01BC  xxxx.x  0000 to 0000
+USE_FLAG                           at 0x001B  xxxx.x  0000 to 0000
+WDT_WAKEUP                         at 0x02AD  xxxx.x  0000 to 0000
+_CONFIG0                           at 0x8000  xxxx.x  0000 to 0000
+_CONFIG1                           at 0x8001  xxxx.x  0000 to 0000
+__1K8160                           at 0x0001  xxxx.x  0000 to 0000
+#DEFINE         _TKCON                          TKCON
+#DEFINE         _TKEN                           TKEN
+#DEFINE         _T0EN                           T0EN
+#DEFINE         _T0IF                           T0IF
+#DEFINE         _C                                      C
+#DEFINE         _Z                                      Z
+#DEFINE                         TKCNTL_OLD_TEMPH        TEMP0                   
+#DEFINE                         TKCNTL_OLD_TEMPL        TEMP1                   
+#DEFINE                         SUB_AH                          TEMP2
+#DEFINE                         SUB_AL                          TEMP3
+#DEFINE                         SUB_BH                          TEMP4
+#DEFINE                         SUB_BL                          TEMP5
+#DEFINE                         SUB_CH                          TEMP6
+#DEFINE                         SUB_CL                          TEMP7
+#DEFINE                         TOUCH_FLAG_0            TOUCH_FLAG,0
+#DEFINE                         TOUCH_FLAG_1            TOUCH_FLAG,1
+#DEFINE                         TOUCH_FLAG_2            TOUCH_FLAG,2
+#DEFINE                         TOUCH_FLAG_3            TOUCH_FLAG,3
+#DEFINE                         TOUCH_NEW_FLAG_0        TOUCH_FLAG,4
+#DEFINE                         TOUCH_NEW_FLAG_1        TOUCH_FLAG,5
+#DEFINE                         TOUCH_NEW_FLAG_2        TOUCH_FLAG,6
+#DEFINE                         TOUCH_NEW_FLAG_3        TOUCH_FLAG,7
+#DEFINE                         START_TK_FG             PLAY_FLAG,0                     
+#DEFINE                         WAKEUP_FG               PLAY_FLAG,1                     
+#DEFINE                         TK_SCANEND_FG   PLAY_FLAG,2                     
+#DEFINE                         SET_TOUCH3_ENABLE               1                       
+#DEFINE                         SET_TOUCH2_ENABLE               1                       
+#DEFINE                         SET_TOUCH1_ENABLE               1                       
+#DEFINE                         SET_TOUCH0_ENABLE               1                       
+#DEFINE                         TOUCH_SLEEP_FG                  1                       
+#DEFINE                         SET_TOUCH_ENV_LEVEL             0X10            
+#DEFINE                         SET_TOUCH_ENV2_LEVEL    0X20            
+#DEFINE                         SET_TOUCH_DELAY_LEVEL   0X20            
+#DEFINE                         SET_SENS_LEVEL0                 0xEE            
+#DEFINE                         SET_TOUCH0_PRE_LEVEL    0X80            
+#DEFINE                         SET_TOUCH0_RELEA_LEVEL  0X80            
+#DEFINE                         SET_TOUCH0_DEBOUNCEC    0X10            
+#DEFINE                         SET_SENS_LEVEL1                 0xEE            
+#DEFINE                         SET_TOUCH1_PRE_LEVEL    0X80            
+#DEFINE                         SET_TOUCH1_RELEA_LEVEL  0X80            
+#DEFINE                         SET_TOUCH1_DEBOUNCEC    0X10            
+#DEFINE                         SET_SENS_LEVEL2                 0xEE            
+#DEFINE                         SET_TOUCH2_PRE_LEVEL    0X80            
+#DEFINE                         SET_TOUCH2_RELEA_LEVEL  0X80            
+#DEFINE                         SET_TOUCH2_DEBOUNCEC    0X10            
+#DEFINE                         SET_SENS_LEVEL3                 0xEE            
+#DEFINE                         SET_TOUCH3_PRE_LEVEL    0X80            
+#DEFINE                         SET_TOUCH3_RELEA_LEVEL  0X80            
+#DEFINE                         SET_TOUCH3_DEBOUNCEC    0X10            
+#DEFINE                         INTFLAG         INTF            
+#DEFINE                         INTECON         INTE
+#DEFINE                         KBIM            P1KBCR
+#DEFINE                         SET_UART_ENABLE         1       
+#DEFINE                         TIME_FG         USE_FLAG,0
+#DEFINE                         TEST_FG         USE_FLAG,1
+#DEFINE                         PIN_UART_TX             P1,5            
+#DEFINE                         PIN_LED1                P1,4            
+#DEFINE                         UART_ON_FG              PLAY_FLAG,4                     
+#DEFINE                         UART_END_FG             PLAY_FLAG,5                     

@@ -1,0 +1,2748 @@
+gpasm-2.2.37 (Jan 22 2024)   MC32P7351.asm      2024-11-11  10:51:22         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; external declarations
+                      00014 ;--------------------------------------------------------
+                      00015         extern  _CLR_RAM
+                      00016         extern  _IO_Init
+                      00017         extern  _TIMER0_INT_Init
+                      00018         extern  _TIMER1_INT_Init
+                      00019         extern  _TIMER2_INT_Init
+                      00020         extern  _TIMER3_INT_Init
+                      00021         extern  _TIMER0_PWM_Init
+                      00022         extern  _TIMER1_PWM_Init
+                      00023         extern  _TIMER2_PWM_Init
+                      00024         extern  _ADC_Init
+                      00025         extern  _Scan_ADC
+                      00026         extern  _Set_ADC_Channel
+                      00027         extern  _ADC_Get_Value_Average
+                      00028         extern  _Scan_Key
+                      00029         extern  _delay
+                      00030         extern  __divsint
+                      00031         extern  __modsint
+                      00032         extern  _INDF0bits
+                      00033         extern  _INDF1bits
+                      00034         extern  _INDF2bits
+                      00035         extern  _HIBYTEbits
+                      00036         extern  _FSR0bits
+                      00037         extern  _FSR1bits
+                      00038         extern  _PCLbits
+                      00039         extern  _PFLAGbits
+                      00040         extern  _MCRbits
+                      00041         extern  _INDF3bits
+                      00042         extern  _INTEbits
+                      00043         extern  _INTFbits
+                      00044         extern  _DRVCRbits
+                      00045         extern  _PFRCCRbits
+                      00046         extern  _P1KBCRbits
+                      00047         extern  _PFRCCALbits
+                      00048         extern  _IOP0bits
+                      00049         extern  _OEP0bits
+                      00050         extern  _PUP0bits
+                      00051         extern  _PDP0bits
+                      00052         extern  _IOP1bits
+                      00053         extern  _OEP1bits
+                      00054         extern  _PUP1bits
+                      00055         extern  _PDP1bits
+                      00056         extern  _T0CRbits
+                      00057         extern  _T0CNTbits
+                      00058         extern  _T0LOADbits
+                      00059         extern  _T0DATAbits
+                      00060         extern  _T1CRbits
+                      00061         extern  _T1CNTbits
+                      00062         extern  _T1LOADbits
+                      00063         extern  _T1DATAbits
+                      00064         extern  _T2CRbits
+                      00065         extern  _T2CNTbits
+                      00066         extern  _T2LOADbits
+                      00067         extern  _T2DATAbits
+                      00068         extern  _T3CRbits
+                      00069         extern  _T3CNTbits
+                      00070         extern  _T3LOADbits
+                      00071         extern  _PWM0DRbits
+                      00072         extern  _PWM1DRbits
+                      00073         extern  _PWM2DRbits
+                      00074         extern  _PWMCR0bits
+                      00075         extern  _PWMCR1bits
+                      00076         extern  _OSCMRbits
+                      00077         extern  _LVDCRbits
+                      00078         extern  _ADCR0bits
+                      00079         extern  _ADCR1bits
+                      00080         extern  _ADCR2bits
+                      00081         extern  _OSADJCRbits
+                      00082         extern  _ADRHbits
+                      00083         extern  _ADRLbits
+                      00084         extern  _ADIOS0bits
+                      00085         extern  _ADIOS1bits
+                      00086         extern  _PMODbits
+                      00087         extern  _PWMCR3bits
+                      00088         extern  _PWMCR2bits
+                      00089         extern  _PFRCAUXbits
+                      00090         extern  _HIRCCALbits
+                      00091         extern  _flag2
+                      00092         extern  _adc_data
+                      00093         extern  _INDF0
+                      00094         extern  _INDF1
+                      00095         extern  _INDF2
+                      00096         extern  _HIBYTE
+                      00097         extern  _FSR0
+                      00098         extern  _FSR1
+                      00099         extern  _PCL
+                      00100         extern  _PFLAG
+                      00101         extern  _MCR
+                      00102         extern  _INDF3
+                      00103         extern  _INTE
+                      00104         extern  _INTF
+                      00105         extern  _DRVCR
+                      00106         extern  _PFRCCR
+                      00107         extern  _P1KBCR
+                      00108         extern  _PFRCCAL
+                      00109         extern  _IOP0
+                      00110         extern  _OEP0
+                      00111         extern  _PUP0
+                      00112         extern  _PDP0
+                      00113         extern  _IOP1
+                      00114         extern  _OEP1
+                      00115         extern  _PUP1
+                      00116         extern  _PDP1
+                      00117         extern  _T0CR
+                      00118         extern  _T0CNT
+                      00119         extern  _T0LOAD
+                      00120         extern  _T0DATA
+                      00121         extern  _T1CR
+                      00122         extern  _T1CNT
+                      00123         extern  _T1LOAD
+                      00124         extern  _T1DATA
+                      00125         extern  _T2CR
+                      00126         extern  _T2CNT
+                      00127         extern  _T2LOAD
+                      00128         extern  _T2DATA
+                      00129         extern  _T3CR
+                      00130         extern  _T3CNT
+                      00131         extern  _T3LOAD
+                      00132         extern  _PWM0DR
+                      00133         extern  _PWM1DR
+                      00134         extern  _PWM2DR
+                      00135         extern  _PWMCR0
+                      00136         extern  _PWMCR1
+                      00137         extern  _OSCMR
+                      00138         extern  _LVDCR
+                      00139         extern  _ADCR0
+                      00140         extern  _ADCR1
+                      00141         extern  _ADCR2
+                      00142         extern  _OSADJCR
+                      00143         extern  _ADRH
+                      00144         extern  _ADRL
+                      00145         extern  _ADIOS0
+                      00146         extern  _ADIOS1
+                      00147         extern  _PMOD
+                      00148         extern  _PWMCR3
+                      00149         extern  _PWMCR2
+                      00150         extern  _PFRCAUX
+                      00151         extern  _HIRCCAL
+                      00152         extern  __gptrget2
+                      00153         extern  __gptrget1
+                      00154 ;--------------------------------------------------------
+                      00155 ; global declarations
+                      00156 ;--------------------------------------------------------
+                      00157         global  _Sleep_Func
+                      00158         global  _Sys_Init
+                      00159         global  _ADC_filte
+                      00160         global  _tp_looktable
+                      00161         global  _PIN_setinmode
+                      00162         global  _LookTableFunc
+                      00163         global  _LED_DispalayFunction
+                      00164         global  _Decode
+                      00165         global  _main
+                      00166         global  _abuf
+                      00167         global  _statusbuf
+                      00168         global  _sleep_time
+                      00169         global  _key_per
+                      00170         global  _key_cur
+                      00171         global  _key_down
+                      00172         global  _key_keep
+                      00173         global  _int_time0
+                      00174         global  _Flag1
+                      00175         global  _Flag2
+                      00176         global  _state
+                      00177         global  _LED_buff
+                      00178         global  _LED_DisplayNum
+                      00179         global  _ADC_Scan_cnt
+                      00180         global  _ADC_error_val
+                      00181         global  _adc_data_Old
+                      00182         global  _num
+                      00183         global  _adc_tmp
+                      00184         global  _cnt_test
+                      00185         global  _cnt_iop
+                      00186         global  _ADC_Val_tmp
+                      00187         global  _ADC_Val
+                      00188         global  _i
+                      00189         global  _LED_table
+                      00190         global  _tp
+                      00191 
+                      00192         global STK06
+                      00193         global STK05
+                      00194         global STK04
+                      00195         global STK03
+                      00196         global STK02
+                      00197         global STK01
+                      00198         global STK00
+                      00199 
+                      00200 sharebank udata_ovr 0x0000
+0000                  00201 STK06   res 1
+0000                  00202 STK05   res 1
+0001                  00203 STK04   res 1
+0001                  00204 STK03   res 1
+0002                  00205 STK02   res 1
+0002                  00206 STK01   res 1
+0003                  00207 STK00   res 1
+                      00208 
+                      00209 ;--------------------------------------------------------
+                      00210 ; global definitions
+                      00211 ;--------------------------------------------------------
+                      00212 UD_MC32P7351_0  udata
+0000                  00213 _abuf   res     1
+                      00214 
+                      00215 UD_MC32P7351_1  udata
+0000                  00216 _statusbuf      res     1
+                      00217 
+                      00218 UD_MC32P7351_2  udata
+0000                  00219 _sleep_time     res     1
+                      00220 
+                      00221 UD_MC32P7351_3  udata
+0000                  00222 _key_per        res     1
+                      00223 
+                      00224 UD_MC32P7351_4  udata
+0000                  00225 _key_cur        res     1
+                      00226 
+                      00227 UD_MC32P7351_5  udata
+0000                  00228 _key_down       res     1
+                      00229 
+                      00230 UD_MC32P7351_6  udata
+0000                  00231 _key_keep       res     1
+                      00232 
+                      00233 UD_MC32P7351_7  udata
+0000                  00234 _int_time0      res     1
+                      00235 
+                      00236 UD_MC32P7351_8  udata
+0000                  00237 _Flag1  res     1
+                      00238 
+                      00239 UD_MC32P7351_9  udata
+0000                  00240 _Flag2  res     1
+                      00241 
+                      00242 UD_MC32P7351_10 udata
+0000                  00243 _state  res     1
+                      00244 
+                      00245 UD_MC32P7351_11 udata
+0000                  00246 _LED_buff       res     18
+                      00247 
+                      00248 UD_MC32P7351_12 udata
+0000                  00249 _LED_DisplayNum res     1
+                      00250 
+                      00251 UD_MC32P7351_13 udata
+0000                  00252 _ADC_Scan_cnt   res     1
+                      00253 
+                      00254 UD_MC32P7351_14 udata
+0000                  00255 _ADC_error_val  res     2
+                      00256 
+                      00257 UD_MC32P7351_15 udata
+0000                  00258 _adc_data_Old   res     2
+                      00259 
+                      00260 UD_MC32P7351_16 udata
+0000                  00261 _num    res     1
+                      00262 
+                      00263 UD_MC32P7351_17 udata
+0000                  00264 _adc_tmp        res     2
+                      00265 
+                      00266 UD_MC32P7351_18 udata
+0000                  00267 _cnt_test       res     2
+                      00268 
+                      00269 UD_MC32P7351_19 udata
+0000                  00270 _cnt_iop        res     1
+                      00271 
+                      00272 UD_MC32P7351_20 udata
+0000                  00273 _ADC_Val_tmp    res     2
+                      00274 
+                      00275 UD_MC32P7351_21 udata
+0000                  00276 _ADC_Val        res     8
+                      00277 
+                      00278 UD_MC32P7351_22 udata
+0000                  00279 _i      res     1
+                      00280 
+                      00281 ;--------------------------------------------------------
+                      00282 ; absolute symbol definitions
+                      00283 ;--------------------------------------------------------
+                      00284 ;--------------------------------------------------------
+                      00285 ; compiler-defined variables
+                      00286 ;--------------------------------------------------------
+                      00287 UDL_MC32P7351_0 udata
+0000                  00288 r0x102F res     1
+0000                  00289 r0x102E res     1
+0001                  00290 r0x1030 res     1
+0001                  00291 r0x1031 res     1
+0002                  00292 r0x1032 res     1
+0002                  00293 r0x1033 res     1
+0003                  00294 r0x1034 res     1
+0003                  00295 r0x1035 res     1
+0004                  00296 r0x1036 res     1
+0004                  00297 r0x1039 res     1
+0005                  00298 r0x1037 res     1
+0005                  00299 r0x1038 res     1
+                      00300 ;--------------------------------------------------------
+                      00301 ; initialized data
+                      00302 ;--------------------------------------------------------
+                      00303 
+                      00304 ID_MC32P7351_0  code
+0000                  00305 _LED_table
+0000   003F           00306         dw 0x3f
+0001   0006           00307         dw 0x06
+0002   005B           00308         dw 0x5b
+0003   004F           00309         dw 0x4f
+0004   0066           00310         dw 0x66
+0005   006D           00311         dw 0x6d
+0006   007D           00312         dw 0x7d
+0007   0007           00313         dw 0x07
+0008   007F           00314         dw 0x7f
+0009   006F           00315         dw 0x6f
+000A   0079           00316         dw 0x79
+                      00317 
+                      00318 
+                      00319 ID_MC32P7351_1  code
+0000                  00320 _tp
+0000   00BE           00321         dw 0xbe
+0001   0003           00322         dw 0x03
+0002   00E4           00323         dw 0xe4
+0003   0003           00324         dw 0x03
+0004   000B           00325         dw 0x0b
+0005   0004           00326         dw 0x04
+0006   0032           00327         dw 0x32
+0007   0004           00328         dw 0x04
+0008   005A           00329         dw 0x5a
+0009   0004           00330         dw 0x04
+000A   0083           00331         dw 0x83
+000B   0004           00332         dw 0x04
+000C   00AD           00333         dw 0xad
+000D   0004           00334         dw 0x04
+000E   00D7           00335         dw 0xd7
+000F   0004           00336         dw 0x04
+0010   0001           00337         dw 0x01
+0011   0005           00338         dw 0x05
+0012   002D           00339         dw 0x2d
+0013   0005           00340         dw 0x05
+0014   0058           00341         dw 0x58
+0015   0005           00342         dw 0x05
+0016   0084           00343         dw 0x84
+0017   0005           00344         dw 0x05
+0018   00B1           00345         dw 0xb1
+0019   0005           00346         dw 0x05
+001A   00DD           00347         dw 0xdd
+001B   0005           00348         dw 0x05
+001C   000A           00349         dw 0x0a
+001D   0006           00350         dw 0x06
+001E   0038           00351         dw 0x38
+001F   0006           00352         dw 0x06
+0020   0065           00353         dw 0x65
+0021   0006           00354         dw 0x06
+0022   0093           00355         dw 0x93
+0023   0006           00356         dw 0x06
+0024   00C1           00357         dw 0xc1
+0025   0006           00358         dw 0x06
+0026   00EF           00359         dw 0xef
+0027   0006           00360         dw 0x06
+0028   001C           00361         dw 0x1c
+0029   0007           00362         dw 0x07
+002A   004A           00363         dw 0x4a
+002B   0007           00364         dw 0x07
+002C   0078           00365         dw 0x78
+002D   0007           00366         dw 0x07
+002E   00A5           00367         dw 0xa5
+002F   0007           00368         dw 0x07
+0030   00D3           00369         dw 0xd3
+0031   0007           00370         dw 0x07
+0032   0000           00371         dw 0x00
+0033   0008           00372         dw 0x08
+0034   002D           00373         dw 0x2d
+0035   0008           00374         dw 0x08
+0036   0059           00375         dw 0x59
+0037   0008           00376         dw 0x08
+0038   0086           00377         dw 0x86
+0039   0008           00378         dw 0x08
+003A   00B2           00379         dw 0xb2
+003B   0008           00380         dw 0x08
+003C   00DD           00381         dw 0xdd
+003D   0008           00382         dw 0x08
+003E   0008           00383         dw 0x08
+003F   0009           00384         dw 0x09
+0040   0033           00385         dw 0x33
+0041   0009           00386         dw 0x09
+0042   005D           00387         dw 0x5d
+0043   0009           00388         dw 0x09
+0044   0086           00389         dw 0x86
+0045   0009           00390         dw 0x09
+0046   00AF           00391         dw 0xaf
+0047   0009           00392         dw 0x09
+0048   00D7           00393         dw 0xd7
+0049   0009           00394         dw 0x09
+004A   00FF           00395         dw 0xff
+004B   0009           00396         dw 0x09
+004C   0026           00397         dw 0x26
+004D   000A           00398         dw 0x0a
+004E   004D           00399         dw 0x4d
+004F   000A           00400         dw 0x0a
+0050   0073           00401         dw 0x73
+0051   000A           00402         dw 0x0a
+0052   0098           00403         dw 0x98
+0053   000A           00404         dw 0x0a
+0054   00BC           00405         dw 0xbc
+0055   000A           00406         dw 0x0a
+0056   00E0           00407         dw 0xe0
+0057   000A           00408         dw 0x0a
+0058   0003           00409         dw 0x03
+0059   000B           00410         dw 0x0b
+005A   0025           00411         dw 0x25
+005B   000B           00412         dw 0x0b
+005C   0047           00413         dw 0x47
+005D   000B           00414         dw 0x0b
+005E   0068           00415         dw 0x68
+005F   000B           00416         dw 0x0b
+0060   0088           00417         dw 0x88
+0061   000B           00418         dw 0x0b
+0062   00A8           00419         dw 0xa8
+0063   000B           00420         dw 0x0b
+0064   00C6           00421         dw 0xc6
+0065   000B           00422         dw 0x0b
+0066   00E4           00423         dw 0xe4
+0067   000B           00424         dw 0x0b
+0068   0002           00425         dw 0x02
+0069   000C           00426         dw 0x0c
+006A   001E           00427         dw 0x1e
+006B   000C           00428         dw 0x0c
+006C   003A           00429         dw 0x3a
+006D   000C           00430         dw 0x0c
+006E   0056           00431         dw 0x56
+006F   000C           00432         dw 0x0c
+0070   0070           00433         dw 0x70
+0071   000C           00434         dw 0x0c
+0072   008A           00435         dw 0x8a
+0073   000C           00436         dw 0x0c
+0074   00A3           00437         dw 0xa3
+0075   000C           00438         dw 0x0c
+0076   00BC           00439         dw 0xbc
+0077   000C           00440         dw 0x0c
+0078   00D4           00441         dw 0xd4
+0079   000C           00442         dw 0x0c
+007A   00EB           00443         dw 0xeb
+007B   000C           00444         dw 0x0c
+007C   0002           00445         dw 0x02
+007D   000D           00446         dw 0x0d
+007E   0018           00447         dw 0x18
+007F   000D           00448         dw 0x0d
+0080   002D           00449         dw 0x2d
+0081   000D           00450         dw 0x0d
+0082   0042           00451         dw 0x42
+0083   000D           00452         dw 0x0d
+0084   0056           00453         dw 0x56
+0085   000D           00454         dw 0x0d
+0086   006A           00455         dw 0x6a
+0087   000D           00456         dw 0x0d
+0088   007D           00457         dw 0x7d
+0089   000D           00458         dw 0x0d
+008A   0090           00459         dw 0x90
+008B   000D           00460         dw 0x0d
+008C   00A2           00461         dw 0xa2
+008D   000D           00462         dw 0x0d
+008E   00B3           00463         dw 0xb3
+008F   000D           00464         dw 0x0d
+0090   00C4           00465         dw 0xc4
+0091   000D           00466         dw 0x0d
+0092   00D5           00467         dw 0xd5
+0093   000D           00468         dw 0x0d
+0094   00E5           00469         dw 0xe5
+0095   000D           00470         dw 0x0d
+0096   00F4           00471         dw 0xf4
+0097   000D           00472         dw 0x0d
+0098   0003           00473         dw 0x03
+0099   000E           00474         dw 0x0e
+009A   0012           00475         dw 0x12
+009B   000E           00476         dw 0x0e
+009C   0020           00477         dw 0x20
+009D   000E           00478         dw 0x0e
+009E   002E           00479         dw 0x2e
+009F   000E           00480         dw 0x0e
+00A0   003B           00481         dw 0x3b
+00A1   000E           00482         dw 0x0e
+00A2   0048           00483         dw 0x48
+00A3   000E           00484         dw 0x0e
+00A4   0055           00485         dw 0x55
+00A5   000E           00486         dw 0x0e
+00A6   0061           00487         dw 0x61
+00A7   000E           00488         dw 0x0e
+00A8   006D           00489         dw 0x6d
+00A9   000E           00490         dw 0x0e
+00AA   0078           00491         dw 0x78
+00AB   000E           00492         dw 0x0e
+00AC   0083           00493         dw 0x83
+00AD   000E           00494         dw 0x0e
+00AE   008E           00495         dw 0x8e
+00AF   000E           00496         dw 0x0e
+00B0   0098           00497         dw 0x98
+00B1   000E           00498         dw 0x0e
+00B2   00A3           00499         dw 0xa3
+00B3   000E           00500         dw 0x0e
+00B4   00AC           00501         dw 0xac
+00B5   000E           00502         dw 0x0e
+00B6   00B6           00503         dw 0xb6
+00B7   000E           00504         dw 0x0e
+00B8   00BF           00505         dw 0xbf
+00B9   000E           00506         dw 0x0e
+00BA   00C8           00507         dw 0xc8
+00BB   000E           00508         dw 0x0e
+00BC   00D1           00509         dw 0xd1
+00BD   000E           00510         dw 0x0e
+00BE   00D9           00511         dw 0xd9
+00BF   000E           00512         dw 0x0e
+00C0   00E1           00513         dw 0xe1
+00C1   000E           00514         dw 0x0e
+00C2   00E9           00515         dw 0xe9
+00C3   000E           00516         dw 0x0e
+00C4   00F1           00517         dw 0xf1
+00C5   000E           00518         dw 0x0e
+                      00519 
+                      00520 
+                      00521 ;@Allocation info for local variables in function 'ADC_filte'
+                      00522 ;@ADC_filte Sys_Init                  Allocated to registers ;size:2
+                      00523 ;@ADC_filte CLR_RAM                   Allocated to registers ;size:2
+                      00524 ;@ADC_filte IO_Init                   Allocated to registers ;size:2
+                      00525 ;@ADC_filte TIMER0_INT_Init           Allocated to registers ;size:2
+                      00526 ;@ADC_filte TIMER1_INT_Init           Allocated to registers ;size:2
+                      00527 ;@ADC_filte TIMER2_INT_Init           Allocated to registers ;size:2
+                      00528 ;@ADC_filte TIMER3_INT_Init           Allocated to registers ;size:2
+                      00529 ;@ADC_filte TIMER0_PWM_Init           Allocated to registers ;size:2
+                      00530 ;@ADC_filte TIMER1_PWM_Init           Allocated to registers ;size:2
+                      00531 ;@ADC_filte TIMER2_PWM_Init           Allocated to registers ;size:2
+                      00532 ;@ADC_filte ADC_Init                  Allocated to registers ;size:2
+                      00533 ;@ADC_filte Scan_ADC                  Allocated to registers ;size:2
+                      00534 ;@ADC_filte Set_ADC_Channel           Allocated to registers ;size:2
+                      00535 ;@ADC_filte ADC_Get_Value_Average     Allocated to registers ;size:2
+                      00536 ;@ADC_filte Scan_Key                  Allocated to registers ;size:2
+                      00537 ;@ADC_filte Sleep_Func                Allocated to registers ;size:2
+                      00538 ;@ADC_filte delay                     Allocated to registers ;size:2
+                      00539 ;@ADC_filte ADC_filte                 Allocated to registers ;size:2
+                      00540 ;@ADC_filte INDF0bits                 Allocated to registers ;size:1
+                      00541 ;@ADC_filte INDF1bits                 Allocated to registers ;size:1
+                      00542 ;@ADC_filte INDF2bits                 Allocated to registers ;size:1
+                      00543 ;@ADC_filte HIBYTEbits                Allocated to registers ;size:1
+                      00544 ;@ADC_filte FSR0bits                  Allocated to registers ;size:1
+                      00545 ;@ADC_filte FSR1bits                  Allocated to registers ;size:1
+                      00546 ;@ADC_filte PCLbits                   Allocated to registers ;size:1
+                      00547 ;@ADC_filte PFLAGbits                 Allocated to registers ;size:1
+                      00548 ;@ADC_filte MCRbits                   Allocated to registers ;size:1
+                      00549 ;@ADC_filte INDF3bits                 Allocated to registers ;size:1
+                      00550 ;@ADC_filte INTEbits                  Allocated to registers ;size:1
+                      00551 ;@ADC_filte INTFbits                  Allocated to registers ;size:1
+                      00552 ;@ADC_filte DRVCRbits                 Allocated to registers ;size:1
+                      00553 ;@ADC_filte PFRCCRbits                Allocated to registers ;size:1
+                      00554 ;@ADC_filte P1KBCRbits                Allocated to registers ;size:1
+                      00555 ;@ADC_filte PFRCCALbits               Allocated to registers ;size:1
+                      00556 ;@ADC_filte IOP0bits                  Allocated to registers ;size:1
+                      00557 ;@ADC_filte OEP0bits                  Allocated to registers ;size:1
+                      00558 ;@ADC_filte PUP0bits                  Allocated to registers ;size:1
+                      00559 ;@ADC_filte PDP0bits                  Allocated to registers ;size:1
+                      00560 ;@ADC_filte IOP1bits                  Allocated to registers ;size:1
+                      00561 ;@ADC_filte OEP1bits                  Allocated to registers ;size:1
+                      00562 ;@ADC_filte PUP1bits                  Allocated to registers ;size:1
+                      00563 ;@ADC_filte PDP1bits                  Allocated to registers ;size:1
+                      00564 ;@ADC_filte T0CRbits                  Allocated to registers ;size:1
+                      00565 ;@ADC_filte T0CNTbits                 Allocated to registers ;size:1
+                      00566 ;@ADC_filte T0LOADbits                Allocated to registers ;size:1
+                      00567 ;@ADC_filte T0DATAbits                Allocated to registers ;size:1
+                      00568 ;@ADC_filte T1CRbits                  Allocated to registers ;size:1
+                      00569 ;@ADC_filte T1CNTbits                 Allocated to registers ;size:1
+                      00570 ;@ADC_filte T1LOADbits                Allocated to registers ;size:1
+                      00571 ;@ADC_filte T1DATAbits                Allocated to registers ;size:1
+                      00572 ;@ADC_filte T2CRbits                  Allocated to registers ;size:1
+                      00573 ;@ADC_filte T2CNTbits                 Allocated to registers ;size:1
+                      00574 ;@ADC_filte T2LOADbits                Allocated to registers ;size:1
+                      00575 ;@ADC_filte T2DATAbits                Allocated to registers ;size:1
+                      00576 ;@ADC_filte T3CRbits                  Allocated to registers ;size:1
+                      00577 ;@ADC_filte T3CNTbits                 Allocated to registers ;size:1
+                      00578 ;@ADC_filte T3LOADbits                Allocated to registers ;size:1
+                      00579 ;@ADC_filte PWM0DRbits                Allocated to registers ;size:1
+                      00580 ;@ADC_filte PWM1DRbits                Allocated to registers ;size:1
+                      00581 ;@ADC_filte PWM2DRbits                Allocated to registers ;size:1
+                      00582 ;@ADC_filte PWMCR0bits                Allocated to registers ;size:1
+                      00583 ;@ADC_filte PWMCR1bits                Allocated to registers ;size:1
+                      00584 ;@ADC_filte OSCMRbits                 Allocated to registers ;size:1
+                      00585 ;@ADC_filte LVDCRbits                 Allocated to registers ;size:1
+                      00586 ;@ADC_filte ADCR0bits                 Allocated to registers ;size:1
+                      00587 ;@ADC_filte ADCR1bits                 Allocated to registers ;size:1
+                      00588 ;@ADC_filte ADCR2bits                 Allocated to registers ;size:1
+                      00589 ;@ADC_filte OSADJCRbits               Allocated to registers ;size:1
+                      00590 ;@ADC_filte ADRHbits                  Allocated to registers ;size:1
+                      00591 ;@ADC_filte ADRLbits                  Allocated to registers ;size:1
+                      00592 ;@ADC_filte ADIOS0bits                Allocated to registers ;size:1
+                      00593 ;@ADC_filte ADIOS1bits                Allocated to registers ;size:1
+                      00594 ;@ADC_filte PMODbits                  Allocated to registers ;size:1
+                      00595 ;@ADC_filte PWMCR3bits                Allocated to registers ;size:1
+                      00596 ;@ADC_filte PWMCR2bits                Allocated to registers ;size:1
+                      00597 ;@ADC_filte PFRCAUXbits               Allocated to registers ;size:1
+                      00598 ;@ADC_filte HIRCCALbits               Allocated to registers ;size:1
+                      00599 ;@ADC_filte flag2                     Allocated to registers ;size:1
+                      00600 ;@ADC_filte adc_data                  Allocated to registers ;size:2
+                      00601 ;@ADC_filte abuf                      Allocated to registers ;size:1
+                      00602 ;@ADC_filte statusbuf                 Allocated to registers ;size:1
+                      00603 ;@ADC_filte sleep_time                Allocated to registers ;size:1
+                      00604 ;@ADC_filte key_per                   Allocated to registers ;size:1
+                      00605 ;@ADC_filte key_cur                   Allocated to registers ;size:1
+                      00606 ;@ADC_filte key_down                  Allocated to registers ;size:1
+                      00607 ;@ADC_filte key_keep                  Allocated to registers ;size:1
+                      00608 ;@ADC_filte int_time0                 Allocated to registers ;size:1
+                      00609 ;@ADC_filte Flag1                     Allocated to registers ;size:1
+                      00610 ;@ADC_filte Flag2                     Allocated to registers ;size:1
+                      00611 ;@ADC_filte state                     Allocated to registers ;size:1
+                      00612 ;@ADC_filte LED_buff                  Allocated to registers ;size:18
+                      00613 ;@ADC_filte LED_DisplayNum            Allocated to registers ;size:1
+                      00614 ;@ADC_filte ADC_Scan_cnt              Allocated to registers ;size:1
+                      00615 ;@ADC_filte ADC_error_val             Allocated to registers ;size:2
+                      00616 ;@ADC_filte adc_data_Old              Allocated to registers ;size:2
+                      00617 ;@ADC_filte num                       Allocated to registers ;size:1
+                      00618 ;@ADC_filte adc_tmp                   Allocated to registers ;size:2
+                      00619 ;@ADC_filte cnt_test                  Allocated to registers ;size:2
+                      00620 ;@ADC_filte cnt_iop                   Allocated to registers ;size:1
+                      00621 ;@ADC_filte ADC_Val_tmp               Allocated to registers ;size:2
+                      00622 ;@ADC_filte ADC_Val                   Allocated to registers ;size:8
+                      00623 ;@ADC_filte data_tmp                  Allocated to registers r0x102F r0x102E ;size:2
+                      00624 ;@ADC_filte i                         Allocated to registers r0x1032 ;size:1
+                      00625 ;@ADC_filte temp                      Allocated to registers r0x1030 r0x1031 ;size:2
+                      00626 ;@ADC_filte INDF0                     Allocated to registers ;size:1
+                      00627 ;@ADC_filte INDF1                     Allocated to registers ;size:1
+                      00628 ;@ADC_filte INDF2                     Allocated to registers ;size:1
+                      00629 ;@ADC_filte HIBYTE                    Allocated to registers ;size:1
+                      00630 ;@ADC_filte FSR0                      Allocated to registers ;size:1
+                      00631 ;@ADC_filte FSR1                      Allocated to registers ;size:1
+                      00632 ;@ADC_filte PCL                       Allocated to registers ;size:1
+                      00633 ;@ADC_filte PFLAG                     Allocated to registers ;size:1
+                      00634 ;@ADC_filte MCR                       Allocated to registers ;size:1
+                      00635 ;@ADC_filte INDF3                     Allocated to registers ;size:1
+                      00636 ;@ADC_filte INTE                      Allocated to registers ;size:1
+                      00637 ;@ADC_filte INTF                      Allocated to registers ;size:1
+                      00638 ;@ADC_filte DRVCR                     Allocated to registers ;size:1
+                      00639 ;@ADC_filte PFRCCR                    Allocated to registers ;size:1
+                      00640 ;@ADC_filte P1KBCR                    Allocated to registers ;size:1
+                      00641 ;@ADC_filte PFRCCAL                   Allocated to registers ;size:1
+                      00642 ;@ADC_filte IOP0                      Allocated to registers ;size:1
+                      00643 ;@ADC_filte OEP0                      Allocated to registers ;size:1
+                      00644 ;@ADC_filte PUP0                      Allocated to registers ;size:1
+                      00645 ;@ADC_filte PDP0                      Allocated to registers ;size:1
+                      00646 ;@ADC_filte IOP1                      Allocated to registers ;size:1
+                      00647 ;@ADC_filte OEP1                      Allocated to registers ;size:1
+                      00648 ;@ADC_filte PUP1                      Allocated to registers ;size:1
+                      00649 ;@ADC_filte PDP1                      Allocated to registers ;size:1
+                      00650 ;@ADC_filte T0CR                      Allocated to registers ;size:1
+                      00651 ;@ADC_filte T0CNT                     Allocated to registers ;size:1
+                      00652 ;@ADC_filte T0LOAD                    Allocated to registers ;size:1
+                      00653 ;@ADC_filte T0DATA                    Allocated to registers ;size:1
+                      00654 ;@ADC_filte T1CR                      Allocated to registers ;size:1
+                      00655 ;@ADC_filte T1CNT                     Allocated to registers ;size:1
+                      00656 ;@ADC_filte T1LOAD                    Allocated to registers ;size:1
+                      00657 ;@ADC_filte T1DATA                    Allocated to registers ;size:1
+                      00658 ;@ADC_filte T2CR                      Allocated to registers ;size:1
+                      00659 ;@ADC_filte T2CNT                     Allocated to registers ;size:1
+                      00660 ;@ADC_filte T2LOAD                    Allocated to registers ;size:1
+                      00661 ;@ADC_filte T2DATA                    Allocated to registers ;size:1
+                      00662 ;@ADC_filte T3CR                      Allocated to registers ;size:1
+                      00663 ;@ADC_filte T3CNT                     Allocated to registers ;size:1
+                      00664 ;@ADC_filte T3LOAD                    Allocated to registers ;size:1
+                      00665 ;@ADC_filte PWM0DR                    Allocated to registers ;size:1
+                      00666 ;@ADC_filte PWM1DR                    Allocated to registers ;size:1
+                      00667 ;@ADC_filte PWM2DR                    Allocated to registers ;size:1
+                      00668 ;@ADC_filte PWMCR0                    Allocated to registers ;size:1
+                      00669 ;@ADC_filte PWMCR1                    Allocated to registers ;size:1
+                      00670 ;@ADC_filte OSCMR                     Allocated to registers ;size:1
+                      00671 ;@ADC_filte LVDCR                     Allocated to registers ;size:1
+                      00672 ;@ADC_filte ADCR0                     Allocated to registers ;size:1
+                      00673 ;@ADC_filte ADCR1                     Allocated to registers ;size:1
+                      00674 ;@ADC_filte ADCR2                     Allocated to registers ;size:1
+                      00675 ;@ADC_filte OSADJCR                   Allocated to registers ;size:1
+                      00676 ;@ADC_filte ADRH                      Allocated to registers ;size:1
+                      00677 ;@ADC_filte ADRL                      Allocated to registers ;size:1
+                      00678 ;@ADC_filte ADIOS0                    Allocated to registers ;size:1
+                      00679 ;@ADC_filte ADIOS1                    Allocated to registers ;size:1
+                      00680 ;@ADC_filte PMOD                      Allocated to registers ;size:1
+                      00681 ;@ADC_filte PWMCR3                    Allocated to registers ;size:1
+                      00682 ;@ADC_filte PWMCR2                    Allocated to registers ;size:1
+                      00683 ;@ADC_filte PFRCAUX                   Allocated to registers ;size:1
+                      00684 ;@ADC_filte HIRCCAL                   Allocated to registers ;size:1
+                      00685 ;@end Allocation info for local variables in function 'ADC_filte';
+                      00686 ;@Allocation info for local variables in function 'tp_looktable'
+                      00687 ;@tp_looktable val                       Allocated to registers r0x102F r0x102E ;size:2
+                      00688 ;@tp_looktable po                        Allocated to registers r0x102F ;size:1
+                      00689 ;@end Allocation info for local variables in function 'tp_looktable';
+                      00690 ;@Allocation info for local variables in function 'PIN_setinmode'
+                      00691 ;@end Allocation info for local variables in function 'PIN_setinmode';
+                      00692 ;@Allocation info for local variables in function 'LookTableFunc'
+                      00693 ;@LookTableFunc bit                       Allocated to registers r0x102F ;size:1
+                      00694 ;@LookTableFunc num                       Allocated to registers r0x102E ;size:1
+                      00695 ;@LookTableFunc table_temp                Allocated to registers r0x1031 ;size:1
+                      00696 ;@LookTableFunc i                         Allocated to registers r0x102E ;size:1
+                      00697 ;@end Allocation info for local variables in function 'LookTableFunc';
+                      00698 ;@Allocation info for local variables in function 'LED_DispalayFunction'
+                      00699 ;@end Allocation info for local variables in function 'LED_DispalayFunction';
+                      00700 ;@Allocation info for local variables in function 'Decode'
+                      00701 ;@end Allocation info for local variables in function 'Decode';
+                      00702 ;@Allocation info for local variables in function 'Sys_Init'
+                      00703 ;@end Allocation info for local variables in function 'Sys_Init';
+                      00704 ;@Allocation info for local variables in function 'main'
+                      00705 ;@end Allocation info for local variables in function 'main';
+                      00706 ;@Allocation info for local variables in function 'Sleep_Func'
+                      00707 ;@end Allocation info for local variables in function 'Sleep_Func';
+                      00708 
+                      00709 ;--------------------------------------------------------
+                      00710 ; overlayable items in internal ram 
+                      00711 ;--------------------------------------------------------
+                      00712 ;       udata_ovr
+                      00713 ;--------------------------------------------------------
+                      00714 ; reset vector 
+                      00715 ;--------------------------------------------------------
+                      00716 STARTUP code 0x0000
+0000   A000           00717         goto    _main
+                      00718 ;--------------------------------------------------------
+                      00719 ; code
+                      00720 ;--------------------------------------------------------
+                      00721 code_MC32P7351  code
+                      00722 ;***
+                      00723 ;  pBlock Stats: dbName = M
+                      00724 ;***
+                      00725 ;entry:  _main  ;Function start
+                      00726 ; 2 exit points
+                      00727 ;has an exit
+                      00728 ;functions called:
+                      00729 ;   _Sys_Init
+                      00730 ;   _ADC_Get_Value_Average
+                      00731 ;   _ADC_filte
+                      00732 ;   _ADC_Get_Value_Average
+                      00733 ;   _ADC_filte
+                      00734 ;   _Decode
+                      00735 ;   _Sys_Init
+                      00736 ;   _ADC_Get_Value_Average
+                      00737 ;   _ADC_filte
+                      00738 ;   _ADC_Get_Value_Average
+                      00739 ;   _ADC_filte
+                      00740 ;   _Decode
+                      00741 ;3 compiler assigned registers:
+                      00742 ;   r0x1037
+                      00743 ;   r0x1038
+                      00744 ;   STK00
+                      00745 ;; Starting pCode block
+0000                  00746 _main   ;Function start
+                      00747 ; 2 exit points
+                      00748 ;       .line   510; "MC32P7351.c"      Sys_Init();
+0000   8000           00749         CALL    _Sys_Init
+                      00750 ;       .line   511; "MC32P7351.c"      ADIOS0 = 0x08;                     //io???????  1:???????  0:???io
+0001   3C08           00751         MOVAI   0x08
+0002   5600           00752         MOVRA   _ADIOS0
+                      00753 ;       .line   514; "MC32P7351.c"      ADIOS1 = 0x00;  
+0003   7600           00754         CLRR    _ADIOS1
+                      00755 ;       .line   515; "MC32P7351.c"      PMOD = 0x07; 
+0004   3C07           00756         MOVAI   0x07
+0005   5600           00757         MOVRA   _PMOD
+                      00758 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      00759 ;       .line   516; "MC32P7351.c"      LED_buff[A1] = 0;
+0006   7600           00760         CLRR    (_LED_buff + 0)
+                      00761 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      00762 ;       .line   517; "MC32P7351.c"      LED_buff[1] = 1;
+0007   3C01           00763         MOVAI   0x01
+0008   5600           00764         MOVRA   (_LED_buff + 1)
+                      00765 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      00766 ;       .line   518; "MC32P7351.c"      LED_buff[2] = 1;
+0009   3C01           00767         MOVAI   0x01
+000A   5600           00768         MOVRA   (_LED_buff + 2)
+                      00769 ;       .line   519; "MC32P7351.c"      for ( i = 0; i < 18; i++)
+000B   7600           00770         CLRR    _i
+000C                  00771 _00312_DS_
+                      00772 ;       .line   521; "MC32P7351.c"      LED_buff[i] = 0;
+000C   5800           00773         MOVAR   _i
+000D   3F00           00774         ADDAI   (_LED_buff + 0)
+000E   5600           00775         MOVRA   r0x1037
+000F   3C00           00776         MOVAI   high (_LED_buff + 0)
+0010   F187           00777         JBCLR   PFLAG,0
+0011   3F01           00778         ADDAI   0x01
+0012   5600           00779         MOVRA   r0x1038
+0013   5800           00780         MOVAR   r0x1037
+0014   5784           00781         MOVRA   FSR0
+0015   5800           00782         MOVAR   r0x1038
+0016   5785           00783         MOVRA   FSR1
+0017   3C00           00784         MOVAI   0x00
+0018   5782           00785         MOVRA   INDF2
+                      00786 ;       .line   519; "MC32P7351.c"      for ( i = 0; i < 18; i++)
+0019   6600           00787         INCR    _i
+                      00788 ;;unsigned compare: left < lit(0x12=18), size=1
+001A   3C12           00789         MOVAI   0x12
+001B   4800           00790         RSUBAR  _i
+001C   E187           00791         JBSET   PFLAG,0
+001D   A000           00792         GOTO    _00312_DS_
+                      00793 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00794 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      00795 ;       .line   526; "MC32P7351.c"      LED_buff[RED] = 0;
+001E   7600           00796         CLRR    (_LED_buff + 15)
+                      00797 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      00798 ;       .line   527; "MC32P7351.c"      LED_buff[BLU] = 0;
+001F   7600           00799         CLRR    (_LED_buff + 17)
+                      00800 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      00801 ;       .line   528; "MC32P7351.c"      LED_buff[GRE] = 0;
+0020   7600           00802         CLRR    (_LED_buff + 16)
+                      00803 ;       .line   531; "MC32P7351.c"      for ( i = 0; i < 4; i++)
+0021   7600           00804         CLRR    _i
+0022                  00805 _00314_DS_
+                      00806 ;       .line   533; "MC32P7351.c"      adc_data = ADC_Get_Value_Average();
+0022   8000           00807         CALL    _ADC_Get_Value_Average
+0023   5600           00808         MOVRA   (_adc_data + 1)
+0024   5800           00809         MOVAR   STK00
+0025   5600           00810         MOVRA   _adc_data
+                      00811 ;       .line   534; "MC32P7351.c"      ADC_error_val = ADC_filte(adc_data);
+0026   5800           00812         MOVAR   _adc_data
+0027   5600           00813         MOVRA   STK00
+0028   5800           00814         MOVAR   (_adc_data + 1)
+0029   8000           00815         CALL    _ADC_filte
+002A   5600           00816         MOVRA   (_ADC_error_val + 1)
+002B   5800           00817         MOVAR   STK00
+002C   5600           00818         MOVRA   _ADC_error_val
+                      00819 ;       .line   531; "MC32P7351.c"      for ( i = 0; i < 4; i++)
+002D   6600           00820         INCR    _i
+                      00821 ;;unsigned compare: left < lit(0x4=4), size=1
+002E   3C04           00822         MOVAI   0x04
+002F   4800           00823         RSUBAR  _i
+0030   E187           00824         JBSET   PFLAG,0
+0031   A000           00825         GOTO    _00314_DS_
+                      00826 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00827 ;       .line   538; "MC32P7351.c"      T1_flag = 1;
+0032   C200           00828         BSET    _Flag1,1
+0033                  00829 _00310_DS_
+                      00830 ;       .line   541; "MC32P7351.c"      ClrWdt();
+0033   000E           00831         clrwdt  
+                      00832 ;       .line   542; "MC32P7351.c"      if(T1_flag)   //2ms
+0034   E200           00833         JBSET   _Flag1,1
+0035   A000           00834         GOTO    _00310_DS_
+                      00835 ;       .line   544; "MC32P7351.c"      T1_flag = 0;
+0036   D200           00836         BCLR    _Flag1,1
+                      00837 ;       .line   545; "MC32P7351.c"      ClrWdt();
+0037   000E           00838         clrwdt  
+                      00839 ;       .line   546; "MC32P7351.c"      adc_data = ADC_Get_Value_Average();
+0038   8000           00840         CALL    _ADC_Get_Value_Average
+0039   5600           00841         MOVRA   (_adc_data + 1)
+003A   5800           00842         MOVAR   STK00
+003B   5600           00843         MOVRA   _adc_data
+                      00844 ;       .line   547; "MC32P7351.c"      adc_tmp += adc_data;
+003C   5800           00845         MOVAR   _adc_data
+003D   7E00           00846         ADDRA   _adc_tmp
+003E   5800           00847         MOVAR   (_adc_data + 1)
+003F   F187           00848         JBCLR   PFLAG,0
+0040   6000           00849         JZAR    (_adc_data + 1)
+0041   7E00           00850         ADDRA   (_adc_tmp + 1)
+                      00851 ;       .line   548; "MC32P7351.c"      cnt_test++;
+0042   6600           00852         INCR    _cnt_test
+0043   F587           00853         JBCLR   PFLAG,2
+0044   6600           00854         INCR    (_cnt_test + 1)
+                      00855 ;;unsigned compare: left < lit(0x10=16), size=2
+                      00856 ;       .line   549; "MC32P7351.c"      if(cnt_test>=16)
+0045   3C00           00857         MOVAI   0x00
+0046   4800           00858         RSUBAR  (_cnt_test + 1)
+0047   E587           00859         JBSET   PFLAG,2
+0048   A000           00860         GOTO    _00352_DS_
+0049   3C10           00861         MOVAI   0x10
+004A   4800           00862         RSUBAR  _cnt_test
+004B                  00863 _00352_DS_
+004B   E187           00864         JBSET   PFLAG,0
+004C   A000           00865         GOTO    _00310_DS_
+                      00866 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00867 ;       .line   551; "MC32P7351.c"      cnt_test= 0;
+004D   7600           00868         CLRR    _cnt_test
+004E   7600           00869         CLRR    (_cnt_test + 1)
+                      00870 ;       .line   552; "MC32P7351.c"      adc_tmp>>=4;
+004F   4400           00871         SWAPAR  _adc_tmp
+0050   3E0F           00872         ANDAI   0x0f
+0051   5600           00873         MOVRA   _adc_tmp
+0052   4400           00874         SWAPAR  (_adc_tmp + 1)
+0053   5600           00875         MOVRA   (_adc_tmp + 1)
+0054   3EF0           00876         ANDAI   0xf0
+0055   5E00           00877         ORRA    _adc_tmp
+0056   4200           00878         XORRA   (_adc_tmp + 1)
+                      00879 ;       .line   553; "MC32P7351.c"      ADC_Val_tmp += adc_tmp;
+0057   5800           00880         MOVAR   _adc_tmp
+0058   7E00           00881         ADDRA   _ADC_Val_tmp
+0059   5800           00882         MOVAR   (_adc_tmp + 1)
+005A   F187           00883         JBCLR   PFLAG,0
+005B   6000           00884         JZAR    (_adc_tmp + 1)
+005C   7E00           00885         ADDRA   (_ADC_Val_tmp + 1)
+                      00886 ;       .line   554; "MC32P7351.c"      adc_tmp = 0;
+005D   7600           00887         CLRR    _adc_tmp
+005E   7600           00888         CLRR    (_adc_tmp + 1)
+                      00889 ;       .line   555; "MC32P7351.c"      cnt_iop++;
+005F   6600           00890         INCR    _cnt_iop
+                      00891 ;;unsigned compare: left < lit(0x10=16), size=1
+                      00892 ;       .line   556; "MC32P7351.c"      if(cnt_iop>=16)
+0060   3C10           00893         MOVAI   0x10
+0061   4800           00894         RSUBAR  _cnt_iop
+0062   E187           00895         JBSET   PFLAG,0
+0063   A000           00896         GOTO    _00310_DS_
+                      00897 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00898 ;       .line   558; "MC32P7351.c"      cnt_iop = 0;
+0064   7600           00899         CLRR    _cnt_iop
+                      00900 ;       .line   559; "MC32P7351.c"      ADC_Val_tmp>>=4;
+0065   4400           00901         SWAPAR  _ADC_Val_tmp
+0066   3E0F           00902         ANDAI   0x0f
+0067   5600           00903         MOVRA   _ADC_Val_tmp
+0068   4400           00904         SWAPAR  (_ADC_Val_tmp + 1)
+0069   5600           00905         MOVRA   (_ADC_Val_tmp + 1)
+006A   3EF0           00906         ANDAI   0xf0
+006B   5E00           00907         ORRA    _ADC_Val_tmp
+006C   4200           00908         XORRA   (_ADC_Val_tmp + 1)
+                      00909 ;       .line   560; "MC32P7351.c"      ADC_error_val = ADC_filte(ADC_Val_tmp);
+006D   5800           00910         MOVAR   _ADC_Val_tmp
+006E   5600           00911         MOVRA   STK00
+006F   5800           00912         MOVAR   (_ADC_Val_tmp + 1)
+0070   8000           00913         CALL    _ADC_filte
+0071   5600           00914         MOVRA   (_ADC_error_val + 1)
+0072   5800           00915         MOVAR   STK00
+0073   5600           00916         MOVRA   _ADC_error_val
+                      00917 ;       .line   561; "MC32P7351.c"      ADC_Val_tmp = 0;
+0074   7600           00918         CLRR    _ADC_Val_tmp
+0075   7600           00919         CLRR    (_ADC_Val_tmp + 1)
+                      00920 ;       .line   562; "MC32P7351.c"      Decode();
+0076   8000           00921         CALL    _Decode
+0077   A000           00922         GOTO    _00310_DS_
+                      00923 ;       .line   569; "MC32P7351.c"      }
+0078   000C           00924         RETURN  
+                      00925 ; exit point of _main
+                      00926 
+                      00927 ;***
+                      00928 ;  pBlock Stats: dbName = C
+                      00929 ;***
+                      00930 ;entry:  _Sleep_Func    ;Function start
+                      00931 ; 2 exit points
+                      00932 ;has an exit
+                      00933 ;; Starting pCode block
+0079                  00934 _Sleep_Func     ;Function start
+                      00935 ; 2 exit points
+                      00936 ;       .line   587; "MC32P7351.c"      if(!ON_flag)
+0079   F000           00937         JBCLR   _Flag2,0
+007A   A000           00938         GOTO    _00360_DS_
+                      00939 ;       .line   589; "MC32P7351.c"      if(++sleep_time >= 100) //2ms*100 =200ms
+007B   6600           00940         INCR    _sleep_time
+                      00941 ;;unsigned compare: left < lit(0x64=100), size=1
+007C   3C64           00942         MOVAI   0x64
+007D   4800           00943         RSUBAR  _sleep_time
+007E   E187           00944         JBSET   PFLAG,0
+007F   A000           00945         GOTO    _00362_DS_
+                      00946 ;;genSkipc:3291: created from rifx:013B5EFC
+                      00947 ;       .line   591; "MC32P7351.c"      sleep_time = 0;
+0080   7600           00948         CLRR    _sleep_time
+                      00949 ;       .line   592; "MC32P7351.c"      GIE = 0;
+0081   DE00           00950         BCLR    _MCRbits,7
+                      00951 ;       .line   593; "MC32P7351.c"      KBIF = 0;
+0082   D800           00952         BCLR    _INTFbits,4
+                      00953 ;       .line   594; "MC32P7351.c"      KBIE = 1;
+0083   C800           00954         BSET    _INTEbits,4
+                      00955 ;       .line   596; "MC32P7351.c"      Nop();
+0084   0000           00956         nop     
+                      00957 ;       .line   597; "MC32P7351.c"      Nop();
+0085   0000           00958         nop     
+                      00959 ;       .line   598; "MC32P7351.c"      Stop();
+0086   000B           00960         stop    
+                      00961 ;       .line   599; "MC32P7351.c"      Nop();
+0087   0000           00962         nop     
+                      00963 ;       .line   600; "MC32P7351.c"      Nop();
+0088   0000           00964         nop     
+                      00965 ;       .line   601; "MC32P7351.c"      KBIE = 0;
+0089   D800           00966         BCLR    _INTEbits,4
+                      00967 ;       .line   602; "MC32P7351.c"      KBIF = 0;
+008A   D800           00968         BCLR    _INTFbits,4
+                      00969 ;       .line   603; "MC32P7351.c"      GIE = 1;
+008B   CE00           00970         BSET    _MCRbits,7
+008C   A000           00971         GOTO    _00362_DS_
+008D                  00972 _00360_DS_
+                      00973 ;       .line   608; "MC32P7351.c"      sleep_time = 0;
+008D   7600           00974         CLRR    _sleep_time
+008E                  00975 _00362_DS_
+                      00976 ;       .line   610; "MC32P7351.c"      }
+008E   000C           00977         RETURN  
+                      00978 ; exit point of _Sleep_Func
+                      00979 
+                      00980 ;***
+                      00981 ;  pBlock Stats: dbName = C
+                      00982 ;***
+                      00983 ;entry:  _Sys_Init      ;Function start
+                      00984 ; 2 exit points
+                      00985 ;has an exit
+                      00986 ;functions called:
+                      00987 ;   _CLR_RAM
+                      00988 ;   _IO_Init
+                      00989 ;   _TIMER0_INT_Init
+                      00990 ;   _TIMER1_INT_Init
+                      00991 ;   _ADC_Init
+                      00992 ;   _CLR_RAM
+                      00993 ;   _IO_Init
+                      00994 ;   _TIMER0_INT_Init
+                      00995 ;   _TIMER1_INT_Init
+                      00996 ;   _ADC_Init
+                      00997 ;; Starting pCode block
+008F                  00998 _Sys_Init       ;Function start
+                      00999 ; 2 exit points
+                      01000 ;       .line   488; "MC32P7351.c"      GIE = 0;
+008F   DE00           01001         BCLR    _MCRbits,7
+                      01002 ;       .line   489; "MC32P7351.c"      CLR_RAM();
+0090   8000           01003         CALL    _CLR_RAM
+                      01004 ;       .line   490; "MC32P7351.c"      IO_Init();
+0091   8000           01005         CALL    _IO_Init
+                      01006 ;       .line   491; "MC32P7351.c"      TIMER0_INT_Init();      
+0092   8000           01007         CALL    _TIMER0_INT_Init
+                      01008 ;       .line   492; "MC32P7351.c"      TIMER1_INT_Init();
+0093   8000           01009         CALL    _TIMER1_INT_Init
+                      01010 ;       .line   498; "MC32P7351.c"      ADC_Init();
+0094   8000           01011         CALL    _ADC_Init
+                      01012 ;       .line   499; "MC32P7351.c"      GIE = 1;
+0095   CE00           01013         BSET    _MCRbits,7
+                      01014 ;       .line   500; "MC32P7351.c"      }
+0096   000C           01015         RETURN  
+                      01016 ; exit point of _Sys_Init
+                      01017 
+                      01018 ;***
+                      01019 ;  pBlock Stats: dbName = C
+                      01020 ;***
+                      01021 ;entry:  _Decode        ;Function start
+                      01022 ; 2 exit points
+                      01023 ;has an exit
+                      01024 ;functions called:
+                      01025 ;   _LookTableFunc
+                      01026 ;   _LookTableFunc
+                      01027 ;   _tp_looktable
+                      01028 ;   _LookTableFunc
+                      01029 ;   _LookTableFunc
+                      01030 ;   _LookTableFunc
+                      01031 ;   _LookTableFunc
+                      01032 ;   _tp_looktable
+                      01033 ;   _LookTableFunc
+                      01034 ;   _LookTableFunc
+                      01035 ;1 compiler assigned register :
+                      01036 ;   STK00
+                      01037 ;; Starting pCode block
+0097                  01038 _Decode ;Function start
+                      01039 ; 2 exit points
+                      01040 ;;unsigned compare: left < lit(0x1E=30), size=2
+                      01041 ;       .line   435; "MC32P7351.c"      if(ADC_error_val<30 || ADC_error_val>=3830)
+0097   3C00           01042         MOVAI   0x00
+0098   4800           01043         RSUBAR  (_ADC_error_val + 1)
+0099   E587           01044         JBSET   PFLAG,2
+009A   A000           01045         GOTO    _00291_DS_
+009B   3C1E           01046         MOVAI   0x1e
+009C   4800           01047         RSUBAR  _ADC_error_val
+009D                  01048 _00291_DS_
+009D   E187           01049         JBSET   PFLAG,0
+009E   A000           01050         GOTO    _00265_DS_
+                      01051 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01052 ;;unsigned compare: left < lit(0xEF6=3830), size=2
+009F   3C0E           01053         MOVAI   0x0e
+00A0   4800           01054         RSUBAR  (_ADC_error_val + 1)
+00A1   E587           01055         JBSET   PFLAG,2
+00A2   A000           01056         GOTO    _00292_DS_
+00A3   3CF6           01057         MOVAI   0xf6
+00A4   4800           01058         RSUBAR  _ADC_error_val
+00A5                  01059 _00292_DS_
+00A5   E187           01060         JBSET   PFLAG,0
+00A6   A000           01061         GOTO    _00266_DS_
+                      01062 ;;genSkipc:3291: created from rifx:013B5EFC
+00A7                  01063 _00265_DS_
+                      01064 ;       .line   437; "MC32P7351.c"      LookTableFunc(1,0);
+00A7   3C00           01065         MOVAI   0x00
+00A8   5600           01066         MOVRA   STK00
+00A9   3C01           01067         MOVAI   0x01
+00AA   8000           01068         CALL    _LookTableFunc
+                      01069 ;       .line   438; "MC32P7351.c"      LookTableFunc(10,2);
+00AB   3C02           01070         MOVAI   0x02
+00AC   5600           01071         MOVRA   STK00
+00AD   3C0A           01072         MOVAI   0x0a
+00AE   8000           01073         CALL    _LookTableFunc
+                      01074 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01075 ;       .line   439; "MC32P7351.c"      LED_buff[T] = 0;
+00AF   7600           01076         CLRR    (_LED_buff + 14)
+                      01077 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01078 ;       .line   440; "MC32P7351.c"      LED_buff[RED] = 0;
+00B0   7600           01079         CLRR    (_LED_buff + 15)
+                      01080 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01081 ;       .line   441; "MC32P7351.c"      LED_buff[BLU] = 0;
+00B1   7600           01082         CLRR    (_LED_buff + 17)
+                      01083 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01084 ;       .line   442; "MC32P7351.c"      LED_buff[GRE] = 0;
+00B2   7600           01085         CLRR    (_LED_buff + 16)
+00B3   A000           01086         GOTO    _00269_DS_
+00B4                  01087 _00266_DS_
+                      01088 ;       .line   446; "MC32P7351.c"      LED_DisplayNum = tp_looktable(ADC_error_val);
+00B4   5800           01089         MOVAR   _ADC_error_val
+00B5   5600           01090         MOVRA   STK00
+00B6   5800           01091         MOVAR   (_ADC_error_val + 1)
+00B7   8000           01092         CALL    _tp_looktable
+00B8   5600           01093         MOVRA   _LED_DisplayNum
+                      01094 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01095 ;       .line   447; "MC32P7351.c"      LED_buff[T] = 1;
+00B9   3C01           01096         MOVAI   0x01
+00BA   5600           01097         MOVRA   (_LED_buff + 14)
+                      01098 ;;unsigned compare: left < lit(0x23=35), size=1
+                      01099 ;       .line   454; "MC32P7351.c"      if( LED_DisplayNum <35)
+00BB   3C23           01100         MOVAI   0x23
+00BC   4800           01101         RSUBAR  _LED_DisplayNum
+00BD   F187           01102         JBCLR   PFLAG,0
+00BE   A000           01103         GOTO    _00263_DS_
+                      01104 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01105 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01106 ;       .line   456; "MC32P7351.c"      LED_buff[RED] = 0;
+00BF   7600           01107         CLRR    (_LED_buff + 15)
+                      01108 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01109 ;       .line   457; "MC32P7351.c"      LED_buff[BLU] = 1;
+00C0   3C01           01110         MOVAI   0x01
+00C1   5600           01111         MOVRA   (_LED_buff + 17)
+                      01112 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01113 ;       .line   458; "MC32P7351.c"      LED_buff[GRE] = 0;
+00C2   7600           01114         CLRR    (_LED_buff + 16)
+00C3   A000           01115         GOTO    _00264_DS_
+                      01116 ;;unsigned compare: left < lit(0x23=35), size=1
+00C4                  01117 _00263_DS_
+                      01118 ;       .line   460; "MC32P7351.c"      else if(LED_DisplayNum >= 35 && LED_DisplayNum<41)
+00C4   3C23           01119         MOVAI   0x23
+00C5   4800           01120         RSUBAR  _LED_DisplayNum
+00C6   E187           01121         JBSET   PFLAG,0
+00C7   A000           01122         GOTO    _00259_DS_
+                      01123 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01124 ;;unsigned compare: left < lit(0x29=41), size=1
+00C8   3C29           01125         MOVAI   0x29
+00C9   4800           01126         RSUBAR  _LED_DisplayNum
+00CA   F187           01127         JBCLR   PFLAG,0
+00CB   A000           01128         GOTO    _00259_DS_
+                      01129 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01130 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01131 ;       .line   462; "MC32P7351.c"      LED_buff[RED] = 0;
+00CC   7600           01132         CLRR    (_LED_buff + 15)
+                      01133 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01134 ;       .line   463; "MC32P7351.c"      LED_buff[BLU] = 0;
+00CD   7600           01135         CLRR    (_LED_buff + 17)
+                      01136 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01137 ;       .line   464; "MC32P7351.c"      LED_buff[GRE] = 1;
+00CE   3C01           01138         MOVAI   0x01
+00CF   5600           01139         MOVRA   (_LED_buff + 16)
+00D0   A000           01140         GOTO    _00264_DS_
+                      01141 ;;unsigned compare: left < lit(0x29=41), size=1
+00D1                  01142 _00259_DS_
+                      01143 ;       .line   466; "MC32P7351.c"      else if(LED_DisplayNum>=41)
+00D1   3C29           01144         MOVAI   0x29
+00D2   4800           01145         RSUBAR  _LED_DisplayNum
+00D3   E187           01146         JBSET   PFLAG,0
+00D4   A000           01147         GOTO    _00264_DS_
+                      01148 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01149 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01150 ;       .line   468; "MC32P7351.c"      LED_buff[RED] = 1;
+00D5   3C01           01151         MOVAI   0x01
+00D6   5600           01152         MOVRA   (_LED_buff + 15)
+                      01153 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01154 ;       .line   469; "MC32P7351.c"      LED_buff[BLU] = 0;
+00D7   7600           01155         CLRR    (_LED_buff + 17)
+                      01156 ;;gen.c:6570: size=0, offset=0, AOP_TYPE(res)=8
+                      01157 ;       .line   470; "MC32P7351.c"      LED_buff[GRE] = 0;
+00D8   7600           01158         CLRR    (_LED_buff + 16)
+00D9                  01159 _00264_DS_
+                      01160 ;       .line   472; "MC32P7351.c"      LookTableFunc(LED_DisplayNum,0);
+00D9   3C00           01161         MOVAI   0x00
+00DA   5600           01162         MOVRA   STK00
+00DB   5800           01163         MOVAR   _LED_DisplayNum
+00DC   8000           01164         CALL    _LookTableFunc
+                      01165 ;       .line   473; "MC32P7351.c"      LookTableFunc(LED_DisplayNum,1);
+00DD   3C01           01166         MOVAI   0x01
+00DE   5600           01167         MOVRA   STK00
+00DF   5800           01168         MOVAR   _LED_DisplayNum
+00E0   8000           01169         CALL    _LookTableFunc
+00E1                  01170 _00269_DS_
+                      01171 ;       .line   475; "MC32P7351.c"      }
+00E1   000C           01172         RETURN  
+                      01173 ; exit point of _Decode
+                      01174 
+                      01175 ;***
+                      01176 ;  pBlock Stats: dbName = C
+                      01177 ;***
+                      01178 ;entry:  _LED_DispalayFunction  ;Function start
+                      01179 ; 2 exit points
+                      01180 ;has an exit
+                      01181 ;functions called:
+                      01182 ;   _PIN_setinmode
+                      01183 ;   _PIN_setinmode
+                      01184 ;1 compiler assigned register :
+                      01185 ;   r0x1039
+                      01186 ;; Starting pCode block
+00E2                  01187 _LED_DispalayFunction   ;Function start
+                      01188 ; 2 exit points
+                      01189 ;       .line   262; "MC32P7351.c"      PIN_setinmode();
+00E2   8000           01190         CALL    _PIN_setinmode
+                      01191 ;;swapping arguments (AOP_TYPEs 1/3)
+                      01192 ;;unsigned compare: left >= lit(0x9=9), size=1
+                      01193 ;       .line   263; "MC32P7351.c"      switch (state)
+00E3   3C09           01194         MOVAI   0x09
+00E4   4800           01195         RSUBAR  _state
+00E5   F187           01196         JBCLR   PFLAG,0
+00E6   A000           01197         GOTO    _00251_DS_
+                      01198 ;;genSkipc:3291: created from rifx:013B5EFC
+00E7   5800           01199         MOVAR   _state
+00E8   7F86           01200         ADDRA   PCL
+00E9   A000           01201         GOTO    _00204_DS_
+00EA   A000           01202         GOTO    _00211_DS_
+00EB   A000           01203         GOTO    _00218_DS_
+00EC   A000           01204         GOTO    _00225_DS_
+00ED   A000           01205         GOTO    _00232_DS_
+00EE   A000           01206         GOTO    _00239_DS_
+00EF   A000           01207         GOTO    _00242_DS_
+00F0   A000           01208         GOTO    _00245_DS_
+00F1   A000           01209         GOTO    _00248_DS_
+00F2                  01210 _00204_DS_
+                      01211 ;       .line   266; "MC32P7351.c"      OEP1 |= DEF_SET_BIT5;
+00F2   CA00           01212         BSET    _OEP1,5
+                      01213 ;       .line   267; "MC32P7351.c"      PIN1 = 1;
+00F3   CA00           01214         BSET    _IOP1bits,5
+                      01215 ;       .line   268; "MC32P7351.c"      if(LED_buff[A1])
+00F4   5800           01216         MOVAR   (_LED_buff + 0)
+00F5   5600           01217         MOVRA   r0x1039
+00F6   3C00           01218         MOVAI   0x00
+00F7   5C00           01219         ORAR    r0x1039
+00F8   F587           01220         JBCLR   PFLAG,2
+00F9   A000           01221         GOTO    _00206_DS_
+                      01222 ;       .line   270; "MC32P7351.c"      OEP1 |= DEF_SET_BIT6;
+00FA   CC00           01223         BSET    _OEP1,6
+                      01224 ;       .line   271; "MC32P7351.c"      PIN2 = 0;
+00FB   DC00           01225         BCLR    _IOP1bits,6
+00FC                  01226 _00206_DS_
+                      01227 ;       .line   273; "MC32P7351.c"      if(LED_buff[B1])
+00FC   5800           01228         MOVAR   (_LED_buff + 1)
+00FD   5600           01229         MOVRA   r0x1039
+00FE   3C00           01230         MOVAI   0x00
+00FF   5C00           01231         ORAR    r0x1039
+0100   F587           01232         JBCLR   PFLAG,2
+0101   A000           01233         GOTO    _00208_DS_
+                      01234 ;       .line   275; "MC32P7351.c"      OEP1 |= DEF_SET_BIT3;
+0102   C600           01235         BSET    _OEP1,3
+                      01236 ;       .line   276; "MC32P7351.c"      PIN3 = 0;
+0103   D600           01237         BCLR    _IOP1bits,3
+0104                  01238 _00208_DS_
+                      01239 ;       .line   278; "MC32P7351.c"      if(LED_buff[C1])
+0104   5800           01240         MOVAR   (_LED_buff + 2)
+0105   5600           01241         MOVRA   r0x1039
+0106   3C00           01242         MOVAI   0x00
+0107   5C00           01243         ORAR    r0x1039
+0108   F587           01244         JBCLR   PFLAG,2
+0109   A000           01245         GOTO    _00210_DS_
+                      01246 ;       .line   284; "MC32P7351.c"      PIN5_0;
+010A   CE00           01247         BSET    _OEP1,7
+010B   DE00           01248         BCLR    _IOP1bits,7
+010C                  01249 _00210_DS_
+                      01250 ;       .line   286; "MC32P7351.c"      state++;
+010C   6600           01251         INCR    _state
+                      01252 ;       .line   287; "MC32P7351.c"      break;
+010D   A000           01253         GOTO    _00251_DS_
+010E                  01254 _00211_DS_
+                      01255 ;       .line   289; "MC32P7351.c"      OEP1 |= DEF_SET_BIT6;
+010E   CC00           01256         BSET    _OEP1,6
+                      01257 ;       .line   290; "MC32P7351.c"      PIN2 = 1;
+010F   CC00           01258         BSET    _IOP1bits,6
+                      01259 ;       .line   291; "MC32P7351.c"      if(LED_buff[E1])
+0110   5800           01260         MOVAR   (_LED_buff + 4)
+0111   5600           01261         MOVRA   r0x1039
+0112   3C00           01262         MOVAI   0x00
+0113   5C00           01263         ORAR    r0x1039
+0114   F587           01264         JBCLR   PFLAG,2
+0115   A000           01265         GOTO    _00213_DS_
+                      01266 ;       .line   293; "MC32P7351.c"      OEP1 |= DEF_SET_BIT5;
+0116   CA00           01267         BSET    _OEP1,5
+                      01268 ;       .line   294; "MC32P7351.c"      PIN1 = 0;
+0117   DA00           01269         BCLR    _IOP1bits,5
+0118                  01270 _00213_DS_
+                      01271 ;       .line   296; "MC32P7351.c"      if(LED_buff[F1])
+0118   5800           01272         MOVAR   (_LED_buff + 5)
+0119   5600           01273         MOVRA   r0x1039
+011A   3C00           01274         MOVAI   0x00
+011B   5C00           01275         ORAR    r0x1039
+011C   F587           01276         JBCLR   PFLAG,2
+011D   A000           01277         GOTO    _00215_DS_
+                      01278 ;       .line   298; "MC32P7351.c"      OEP1 |= DEF_SET_BIT3;
+011E   C600           01279         BSET    _OEP1,3
+                      01280 ;       .line   299; "MC32P7351.c"      PIN3 = 0;
+011F   D600           01281         BCLR    _IOP1bits,3
+0120                  01282 _00215_DS_
+                      01283 ;       .line   307; "MC32P7351.c"      if(LED_buff[D1])
+0120   5800           01284         MOVAR   (_LED_buff + 3)
+0121   5600           01285         MOVRA   r0x1039
+0122   3C00           01286         MOVAI   0x00
+0123   5C00           01287         ORAR    r0x1039
+0124   F587           01288         JBCLR   PFLAG,2
+0125   A000           01289         GOTO    _00217_DS_
+                      01290 ;       .line   311; "MC32P7351.c"      PIN4_0;
+0126   C000           01291         BSET    _OEP0,0
+0127   D000           01292         BCLR    _IOP0bits,0
+0128                  01293 _00217_DS_
+                      01294 ;       .line   313; "MC32P7351.c"      state++;
+0128   6600           01295         INCR    _state
+                      01296 ;       .line   314; "MC32P7351.c"      break;
+0129   A000           01297         GOTO    _00251_DS_
+012A                  01298 _00218_DS_
+                      01299 ;       .line   316; "MC32P7351.c"      OEP1 |= DEF_SET_BIT3;
+012A   C600           01300         BSET    _OEP1,3
+                      01301 ;       .line   317; "MC32P7351.c"      PIN3 = 1;
+012B   C600           01302         BSET    _IOP1bits,3
+                      01303 ;       .line   318; "MC32P7351.c"      if(LED_buff[B2])
+012C   5800           01304         MOVAR   (_LED_buff + 8)
+012D   5600           01305         MOVRA   r0x1039
+012E   3C00           01306         MOVAI   0x00
+012F   5C00           01307         ORAR    r0x1039
+0130   F587           01308         JBCLR   PFLAG,2
+0131   A000           01309         GOTO    _00220_DS_
+                      01310 ;       .line   320; "MC32P7351.c"      OEP1 |= DEF_SET_BIT5;
+0132   CA00           01311         BSET    _OEP1,5
+                      01312 ;       .line   321; "MC32P7351.c"      PIN1 = 0;
+0133   DA00           01313         BCLR    _IOP1bits,5
+0134                  01314 _00220_DS_
+                      01315 ;       .line   328; "MC32P7351.c"      if(LED_buff[G1])
+0134   5800           01316         MOVAR   (_LED_buff + 6)
+0135   5600           01317         MOVRA   r0x1039
+0136   3C00           01318         MOVAI   0x00
+0137   5C00           01319         ORAR    r0x1039
+0138   F587           01320         JBCLR   PFLAG,2
+0139   A000           01321         GOTO    _00222_DS_
+                      01322 ;       .line   332; "MC32P7351.c"      PIN5_0;
+013A   CE00           01323         BSET    _OEP1,7
+013B   DE00           01324         BCLR    _IOP1bits,7
+013C                  01325 _00222_DS_
+                      01326 ;       .line   334; "MC32P7351.c"      if(LED_buff[A2])
+013C   5800           01327         MOVAR   (_LED_buff + 7)
+013D   5600           01328         MOVRA   r0x1039
+013E   3C00           01329         MOVAI   0x00
+013F   5C00           01330         ORAR    r0x1039
+0140   F587           01331         JBCLR   PFLAG,2
+0141   A000           01332         GOTO    _00224_DS_
+                      01333 ;       .line   338; "MC32P7351.c"      PIN4_0;
+0142   C000           01334         BSET    _OEP0,0
+0143   D000           01335         BCLR    _IOP0bits,0
+0144                  01336 _00224_DS_
+                      01337 ;       .line   340; "MC32P7351.c"      state++;
+0144   6600           01338         INCR    _state
+                      01339 ;       .line   341; "MC32P7351.c"      break;
+0145   A000           01340         GOTO    _00251_DS_
+0146                  01341 _00225_DS_
+                      01342 ;       .line   343; "MC32P7351.c"      OEP1 |= DEF_SET_BIT7;
+0146   CE00           01343         BSET    _OEP1,7
+                      01344 ;       .line   344; "MC32P7351.c"      PIN5 = 1;
+0147   CE00           01345         BSET    _IOP1bits,7
+                      01346 ;       .line   345; "MC32P7351.c"      if(LED_buff[C2])
+0148   5800           01347         MOVAR   (_LED_buff + 9)
+0149   5600           01348         MOVRA   r0x1039
+014A   3C00           01349         MOVAI   0x00
+014B   5C00           01350         ORAR    r0x1039
+014C   F587           01351         JBCLR   PFLAG,2
+014D   A000           01352         GOTO    _00227_DS_
+                      01353 ;       .line   347; "MC32P7351.c"      OEP1 |= DEF_SET_BIT6;
+014E   CC00           01354         BSET    _OEP1,6
+                      01355 ;       .line   348; "MC32P7351.c"      PIN2 = 0;
+014F   DC00           01356         BCLR    _IOP1bits,6
+0150                  01357 _00227_DS_
+                      01358 ;       .line   350; "MC32P7351.c"      if(LED_buff[D2])
+0150   5800           01359         MOVAR   (_LED_buff + 10)
+0151   5600           01360         MOVRA   r0x1039
+0152   3C00           01361         MOVAI   0x00
+0153   5C00           01362         ORAR    r0x1039
+0154   F587           01363         JBCLR   PFLAG,2
+0155   A000           01364         GOTO    _00229_DS_
+                      01365 ;       .line   352; "MC32P7351.c"      OEP1 |= DEF_SET_BIT3;
+0156   C600           01366         BSET    _OEP1,3
+                      01367 ;       .line   353; "MC32P7351.c"      PIN3 = 0;
+0157   D600           01368         BCLR    _IOP1bits,3
+0158                  01369 _00229_DS_
+                      01370 ;       .line   355; "MC32P7351.c"      if(LED_buff[E2])
+0158   5800           01371         MOVAR   (_LED_buff + 11)
+0159   5600           01372         MOVRA   r0x1039
+015A   3C00           01373         MOVAI   0x00
+015B   5C00           01374         ORAR    r0x1039
+015C   F587           01375         JBCLR   PFLAG,2
+015D   A000           01376         GOTO    _00231_DS_
+                      01377 ;       .line   359; "MC32P7351.c"      PIN4_0;
+015E   C000           01378         BSET    _OEP0,0
+015F   D000           01379         BCLR    _IOP0bits,0
+0160                  01380 _00231_DS_
+                      01381 ;       .line   361; "MC32P7351.c"      state++;
+0160   6600           01382         INCR    _state
+                      01383 ;       .line   362; "MC32P7351.c"      break;
+0161   A000           01384         GOTO    _00251_DS_
+0162                  01385 _00232_DS_
+                      01386 ;       .line   364; "MC32P7351.c"      OEP0 |= DEF_SET_BIT0;
+0162   C000           01387         BSET    _OEP0,0
+                      01388 ;       .line   365; "MC32P7351.c"      PIN4 = 1;
+0163   C000           01389         BSET    _IOP0bits,0
+                      01390 ;       .line   366; "MC32P7351.c"      if(LED_buff[F2])
+0164   5800           01391         MOVAR   (_LED_buff + 12)
+0165   5600           01392         MOVRA   r0x1039
+0166   3C00           01393         MOVAI   0x00
+0167   5C00           01394         ORAR    r0x1039
+0168   F587           01395         JBCLR   PFLAG,2
+0169   A000           01396         GOTO    _00234_DS_
+                      01397 ;       .line   368; "MC32P7351.c"      OEP1 |= DEF_SET_BIT5;
+016A   CA00           01398         BSET    _OEP1,5
+                      01399 ;       .line   369; "MC32P7351.c"      PIN1 = 0;
+016B   DA00           01400         BCLR    _IOP1bits,5
+016C                  01401 _00234_DS_
+                      01402 ;       .line   371; "MC32P7351.c"      if(LED_buff[G2])
+016C   5800           01403         MOVAR   (_LED_buff + 13)
+016D   5600           01404         MOVRA   r0x1039
+016E   3C00           01405         MOVAI   0x00
+016F   5C00           01406         ORAR    r0x1039
+0170   F587           01407         JBCLR   PFLAG,2
+0171   A000           01408         GOTO    _00236_DS_
+                      01409 ;       .line   373; "MC32P7351.c"      OEP1 |= DEF_SET_BIT6;
+0172   CC00           01410         BSET    _OEP1,6
+                      01411 ;       .line   374; "MC32P7351.c"      PIN2 = 0;
+0173   DC00           01412         BCLR    _IOP1bits,6
+0174                  01413 _00236_DS_
+                      01414 ;       .line   382; "MC32P7351.c"      if(LED_buff[T])
+0174   5800           01415         MOVAR   (_LED_buff + 14)
+0175   5600           01416         MOVRA   r0x1039
+0176   3C00           01417         MOVAI   0x00
+0177   5C00           01418         ORAR    r0x1039
+0178   F587           01419         JBCLR   PFLAG,2
+0179   A000           01420         GOTO    _00238_DS_
+                      01421 ;       .line   384; "MC32P7351.c"      OEP1 |= DEF_SET_BIT3;
+017A   C600           01422         BSET    _OEP1,3
+                      01423 ;       .line   385; "MC32P7351.c"      PIN3 = 0;
+017B   D600           01424         BCLR    _IOP1bits,3
+017C                  01425 _00238_DS_
+                      01426 ;       .line   388; "MC32P7351.c"      state++;
+017C   6600           01427         INCR    _state
+                      01428 ;       .line   389; "MC32P7351.c"      break;
+017D   A000           01429         GOTO    _00251_DS_
+017E                  01430 _00239_DS_
+                      01431 ;       .line   391; "MC32P7351.c"      OEP1 |= DEF_SET_BIT6;
+017E   CC00           01432         BSET    _OEP1,6
+                      01433 ;       .line   392; "MC32P7351.c"      PIN2 = 1;
+017F   CC00           01434         BSET    _IOP1bits,6
+                      01435 ;       .line   393; "MC32P7351.c"      if(LED_buff[GRE])
+0180   5800           01436         MOVAR   (_LED_buff + 16)
+0181   5600           01437         MOVRA   r0x1039
+0182   3C00           01438         MOVAI   0x00
+0183   5C00           01439         ORAR    r0x1039
+0184   F587           01440         JBCLR   PFLAG,2
+0185   A000           01441         GOTO    _00241_DS_
+                      01442 ;       .line   397; "MC32P7351.c"      PIN5_0;
+0186   CE00           01443         BSET    _OEP1,7
+0187   DE00           01444         BCLR    _IOP1bits,7
+0188                  01445 _00241_DS_
+                      01446 ;       .line   399; "MC32P7351.c"      state++;
+0188   6600           01447         INCR    _state
+                      01448 ;       .line   400; "MC32P7351.c"      break;
+0189   A000           01449         GOTO    _00251_DS_
+018A                  01450 _00242_DS_
+                      01451 ;       .line   402; "MC32P7351.c"      OEP1 |= DEF_SET_BIT3;
+018A   C600           01452         BSET    _OEP1,3
+                      01453 ;       .line   403; "MC32P7351.c"      PIN3 = 1;
+018B   C600           01454         BSET    _IOP1bits,3
+                      01455 ;       .line   404; "MC32P7351.c"      if(LED_buff[BLU])
+018C   5800           01456         MOVAR   (_LED_buff + 17)
+018D   5600           01457         MOVRA   r0x1039
+018E   3C00           01458         MOVAI   0x00
+018F   5C00           01459         ORAR    r0x1039
+0190   F587           01460         JBCLR   PFLAG,2
+0191   A000           01461         GOTO    _00244_DS_
+                      01462 ;       .line   406; "MC32P7351.c"      OEP1 |= DEF_SET_BIT6;
+0192   CC00           01463         BSET    _OEP1,6
+                      01464 ;       .line   407; "MC32P7351.c"      PIN2 = 0;
+0193   DC00           01465         BCLR    _IOP1bits,6
+0194                  01466 _00244_DS_
+                      01467 ;       .line   409; "MC32P7351.c"      state++;
+0194   6600           01468         INCR    _state
+                      01469 ;       .line   411; "MC32P7351.c"      break;
+0195   A000           01470         GOTO    _00251_DS_
+0196                  01471 _00245_DS_
+                      01472 ;       .line   413; "MC32P7351.c"      OEP0 |= DEF_SET_BIT0;
+0196   C000           01473         BSET    _OEP0,0
+                      01474 ;       .line   414; "MC32P7351.c"      PIN4 = 1;
+0197   C000           01475         BSET    _IOP0bits,0
+                      01476 ;       .line   415; "MC32P7351.c"      if(LED_buff[RED])
+0198   5800           01477         MOVAR   (_LED_buff + 15)
+0199   5600           01478         MOVRA   r0x1039
+019A   3C00           01479         MOVAI   0x00
+019B   5C00           01480         ORAR    r0x1039
+019C   F587           01481         JBCLR   PFLAG,2
+019D   A000           01482         GOTO    _00247_DS_
+                      01483 ;       .line   419; "MC32P7351.c"      PIN5_0;
+019E   CE00           01484         BSET    _OEP1,7
+019F   DE00           01485         BCLR    _IOP1bits,7
+01A0                  01486 _00247_DS_
+                      01487 ;       .line   421; "MC32P7351.c"      state++;
+01A0   6600           01488         INCR    _state
+                      01489 ;       .line   422; "MC32P7351.c"      break;
+01A1   A000           01490         GOTO    _00251_DS_
+01A2                  01491 _00248_DS_
+                      01492 ;       .line   424; "MC32P7351.c"      state = 0;
+01A2   7600           01493         CLRR    _state
+01A3                  01494 _00251_DS_
+                      01495 ;       .line   429; "MC32P7351.c"      }
+01A3   000C           01496         RETURN  
+                      01497 ; exit point of _LED_DispalayFunction
+                      01498 
+                      01499 ;***
+                      01500 ;  pBlock Stats: dbName = C
+                      01501 ;***
+                      01502 ;entry:  _LookTableFunc ;Function start
+                      01503 ; 2 exit points
+                      01504 ;has an exit
+                      01505 ;functions called:
+                      01506 ;   __divsint
+                      01507 ;   __modsint
+                      01508 ;   __modsint
+                      01509 ;   __gptrget1
+                      01510 ;   __divsint
+                      01511 ;   __modsint
+                      01512 ;   __modsint
+                      01513 ;   __gptrget1
+                      01514 ;8 compiler assigned registers:
+                      01515 ;   r0x102E
+                      01516 ;   STK00
+                      01517 ;   r0x102F
+                      01518 ;   r0x1030
+                      01519 ;   r0x1031
+                      01520 ;   STK02
+                      01521 ;   STK01
+                      01522 ;   r0x1032
+                      01523 ;; Starting pCode block
+01A4                  01524 _LookTableFunc  ;Function start
+                      01525 ; 2 exit points
+                      01526 ;       .line   214; "MC32P7351.c"      void LookTableFunc(u8 num,u8 bit)
+01A4   5600           01527         MOVRA   r0x102E
+01A5   5800           01528         MOVAR   STK00
+01A6   5600           01529         MOVRA   r0x102F
+                      01530 ;       .line   217; "MC32P7351.c"      if(bit == 1)
+01A7   5800           01531         MOVAR   r0x102F
+01A8   3901           01532         XORAI   0x01
+01A9   E587           01533         JBSET   PFLAG,2
+01AA   A000           01534         GOTO    _00184_DS_
+                      01535 ;;104   MOVAR   r0x102E
+                      01536 ;       .line   219; "MC32P7351.c"      num = (num/10) % 10;
+01AB   7600           01537         CLRR    r0x1031
+01AC   3C0A           01538         MOVAI   0x0a
+01AD   5600           01539         MOVRA   STK02
+01AE   3C00           01540         MOVAI   0x00
+01AF   5600           01541         MOVRA   STK01
+                      01542 ;;103   MOVAR   r0x1030
+01B0   5800           01543         MOVAR   r0x102E
+01B1   5600           01544         MOVRA   r0x1030
+01B2   5600           01545         MOVRA   STK00
+01B3   3C00           01546         MOVAI   0x00
+01B4   8000           01547         CALL    __divsint
+01B5   5600           01548         MOVRA   r0x1031
+01B6   5800           01549         MOVAR   STK00
+01B7   5600           01550         MOVRA   r0x1030
+01B8   3C0A           01551         MOVAI   0x0a
+01B9   5600           01552         MOVRA   STK02
+01BA   3C00           01553         MOVAI   0x00
+01BB   5600           01554         MOVRA   STK01
+01BC   5800           01555         MOVAR   r0x1030
+01BD   5600           01556         MOVRA   STK00
+01BE   5800           01557         MOVAR   r0x1031
+01BF   8000           01558         CALL    __modsint
+01C0   5600           01559         MOVRA   r0x1031
+01C1   5800           01560         MOVAR   STK00
+01C2   5600           01561         MOVRA   r0x102E
+01C3   5600           01562         MOVRA   r0x1030
+                      01563 ;;102   MOVAR   r0x1030
+01C4   A000           01564         GOTO    _00185_DS_
+01C5                  01565 _00184_DS_
+                      01566 ;       .line   221; "MC32P7351.c"      else if(bit == 0)
+01C5   3C00           01567         MOVAI   0x00
+01C6   5C00           01568         ORAR    r0x102F
+01C7   E587           01569         JBSET   PFLAG,2
+01C8   A000           01570         GOTO    _00185_DS_
+                      01571 ;;101   MOVAR   r0x102E
+                      01572 ;       .line   223; "MC32P7351.c"      num = num % 10;
+01C9   7600           01573         CLRR    r0x1031
+01CA   3C0A           01574         MOVAI   0x0a
+01CB   5600           01575         MOVRA   STK02
+01CC   3C00           01576         MOVAI   0x00
+01CD   5600           01577         MOVRA   STK01
+                      01578 ;;100   MOVAR   r0x1030
+01CE   5800           01579         MOVAR   r0x102E
+01CF   5600           01580         MOVRA   r0x1030
+01D0   5600           01581         MOVRA   STK00
+01D1   3C00           01582         MOVAI   0x00
+01D2   8000           01583         CALL    __modsint
+01D3   5600           01584         MOVRA   r0x1031
+01D4   5800           01585         MOVAR   STK00
+01D5   5600           01586         MOVRA   r0x102E
+01D6   5600           01587         MOVRA   r0x1030
+                      01588 ;;99    MOVAR   r0x1030
+01D7                  01589 _00185_DS_
+                      01590 ;       .line   226; "MC32P7351.c"      table_temp = LED_table[num];
+01D7   5800           01591         MOVAR   r0x102E
+01D8   3F00           01592         ADDAI   (_LED_table + 0)
+01D9   5600           01593         MOVRA   r0x102E
+01DA   3C00           01594         MOVAI   high (_LED_table + 0)
+01DB   F187           01595         JBCLR   PFLAG,0
+01DC   3F01           01596         ADDAI   0x01
+01DD   5600           01597         MOVRA   r0x1030
+01DE   5800           01598         MOVAR   r0x102E
+01DF   5600           01599         MOVRA   STK01
+01E0   5800           01600         MOVAR   r0x1030
+01E1   5600           01601         MOVRA   STK00
+01E2   3C80           01602         MOVAI   0x80
+01E3   8000           01603         CALL    __gptrget1
+01E4   5600           01604         MOVRA   r0x1031
+                      01605 ;       .line   227; "MC32P7351.c"      for (u8 i = 0; i < 7; i++)
+01E5   7600           01606         CLRR    r0x102E
+                      01607 ;;unsigned compare: left < lit(0x7=7), size=1
+01E6                  01608 _00197_DS_
+01E6   3C07           01609         MOVAI   0x07
+01E7   4800           01610         RSUBAR  r0x102E
+01E8   F187           01611         JBCLR   PFLAG,0
+01E9   A000           01612         GOTO    _00199_DS_
+                      01613 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01614 ;       .line   229; "MC32P7351.c"      if (table_temp&0x01)
+01EA   E000           01615         JBSET   r0x1031,0
+01EB   A000           01616         GOTO    _00193_DS_
+                      01617 ;       .line   231; "MC32P7351.c"      if (bit)
+01EC   3C00           01618         MOVAI   0x00
+01ED   5C00           01619         ORAR    r0x102F
+01EE   F587           01620         JBCLR   PFLAG,2
+01EF   A000           01621         GOTO    _00187_DS_
+                      01622 ;       .line   233; "MC32P7351.c"      LED_buff[i] = 1;
+01F0   5800           01623         MOVAR   r0x102E
+01F1   3F00           01624         ADDAI   (_LED_buff + 0)
+01F2   5600           01625         MOVRA   r0x1030
+01F3   3C00           01626         MOVAI   high (_LED_buff + 0)
+01F4   F187           01627         JBCLR   PFLAG,0
+01F5   3F01           01628         ADDAI   0x01
+01F6   5600           01629         MOVRA   r0x1032
+01F7   5800           01630         MOVAR   r0x1030
+01F8   5784           01631         MOVRA   FSR0
+01F9   5800           01632         MOVAR   r0x1032
+01FA   5785           01633         MOVRA   FSR1
+01FB   3C01           01634         MOVAI   0x01
+01FC   5782           01635         MOVRA   INDF2
+01FD   A000           01636         GOTO    _00194_DS_
+01FE                  01637 _00187_DS_
+                      01638 ;       .line   237; "MC32P7351.c"      LED_buff[i+7] = 1;
+01FE   5800           01639         MOVAR   r0x102E
+01FF   5600           01640         MOVRA   r0x1030
+0200   3C07           01641         MOVAI   0x07
+0201   7C00           01642         ADDAR   r0x1030
+0202   5600           01643         MOVRA   r0x1030
+0203   7600           01644         CLRR    r0x1032
+0204   5800           01645         MOVAR   r0x1030
+0205   3F00           01646         ADDAI   (_LED_buff + 0)
+0206   5600           01647         MOVRA   r0x1030
+0207   3C00           01648         MOVAI   0x00
+0208   F187           01649         JBCLR   PFLAG,0
+0209   6000           01650         JZAR    r0x1032
+020A   3F00           01651         ADDAI   high (_LED_buff + 0)
+020B   5600           01652         MOVRA   r0x1032
+020C   5800           01653         MOVAR   r0x1030
+020D   5784           01654         MOVRA   FSR0
+020E   5800           01655         MOVAR   r0x1032
+020F   5785           01656         MOVRA   FSR1
+0210   3C01           01657         MOVAI   0x01
+0211   5782           01658         MOVRA   INDF2
+0212   A000           01659         GOTO    _00194_DS_
+0213                  01660 _00193_DS_
+                      01661 ;       .line   242; "MC32P7351.c"      if (bit)
+0213   3C00           01662         MOVAI   0x00
+0214   5C00           01663         ORAR    r0x102F
+0215   F587           01664         JBCLR   PFLAG,2
+0216   A000           01665         GOTO    _00190_DS_
+                      01666 ;       .line   244; "MC32P7351.c"      LED_buff[i] = 0;
+0217   5800           01667         MOVAR   r0x102E
+0218   3F00           01668         ADDAI   (_LED_buff + 0)
+0219   5600           01669         MOVRA   r0x1030
+021A   3C00           01670         MOVAI   high (_LED_buff + 0)
+021B   F187           01671         JBCLR   PFLAG,0
+021C   3F01           01672         ADDAI   0x01
+021D   5600           01673         MOVRA   r0x1032
+021E   5800           01674         MOVAR   r0x1030
+021F   5784           01675         MOVRA   FSR0
+0220   5800           01676         MOVAR   r0x1032
+0221   5785           01677         MOVRA   FSR1
+0222   3C00           01678         MOVAI   0x00
+0223   5782           01679         MOVRA   INDF2
+0224   A000           01680         GOTO    _00194_DS_
+0225                  01681 _00190_DS_
+                      01682 ;       .line   248; "MC32P7351.c"      LED_buff[i+7] = 0;
+0225   5800           01683         MOVAR   r0x102E
+0226   5600           01684         MOVRA   r0x1030
+0227   3C07           01685         MOVAI   0x07
+0228   7C00           01686         ADDAR   r0x1030
+0229   5600           01687         MOVRA   r0x1030
+022A   7600           01688         CLRR    r0x1032
+022B   5800           01689         MOVAR   r0x1030
+022C   3F00           01690         ADDAI   (_LED_buff + 0)
+022D   5600           01691         MOVRA   r0x1030
+022E   3C00           01692         MOVAI   0x00
+022F   F187           01693         JBCLR   PFLAG,0
+0230   6000           01694         JZAR    r0x1032
+0231   3F00           01695         ADDAI   high (_LED_buff + 0)
+0232   5600           01696         MOVRA   r0x1032
+0233   5800           01697         MOVAR   r0x1030
+0234   5784           01698         MOVRA   FSR0
+0235   5800           01699         MOVAR   r0x1032
+0236   5785           01700         MOVRA   FSR1
+0237   3C00           01701         MOVAI   0x00
+0238   5782           01702         MOVRA   INDF2
+                      01703 ;;shiftRight_Left2ResultLit:5339: shCount=1, size=1, sign=0, same=1, offr=0
+0239                  01704 _00194_DS_
+                      01705 ;       .line   251; "MC32P7351.c"      table_temp >>= 1;
+0239   D187           01706         BCLR    PFLAG,0
+023A   4E00           01707         RRR     r0x1031
+                      01708 ;       .line   227; "MC32P7351.c"      for (u8 i = 0; i < 7; i++)
+023B   6600           01709         INCR    r0x102E
+023C   A000           01710         GOTO    _00197_DS_
+023D                  01711 _00199_DS_
+                      01712 ;       .line   254; "MC32P7351.c"      }
+023D   000C           01713         RETURN  
+                      01714 ; exit point of _LookTableFunc
+                      01715 
+                      01716 ;***
+                      01717 ;  pBlock Stats: dbName = C
+                      01718 ;***
+                      01719 ;entry:  _PIN_setinmode ;Function start
+                      01720 ; 2 exit points
+                      01721 ;has an exit
+                      01722 ;; Starting pCode block
+023E                  01723 _PIN_setinmode  ;Function start
+                      01724 ; 2 exit points
+                      01725 ;       .line   206; "MC32P7351.c"      PIN1 = 0;PIN2 = 0;PIN3 = 0;PIN4 = 0;PIN5 = 0;
+023E   DA00           01726         BCLR    _IOP1bits,5
+023F   DC00           01727         BCLR    _IOP1bits,6
+0240   D600           01728         BCLR    _IOP1bits,3
+0241   D000           01729         BCLR    _IOP0bits,0
+0242   DE00           01730         BCLR    _IOP1bits,7
+                      01731 ;       .line   207; "MC32P7351.c"      OEP1 &= DEF_CLR_BIT6 ; // io????? 1:out  0:in
+0243   DC00           01732         BCLR    _OEP1,6
+                      01733 ;       .line   208; "MC32P7351.c"      OEP1 &= DEF_CLR_BIT7;
+0244   DE00           01734         BCLR    _OEP1,7
+                      01735 ;       .line   209; "MC32P7351.c"      OEP1 &= DEF_CLR_BIT3;
+0245   D600           01736         BCLR    _OEP1,3
+                      01737 ;       .line   210; "MC32P7351.c"      OEP1 &= DEF_CLR_BIT5;
+0246   DA00           01738         BCLR    _OEP1,5
+                      01739 ;       .line   211; "MC32P7351.c"      OEP0 &= DEF_CLR_BIT0; // io????? 1:out  0:in
+0247   D000           01740         BCLR    _OEP0,0
+                      01741 ;       .line   212; "MC32P7351.c"      }
+0248   000C           01742         RETURN  
+                      01743 ; exit point of _PIN_setinmode
+                      01744 
+                      01745 ;***
+                      01746 ;  pBlock Stats: dbName = C
+                      01747 ;***
+                      01748 ;entry:  _tp_looktable  ;Function start
+                      01749 ; 2 exit points
+                      01750 ;has an exit
+                      01751 ;functions called:
+                      01752 ;   __gptrget2
+                      01753 ;   __gptrget2
+                      01754 ;9 compiler assigned registers:
+                      01755 ;   r0x102E
+                      01756 ;   STK00
+                      01757 ;   r0x102F
+                      01758 ;   r0x1030
+                      01759 ;   r0x1031
+                      01760 ;   r0x1032
+                      01761 ;   STK01
+                      01762 ;   r0x1033
+                      01763 ;   r0x1034
+                      01764 ;; Starting pCode block
+0249                  01765 _tp_looktable   ;Function start
+                      01766 ; 2 exit points
+                      01767 ;       .line   191; "MC32P7351.c"      u8 tp_looktable(u16 val)
+0249   5600           01768         MOVRA   r0x102E
+024A   5800           01769         MOVAR   STK00
+024B   5600           01770         MOVRA   r0x102F
+                      01771 ;       .line   194; "MC32P7351.c"      for ( po = 0; po < 99; po++)
+024C   7600           01772         CLRR    r0x1030
+024D                  01773 _00155_DS_
+                      01774 ;       .line   196; "MC32P7351.c"      if(val <=tp[po])
+024D   D187           01775         BCLR    PFLAG,0
+024E   5000           01776         RLAR    r0x1030
+024F   5600           01777         MOVRA   r0x1031
+0250   5800           01778         MOVAR   r0x1031
+0251   3F00           01779         ADDAI   (_tp + 0)
+0252   5600           01780         MOVRA   r0x1031
+0253   3C00           01781         MOVAI   high (_tp + 0)
+0254   F187           01782         JBCLR   PFLAG,0
+0255   3F01           01783         ADDAI   0x01
+0256   5600           01784         MOVRA   r0x1032
+0257   5800           01785         MOVAR   r0x1031
+0258   5600           01786         MOVRA   STK01
+0259   5800           01787         MOVAR   r0x1032
+025A   5600           01788         MOVRA   STK00
+025B   3C80           01789         MOVAI   0x80
+025C   8000           01790         CALL    __gptrget2
+025D   5600           01791         MOVRA   r0x1033
+025E   5800           01792         MOVAR   STK00
+025F   5600           01793         MOVRA   r0x1034
+0260   5800           01794         MOVAR   r0x102E
+0261   4800           01795         RSUBAR  r0x1033
+0262   E587           01796         JBSET   PFLAG,2
+0263   A000           01797         GOTO    _00172_DS_
+0264   5800           01798         MOVAR   r0x102F
+0265   4800           01799         RSUBAR  r0x1034
+0266                  01800 _00172_DS_
+0266   F187           01801         JBCLR   PFLAG,0
+0267   A000           01802         GOTO    _00162_DS_
+                      01803 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01804 ;       .line   194; "MC32P7351.c"      for ( po = 0; po < 99; po++)
+0268   6600           01805         INCR    r0x1030
+                      01806 ;;unsigned compare: left < lit(0x63=99), size=1
+0269   3C63           01807         MOVAI   0x63
+026A   4800           01808         RSUBAR  r0x1030
+026B   E187           01809         JBSET   PFLAG,0
+026C   A000           01810         GOTO    _00155_DS_
+                      01811 ;;genSkipc:3291: created from rifx:013B5EFC
+026D                  01812 _00162_DS_
+026D   5800           01813         MOVAR   r0x1030
+026E   5600           01814         MOVRA   r0x102F
+                      01815 ;;swapping arguments (AOP_TYPEs 1/2)
+                      01816 ;;unsigned compare: left >= lit(0x2=2), size=1
+                      01817 ;       .line   200; "MC32P7351.c"      if(po>1)po-=2;
+026F   3C02           01818         MOVAI   0x02
+0270   4800           01819         RSUBAR  r0x1030
+0271   E187           01820         JBSET   PFLAG,0
+0272   A000           01821         GOTO    _00154_DS_
+                      01822 ;;genSkipc:3291: created from rifx:013B5EFC
+0273   5800           01823         MOVAR   r0x1030
+0274   5600           01824         MOVRA   r0x102E
+0275   3CFE           01825         MOVAI   0xfe
+0276   7C00           01826         ADDAR   r0x102E
+0277   5600           01827         MOVRA   r0x102F
+0278                  01828 _00154_DS_
+                      01829 ;       .line   201; "MC32P7351.c"      return po;
+0278   5800           01830         MOVAR   r0x102F
+                      01831 ;       .line   202; "MC32P7351.c"      }
+0279   000C           01832         RETURN  
+                      01833 ; exit point of _tp_looktable
+                      01834 
+                      01835 ;***
+                      01836 ;  pBlock Stats: dbName = C
+                      01837 ;***
+                      01838 ;entry:  _ADC_filte     ;Function start
+                      01839 ; 2 exit points
+                      01840 ;has an exit
+                      01841 ;10 compiler assigned registers:
+                      01842 ;   r0x102E
+                      01843 ;   STK00
+                      01844 ;   r0x102F
+                      01845 ;   r0x1030
+                      01846 ;   r0x1031
+                      01847 ;   r0x1032
+                      01848 ;   r0x1033
+                      01849 ;   r0x1034
+                      01850 ;   r0x1035
+                      01851 ;   r0x1036
+                      01852 ;; Starting pCode block
+027A                  01853 _ADC_filte      ;Function start
+                      01854 ; 2 exit points
+                      01855 ;       .line   157; "MC32P7351.c"      u16 ADC_filte(u16 data_tmp)
+027A   5600           01856         MOVRA   r0x102E
+027B   5800           01857         MOVAR   STK00
+027C   5600           01858         MOVRA   r0x102F
+                      01859 ;       .line   161; "MC32P7351.c"      if(adc_data_Old>data_tmp)
+027D   5800           01860         MOVAR   (_adc_data_Old + 1)
+027E   4800           01861         RSUBAR  r0x102E
+027F   E587           01862         JBSET   PFLAG,2
+0280   A000           01863         GOTO    _00144_DS_
+0281   5800           01864         MOVAR   _adc_data_Old
+0282   4800           01865         RSUBAR  r0x102F
+0283                  01866 _00144_DS_
+0283   F187           01867         JBCLR   PFLAG,0
+0284   A000           01868         GOTO    _00106_DS_
+                      01869 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01870 ;       .line   163; "MC32P7351.c"      temp = adc_data_Old - data_tmp;
+0285   5800           01871         MOVAR   r0x102F
+0286   4800           01872         RSUBAR  _adc_data_Old
+0287   5600           01873         MOVRA   r0x1030
+0288   5800           01874         MOVAR   r0x102E
+0289   E187           01875         JBSET   PFLAG,0
+028A   6400           01876         INCAR   r0x102E
+028B   4800           01877         RSUBAR  (_adc_data_Old + 1)
+028C   5600           01878         MOVRA   r0x1031
+028D   A000           01879         GOTO    _00107_DS_
+028E                  01880 _00106_DS_
+                      01881 ;       .line   167; "MC32P7351.c"      temp = data_tmp - adc_data_Old;
+028E   5800           01882         MOVAR   _adc_data_Old
+028F   4800           01883         RSUBAR  r0x102F
+0290   5600           01884         MOVRA   r0x1030
+0291   5800           01885         MOVAR   (_adc_data_Old + 1)
+0292   E187           01886         JBSET   PFLAG,0
+0293   6400           01887         INCAR   (_adc_data_Old + 1)
+0294   4800           01888         RSUBAR  r0x102E
+0295   5600           01889         MOVRA   r0x1031
+                      01890 ;;swapping arguments (AOP_TYPEs 1/2)
+                      01891 ;;unsigned compare: left >= lit(0xB=11), size=2
+0296                  01892 _00107_DS_
+                      01893 ;       .line   169; "MC32P7351.c"      if(temp>10)
+0296   3C00           01894         MOVAI   0x00
+0297   4800           01895         RSUBAR  r0x1031
+0298   E587           01896         JBSET   PFLAG,2
+0299   A000           01897         GOTO    _00145_DS_
+029A   3C0B           01898         MOVAI   0x0b
+029B   4800           01899         RSUBAR  r0x1030
+029C                  01900 _00145_DS_
+029C   E187           01901         JBSET   PFLAG,0
+029D   A000           01902         GOTO    _00109_DS_
+                      01903 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01904 ;       .line   171; "MC32P7351.c"      temp = data_tmp;
+029E   5800           01905         MOVAR   r0x102F
+029F   5600           01906         MOVRA   r0x1030
+02A0   5800           01907         MOVAR   r0x102E
+02A1   5600           01908         MOVRA   r0x1031
+02A2   A000           01909         GOTO    _00110_DS_
+02A3                  01910 _00109_DS_
+                      01911 ;       .line   174; "MC32P7351.c"      temp = adc_data_Old;
+02A3   5800           01912         MOVAR   _adc_data_Old
+02A4   5600           01913         MOVRA   r0x1030
+02A5   5800           01914         MOVAR   (_adc_data_Old + 1)
+02A6   5600           01915         MOVRA   r0x1031
+02A7                  01916 _00110_DS_
+                      01917 ;       .line   176; "MC32P7351.c"      ADC_Val[num] = temp;
+02A7   D187           01918         BCLR    PFLAG,0
+02A8   5000           01919         RLAR    _num
+02A9   5600           01920         MOVRA   r0x1032
+02AA   5800           01921         MOVAR   r0x1032
+02AB   3F00           01922         ADDAI   (_ADC_Val + 0)
+02AC   5600           01923         MOVRA   r0x1032
+02AD   3C00           01924         MOVAI   high (_ADC_Val + 0)
+02AE   F187           01925         JBCLR   PFLAG,0
+02AF   3F01           01926         ADDAI   0x01
+02B0   5600           01927         MOVRA   r0x1033
+02B1   5800           01928         MOVAR   r0x1032
+02B2   5784           01929         MOVRA   FSR0
+02B3   5800           01930         MOVAR   r0x1033
+02B4   5785           01931         MOVRA   FSR1
+02B5   5800           01932         MOVAR   r0x1030
+02B6   5782           01933         MOVRA   INDF2
+02B7   6784           01934         INCR    FSR0
+02B8   F587           01935         JBCLR   PFLAG,2
+02B9   6785           01936         INCR    FSR1
+02BA   5800           01937         MOVAR   r0x1031
+02BB   5782           01938         MOVRA   INDF2
+                      01939 ;       .line   177; "MC32P7351.c"      num++;
+02BC   6600           01940         INCR    _num
+                      01941 ;;unsigned compare: left < lit(0x4=4), size=1
+                      01942 ;       .line   178; "MC32P7351.c"      if(num>=4)
+02BD   3C04           01943         MOVAI   0x04
+02BE   4800           01944         RSUBAR  _num
+02BF   E187           01945         JBSET   PFLAG,0
+02C0   A000           01946         GOTO    _00112_DS_
+                      01947 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01948 ;       .line   179; "MC32P7351.c"      num = 0;
+02C1   7600           01949         CLRR    _num
+02C2                  01950 _00112_DS_
+                      01951 ;       .line   180; "MC32P7351.c"      temp = 0;
+02C2   7600           01952         CLRR    r0x1030
+02C3   7600           01953         CLRR    r0x1031
+                      01954 ;       .line   181; "MC32P7351.c"      for ( i = 0; i < 4; i++)
+02C4   7600           01955         CLRR    r0x1032
+02C5                  01956 _00114_DS_
+                      01957 ;       .line   183; "MC32P7351.c"      temp += ADC_Val[i];
+02C5   D187           01958         BCLR    PFLAG,0
+02C6   5000           01959         RLAR    r0x1032
+02C7   5600           01960         MOVRA   r0x1033
+02C8   5800           01961         MOVAR   r0x1033
+02C9   3F00           01962         ADDAI   (_ADC_Val + 0)
+02CA   5600           01963         MOVRA   r0x1033
+02CB   3C00           01964         MOVAI   high (_ADC_Val + 0)
+02CC   F187           01965         JBCLR   PFLAG,0
+02CD   3F01           01966         ADDAI   0x01
+02CE   5600           01967         MOVRA   r0x1034
+02CF   5800           01968         MOVAR   r0x1033
+02D0   5784           01969         MOVRA   FSR0
+02D1   5800           01970         MOVAR   r0x1034
+02D2   5785           01971         MOVRA   FSR1
+02D3   5982           01972         MOVAR   INDF2
+02D4   5600           01973         MOVRA   r0x1035
+02D5   6784           01974         INCR    FSR0
+02D6   F587           01975         JBCLR   PFLAG,2
+02D7   6785           01976         INCR    FSR1
+02D8   5982           01977         MOVAR   INDF2
+02D9   5600           01978         MOVRA   r0x1036
+02DA   5800           01979         MOVAR   r0x1035
+02DB   7E00           01980         ADDRA   r0x1030
+02DC   5800           01981         MOVAR   r0x1036
+02DD   F187           01982         JBCLR   PFLAG,0
+02DE   6000           01983         JZAR    r0x1036
+02DF   7E00           01984         ADDRA   r0x1031
+                      01985 ;       .line   181; "MC32P7351.c"      for ( i = 0; i < 4; i++)
+02E0   6600           01986         INCR    r0x1032
+                      01987 ;;unsigned compare: left < lit(0x4=4), size=1
+02E1   3C04           01988         MOVAI   0x04
+02E2   4800           01989         RSUBAR  r0x1032
+02E3   E187           01990         JBSET   PFLAG,0
+02E4   A000           01991         GOTO    _00114_DS_
+                      01992 ;;genSkipc:3291: created from rifx:013B5EFC
+                      01993 ;;shiftRight_Left2ResultLit:5339: shCount=1, size=2, sign=0, same=0, offr=0
+                      01994 ;       .line   185; "MC32P7351.c"      temp >>= 2;
+02E5   D187           01995         BCLR    PFLAG,0
+02E6   4C00           01996         RRAR    r0x1031
+02E7   5600           01997         MOVRA   r0x1033
+02E8   4C00           01998         RRAR    r0x1030
+02E9   5600           01999         MOVRA   r0x1032
+                      02000 ;;shiftRight_Left2ResultLit:5339: shCount=1, size=2, sign=0, same=1, offr=0
+02EA   D187           02001         BCLR    PFLAG,0
+02EB   4E00           02002         RRR     r0x1033
+02EC   4E00           02003         RRR     r0x1032
+                      02004 ;       .line   186; "MC32P7351.c"      adc_data_Old = data_tmp;
+02ED   5800           02005         MOVAR   r0x102F
+02EE   5600           02006         MOVRA   _adc_data_Old
+02EF   5800           02007         MOVAR   r0x102E
+02F0   5600           02008         MOVRA   (_adc_data_Old + 1)
+                      02009 ;       .line   187; "MC32P7351.c"      return temp;
+02F1   5800           02010         MOVAR   r0x1032
+02F2   5600           02011         MOVRA   STK00
+02F3   5800           02012         MOVAR   r0x1033
+                      02013 ;       .line   188; "MC32P7351.c"      }
+02F4   000C           02014         RETURN  
+                      02015 ; exit point of _ADC_filte
+                      02016 
+                      02017 
+                      02018 ;       code size estimation:
+                      02019 ;         750+    0 =   750 instructions ( 1500 byte)
+                      02020 
+                      02021         end
+gpasm-2.2.37 (Jan 22 2024)   MC32P7351.asm      2024-11-11  10:51:22         PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+ADCR0                             000001B0
+ADCR1                             000001B1
+ADCR2                             000001B2
+ADIOS0                            000001B6
+ADIOS1                            000001B7
+ADRH                              000001B4
+ADRL                              000001B5
+DRVCR                             0000018C
+FSR0                              00000184
+FSR1                              00000185
+HIBYTE                            00000183
+HIRCCAL                           000001FC
+INDF0                             00000180
+INDF1                             00000181
+INDF2                             00000182
+INDF3                             00000189
+INTE                              0000018A
+INTF                              0000018B
+IOP0                              00000190
+IOP1                              00000194
+LVDCR                             000001AF
+MCR                               00000188
+OEP0                              00000191
+OEP1                              00000195
+OSADJCR                           000001B3
+OSCMR                             000001AE
+P1KBCR                            0000018E
+PCL                               00000186
+PDP0                              00000193
+PDP1                              00000197
+PFLAG                             00000187
+PFRCAUX                           000001FB
+PFRCCAL                           0000018F
+PFRCCR                            0000018D
+PMOD                              000001BC
+PUP0                              00000192
+PUP1                              00000196
+PWM0DR                            000001A8
+PWM1DR                            000001A9
+PWM2DR                            000001AA
+PWMCR0                            000001AC
+PWMCR1                            000001AD
+PWMCR2                            000001BE
+PWMCR3                            000001BD
+STK00                             00000006
+STK01                             00000005
+STK02                             00000004
+STK03                             00000003
+STK04                             00000002
+STK05                             00000001
+STK06                             00000000
+T0CNT                             00000199
+T0CR                              00000198
+T0DATA                            0000019B
+T0LOAD                            0000019A
+T1CNT                             0000019D
+T1CR                              0000019C
+T1DATA                            0000019F
+T1LOAD                            0000019E
+T2CNT                             000001A1
+T2CR                              000001A0
+T2DATA                            000001A3
+T2LOAD                            000001A2
+T3CNT                             000001A5
+T3CR                              000001A4
+T3LOAD                            000001A6
+_00106_DS_                        0000028E
+_00107_DS_                        00000296
+_00109_DS_                        000002A3
+_00110_DS_                        000002A7
+_00112_DS_                        000002C2
+_00114_DS_                        000002C5
+_00144_DS_                        00000283
+_00145_DS_                        0000029C
+_00154_DS_                        00000278
+_00155_DS_                        0000024D
+_00162_DS_                        0000026D
+_00172_DS_                        00000266
+_00184_DS_                        000001C5
+_00185_DS_                        000001D7
+_00187_DS_                        000001FE
+_00190_DS_                        00000225
+_00193_DS_                        00000213
+_00194_DS_                        00000239
+_00197_DS_                        000001E6
+_00199_DS_                        0000023D
+_00204_DS_                        000000F2
+_00206_DS_                        000000FC
+_00208_DS_                        00000104
+_00210_DS_                        0000010C
+_00211_DS_                        0000010E
+_00213_DS_                        00000118
+_00215_DS_                        00000120
+_00217_DS_                        00000128
+_00218_DS_                        0000012A
+_00220_DS_                        00000134
+_00222_DS_                        0000013C
+_00224_DS_                        00000144
+_00225_DS_                        00000146
+_00227_DS_                        00000150
+_00229_DS_                        00000158
+_00231_DS_                        00000160
+_00232_DS_                        00000162
+_00234_DS_                        0000016C
+_00236_DS_                        00000174
+_00238_DS_                        0000017C
+_00239_DS_                        0000017E
+_00241_DS_                        00000188
+_00242_DS_                        0000018A
+_00244_DS_                        00000194
+_00245_DS_                        00000196
+_00247_DS_                        000001A0
+_00248_DS_                        000001A2
+_00251_DS_                        000001A3
+_00259_DS_                        000000D1
+_00263_DS_                        000000C4
+_00264_DS_                        000000D9
+_00265_DS_                        000000A7
+_00266_DS_                        000000B4
+_00269_DS_                        000000E1
+_00291_DS_                        0000009D
+_00292_DS_                        000000A5
+_00310_DS_                        00000033
+_00312_DS_                        0000000C
+_00314_DS_                        00000022
+_00352_DS_                        0000004B
+_00360_DS_                        0000008D
+_00362_DS_                        0000008E
+_ADCR0                            00000000
+_ADCR0bits                        00000000
+_ADCR1                            00000000
+_ADCR1bits                        00000000
+_ADCR2                            00000000
+_ADCR2bits                        00000000
+_ADC_Get_Value_Average            00000000
+_ADC_Init                         00000000
+_ADC_Scan_cnt                     00000000
+_ADC_Val                          00000000
+_ADC_Val_tmp                      00000000
+_ADC_error_val                    00000000
+_ADC_filte                        0000027A
+_ADIOS0                           00000000
+_ADIOS0bits                       00000000
+_ADIOS1                           00000000
+_ADIOS1bits                       00000000
+_ADRH                             00000000
+_ADRHbits                         00000000
+_ADRL                             00000000
+_ADRLbits                         00000000
+_CLR_RAM                          00000000
+_CONFIG0                          00008000
+_CONFIG1                          00008001
+_DRVCR                            00000000
+_DRVCRbits                        00000000
+_Decode                           00000097
+_FSR0                             00000000
+_FSR0bits                         00000000
+_FSR1                             00000000
+_FSR1bits                         00000000
+_Flag1                            00000000
+_Flag2                            00000000
+_HIBYTE                           00000000
+_HIBYTEbits                       00000000
+_HIRCCAL                          00000000
+_HIRCCALbits                      00000000
+_INDF0                            00000000
+_INDF0bits                        00000000
+_INDF1                            00000000
+_INDF1bits                        00000000
+_INDF2                            00000000
+_INDF2bits                        00000000
+_INDF3                            00000000
+_INDF3bits                        00000000
+_INTE                             00000000
+_INTEbits                         00000000
+_INTF                             00000000
+_INTFbits                         00000000
+_IOP0                             00000000
+_IOP0bits                         00000000
+_IOP1                             00000000
+_IOP1bits                         00000000
+_IO_Init                          00000000
+_LED_DispalayFunction             000000E2
+_LED_DisplayNum                   00000000
+_LED_buff                         00000000
+_LED_table                        00000000
+_LVDCR                            00000000
+_LVDCRbits                        00000000
+_LookTableFunc                    000001A4
+_MCR                              00000000
+_MCRbits                          00000000
+_OEP0                             00000000
+_OEP0bits                         00000000
+_OEP1                             00000000
+_OEP1bits                         00000000
+_OSADJCR                          00000000
+_OSADJCRbits                      00000000
+_OSCMR                            00000000
+_OSCMRbits                        00000000
+_P1KBCR                           00000000
+_P1KBCRbits                       00000000
+_PCL                              00000000
+_PCLbits                          00000000
+_PDP0                             00000000
+_PDP0bits                         00000000
+_PDP1                             00000000
+_PDP1bits                         00000000
+_PFLAG                            00000000
+_PFLAGbits                        00000000
+_PFRCAUX                          00000000
+_PFRCAUXbits                      00000000
+_PFRCCAL                          00000000
+_PFRCCALbits                      00000000
+_PFRCCR                           00000000
+_PFRCCRbits                       00000000
+_PIN_setinmode                    0000023E
+_PMOD                             00000000
+_PMODbits                         00000000
+_PUP0                             00000000
+_PUP0bits                         00000000
+_PUP1                             00000000
+_PUP1bits                         00000000
+_PWM0DR                           00000000
+_PWM0DRbits                       00000000
+_PWM1DR                           00000000
+_PWM1DRbits                       00000000
+_PWM2DR                           00000000
+_PWM2DRbits                       00000000
+_PWMCR0                           00000000
+_PWMCR0bits                       00000000
+_PWMCR1                           00000000
+_PWMCR1bits                       00000000
+_PWMCR2                           00000000
+_PWMCR2bits                       00000000
+_PWMCR3                           00000000
+_PWMCR3bits                       00000000
+_Scan_ADC                         00000000
+_Scan_Key                         00000000
+_Set_ADC_Channel                  00000000
+_Sleep_Func                       00000079
+_Sys_Init                         0000008F
+_T0CNT                            00000000
+_T0CNTbits                        00000000
+_T0CR                             00000000
+_T0CRbits                         00000000
+_T0DATA                           00000000
+_T0DATAbits                       00000000
+_T0LOAD                           00000000
+_T0LOADbits                       00000000
+_T1CNT                            00000000
+_T1CNTbits                        00000000
+_T1CR                             00000000
+_T1CRbits                         00000000
+_T1DATA                           00000000
+_T1DATAbits                       00000000
+_T1LOAD                           00000000
+_T1LOADbits                       00000000
+_T2CNT                            00000000
+_T2CNTbits                        00000000
+_T2CR                             00000000
+_T2CRbits                         00000000
+_T2DATA                           00000000
+_T2DATAbits                       00000000
+_T2LOAD                           00000000
+_T2LOADbits                       00000000
+_T3CNT                            00000000
+_T3CNTbits                        00000000
+_T3CR                             00000000
+_T3CRbits                         00000000
+_T3LOAD                           00000000
+_T3LOADbits                       00000000
+_TIMER0_INT_Init                  00000000
+_TIMER0_PWM_Init                  00000000
+_TIMER1_INT_Init                  00000000
+_TIMER1_PWM_Init                  00000000
+_TIMER2_INT_Init                  00000000
+_TIMER2_PWM_Init                  00000000
+_TIMER3_INT_Init                  00000000
+__32P7351                         00000001
+__divsint                         00000000
+__gptrget1                        00000000
+__gptrget2                        00000000
+__modsint                         00000000
+_abuf                             00000000
+_adc_data                         00000000
+_adc_data_Old                     00000000
+_adc_tmp                          00000000
+_cnt_iop                          00000000
+_cnt_test                         00000000
+_delay                            00000000
+_flag2                            00000000
+_i                                00000000
+_int_time0                        00000000
+_key_cur                          00000000
+_key_down                         00000000
+_key_keep                         00000000
+_key_per                          00000000
+_main                             00000000
+_num                              00000000
+_sleep_time                       00000000
+_state                            00000000
+_statusbuf                        00000000
+_tp                               00000000
+_tp_looktable                     00000249
+r0x102E                           00000001
+r0x102F                           00000000
+r0x1030                           00000002
+r0x1031                           00000003
+r0x1032                           00000004
+r0x1033                           00000005
+r0x1034                           00000006
+r0x1035                           00000007
+r0x1036                           00000008
+r0x1037                           0000000A
+r0x1038                           0000000B
+r0x1039                           00000009
+ADCHS0                            ADCR0,4
+ADCHS1                            ADCR0,5
+ADCHS2                            ADCR0,6
+ADCHS3                            ADCR0,7
+ADCKS0                            ADCR1,5
+ADCKS1                            ADCR1,6
+ADCKS2                            ADCR1,7
+ADEN                              ADCR0,0
+ADEOC                             ADCR0,1
+ADIE                              INTE,6
+ADIF                              INTF,6
+ADR0                              ADRL,0
+ADR1                              ADRL,1
+ADR10                             ADRH,6
+ADR11                             ADRH,7
+ADR2                              ADRL,2
+ADR3                              ADRL,3
+ADR4                              ADRH,0
+ADR5                              ADRH,1
+ADR6                              ADRH,2
+ADR7                              ADRH,3
+ADR8                              ADRH,4
+ADR9                              ADRH,5
+ADRSEL                            ADCR0,3
+ADSPS0                            ADCR2,0
+ADSPS1                            ADCR2,1
+ADSPS2                            ADCR2,2
+ADSPS3                            ADCR2,3
+ADVRS0                            ADCR1,0
+ADVRS1                            ADCR1,1
+ADVRS2                            ADCR1,2
+BUZ0OE                            T0CR,5
+BUZ1OE                            T1CR,5
+BUZ2OE                            T2CR,5
+C                                 PFLAG,0
+CDRV                              DRVCR,7
+CLKS                              OSCMR,2
+DC                                PFLAG,1
+FPWM1F0                           PWMCR0,0
+FPWM1F1                           PWMCR0,1
+FPWM1NV                           PWMCR0,5
+FPWM1OE                           PWMCR0,7
+FPWM1R0                           PWMCR0,2
+FPWM1R1                           PWMCR0,3
+FPWM2E0                           PWMCR2,0
+FPWM2E1                           PWMCR2,1
+FPWM2E2                           PWMCR2,2
+FPWM2E3                           PWMCR2,3
+FPWM2E4                           PWMCR2,4
+FPWM2E5                           PWMCR2,5
+FPWM2NV                           PWMCR3,7
+FPWM2OE                           PWMCR3,6
+FSR00                             FSR0,0
+FSR01                             FSR0,1
+FSR02                             FSR0,2
+FSR03                             FSR0,3
+FSR04                             FSR0,4
+FSR05                             FSR0,5
+FSR06                             FSR0,6
+FSR07                             FSR0,7
+FSR10                             FSR1,0
+FSR11                             FSR1,1
+FSR12                             FSR1,2
+FSR13                             FSR1,3
+FSR14                             FSR1,4
+FSR15                             FSR1,5
+FSR16                             FSR1,6
+FSR17                             FSR1,7
+GIE                               MCR,7
+HFEN                              OSCMR,0
+HIBYTE0                           HIBYTE,0
+HIBYTE1                           HIBYTE,1
+HIBYTE2                           HIBYTE,2
+HIBYTE3                           HIBYTE,3
+HIBYTE4                           HIBYTE,4
+HIBYTE5                           HIBYTE,5
+HIBYTE6                           HIBYTE,6
+HIBYTE7                           HIBYTE,7
+HIRCCAL0                          HIRCCAL,0
+HIRCCAL1                          HIRCCAL,1
+HIRCCAL2                          HIRCCAL,2
+HIRCCAL3                          HIRCCAL,3
+HIRCCAL4                          HIRCCAL,4
+HIRCCAL5                          HIRCCAL,5
+HIRCCAL6                          HIRCCAL,6
+HIRCCAL7                          HIRCCAL,7
+INDF00                            INDF0,0
+INDF01                            INDF0,1
+INDF02                            INDF0,2
+INDF03                            INDF0,3
+INDF04                            INDF0,4
+INDF05                            INDF0,5
+INDF06                            INDF0,6
+INDF07                            INDF0,7
+INDF10                            INDF1,0
+INDF11                            INDF1,1
+INDF12                            INDF1,2
+INDF13                            INDF1,3
+INDF14                            INDF1,4
+INDF15                            INDF1,5
+INDF16                            INDF1,6
+INDF17                            INDF1,7
+INDF20                            INDF2,0
+INDF21                            INDF2,1
+INDF22                            INDF2,2
+INDF23                            INDF2,3
+INDF24                            INDF2,4
+INDF25                            INDF2,5
+INDF26                            INDF2,6
+INDF27                            INDF2,7
+INDF30                            INDF3,0
+INDF31                            INDF3,1
+INDF32                            INDF3,2
+INDF33                            INDF3,3
+INDF34                            INDF3,4
+INDF35                            INDF3,5
+INDF36                            INDF3,6
+INDF37                            INDF3,7
+INT0IE                            INTE,2
+INT0IF                            INTF,2
+INT0M0                            MCR,0
+INT0M1                            MCR,1
+INT1IE                            INTE,3
+INT1IF                            INTF,3
+INT1M0                            MCR,2
+INT1M1                            MCR,3
+KBIE                              INTE,4
+KBIF                              INTF,4
+LDRV                              DRVCR,6
+LFEN                              OSCMR,1
+LVDEN                             LVDCR,7
+LVDF                              LVDCR,0
+LVDVS0                            LVDCR,3
+LVDVS1                            LVDCR,4
+LVDVS2                            LVDCR,5
+LVDVS3                            LVDCR,6
+NFPWM2OE                          PWMCR3,4
+NPWM2OE                           PWMCR3,5
+OSADJEN                           OSADJCR,7
+OSADJT0                           OSADJCR,0
+OSADJT1                           OSADJCR,1
+OSADJT2                           OSADJCR,2
+OSADJT3                           OSADJCR,3
+OSADJT4                           OSADJCR,4
+OSADJT5                           OSADJCR,5
+OSADJTD                           OSADJCR,6
+P00D                              IOP0,0
+P00DC                             ADIOS0,0
+P00OE                             OEP0,0
+P00OM                             PMOD,0
+P00PD                             PDP0,0
+P00PU                             PUP0,0
+P01D                              IOP0,1
+P01DC                             PMOD,5
+P01OE                             OEP0,1
+P01OM                             PMOD,1
+P01PD                             PDP0,1
+P01PU                             PUP0,1
+P02D                              IOP0,2
+P02DC                             ADIOS0,1
+P02OE                             OEP0,2
+P02PD                             PDP0,2
+P02PU                             PUP0,2
+P03D                              IOP0,3
+P03DC                             ADIOS0,2
+P03OE                             OEP0,3
+P03PD                             PDP0,3
+P03PU                             PUP0,3
+P04D                              IOP0,4
+P04DC                             ADIOS0,3
+P04OE                             OEP0,4
+P04PD                             PDP0,4
+P04PU                             PUP0,4
+P05D                              IOP0,5
+P05DC                             ADIOS0,4
+P05OE                             OEP0,5
+P05PD                             PDP0,5
+P05PU                             PUP0,5
+P10D                              IOP1,0
+P10DC                             ADIOS0,5
+P10KE                             P1KBCR,0
+P10OE                             OEP1,0
+P10PD                             PDP1,0
+P10PU                             PUP1,0
+P11D                              IOP1,1
+P11DC                             ADIOS0,6
+P11KE                             P1KBCR,1
+P11OE                             OEP1,1
+P11PD                             PDP1,1
+P11PU                             PUP1,1
+P12D                              IOP1,2
+P12DC                             ADIOS0,7
+P12KE                             P1KBCR,2
+P12OE                             OEP1,2
+P12PD                             PDP1,2
+P12PU                             PUP1,2
+P13D                              IOP1,3
+P13DC                             PMOD,6
+P13KE                             P1KBCR,3
+P13OE                             OEP1,3
+P13OM                             PMOD,2
+P13PD                             PDP1,3
+P13PU                             PUP1,3
+P14D                              IOP1,4
+P14DC                             ADIOS1,0
+P14KE                             P1KBCR,4
+P14OE                             OEP1,4
+P14PD                             PDP1,4
+P14PU                             PUP1,4
+P15D                              IOP1,5
+P15DC                             ADIOS1,1
+P15KE                             P1KBCR,5
+P15OE                             OEP1,5
+P15PD                             PDP1,5
+P15PU                             PUP1,5
+P16D                              IOP1,6
+P16KE                             P1KBCR,6
+P16OE                             OEP1,6
+P16PD                             PDP1,6
+P16PU                             PUP1,6
+P17D                              IOP1,7
+P17DC                             PMOD,7
+P17KE                             P1KBCR,7
+P17OE                             OEP1,7
+P17PD                             PDP1,7
+P17PU                             PUP1,7
+PC0                               PCL,0
+PC1                               PCL,1
+PC2                               PCL,2
+PC3                               PCL,3
+PC4                               PCL,4
+PC5                               PCL,5
+PC6                               PCL,6
+PC7                               PCL,7
+PD                                MCR,4
+PDLY0                             DRVCR,2
+PDLY1                             DRVCR,3
+PDRV0                             DRVCR,4
+PDRV1                             DRVCR,5
+PFRCAUX0                          PFRCAUX,0
+PFRCAUX1                          PFRCAUX,1
+PFRCAUX2                          PFRCAUX,2
+PFRCCAL0                          PFRCCAL,0
+PFRCCAL1                          PFRCCAL,1
+PFRCCAL2                          PFRCCAL,2
+PFRCCAL3                          PFRCCAL,3
+PFRCCAL4                          PFRCCAL,4
+PFRCCAL5                          PFRCCAL,5
+PFRCCAL6                          PFRCCAL,6
+PFRCCAL7                          PFRCCAL,7
+PFRCEN                            PFRCCR,7
+PSPD0                             DRVCR,0
+PSPD1                             DRVCR,1
+PWM0CHS                           PWMCR3,2
+PWM0D0                            PWM0DR,0
+PWM0D1                            PWM0DR,1
+PWM0D2                            PWM0DR,2
+PWM0EC                            T0CR,6
+PWM0MD                            PWMCR1,0
+PWM0NV                            PWMCR0,4
+PWM1D0                            PWM1DR,0
+PWM1D1                            PWM1DR,1
+PWM1D2                            PWM1DR,2
+PWM1EC                            T1CR,6
+PWM1MD                            PWMCR1,1
+PWM2D0                            PWM2DR,0
+PWM2D1                            PWM2DR,1
+PWM2D2                            PWM2DR,2
+PWM2EC                            T2CR,6
+PWM2MD                            PWMCR1,2
+PWM2NV                            PWMCR0,6
+RESS0                             ADCR1,3
+STBH                              OSCMR,4
+STBL                              OSCMR,5
+T0CKS0                            T0CR,3
+T0CKS1                            T0CR,4
+T0CKS2                            PFRCCR,0
+T0CKS3                            PFRCCR,1
+T0CNT0                            T0CNT,0
+T0CNT1                            T0CNT,1
+T0CNT2                            T0CNT,2
+T0CNT3                            T0CNT,3
+T0CNT4                            T0CNT,4
+T0CNT5                            T0CNT,5
+T0CNT6                            T0CNT,6
+T0CNT7                            T0CNT,7
+T0DATA0                           T0DATA,0
+T0DATA1                           T0DATA,1
+T0DATA2                           T0DATA,2
+T0DATA3                           T0DATA,3
+T0DATA4                           T0DATA,4
+T0DATA5                           T0DATA,5
+T0DATA6                           T0DATA,6
+T0DATA7                           T0DATA,7
+T0EN                              T0CR,7
+T0IE                              INTE,0
+T0IF                              INTF,0
+T0LOAD0                           T0LOAD,0
+T0LOAD1                           T0LOAD,1
+T0LOAD2                           T0LOAD,2
+T0LOAD3                           T0LOAD,3
+T0LOAD4                           T0LOAD,4
+T0LOAD5                           T0LOAD,5
+T0LOAD6                           T0LOAD,6
+T0LOAD7                           T0LOAD,7
+T0PRS0                            T0CR,0
+T0PRS1                            T0CR,1
+T0PRS2                            T0CR,2
+T1CKS0                            T1CR,3
+T1CKS1                            T1CR,4
+T1CKS2                            PFRCCR,2
+T1CKS3                            PFRCCR,3
+T1CNT0                            T1CNT,0
+T1CNT1                            T1CNT,1
+T1CNT2                            T1CNT,2
+T1CNT3                            T1CNT,3
+T1CNT4                            T1CNT,4
+T1CNT5                            T1CNT,5
+T1CNT6                            T1CNT,6
+T1CNT7                            T1CNT,7
+T1DATA0                           T1DATA,0
+T1DATA1                           T1DATA,1
+T1DATA2                           T1DATA,2
+T1DATA3                           T1DATA,3
+T1DATA4                           T1DATA,4
+T1DATA5                           T1DATA,5
+T1DATA6                           T1DATA,6
+T1DATA7                           T1DATA,7
+T1EN                              T1CR,7
+T1IE                              INTE,1
+T1IF                              INTF,1
+T1LOAD0                           T1LOAD,0
+T1LOAD1                           T1LOAD,1
+T1LOAD2                           T1LOAD,2
+T1LOAD3                           T1LOAD,3
+T1LOAD4                           T1LOAD,4
+T1LOAD5                           T1LOAD,5
+T1LOAD6                           T1LOAD,6
+T1LOAD7                           T1LOAD,7
+T1PRS0                            T1CR,0
+T1PRS1                            T1CR,1
+T1PRS2                            T1CR,2
+T2CKS0                            T2CR,3
+T2CKS1                            T2CR,4
+T2CKS2                            PFRCCR,4
+T2CKS3                            PFRCCR,5
+T2CNT0                            T2CNT,0
+T2CNT1                            T2CNT,1
+T2CNT2                            T2CNT,2
+T2CNT3                            T2CNT,3
+T2CNT4                            T2CNT,4
+T2CNT5                            T2CNT,5
+T2CNT6                            T2CNT,6
+T2CNT7                            T2CNT,7
+T2DATA0                           T2DATA,0
+T2DATA1                           T2DATA,1
+T2DATA2                           T2DATA,2
+T2DATA3                           T2DATA,3
+T2DATA4                           T2DATA,4
+T2DATA5                           T2DATA,5
+T2DATA6                           T2DATA,6
+T2DATA7                           T2DATA,7
+T2EN                              T2CR,7
+T2IE                              INTE,5
+T2IF                              INTF,5
+T2LOAD0                           T2LOAD,0
+T2LOAD1                           T2LOAD,1
+T2LOAD2                           T2LOAD,2
+T2LOAD3                           T2LOAD,3
+T2LOAD4                           T2LOAD,4
+T2LOAD5                           T2LOAD,5
+T2LOAD6                           T2LOAD,6
+T2LOAD7                           T2LOAD,7
+T2PRS0                            T2CR,0
+T2PRS1                            T2CR,1
+T2PRS2                            T2CR,2
+T3CKS0                            T3CR,3
+T3CKS1                            T3CR,4
+T3CNT0                            T3CNT,0
+T3CNT1                            T3CNT,1
+T3CNT2                            T3CNT,2
+T3CNT3                            T3CNT,3
+T3CNT4                            T3CNT,4
+T3CNT5                            T3CNT,5
+T3CNT6                            T3CNT,6
+T3CNT7                            T3CNT,7
+T3EN                              T3CR,7
+T3IE                              INTE,7
+T3IF                              INTF,7
+T3LOAD0                           T3LOAD,0
+T3LOAD1                           T3LOAD,1
+T3LOAD2                           T3LOAD,2
+T3LOAD3                           T3LOAD,3
+T3LOAD4                           T3LOAD,4
+T3LOAD5                           T3LOAD,5
+T3LOAD6                           T3LOAD,6
+T3LOAD7                           T3LOAD,7
+T3PRS0                            T3CR,0
+T3PRS1                            T3CR,1
+T3PRS2                            T3CR,2
+TMRCKS0                           PWMCR1,3
+TMRCKS1                           PWMCR1,4
+TO                                MCR,5
+Z                                 PFLAG,2
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

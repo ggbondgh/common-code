@@ -1,0 +1,182 @@
+//********************************************************************************//
+//		    IIC & EEPROM single read/write
+// Function: Write data to a specified address and then read the data from that address
+// Adapt to chips:	PMS164
+//--------------------------------------------------------------------------------//
+
+#include	"extern.h"
+
+#define _5us    2*2
+bit     SCL     :   PA.0;
+bit     SDA     :   PA.3;
+
+//byte	Address;
+byte	data;
+byte	Read_Data;
+
+void    init(void) // Initialize
+{
+    SCL = 1;
+    .delay _5us;
+    $ SDA In,PH // Control signal raised
+    .delay _5us;
+}
+
+void    start(void) // Send a Start signal to ROM
+{
+    $ SDA In,PH
+    .delay _5us;
+    SCL = 1;
+    .delay _5us;
+    $ SDA Out,Low;
+    .delay _5us;
+}
+
+void    stop(void) // Send a Stop signal to ROM
+{
+    $ SDA Out,Low;
+    .delay _5us;
+    SCl = 1;
+    .delay _5us;
+    $ SDA In,PH
+    .delay _5us;
+}
+
+void    respons(void) // Response signal
+{
+    $ SDA in,pull;
+    .delay 100;
+    SCL = 1;
+    .delay _5us;
+    while(SDA==1)
+        nop;
+    SCL = 0;
+    .delay _5us;
+    $ SDA In,PH
+    .delay 100;
+}
+
+void    write_byte(void) // Write a byte of data
+{
+    byte temp = 0,i = 8;
+    while(i--)
+    {
+        SCL = 0; // Data can be changed
+        .delay _5us;
+        temp = data & 0x80; // Keep the highest bit
+        if(temp) // Write 1 bit
+            $ SDA In,PH
+        else
+            $ SDA Out,Low;
+        .delay _5us;
+        data <<= 1; // Left-shift 1 bit
+        SCL = 1; // The data is stable and cannot be written
+        .delay _5us;
+    }
+    SCL = 0;
+    .delay _5us;
+    $ SDA In,PH // Stable the data
+    .delay _5us;
+}
+
+void    read_byte(void) // Read a byte of data
+{
+    byte  i = 8;
+    SCL = 0; // Data can be changed
+    .delay _5us;
+    $ SDA In,PH
+    .delay _5us;
+    $ SDA in,pull;
+    .delay 100;
+    Read_Data = 0;
+    while(i--)
+    {
+        Read_Data = Read_Data << 1; // HSB
+        SCL = 1; // The data is stable and can be read
+        .delay _5us;
+        if(SDA)
+            Read_Data = Read_Data | 0x01;
+        else
+            Read_Data = Read_Data & 0xfe;
+        SCL = 0; // Data change preparation for the next bit
+        .delay _5us;
+    }
+    $ SDA In,PH
+    .delay 100;
+}
+
+void    write_add(byte address,byte Write_Data)
+{
+    start();
+
+    data = 0xa0; // E2PROM address (ATC02 is 0xa0): Device address(a)+Write control bit(0)
+    write_byte();
+    respons();
+
+    data = address;
+    write_byte();
+    respons();
+
+    data = Write_Data;
+    write_byte();
+    respons();
+
+    stop();
+}
+
+void    read_add(byte address)
+{
+    start();
+
+    data = 0xa0; // Device address(a)+Write control bit(0)
+    write_byte();
+    respons();
+
+    data = address;
+    write_byte();
+    respons();
+
+    start();
+
+    data = 0xa1; // Device address(a)+Read control bit(1)
+    write_byte();
+    respons();
+
+	read_byte();
+	.delay 1000;
+
+	stop();
+}
+
+void	FPPA0 (void)
+{
+	.ADJUST_IC	SYSCLK=IHRC/8, IHRC=16MHz, VDD=5V;
+
+    $ SDA In,PH
+    $ SCL out,high;
+
+    init();
+	.delay 100;
+	while (1)
+	{
+		write_add(6,224); // Write data to the address
+		.delay 5000*2;
+		read_add(6); // Read data from the address
+		.printf("%.3d\n",Read_Data);
+		nop;
+	}
+}
+
+void	Interrupt (void)
+{
+	pushaf;
+
+	if (Intrq.T16)
+	{	//	T16 Trig
+		//	User can add code
+		Intrq.T16	=	0;
+		//...
+	}
+
+	popaf;
+}

@@ -1,0 +1,93 @@
+#define d1a PBC	= 0b000_00011;PB	= 0b000_00001;
+#define d1b PBC	= 0b000_00101;PB	= 0b000_00001;
+#define d1c PBC	= 0b000_01001;PB	= 0b000_00001;
+#define d1d PBC	= 0b000_10001;PB	= 0b000_00001;
+#define d1e PBC	= 0b000_00011;PB	= 0b000_00010;
+#define d1f PBC	= 0b000_00110;PB	= 0b000_00010;
+#define d1g PBC	= 0b000_01010;PB	= 0b000_00010;
+#define d1h PBC	= 0b000_10010;PB	= 0b000_00010;
+     
+void d1num0(void)
+{
+		.delay 1000;
+	d1a
+	d1b
+	d1c
+	d1d
+	d1e
+	d1f
+}
+void d1num1(void)
+{
+	d1b
+	d1c
+}
+void d1num2(void)
+{
+	d1a
+	d1b
+	d1d
+	d1e
+	d1g
+}
+void d1num3(void)
+{
+	d1a
+	d1b
+	d1c
+	d1d
+	d1g
+}
+void d1num4(void)
+{
+	d1b
+	d1c
+	d1f
+	d1g
+}
+void d1num5(void)
+{
+	d1a
+	d1c
+	d1d
+	d1f
+	d1g
+}
+void d1num6(void)
+{
+	d1a
+	d1c
+	d1d
+	d1e
+	d1f
+	d1g
+}
+void d1num7(void)
+{
+	d1a
+	d1b
+	d1c
+}
+void d1num8(void)
+{
+	d1a
+	d1b
+	d1c
+	d1d
+	d1e
+	d1f
+	d1g
+}
+void d1num9(void)
+{
+	d1a
+	d1b
+	d1c
+	d1d
+	d1f
+	d1g
+}
+void d1point(void)
+{
+	d1h
+}

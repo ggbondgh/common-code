@@ -1,0 +1,38 @@
+2024-07-23 04:58:11 INFO: FrmMain.cs, Risc/CRisc/Pic ReadCPU_3394(), find pcValue file, open it
+2024-07-23 04:58:11 INFO: update frmSys.propertyGrid_sys
+2024-07-23 04:58:11 INFO: readAX
+2024-07-23 04:58:11 INFO: readRAM
+2024-07-23 04:58:12 INFO: FrmMain.cs, Risc/CRisc/Pic ReadCPU_3394(), find pcValue file, open it
+2024-07-23 04:58:12 INFO: update frmSys.propertyGrid_sys
+2024-07-23 04:58:12 INFO: readAX
+2024-07-23 04:58:12 INFO: readRAM
+2024-07-23 04:58:12 INFO: FrmMain.cs, Risc/CRisc/Pic ReadCPU_3394(), find pcValue file, open it
+2024-07-23 04:58:12 INFO: Sdcc项目，对PC=0x0000, 搜行号 ... ## 0 .
+2024-07-23 04:58:12 INFO: C项目，在.lst文件中，没找到PC=0x0000所对应的行号, 再走一个步进试试.
+2024-07-23 04:58:12 INFO: Sdcc项目，对PC=0x007C, 搜行号 ... ## 0 .
+2024-07-23 04:58:12 INFO: Sdcc项目，对PC=0x007C, 找到了
+2024-07-23 04:58:12 INFO: update frmSys.propertyGrid_sys
+2024-07-23 04:58:12 INFO: readAX
+2024-07-23 04:58:12 INFO: readRAM
+2024-07-23 04:58:15 INFO: FrmMain.cs, Risc/CRisc/Pic ReadCPU_3394(), find pcValue file, open it
+2024-07-23 04:58:15 INFO: Sdcc项目，对PC=0x0000, 搜行号 ... ## 0 .
+2024-07-23 04:58:15 INFO: C项目，在.lst文件中，没找到PC=0x0000所对应的行号, 再走一个步进试试.
+2024-07-23 04:58:15 INFO: Sdcc项目，对PC=0x007C, 搜行号 ... ## 0 .
+2024-07-23 04:58:15 INFO: Sdcc项目，对PC=0x007C, 找到了
+2024-07-23 04:58:15 INFO: update frmSys.propertyGrid_sys
+2024-07-23 04:58:15 INFO: readAX
+2024-07-23 04:58:15 INFO: readRAM
+2024-07-23 04:58:19 INFO: FrmMain.cs, Risc/CRisc/Pic ReadCPU_3394(), find pcValue file, open it
+2024-07-23 04:58:19 INFO: Sdcc项目，对PC=0x007C, 搜行号 ... ## 0 .
+2024-07-23 04:58:19 INFO: Sdcc项目，对PC=0x007C, 找到了
+2024-07-23 04:58:19 INFO: update frmSys.propertyGrid_sys
+2024-07-23 04:58:19 INFO: readAX
+2024-07-23 04:58:19 INFO: readRAM
+2024-07-23 04:58:20 INFO: FrmMain.cs, Risc/CRisc/Pic ReadCPU_3394(), find pcValue file, open it
+2024-07-23 04:58:20 INFO: Sdcc项目，对PC=0x0000, 搜行号 ... ## 0 .
+2024-07-23 04:58:20 INFO: C项目，在.lst文件中，没找到PC=0x0000所对应的行号, 再走一个步进试试.
+2024-07-23 04:58:20 INFO: Sdcc项目，对PC=0x007C, 搜行号 ... ## 0 .
+2024-07-23 04:58:20 INFO: Sdcc项目，对PC=0x007C, 找到了
+2024-07-23 04:58:20 INFO: update frmSys.propertyGrid_sys
+2024-07-23 04:58:20 INFO: readAX
+2024-07-23 04:58:20 INFO: readRAM

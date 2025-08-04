@@ -1,0 +1,2653 @@
+gplink-2.2.31 (Mar 15 2022)
+Listing File Generated: 2023-4-3  11:58:41
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           ;--------------------------------------------------------
+                                           ; external declarations
+                                           ;--------------------------------------------------------
+                                           	extern	_SET_TOUCH_OPTION
+                                           	extern	_SET_TOUCH_OPTION2
+                                           	extern	_SCAN_TOUCH
+                                           	extern	_TK_SLEEP
+                                           	extern	_SET_UART_9600BPS
+                                           	extern	_UART_SUB
+                                           	extern	_SCAN_UART_OUT
+                                           	extern	_OPEN_OUT_UART
+                                           	extern	_INDFbits
+                                           	extern	_T0CNTbits
+                                           	extern	_PCLbits
+                                           	extern	_STATUSbits
+                                           	extern	_FSRbits
+                                           	extern	_P1bits
+                                           	extern	_MCRbits
+                                           	extern	_T0CRbits
+                                           	extern	_PCLATHbits
+                                           	extern	_PDCONbits
+                                           	extern	_ODCONbits
+                                           	extern	_PUCONbits
+                                           	extern	_INTEbits
+                                           	extern	_INTFbits
+                                           	extern	_PWM1CR0bits
+                                           	extern	_PWM1CR1bits
+                                           	extern	_PWM1CR2bits
+                                           	extern	_DDR1bits
+                                           	extern	_TMRCRbits
+                                           	extern	_T1CRbits
+                                           	extern	_T1CNTbits
+                                           	extern	_T1LOADbits
+                                           	extern	_T1DATAbits
+                                           	extern	_T1DATBbits
+                                           	extern	_T1DATCbits
+                                           	extern	_T1DATDbits
+                                           	extern	_T2CRbits
+                                           	extern	_T2CNTHbits
+                                           	extern	_T2CNTLbits
+                                           	extern	_T2LOADHbits
+                                           	extern	_T2LOADLbits
+                                           	extern	_P1KBCRbits
+                                           	extern	_P1ADCRbits
+                                           	extern	_CMPCR0bits
+                                           	extern	_CMPCR1bits
+                                           	extern	_CMPCR2bits
+                                           	extern	_TKCR0bits
+                                           	extern	_TKCR1bits
+                                           	extern	_TKCNTHbits
+                                           	extern	_TKCNTLbits
+                                           	extern	_CTOUCH_FLAG
+                                           	extern	_INDF
+                                           	extern	_T0CNT
+                                           	extern	_PCL
+                                           	extern	_STATUS
+                                           	extern	_FSR
+                                           	extern	_P1
+                                           	extern	_MCR
+                                           	extern	_T0CR
+                                           	extern	_PCLATH
+                                           	extern	_PDCON
+                                           	extern	_ODCON
+                                           	extern	_PUCON
+                                           	extern	_INTE
+                                           	extern	_INTF
+                                           	extern	_PWM1CR0
+                                           	extern	_PWM1CR1
+                                           	extern	_PWM1CR2
+                                           	extern	_DDR1
+                                           	extern	_TMRCR
+                                           	extern	_T1CR
+                                           	extern	_T1CNT
+                                           	extern	_T1LOAD
+                                           	extern	_T1DATA
+                                           	extern	_T1DATB
+                                           	extern	_T1DATC
+                                           	extern	_T1DATD
+                                           	extern	_T2CR
+                                           	extern	_T2CNTH
+                                           	extern	_T2CNTL
+                                           	extern	_T2LOADH
+                                           	extern	_T2LOADL
+                                           	extern	_P1KBCR
+                                           	extern	_P1ADCR
+                                           	extern	_CMPCR0
+                                           	extern	_CMPCR1
+                                           	extern	_CMPCR2
+                                           	extern	_TKCR0
+                                           	extern	_TKCR1
+                                           	extern	_TKCR2
+                                           	extern	_TKCNTH
+                                           	extern	_TKCNTL
+                                           ;--------------------------------------------------------
+                                           ; global declarations
+                                           ;--------------------------------------------------------
+                                           	global	_TOUCH_OUT
+                                           	global	_Init_Sys
+                                           	global	_Clr_Ram
+                                           	global	_main
+                                           	global	_int_isr
+                                           	global	_CSAVE_ACC
+                                           	global	_CSAVE_STATUS
+                                           	global	_CPLAY_FLAG
+                                           	global	_CTEMP0
+                                           	global	_CTEMP1
+                                           	global	_CTEMP2
+                                           	global	_CTEMP3
+                                           	global	_CTEMP4
+                                           	global	_CTEMP5
+                                           	global	_CTEMP6
+                                           	global	_CTEMP7
+                                           
+                                           	global STK06
+                                           	global STK05
+                                           	global STK04
+                                           	global STK03
+                                           	global STK02
+                                           	global STK01
+                                           	global STK00
+                                           
+                                           sharebank udata_ovr 0x0010
+                                           STK06	res 1
+                                           STK05	res 1
+                                           STK04	res 1
+                                           STK03	res 1
+                                           STK02	res 1
+                                           STK01	res 1
+                                           STK00	res 1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global definitions
+                                           ;--------------------------------------------------------
+                                           UD_MC30P8160_0	udata
+                                           _CSAVE_ACC	res	1
+                                           
+                                           UD_MC30P8160_1	udata
+                                           _CSAVE_STATUS	res	1
+                                           
+                                           UD_MC30P8160_2	udata
+                                           _CPLAY_FLAG	res	1
+                                           
+                                           UD_MC30P8160_3	udata
+                                           _CTEMP0	res	1
+                                           
+                                           UD_MC30P8160_4	udata
+                                           _CTEMP1	res	1
+                                           
+                                           UD_MC30P8160_5	udata
+                                           _CTEMP2	res	1
+                                           
+                                           UD_MC30P8160_6	udata
+                                           _CTEMP3	res	1
+                                           
+                                           UD_MC30P8160_7	udata
+                                           _CTEMP4	res	1
+                                           
+                                           UD_MC30P8160_8	udata
+                                           _CTEMP5	res	1
+                                           
+                                           UD_MC30P8160_9	udata
+                                           _CTEMP6	res	1
+                                           
+                                           UD_MC30P8160_10	udata
+                                           _CTEMP7	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; absolute symbol definitions
+                                           ;--------------------------------------------------------
+                                           ;--------------------------------------------------------
+                                           ; compiler-defined variables
+                                           ;--------------------------------------------------------
+                                           UDL_MC30P8160_0	udata
+                                           r0x1003	res	1
+                                           r0x1004	res	1
+                                           r0x1005	res	1
+                                           r0x1002	res	1
+                                           ;--------------------------------------------------------
+                                           ; initialized data
+                                           ;--------------------------------------------------------
+                                           
+                                           ;@Allocation info for local variables in function 'Init_Sys'
+                                           ;@Init_Sys SET_TOUCH_OPTION          Allocated to registers ;size:2
+                                           ;@Init_Sys SET_TOUCH_OPTION2         Allocated to registers ;size:2
+                                           ;@Init_Sys SCAN_TOUCH                Allocated to registers ;size:2
+                                           ;@Init_Sys TK_SLEEP                  Allocated to registers ;size:2
+                                           ;@Init_Sys TOUCH_OUT                 Allocated to registers ;size:2
+                                           ;@Init_Sys SET_UART_9600BPS          Allocated to registers ;size:2
+                                           ;@Init_Sys UART_SUB                  Allocated to registers ;size:2
+                                           ;@Init_Sys SCAN_UART_OUT             Allocated to registers ;size:2
+                                           ;@Init_Sys OPEN_OUT_UART             Allocated to registers ;size:2
+                                           ;@Init_Sys Init_Sys                  Allocated to registers ;size:2
+                                           ;@Init_Sys INDFbits                  Allocated to registers ;size:1
+                                           ;@Init_Sys T0CNTbits                 Allocated to registers ;size:1
+                                           ;@Init_Sys PCLbits                   Allocated to registers ;size:1
+                                           ;@Init_Sys STATUSbits                Allocated to registers ;size:1
+                                           ;@Init_Sys FSRbits                   Allocated to registers ;size:1
+                                           ;@Init_Sys P1bits                    Allocated to registers ;size:1
+                                           ;@Init_Sys MCRbits                   Allocated to registers ;size:1
+                                           ;@Init_Sys T0CRbits                  Allocated to registers ;size:1
+                                           ;@Init_Sys PCLATHbits                Allocated to registers ;size:1
+                                           ;@Init_Sys PDCONbits                 Allocated to registers ;size:1
+                                           ;@Init_Sys ODCONbits                 Allocated to registers ;size:1
+                                           ;@Init_Sys PUCONbits                 Allocated to registers ;size:1
+                                           ;@Init_Sys INTEbits                  Allocated to registers ;size:1
+                                           ;@Init_Sys INTFbits                  Allocated to registers ;size:1
+                                           ;@Init_Sys PWM1CR0bits               Allocated to registers ;size:1
+                                           ;@Init_Sys PWM1CR1bits               Allocated to registers ;size:1
+                                           ;@Init_Sys PWM1CR2bits               Allocated to registers ;size:1
+                                           ;@Init_Sys DDR1bits                  Allocated to registers ;size:1
+                                           ;@Init_Sys TMRCRbits                 Allocated to registers ;size:1
+                                           ;@Init_Sys T1CRbits                  Allocated to registers ;size:1
+                                           ;@Init_Sys T1CNTbits                 Allocated to registers ;size:1
+                                           ;@Init_Sys T1LOADbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATAbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATBbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATCbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATDbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T2CRbits                  Allocated to registers ;size:1
+                                           ;@Init_Sys T2CNTHbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T2CNTLbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T2LOADHbits               Allocated to registers ;size:1
+                                           ;@Init_Sys T2LOADLbits               Allocated to registers ;size:1
+                                           ;@Init_Sys P1KBCRbits                Allocated to registers ;size:1
+                                           ;@Init_Sys P1ADCRbits                Allocated to registers ;size:1
+                                           ;@Init_Sys CMPCR0bits                Allocated to registers ;size:1
+                                           ;@Init_Sys CMPCR1bits                Allocated to registers ;size:1
+                                           ;@Init_Sys CMPCR2bits                Allocated to registers ;size:1
+                                           ;@Init_Sys TKCR0bits                 Allocated to registers ;size:1
+                                           ;@Init_Sys TKCR1bits                 Allocated to registers ;size:1
+                                           ;@Init_Sys TKCNTHbits                Allocated to registers ;size:1
+                                           ;@Init_Sys TKCNTLbits                Allocated to registers ;size:1
+                                           ;@Init_Sys CTOUCH_FLAG               Allocated to registers ;size:1
+                                           ;@Init_Sys CSAVE_ACC                 Allocated to registers ;size:1
+                                           ;@Init_Sys CSAVE_STATUS              Allocated to registers ;size:1
+                                           ;@Init_Sys CPLAY_FLAG                Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP0                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP1                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP2                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP3                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP4                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP5                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP6                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP7                    Allocated to registers ;size:1
+                                           ;@Init_Sys INDF                      Allocated to registers ;size:1
+                                           ;@Init_Sys T0CNT                     Allocated to registers ;size:1
+                                           ;@Init_Sys PCL                       Allocated to registers ;size:1
+                                           ;@Init_Sys STATUS                    Allocated to registers ;size:1
+                                           ;@Init_Sys FSR                       Allocated to registers ;size:1
+                                           ;@Init_Sys P1                        Allocated to registers ;size:1
+                                           ;@Init_Sys MCR                       Allocated to registers ;size:1
+                                           ;@Init_Sys T0CR                      Allocated to registers ;size:1
+                                           ;@Init_Sys PCLATH                    Allocated to registers ;size:1
+                                           ;@Init_Sys PDCON                     Allocated to registers ;size:1
+                                           ;@Init_Sys ODCON                     Allocated to registers ;size:1
+                                           ;@Init_Sys PUCON                     Allocated to registers ;size:1
+                                           ;@Init_Sys INTE                      Allocated to registers ;size:1
+                                           ;@Init_Sys INTF                      Allocated to registers ;size:1
+                                           ;@Init_Sys PWM1CR0                   Allocated to registers ;size:1
+                                           ;@Init_Sys PWM1CR1                   Allocated to registers ;size:1
+                                           ;@Init_Sys PWM1CR2                   Allocated to registers ;size:1
+                                           ;@Init_Sys DDR1                      Allocated to registers ;size:1
+                                           ;@Init_Sys TMRCR                     Allocated to registers ;size:1
+                                           ;@Init_Sys T1CR                      Allocated to registers ;size:1
+                                           ;@Init_Sys T1CNT                     Allocated to registers ;size:1
+                                           ;@Init_Sys T1LOAD                    Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATA                    Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATB                    Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATC                    Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATD                    Allocated to registers ;size:1
+                                           ;@Init_Sys T2CR                      Allocated to registers ;size:1
+                                           ;@Init_Sys T2CNTH                    Allocated to registers ;size:1
+                                           ;@Init_Sys T2CNTL                    Allocated to registers ;size:1
+                                           ;@Init_Sys T2LOADH                   Allocated to registers ;size:1
+                                           ;@Init_Sys T2LOADL                   Allocated to registers ;size:1
+                                           ;@Init_Sys P1KBCR                    Allocated to registers ;size:1
+                                           ;@Init_Sys P1ADCR                    Allocated to registers ;size:1
+                                           ;@Init_Sys CMPCR0                    Allocated to registers ;size:1
+                                           ;@Init_Sys CMPCR1                    Allocated to registers ;size:1
+                                           ;@Init_Sys CMPCR2                    Allocated to registers ;size:1
+                                           ;@Init_Sys TKCR0                     Allocated to registers ;size:1
+                                           ;@Init_Sys TKCR1                     Allocated to registers ;size:1
+                                           ;@Init_Sys TKCR2                     Allocated to registers ;size:1
+                                           ;@Init_Sys TKCNTH                    Allocated to registers ;size:1
+                                           ;@Init_Sys TKCNTL                    Allocated to registers ;size:1
+                                           ;@end Allocation info for local variables in function 'Init_Sys';
+                                           ;@Allocation info for local variables in function 'Clr_Ram'
+                                           ;@end Allocation info for local variables in function 'Clr_Ram';
+                                           ;@Allocation info for local variables in function 'main'
+                                           ;@end Allocation info for local variables in function 'main';
+                                           ;@Allocation info for local variables in function 'int_isr'
+                                           ;@end Allocation info for local variables in function 'int_isr';
+                                           ;@Allocation info for local variables in function 'TOUCH_OUT'
+                                           ;@end Allocation info for local variables in function 'TOUCH_OUT';
+                                           
+                                           ;--------------------------------------------------------
+                                           ; overlayable items in internal ram 
+                                           ;--------------------------------------------------------
+                                           ;	udata_ovr
+                                           ;--------------------------------------------------------
+                                           ; reset vector 
+                                           ;--------------------------------------------------------
+                                           STARTUP	code 0x0000
+000000   2a5e     goto    0x25e            	goto	_main
+                                           ;--------------------------------------------------------
+                                           ; interrupt and initialization code
+                                           ;--------------------------------------------------------
+                                           c_interrupt	code	0x8
+                                           __sdcc_interrupt
+                                           ;***
+                                           ;  pBlock Stats: dbName = I
+                                           ;***
+                                           ;entry:  _int_isr	;Function start
+                                           ; 0 exit points
+                                           ;functions called:
+                                           ;   _UART_SUB
+                                           ;   _UART_SUB
+                                           ;; Starting pCode block
+                                           _int_isr	;Function start
+                                           ; 0 exit points
+                                           ;	.line	152; "MC30P8160.c"	__endasm;
+000008   159b     movra   0x1b             	MOVRA	_CSAVE_ACC
+000009   1103     swapar  0x3              	SWAPAR	STATUS
+00000a   159c     movra   0x1c             	MOVRA	_CSAVE_STATUS
+                                           	
+                                           ;	.line	155; "MC30P8160.c"	if(T0IF)
+00000b   300f     jbset   0xf, 0           	JBSET	_INTFbits,0
+00000c   280e     goto    0xe              	GOTO	_00124_DS_
+                                           ;	.line	157; "MC30P8160.c"	T0IF   = 0; 
+00000d   3c0f     bclr    0xf, 0           	BCLR	_INTFbits,0
+                                           _00124_DS_
+                                           ;	.line	160; "MC30P8160.c"	if(T1IF)
+00000e   3058     jbset   0x58, 0          	JBSET	_TMRCRbits,0
+00000f   2812     goto    0x12             	GOTO	_00126_DS_
+                                           ;	.line	162; "MC30P8160.c"	T1IF   = 0; 
+000010   3c58     bclr    0x58, 0          	BCLR	_TMRCRbits,0
+                                           ;	.line	164; "MC30P8160.c"	UART_SUB();    	   	   	   	//;串口中断处理
+000011   223e     call    0x23e            	CALL	_UART_SUB
+                                           _00126_DS_
+                                           ;	.line	173; "MC30P8160.c"	__endasm;
+000012   111c     swapar  0x1c             	SWAPAR	_CSAVE_STATUS
+000013   1583     movra   0x3              	MOVRA	STATUS
+000014   119b     swapr   0x1b             	SWAPR	_CSAVE_ACC
+000015   111b     swapar  0x1b             	SWAPAR	_CSAVE_ACC
+                                           	
+                                           END_OF_INTERRUPT
+                                           ;	.line	174; "MC30P8160.c"	}
+000016   000d     retie                    	RETIE	
+                                           
+                                           ;--------------------------------------------------------
+                                           ; code
+                                           ;--------------------------------------------------------
+                                           code_MC30P8160	code
+                                           ;***
+                                           ;  pBlock Stats: dbName = M
+                                           ;***
+                                           ;entry:  _main	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;functions called:
+                                           ;   _Clr_Ram
+                                           ;   _Init_Sys
+                                           ;   _SET_TOUCH_OPTION
+                                           ;   _SET_TOUCH_OPTION2
+                                           ;   _SET_UART_9600BPS
+                                           ;   _SCAN_TOUCH
+                                           ;   _TOUCH_OUT
+                                           ;   _SCAN_UART_OUT
+                                           ;   _OPEN_OUT_UART
+                                           ;   _SET_TOUCH_OPTION2
+                                           ;   _Clr_Ram
+                                           ;   _Init_Sys
+                                           ;   _SET_TOUCH_OPTION
+                                           ;   _SET_TOUCH_OPTION2
+                                           ;   _SET_UART_9600BPS
+                                           ;   _SCAN_TOUCH
+                                           ;   _TOUCH_OUT
+                                           ;   _SCAN_UART_OUT
+                                           ;   _OPEN_OUT_UART
+                                           ;   _SET_TOUCH_OPTION2
+                                           ;3 compiler assigned registers:
+                                           ;   r0x1003
+                                           ;   r0x1004
+                                           ;   r0x1005
+                                           ;; Starting pCode block
+                                           _main	;Function start
+                                           ; 2 exit points
+                                           ;	.line	110; "MC30P8160.c"	Clr_Ram();
+00025e   2293     call    0x293            	CALL	_Clr_Ram
+                                           ;	.line	111; "MC30P8160.c"	Init_Sys();
+00025f   229d     call    0x29d            	CALL	_Init_Sys
+                                           ;	.line	112; "MC30P8160.c"	SET_TOUCH_OPTION();
+000260   21b1     call    0x1b1            	CALL	_SET_TOUCH_OPTION
+                                           ;	.line	113; "MC30P8160.c"	SET_TOUCH_OPTION2();
+000261   21a7     call    0x1a7            	CALL	_SET_TOUCH_OPTION2
+                                           ;	.line	114; "MC30P8160.c"	SET_UART_9600BPS();	   	   	   	//;设定串口波特率
+000262   2236     call    0x236            	CALL	_SET_UART_9600BPS
+                                           _00118_DS_
+                                           ;	.line	117; "MC30P8160.c"	WDT_Clear();
+000263   000e     clrwdt                   	CLRWDT	
+                                           ;	.line	118; "MC30P8160.c"	SCAN_TOUCH();
+000264   202e     call    0x2e             	CALL	_SCAN_TOUCH
+                                           ;	.line	119; "MC30P8160.c"	TOUCH_OUT();
+000265   2289     call    0x289            	CALL	_TOUCH_OUT
+                                           ;	.line	121; "MC30P8160.c"	SCAN_UART_OUT();   	   	   	//;串口输出子程序
+000266   21bf     call    0x1bf            	CALL	_SCAN_UART_OUT
+                                           ;	.line	122; "MC30P8160.c"	if (!(CPLAY_FLAG&0X10))
+000267   161d     movar   0x1d             	MOVAR	_CPLAY_FLAG
+000268   1597     movra   0x17             	MOVRA	r0x1003
+000269   3617     jbclr   0x17, 0x4        	JBCLR	r0x1003,4
+00026a   2a6c     goto    0x26c            	GOTO	_00114_DS_
+                                           ;	.line	124; "MC30P8160.c"	OPEN_OUT_UART();   	   	//;开启串口输出
+00026b   222d     call    0x22d            	CALL	_OPEN_OUT_UART
+                                           _00114_DS_
+                                           ;	.line	127; "MC30P8160.c"	if((CTOUCH_FLAG==0X00)&(!(CPLAY_FLAG&0X02)))
+00026c   162e     movar   0x2e             	MOVAR	_CTOUCH_FLAG
+00026d   0b00     movai   0                	MOVAI	0x00
+00026e   3503     jbclr   0x3, 0x2         	JBCLR	STATUS,2
+00026f   0b01     movai   0x1              	MOVAI	0x01
+000270   1597     movra   0x17             	MOVRA	r0x1003
+000271   161d     movar   0x1d             	MOVAR	_CPLAY_FLAG
+000272   0d02     andai   0x2              	ANDAI	0x02
+000273   3103     jbset   0x3, 0x2         	JBSET	STATUS,2
+000274   0b01     movai   0x1              	MOVAI	0x01
+000275   1598     movra   0x18             	MOVRA	r0x1004
+000276   1618     movar   0x18             	MOVAR	r0x1004
+000277   0b00     movai   0                	MOVAI	0x00
+000278   3503     jbclr   0x3, 0x2         	JBCLR	STATUS,2
+000279   0b01     movai   0x1              	MOVAI	0x01
+00027a   1599     movra   0x19             	MOVRA	r0x1005
+00027b   1619     movar   0x19             	MOVAR	r0x1005
+00027c   1e97     andra   0x17             	ANDRA	r0x1003
+00027d   0b00     movai   0                	MOVAI	0x00
+00027e   1717     orar    0x17             	ORAR	r0x1003
+00027f   3503     jbclr   0x3, 0x2         	JBCLR	STATUS,2
+000280   2a63     goto    0x263            	GOTO	_00118_DS_
+                                           ;	.line	129; "MC30P8160.c"	DDR1=0x0F;
+000281   0b0f     movai   0xf              	MOVAI	0x0f
+000282   15d6     movra   0x56             	MOVRA	_DDR1
+                                           ;	.line	130; "MC30P8160.c"	P1=0x00;
+000283   1d86     clrr    0x6              	CLRR	_P1
+                                           ;	.line	134; "MC30P8160.c"	TKEN=0;	   	   	   	   	   	//关闭TK
+000284   3fec     bclr    0x6c, 0x7        	BCLR	_TKCR0bits,7
+                                           ;	.line	135; "MC30P8160.c"	SLEEP();   	   	   	   	   	//休眠两种编写方式(方式二)
+000285   000b     sleep                    	STOP	
+                                           ;	.line	136; "MC30P8160.c"	SET_TOUCH_OPTION2();
+000286   21a7     call    0x1a7            	CALL	_SET_TOUCH_OPTION2
+000287   2a63     goto    0x263            	GOTO	_00118_DS_
+                                           ;	.line	139; "MC30P8160.c"	}
+000288   000c     return                   	RETURN	
+                                           ; exit point of _main
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _TOUCH_OUT	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;1 compiler assigned register :
+                                           ;   r0x1002
+                                           ;; Starting pCode block
+                                           _TOUCH_OUT	;Function start
+                                           ; 2 exit points
+                                           ;	.line	183; "MC30P8160.c"	if((CTOUCH_FLAG&0X0F)==0)
+000289   162e     movar   0x2e             	MOVAR	_CTOUCH_FLAG
+00028a   159a     movra   0x1a             	MOVRA	r0x1002
+00028b   161a     movar   0x1a             	MOVAR	r0x1002
+00028c   0d0f     andai   0xf              	ANDAI	0x0f
+00028d   3103     jbset   0x3, 0x2         	JBSET	STATUS,2
+00028e   2a91     goto    0x291            	GOTO	_00132_DS_
+                                           ;	.line	185; "MC30P8160.c"	PIN_LED1=OFF;
+00028f   3e06     bclr    0x6, 0x4         	BCLR	_P1bits,4
+000290   2a92     goto    0x292            	GOTO	_00134_DS_
+                                           _00132_DS_
+                                           ;	.line	189; "MC30P8160.c"	PIN_LED1=ON;
+000291   3a06     bset    0x6, 0x4         	BSET	_P1bits,4
+                                           _00134_DS_
+                                           ;	.line	191; "MC30P8160.c"	}
+000292   000c     return                   	RETURN	
+                                           ; exit point of _TOUCH_OUT
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _Clr_Ram	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _Clr_Ram	;Function start
+                                           ; 2 exit points
+                                           ;	.line	102; "MC30P8160.c"	__endasm;
+                                           CLR_RAM:
+000293   0b4f     movai   0x4f             	MOVAI	0X4F
+000294   1584     movra   0x4              	MOVRA	FSR
+000295   0b3f     movai   0x3f             	MOVAI	0X3F
+000296   15cf     movra   0x4f             	MOVRA	0X4F ;把寄存器的数量保存到最后一个寄存器上
+                                           CLR_RAM_LOOP:
+000297   1b84     decr    0x4              	DECR	FSR
+000298   1d80     clrr    0                	CLRR	INDF
+000299   1acf     djzr    0x4f             	DJZR	0X4F
+00029a   2a97     goto    0x297            	GOTO	CLR_RAM_LOOP
+00029b   000c     return                   	RETURN
+                                           	
+                                           ;	.line	103; "MC30P8160.c"	}   
+00029c   000c     return                   	RETURN	
+                                           ; exit point of _Clr_Ram
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _Init_Sys	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _Init_Sys	;Function start
+                                           ; 2 exit points
+                                           ;	.line	82; "MC30P8160.c"	__endasm;
+                                           SET_OPTION:
+00029d   0b0f     movai   0xf              	MOVAI	00001111B
+00029e   15e7     movra   0x67             	MOVRA	P1ADCR
+00029f   0b0f     movai   0xf              	MOVAI	00001111B
+0002a0   15d6     movra   0x56             	MOVRA	DDR1
+0002a1   0b00     movai   0                	MOVAI	00000000B
+0002a2   1586     movra   0x6              	MOVRA	P1
+0002a3   0bff     movai   0xff             	MOVAI	0xFF
+0002a4   158b     movra   0xb              	MOVRA	PDCON
+0002a5   0bff     movai   0xff             	MOVAI	0xFF
+0002a6   158d     movra   0xd              	MOVRA	PUCON
+0002a7   0b00     movai   0                	MOVAI	0x00
+0002a8   158c     movra   0xc              	MOVRA	ODCON
+0002a9   0b00     movai   0                	MOVAI	00000000B
+0002aa   15d9     movra   0x59             	MOVRA	T1CR
+0002ab   1dda     clrr    0x5a             	CLRR	T1CNT
+0002ac   1ddb     clrr    0x5b             	CLRR	T1LOAD
+0002ad   0b00     movai   0                	MOVAI	00000000B
+0002ae   15d8     movra   0x58             	MOVRA	TMRCR
+0002af   0b00     movai   0                	MOVAI	00000000B
+0002b0   15d0     movra   0x50             	MOVRA	PWM1CR0
+0002b1   0b00     movai   0                	MOVAI	00000000B
+0002b2   15d1     movra   0x51             	MOVRA	PWM1CR1
+0002b3   0b00     movai   0                	MOVAI	00000000B
+0002b4   15d2     movra   0x52             	MOVRA	PWM1CR2
+0002b5   1ddc     clrr    0x5c             	CLRR	T1DATA
+0002b6   1ddd     clrr    0x5d             	CLRR	T1DATB
+0002b7   1dde     clrr    0x5e             	CLRR	T1DATC
+0002b8   1ddf     clrr    0x5f             	CLRR	T1DATD
+0002b9   0b01     movai   0x1              	MOVAI	00000001B
+0002ba   158e     movra   0xe              	MOVRA	INTE
+0002bb   3b8e     bset    0xe, 0x7         	BSET	INTE,7
+0002bc   0b00     movai   0                	MOVAI	0x00
+0002bd   158f     movra   0xf              	MOVRA	INTF
+0002be   0b00     movai   0                	MOVAI	0x00
+0002bf   15e5     movra   0x65             	MOVRA	P1KBCR
+0002c0   000c     return                   	RETURN
+                                           	
+                                           ;	.line	83; "MC30P8160.c"	} 
+0002c1   000c     return                   	RETURN	
+                                           ; exit point of _Init_Sys
+                                           
+                                           
+                                           ;	code size estimation:
+                                           ;	   61+    0 =    61 instructions (  122 byte)
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SN-SDCC : SinoMCU ANSI-C Compiler
+                                           ; Version 2.0.0 (Dec 11 2019) (MINGW32)
+                                           ; This file was generated Mon Apr 03 11:58:40 2023
+                                           ;--------------------------------------------------------
+                                           ; MC30 port for the RISC core
+                                           ;--------------------------------------------------------
+                                           ;	.file	"MC30P8160_TK.c"
+                                           	list	p=1K8160
+                                           	radix dec
+                                           	include "1K8160.inc"
+                                           		LIST
+                                           ;mc30p8160.inc    Standard Header File, Version 1.00 by Sinomcu
+                                           		NOLIST
+                                           ;--------------------------------------------------------
+                                           ; external declarations
+                                           ;--------------------------------------------------------
+                                           	extern	_INDFbits
+                                           	extern	_T0CNTbits
+                                           	extern	_PCLbits
+                                           	extern	_STATUSbits
+                                           	extern	_FSRbits
+                                           	extern	_P1bits
+                                           	extern	_MCRbits
+                                           	extern	_T0CRbits
+                                           	extern	_PCLATHbits
+                                           	extern	_PDCONbits
+                                           	extern	_ODCONbits
+                                           	extern	_PUCONbits
+                                           	extern	_INTEbits
+                                           	extern	_INTFbits
+                                           	extern	_PWM1CR0bits
+                                           	extern	_PWM1CR1bits
+                                           	extern	_PWM1CR2bits
+                                           	extern	_DDR1bits
+                                           	extern	_TMRCRbits
+                                           	extern	_T1CRbits
+                                           	extern	_T1CNTbits
+                                           	extern	_T1LOADbits
+                                           	extern	_T1DATAbits
+                                           	extern	_T1DATBbits
+                                           	extern	_T1DATCbits
+                                           	extern	_T1DATDbits
+                                           	extern	_T2CRbits
+                                           	extern	_T2CNTHbits
+                                           	extern	_T2CNTLbits
+                                           	extern	_T2LOADHbits
+                                           	extern	_T2LOADLbits
+                                           	extern	_P1KBCRbits
+                                           	extern	_P1ADCRbits
+                                           	extern	_CMPCR0bits
+                                           	extern	_CMPCR1bits
+                                           	extern	_CMPCR2bits
+                                           	extern	_TKCR0bits
+                                           	extern	_TKCR1bits
+                                           	extern	_TKCNTHbits
+                                           	extern	_TKCNTLbits
+                                           	extern	_CSAVE_ACC
+                                           	extern	_CSAVE_STATUS
+                                           	extern	_CPLAY_FLAG
+                                           	extern	_CTEMP0
+                                           	extern	_CTEMP1
+                                           	extern	_CTEMP2
+                                           	extern	_CTEMP3
+                                           	extern	_CTEMP4
+                                           	extern	_CTEMP5
+                                           	extern	_CTEMP6
+                                           	extern	_CTEMP7
+                                           	extern	_INDF
+                                           	extern	_T0CNT
+                                           	extern	_PCL
+                                           	extern	_STATUS
+                                           	extern	_FSR
+                                           	extern	_P1
+                                           	extern	_MCR
+                                           	extern	_T0CR
+                                           	extern	_PCLATH
+                                           	extern	_PDCON
+                                           	extern	_ODCON
+                                           	extern	_PUCON
+                                           	extern	_INTE
+                                           	extern	_INTF
+                                           	extern	_PWM1CR0
+                                           	extern	_PWM1CR1
+                                           	extern	_PWM1CR2
+                                           	extern	_DDR1
+                                           	extern	_TMRCR
+                                           	extern	_T1CR
+                                           	extern	_T1CNT
+                                           	extern	_T1LOAD
+                                           	extern	_T1DATA
+                                           	extern	_T1DATB
+                                           	extern	_T1DATC
+                                           	extern	_T1DATD
+                                           	extern	_T2CR
+                                           	extern	_T2CNTH
+                                           	extern	_T2CNTL
+                                           	extern	_T2LOADH
+                                           	extern	_T2LOADL
+                                           	extern	_P1KBCR
+                                           	extern	_P1ADCR
+                                           	extern	_CMPCR0
+                                           	extern	_CMPCR1
+                                           	extern	_CMPCR2
+                                           	extern	_TKCR0
+                                           	extern	_TKCR1
+                                           	extern	_TKCR2
+                                           	extern	_TKCNTH
+                                           	extern	_TKCNTL
+                                           
+                                           	extern STK06
+                                           	extern STK05
+                                           	extern STK04
+                                           	extern STK03
+                                           	extern STK02
+                                           	extern STK01
+                                           	extern STK00
+                                           ;--------------------------------------------------------
+                                           ; global declarations
+                                           ;--------------------------------------------------------
+                                           	global	_SET_TOUCH_OPTION
+                                           	global	_SET_TOUCH_OPTION2
+                                           	global	_SCAN_TOUCH
+                                           	global	_TK_SLEEP
+                                           	global	_CTOUCH_SCAN_LIST
+                                           	global	_CTOUCH_SCAN_TONE
+                                           	global	_CTOUCH_DEBOUNCE1
+                                           	global	_CTOUCH_DEBOUNCE2
+                                           	global	_CTOUCH_DEBOUNCE3
+                                           	global	_CTOUCH_DEBOUNCE4
+                                           	global	_CTKCNTL_NEW
+                                           	global	_CTKCNTH_NEW
+                                           	global	_CTOUCH_FLAG
+                                           	global	_CTOUCH_TEMP1
+                                           	global	_CTOUCH_TEMP2
+                                           	global	_CTOUCH_TEMP3
+                                           	global	_CTOUCH_TEMP4
+                                           	global	_CTOUCH_TEMP5
+                                           	global	_CTOUCH_TEMP6
+                                           	global	_CTKCNT0_SAVEH
+                                           	global	_CTKCNT0_SAVEL
+                                           	global	_CTKCNT0_BASEH
+                                           	global	_CTKCNT0_BASEL
+                                           	global	_CTKCNT1_SAVEH
+                                           	global	_CTKCNT1_SAVEL
+                                           	global	_CTKCNT1_BASEH
+                                           	global	_CTKCNT1_BASEL
+                                           	global	_CTKCNT2_SAVEH
+                                           	global	_CTKCNT2_SAVEL
+                                           	global	_CTKCNT2_BASEH
+                                           	global	_CTKCNT2_BASEL
+                                           	global	_CTKCNT3_SAVEH
+                                           	global	_CTKCNT3_SAVEL
+                                           	global	_CTKCNT3_BASEH
+                                           	global	_CTKCNT3_BASEL
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global definitions
+                                           ;--------------------------------------------------------
+                                           UD_MC30P8160_TK_0	udata
+                                           _CTOUCH_SCAN_LIST	res	1
+                                           
+                                           UD_MC30P8160_TK_1	udata
+                                           _CTOUCH_SCAN_TONE	res	1
+                                           
+                                           UD_MC30P8160_TK_2	udata
+                                           _CTOUCH_DEBOUNCE1	res	1
+                                           
+                                           UD_MC30P8160_TK_3	udata
+                                           _CTOUCH_DEBOUNCE2	res	1
+                                           
+                                           UD_MC30P8160_TK_4	udata
+                                           _CTOUCH_DEBOUNCE3	res	1
+                                           
+                                           UD_MC30P8160_TK_5	udata
+                                           _CTOUCH_DEBOUNCE4	res	1
+                                           
+                                           UD_MC30P8160_TK_6	udata
+                                           _CTKCNTL_NEW	res	1
+                                           
+                                           UD_MC30P8160_TK_7	udata
+                                           _CTKCNTH_NEW	res	1
+                                           
+                                           UD_MC30P8160_TK_8	udata
+                                           _CTOUCH_FLAG	res	1
+                                           
+                                           UD_MC30P8160_TK_9	udata
+                                           _CTOUCH_TEMP1	res	1
+                                           
+                                           UD_MC30P8160_TK_10	udata
+                                           _CTOUCH_TEMP2	res	1
+                                           
+                                           UD_MC30P8160_TK_11	udata
+                                           _CTOUCH_TEMP3	res	1
+                                           
+                                           UD_MC30P8160_TK_12	udata
+                                           _CTOUCH_TEMP4	res	1
+                                           
+                                           UD_MC30P8160_TK_13	udata
+                                           _CTOUCH_TEMP5	res	1
+                                           
+                                           UD_MC30P8160_TK_14	udata
+                                           _CTOUCH_TEMP6	res	1
+                                           
+                                           UD_MC30P8160_TK_15	udata
+                                           _CTKCNT0_SAVEH	res	1
+                                           
+                                           UD_MC30P8160_TK_16	udata
+                                           _CTKCNT0_SAVEL	res	1
+                                           
+                                           UD_MC30P8160_TK_17	udata
+                                           _CTKCNT0_BASEH	res	1
+                                           
+                                           UD_MC30P8160_TK_18	udata
+                                           _CTKCNT0_BASEL	res	1
+                                           
+                                           UD_MC30P8160_TK_19	udata
+                                           _CTKCNT1_SAVEH	res	1
+                                           
+                                           UD_MC30P8160_TK_20	udata
+                                           _CTKCNT1_SAVEL	res	1
+                                           
+                                           UD_MC30P8160_TK_21	udata
+                                           _CTKCNT1_BASEH	res	1
+                                           
+                                           UD_MC30P8160_TK_22	udata
+                                           _CTKCNT1_BASEL	res	1
+                                           
+                                           UD_MC30P8160_TK_23	udata
+                                           _CTKCNT2_SAVEH	res	1
+                                           
+                                           UD_MC30P8160_TK_24	udata
+                                           _CTKCNT2_SAVEL	res	1
+                                           
+                                           UD_MC30P8160_TK_25	udata
+                                           _CTKCNT2_BASEH	res	1
+                                           
+                                           UD_MC30P8160_TK_26	udata
+                                           _CTKCNT2_BASEL	res	1
+                                           
+                                           UD_MC30P8160_TK_27	udata
+                                           _CTKCNT3_SAVEH	res	1
+                                           
+                                           UD_MC30P8160_TK_28	udata
+                                           _CTKCNT3_SAVEL	res	1
+                                           
+                                           UD_MC30P8160_TK_29	udata
+                                           _CTKCNT3_BASEH	res	1
+                                           
+                                           UD_MC30P8160_TK_30	udata
+                                           _CTKCNT3_BASEL	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; absolute symbol definitions
+                                           ;--------------------------------------------------------
+                                           ;--------------------------------------------------------
+                                           ; compiler-defined variables
+                                           ;--------------------------------------------------------
+                                           ;--------------------------------------------------------
+                                           ; initialized data
+                                           ;--------------------------------------------------------
+                                           
+                                           ;@Allocation info for local variables in function 'SET_TOUCH_OPTION'
+                                           ;@SET_TOUCH_OPTION SET_TOUCH_OPTION          Allocated to registers ;size:2
+                                           ;@SET_TOUCH_OPTION INDFbits                  Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T0CNTbits                 Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PCLbits                   Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION STATUSbits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION FSRbits                   Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION P1bits                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION MCRbits                   Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T0CRbits                  Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PCLATHbits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PDCONbits                 Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION ODCONbits                 Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PUCONbits                 Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION INTEbits                  Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION INTFbits                  Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PWM1CR0bits               Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PWM1CR1bits               Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PWM1CR2bits               Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION DDR1bits                  Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION TMRCRbits                 Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1CRbits                  Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1CNTbits                 Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1LOADbits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1DATAbits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1DATBbits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1DATCbits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1DATDbits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T2CRbits                  Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T2CNTHbits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T2CNTLbits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T2LOADHbits               Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T2LOADLbits               Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION P1KBCRbits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION P1ADCRbits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CMPCR0bits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CMPCR1bits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CMPCR2bits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION TKCR0bits                 Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION TKCR1bits                 Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION TKCNTHbits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION TKCNTLbits                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTOUCH_SCAN_LIST          Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTOUCH_SCAN_TONE          Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTOUCH_DEBOUNCE1          Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTOUCH_DEBOUNCE2          Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTOUCH_DEBOUNCE3          Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTOUCH_DEBOUNCE4          Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNTL_NEW               Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNTH_NEW               Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTOUCH_FLAG               Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTOUCH_TEMP1              Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTOUCH_TEMP2              Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTOUCH_TEMP3              Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTOUCH_TEMP4              Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTOUCH_TEMP5              Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTOUCH_TEMP6              Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT0_SAVEH             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT0_SAVEL             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT0_BASEH             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT0_BASEL             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT1_SAVEH             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT1_SAVEL             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT1_BASEH             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT1_BASEL             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT2_SAVEH             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT2_SAVEL             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT2_BASEH             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT2_BASEL             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT3_SAVEH             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT3_SAVEL             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT3_BASEH             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTKCNT3_BASEL             Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CSAVE_ACC                 Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CSAVE_STATUS              Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CPLAY_FLAG                Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTEMP0                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTEMP1                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTEMP2                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTEMP3                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTEMP4                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTEMP5                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTEMP6                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CTEMP7                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION INDF                      Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T0CNT                     Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PCL                       Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION STATUS                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION FSR                       Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION P1                        Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION MCR                       Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T0CR                      Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PCLATH                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PDCON                     Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION ODCON                     Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PUCON                     Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION INTE                      Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION INTF                      Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PWM1CR0                   Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PWM1CR1                   Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION PWM1CR2                   Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION DDR1                      Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION TMRCR                     Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1CR                      Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1CNT                     Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1LOAD                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1DATA                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1DATB                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1DATC                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T1DATD                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T2CR                      Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T2CNTH                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T2CNTL                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T2LOADH                   Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION T2LOADL                   Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION P1KBCR                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION P1ADCR                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CMPCR0                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CMPCR1                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION CMPCR2                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION TKCR0                     Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION TKCR1                     Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION TKCR2                     Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION TKCNTH                    Allocated to registers ;size:1
+                                           ;@SET_TOUCH_OPTION TKCNTL                    Allocated to registers ;size:1
+                                           ;@end Allocation info for local variables in function 'SET_TOUCH_OPTION';
+                                           ;@Allocation info for local variables in function 'SET_TOUCH_OPTION2'
+                                           ;@end Allocation info for local variables in function 'SET_TOUCH_OPTION2';
+                                           ;@Allocation info for local variables in function 'SCAN_TOUCH'
+                                           ;@end Allocation info for local variables in function 'SCAN_TOUCH';
+                                           ;@Allocation info for local variables in function 'TK_SLEEP'
+                                           ;@end Allocation info for local variables in function 'TK_SLEEP';
+                                           
+                                           ;--------------------------------------------------------
+                                           ; overlayable items in internal ram 
+                                           ;--------------------------------------------------------
+                                           ;	udata_ovr
+                                           ;--------------------------------------------------------
+                                           ; code
+                                           ;--------------------------------------------------------
+                                           code_MC30P8160_TK	code
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _TK_SLEEP	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _TK_SLEEP	;Function start
+                                           ; 2 exit points
+                                           ;	.line	651; "MC30P8160_TK.c"	__endasm;
+                                           TK_SLEEP:
+000017   0b00     movai   0                	MOVAI	00000000B
+000018   1eeb     andra   0x6b             	ANDRA	TKCR0
+000019   0b00     movai   0                	MOVAI	00000000B
+00001a   158e     movra   0xe              	MOVRA	INTE
+00001b   3b8e     bset    0xe, 0x7         	BSET	INTE,7
+00001c   0b00     movai   0                	MOVAI	0x00
+00001d   158f     movra   0xf              	MOVRA	INTF
+00001e   0000     nop                      	NOP
+00001f   0000     nop                      	NOP
+000020   000b     sleep                    	STOP
+000021   0000     nop                      	NOP
+000022   0000     nop                      	NOP
+000023   0b01     movai   0x1              	MOVAI	00000001B
+000024   158e     movra   0xe              	MOVRA	INTE
+000025   3b8e     bset    0xe, 0x7         	BSET	INTE,7
+000026   0b00     movai   0                	MOVAI	0x00
+000027   158f     movra   0xf              	MOVRA	INTF
+000028   3603     jbclr   0x3, 0x4         	JBCLR	STATUS,4
+000029   282c     goto    0x2c             	GOTO	TK_SLEEP_RET
+                                           WDT_WAKEUP:
+00002a   000e     clrwdt                   	CLRWDT
+00002b   21a7     call    0x1a7            	CALL	SET_TOUCH_OPTION2
+                                           TK_SLEEP_RET:
+00002c   000c     return                   	RETURN
+                                           ;	.line	652; "MC30P8160_TK.c"	}
+00002d   000c     return                   	RETURN	
+                                           ; exit point of _TK_SLEEP
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _SCAN_TOUCH	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _SCAN_TOUCH	;Function start
+                                           ; 2 exit points
+                                           ;	.line	618; "MC30P8160_TK.c"	__endasm;
+00002e   1626     movar   0x26             	MOVAR	_CTOUCH_SCAN_LIST ;扫描TOUCH步骤顺序
+00002f   0d03     andai   0x3              	ANDAI	0X03
+000030   1f82     addra   0x2              	ADDRA	PCL
+000031   2835     goto    0x35             	GOTO	SCAN_TOUCH_STEP1
+000032   2881     goto    0x81             	GOTO	SCAN_TOUCH_STEP2
+000033   2892     goto    0x92             	GOTO	SCAN_TOUCH_STEP3
+000034   1da6     clrr    0x26             	CLRR	_CTOUCH_SCAN_LIST ;扫描TOUCH步骤顺序
+                                           SCAN_TOUCH_STEP1:
+000035   1627     movar   0x27             	MOVAR	_CTOUCH_SCAN_TONE ;扫描触摸通道顺序
+000036   0d03     andai   0x3              	ANDAI	0X03
+000037   1f82     addra   0x2              	ADDRA	PCL
+000038   284a     goto    0x4a             	GOTO	SCAN_TOUCH_STEP1_TONE0
+000039   2854     goto    0x54             	GOTO	SCAN_TOUCH_STEP1_TONE1
+00003a   285e     goto    0x5e             	GOTO	SCAN_TOUCH_STEP1_TONE2
+00003b   2868     goto    0x68             	GOTO	SCAN_TOUCH_STEP1_TONE3
+                                           SCAN_TOUCH_STEP3_SAVE:
+00003c   1627     movar   0x27             	MOVAR	_CTOUCH_SCAN_TONE ;扫描触摸通道顺序
+00003d   0d03     andai   0x3              	ANDAI	0X03
+00003e   1f82     addra   0x2              	ADDRA	PCL
+00003f   295f     goto    0x15f            	GOTO	SCAN_TOUCH_STEP3_BAKTONE0
+000040   2969     goto    0x169            	GOTO	SCAN_TOUCH_STEP3_BAKTONE1
+000041   2973     goto    0x173            	GOTO	SCAN_TOUCH_STEP3_BAKTONE2
+000042   297d     goto    0x17d            	GOTO	SCAN_TOUCH_STEP3_BAKTONE3
+                                           SCAN_TOUCH_STEP3_SAVE_DATA:
+000043   1627     movar   0x27             	MOVAR	_CTOUCH_SCAN_TONE ;扫描触摸通道顺序
+000044   0d03     andai   0x3              	ANDAI	0X03
+000045   1f82     addra   0x2              	ADDRA	PCL
+000046   2964     goto    0x164            	GOTO	SCAN_TOUCH_STEP3_SAVETONE0
+000047   296e     goto    0x16e            	GOTO	SCAN_TOUCH_STEP3_SAVETONE1
+000048   2978     goto    0x178            	GOTO	SCAN_TOUCH_STEP3_SAVETONE2
+000049   2982     goto    0x182            	GOTO	SCAN_TOUCH_STEP3_SAVETONE3
+                                           SCAN_TOUCH_STEP1_TONE0:
+00004a   0b01     movai   0x1              	MOVAI	00000001B
+00004b   17d6     orra    0x56             	ORRA	DDR1
+00004c   17e7     orra    0x67             	ORRA	P1ADCR
+00004d   0b00     movai   0                	MOVAI	00000000B
+00004e   15ec     movra   0x6c             	MOVRA	TKCR1
+00004f   3c1d     bclr    0x1d, 0          	BCLR	_CPLAY_FLAG,0
+000050   362e     jbclr   0x2e, 0x4        	JBCLR	_CTOUCH_FLAG,4 ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+000051   381d     bset    0x1d, 0          	BSET	_CPLAY_FLAG,0
+000052   0b55     movai   0x55             	MOVAI	0x55
+000053   2872     goto    0x72             	GOTO	SCAN_TOUCH_STEP1_NEXT
+                                           SCAN_TOUCH_STEP1_TONE1:
+000054   0b02     movai   0x2              	MOVAI	00000010B
+000055   17d6     orra    0x56             	ORRA	DDR1
+000056   17e7     orra    0x67             	ORRA	P1ADCR
+000057   0b01     movai   0x1              	MOVAI	00000001B
+000058   15ec     movra   0x6c             	MOVRA	TKCR1
+000059   3c1d     bclr    0x1d, 0          	BCLR	_CPLAY_FLAG,0
+00005a   36ae     jbclr   0x2e, 0x5        	JBCLR	_CTOUCH_FLAG,5 ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+00005b   381d     bset    0x1d, 0          	BSET	_CPLAY_FLAG,0
+00005c   0b55     movai   0x55             	MOVAI	0x55
+00005d   2872     goto    0x72             	GOTO	SCAN_TOUCH_STEP1_NEXT
+                                           SCAN_TOUCH_STEP1_TONE2:
+00005e   0b04     movai   0x4              	MOVAI	00000100B
+00005f   17d6     orra    0x56             	ORRA	DDR1
+000060   17e7     orra    0x67             	ORRA	P1ADCR
+000061   0b02     movai   0x2              	MOVAI	00000010B
+000062   15ec     movra   0x6c             	MOVRA	TKCR1
+000063   3c1d     bclr    0x1d, 0          	BCLR	_CPLAY_FLAG,0
+000064   372e     jbclr   0x2e, 0x6        	JBCLR	_CTOUCH_FLAG,6 ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+000065   381d     bset    0x1d, 0          	BSET	_CPLAY_FLAG,0
+000066   0b55     movai   0x55             	MOVAI	0x55
+000067   2872     goto    0x72             	GOTO	SCAN_TOUCH_STEP1_NEXT
+                                           SCAN_TOUCH_STEP1_TONE3:
+000068   0b08     movai   0x8              	MOVAI	00001000B
+000069   17d6     orra    0x56             	ORRA	DDR1
+00006a   17e7     orra    0x67             	ORRA	P1ADCR
+00006b   0b03     movai   0x3              	MOVAI	00000011B
+00006c   15ec     movra   0x6c             	MOVRA	TKCR1
+00006d   3c1d     bclr    0x1d, 0          	BCLR	_CPLAY_FLAG,0
+00006e   37ae     jbclr   0x2e, 0x7        	JBCLR	_CTOUCH_FLAG,7 ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+00006f   381d     bset    0x1d, 0          	BSET	_CPLAY_FLAG,0
+000070   0b55     movai   0x55             	MOVAI	0x55
+000071   2872     goto    0x72             	GOTO	SCAN_TOUCH_STEP1_NEXT
+                                           SCAN_TOUCH_STEP1_NEXT:
+000072   15e1     movra   0x61             	MOVRA	T2CNTH
+000073   15e3     movra   0x63             	MOVRA	T2LOADH
+000074   0bfa     movai   0xfa             	MOVAI	250
+000075   15e2     movra   0x62             	MOVRA	T2CNTL
+000076   15e4     movra   0x64             	MOVRA	T2LOADL
+000077   1dee     clrr    0x6e             	CLRR	TKCNTH
+000078   1def     clrr    0x6f             	CLRR	TKCNTL
+000079   0bc8     movai   0xc8             	MOVAI	11001000B
+00007a   17eb     orra    0x6b             	ORRA	TKCR0
+00007b   3b6b     bset    0x6b, 0x6        	BSET	TKCR0,6
+00007c   3beb     bset    0x6b, 0x7        	BSET	TKCR0,7
+00007d   3be0     bset    0x60, 0x7        	BSET	T2CR,7
+00007e   0b01     movai   0x1              	MOVAI	0X01
+00007f   15a6     movra   0x26             	MOVRA	_CTOUCH_SCAN_LIST ;扫描TOUCH步骤顺序
+000080   000c     return                   	RETURN
+                                           SCAN_TOUCH_STEP2:
+000081   3158     jbset   0x58, 0x2        	JBSET	TMRCR,2
+000082   000c     return                   	RETURN
+000083   3d58     bclr    0x58, 0x2        	BCLR	TMRCR,2
+000084   166e     movar   0x6e             	MOVAR	TKCNTH
+000085   15ad     movra   0x2d             	MOVRA	_CTKCNTH_NEW ;刚扫描到的触摸计数值
+000086   166f     movar   0x6f             	MOVAR	TKCNTL
+000087   15ac     movra   0x2c             	MOVRA	_CTKCNTL_NEW
+000088   3f6b     bclr    0x6b, 0x6        	BCLR	TKCR0,6
+000089   1dee     clrr    0x6e             	CLRR	TKCNTH
+00008a   1def     clrr    0x6f             	CLRR	TKCNTL
+00008b   0b0f     movai   0xf              	MOVAI	00001111B
+00008c   080f     xorai   0xf              	XORAI	00001111B
+00008d   1ee7     andra   0x67             	ANDRA	P1ADCR
+00008e   1ed6     andra   0x56             	ANDRA	DDR1
+00008f   0b02     movai   0x2              	MOVAI	0X02
+000090   15a6     movra   0x26             	MOVRA	_CTOUCH_SCAN_LIST ;扫描TOUCH步骤顺序
+000091   000c     return                   	RETURN
+                                           SCAN_TOUCH_STEP3:
+000092   341d     jbclr   0x1d, 0          	JBCLR	_CPLAY_FLAG,0
+000093   283c     goto    0x3c             	GOTO	SCAN_TOUCH_STEP3_SAVE
+000094   162c     movar   0x2c             	MOVAR	_CTKCNTL_NEW
+000095   1627     movar   0x27             	MOVAR	_CTOUCH_SCAN_TONE ;扫描触摸通道顺序
+000096   0d03     andai   0x3              	ANDAI	0X03
+000097   1f82     addra   0x2              	ADDRA	PCL
+000098   289c     goto    0x9c             	GOTO	SCAN_TOUCH_STEP3_TONE0
+000099   28ad     goto    0xad             	GOTO	SCAN_TOUCH_STEP3_TONE1
+00009a   28be     goto    0xbe             	GOTO	SCAN_TOUCH_STEP3_TONE2
+00009b   28cf     goto    0xcf             	GOTO	SCAN_TOUCH_STEP3_TONE3
+                                           SCAN_TOUCH_STEP3_TONE0:
+00009c   1635     movar   0x35             	MOVAR	_CTKCNT0_SAVEH ;触摸按键0是否使能;没有使用时取消定义
+00009d   159e     movra   0x1e             	MOVRA	_CTEMP0
+00009e   1636     movar   0x36             	MOVAR	_CTKCNT0_SAVEL
+00009f   159f     movra   0x1f             	MOVRA	_CTEMP1
+0000a0   0b20     movai   0x20             	MOVAI	0X20
+0000a1   15af     movra   0x2f             	MOVRA	_CTOUCH_TEMP1 ;暂存
+0000a2   0b18     movai   0x18             	MOVAI	0X18
+0000a3   15b0     movra   0x30             	MOVRA	_CTOUCH_TEMP2 ;暂存
+0000a4   0b01     movai   0x1              	MOVAI	00000001B
+0000a5   15b1     movra   0x31             	MOVRA	_CTOUCH_TEMP3 ;暂存
+0000a6   0b10     movai   0x10             	MOVAI	0X10
+0000a7   15b2     movra   0x32             	MOVRA	_CTOUCH_TEMP4 ;暂存
+0000a8   1638     movar   0x38             	MOVAR	_CTKCNT0_BASEL
+0000a9   15b3     movra   0x33             	MOVRA	_CTOUCH_TEMP5 ;暂存
+0000aa   1637     movar   0x37             	MOVAR	_CTKCNT0_BASEH
+0000ab   15b4     movra   0x34             	MOVRA	_CTOUCH_TEMP6 ;暂存
+0000ac   28e0     goto    0xe0             	GOTO	SCAN_TOUCH_STEP3_CHECK
+                                           SCAN_TOUCH_STEP3_TONE1:
+0000ad   1639     movar   0x39             	MOVAR	_CTKCNT1_SAVEH ;触摸按键1是否使能;没有使用时取消定义
+0000ae   159e     movra   0x1e             	MOVRA	_CTEMP0
+0000af   163a     movar   0x3a             	MOVAR	_CTKCNT1_SAVEL
+0000b0   159f     movra   0x1f             	MOVRA	_CTEMP1
+0000b1   0b20     movai   0x20             	MOVAI	0X20
+0000b2   15af     movra   0x2f             	MOVRA	_CTOUCH_TEMP1 ;暂存
+0000b3   0b18     movai   0x18             	MOVAI	0X18
+0000b4   15b0     movra   0x30             	MOVRA	_CTOUCH_TEMP2 ;暂存
+0000b5   0b02     movai   0x2              	MOVAI	00000010B
+0000b6   15b1     movra   0x31             	MOVRA	_CTOUCH_TEMP3 ;暂存
+0000b7   0b10     movai   0x10             	MOVAI	0X10
+0000b8   15b2     movra   0x32             	MOVRA	_CTOUCH_TEMP4 ;暂存
+0000b9   163c     movar   0x3c             	MOVAR	_CTKCNT1_BASEL
+0000ba   15b3     movra   0x33             	MOVRA	_CTOUCH_TEMP5 ;暂存
+0000bb   163b     movar   0x3b             	MOVAR	_CTKCNT1_BASEH
+0000bc   15b4     movra   0x34             	MOVRA	_CTOUCH_TEMP6 ;暂存
+0000bd   28e0     goto    0xe0             	GOTO	SCAN_TOUCH_STEP3_CHECK
+                                           SCAN_TOUCH_STEP3_TONE2:
+0000be   163d     movar   0x3d             	MOVAR	_CTKCNT2_SAVEH ;触摸按键2是否使能;没有使用时取消定义
+0000bf   159e     movra   0x1e             	MOVRA	_CTEMP0
+0000c0   163e     movar   0x3e             	MOVAR	_CTKCNT2_SAVEL
+0000c1   159f     movra   0x1f             	MOVRA	_CTEMP1
+0000c2   0b20     movai   0x20             	MOVAI	0X20
+0000c3   15af     movra   0x2f             	MOVRA	_CTOUCH_TEMP1 ;暂存
+0000c4   0b18     movai   0x18             	MOVAI	0X18
+0000c5   15b0     movra   0x30             	MOVRA	_CTOUCH_TEMP2 ;暂存
+0000c6   0b04     movai   0x4              	MOVAI	00000100B
+0000c7   15b1     movra   0x31             	MOVRA	_CTOUCH_TEMP3 ;暂存
+0000c8   0b10     movai   0x10             	MOVAI	0X10
+0000c9   15b2     movra   0x32             	MOVRA	_CTOUCH_TEMP4 ;暂存
+0000ca   1640     movar   0x40             	MOVAR	_CTKCNT2_BASEL
+0000cb   15b3     movra   0x33             	MOVRA	_CTOUCH_TEMP5 ;暂存
+0000cc   163f     movar   0x3f             	MOVAR	_CTKCNT2_BASEH
+0000cd   15b4     movra   0x34             	MOVRA	_CTOUCH_TEMP6 ;暂存
+0000ce   28e0     goto    0xe0             	GOTO	SCAN_TOUCH_STEP3_CHECK
+                                           SCAN_TOUCH_STEP3_TONE3:
+0000cf   1641     movar   0x41             	MOVAR	_CTKCNT3_SAVEH ;触摸按键3是否使能;没有使用时取消定义
+0000d0   159e     movra   0x1e             	MOVRA	_CTEMP0
+0000d1   1642     movar   0x42             	MOVAR	_CTKCNT3_SAVEL
+0000d2   159f     movra   0x1f             	MOVRA	_CTEMP1
+0000d3   0b20     movai   0x20             	MOVAI	0X20
+0000d4   15af     movra   0x2f             	MOVRA	_CTOUCH_TEMP1 ;暂存
+0000d5   0b18     movai   0x18             	MOVAI	0X18
+0000d6   15b0     movra   0x30             	MOVRA	_CTOUCH_TEMP2 ;暂存
+0000d7   0b08     movai   0x8              	MOVAI	00001000B
+0000d8   15b1     movra   0x31             	MOVRA	_CTOUCH_TEMP3 ;暂存
+0000d9   0b10     movai   0x10             	MOVAI	0X10
+0000da   15b2     movra   0x32             	MOVRA	_CTOUCH_TEMP4 ;暂存
+0000db   1644     movar   0x44             	MOVAR	_CTKCNT3_BASEL
+0000dc   15b3     movra   0x33             	MOVRA	_CTOUCH_TEMP5 ;暂存
+0000dd   1643     movar   0x43             	MOVAR	_CTKCNT3_BASEH
+0000de   15b4     movra   0x34             	MOVRA	_CTOUCH_TEMP6 ;暂存
+0000df   28e0     goto    0xe0             	GOTO	SCAN_TOUCH_STEP3_CHECK
+                                           SCAN_TOUCH_STEP3_CHECK:
+0000e0   162c     movar   0x2c             	MOVAR	_CTKCNTL_NEW
+0000e1   15a1     movra   0x21             	MOVRA	_CTEMP3
+0000e2   162d     movar   0x2d             	MOVAR	_CTKCNTH_NEW ;刚扫描到的触摸计数值
+0000e3   15a0     movra   0x20             	MOVRA	_CTEMP2
+0000e4   161f     movar   0x1f             	MOVAR	_CTEMP1
+0000e5   15a3     movra   0x23             	MOVRA	_CTEMP5
+0000e6   161e     movar   0x1e             	MOVAR	_CTEMP0
+0000e7   15a2     movra   0x22             	MOVRA	_CTEMP4
+0000e8   2194     call    0x194            	CALL	SUB_2BYTE
+                                           SCAN_TOUCH_STEP3_CHECK_MAX:
+0000e9   0b70     movai   0x70             	MOVAI	0X70
+0000ea   1e24     andar   0x24             	ANDAR	_CTEMP6
+0000eb   3103     jbset   0x3, 0x2         	JBSET	STATUS,2
+0000ec   2953     goto    0x153            	GOTO	SCAN_TOUCH_STEP3_BAD
+                                           SCAN_TOUCH_STEP3_CHECK_NEXT:
+0000ed   33a4     jbset   0x24, 0x7        	JBSET	_CTEMP6,7
+0000ee   2941     goto    0x141            	GOTO	SCAN_TOUCH_STEP3_TORELEASE
+                                           SCAN_TOUCH_STEP3_TOPRESS:
+0000ef   0b7f     movai   0x7f             	MOVAI	0X7F
+0000f0   1e24     andar   0x24             	ANDAR	_CTEMP6
+0000f1   3103     jbset   0x3, 0x2         	JBSET	STATUS,2
+0000f2   28fc     goto    0xfc             	GOTO	SCAN_TOUCH_STEP3_PRE
+0000f3   162f     movar   0x2f             	MOVAR	_CTOUCH_TEMP1 ;暂存
+0000f4   1225     rsubar  0x25             	RSUBAR	_CTEMP7
+0000f5   3403     jbclr   0x3, 0           	JBCLR	STATUS,0
+0000f6   28fc     goto    0xfc             	GOTO	SCAN_TOUCH_STEP3_PRE
+0000f7   0b08     movai   0x8              	MOVAI	0X08
+0000f8   1225     rsubar  0x25             	RSUBAR	_CTEMP7
+0000f9   3403     jbclr   0x3, 0           	JBCLR	STATUS,0
+0000fa   293b     goto    0x13b            	GOTO	SCAN_TOUCH_STEP3_SAVEDEBOUNCE
+0000fb   2918     goto    0x118            	GOTO	SCAN_TOUCH_STEP3_NORMAL
+                                           SCAN_TOUCH_STEP3_PRE:
+0000fc   162c     movar   0x2c             	MOVAR	_CTKCNTL_NEW
+0000fd   15a1     movra   0x21             	MOVRA	_CTEMP3
+0000fe   162d     movar   0x2d             	MOVAR	_CTKCNTH_NEW ;刚扫描到的触摸计数值
+0000ff   15a0     movra   0x20             	MOVRA	_CTEMP2
+000100   1633     movar   0x33             	MOVAR	_CTOUCH_TEMP5 ;暂存
+000101   15a3     movra   0x23             	MOVRA	_CTEMP5
+000102   1634     movar   0x34             	MOVAR	_CTOUCH_TEMP6 ;暂存
+000103   15a2     movra   0x22             	MOVRA	_CTEMP4
+000104   2194     call    0x194            	CALL	SUB_2BYTE
+000105   0b70     movai   0x70             	MOVAI	0X70
+000106   1e24     andar   0x24             	ANDAR	_CTEMP6
+000107   3103     jbset   0x3, 0x2         	JBSET	STATUS,2
+000108   2953     goto    0x153            	GOTO	SCAN_TOUCH_STEP3_BAD
+000109   0b10     movai   0x10             	MOVAI	0X10
+00010a   1225     rsubar  0x25             	RSUBAR	_CTEMP7
+00010b   3003     jbset   0x3, 0           	JBSET	STATUS,0
+00010c   2953     goto    0x153            	GOTO	SCAN_TOUCH_STEP3_BAD
+                                           SCAN_TOUCH_STEP3_PRE_MAX:
+00010d   33a4     jbset   0x24, 0x7        	JBSET	_CTEMP6,7
+00010e   2953     goto    0x153            	GOTO	SCAN_TOUCH_STEP3_BAD
+                                           SCAN_TOUCH_STEP3_PRE_NEXT:
+00010f   1da8     clrr    0x28             	CLRR	_CTOUCH_DEBOUNCE1 ;触摸按下消抖计数
+000110   19a9     incr    0x29             	INCR	_CTOUCH_DEBOUNCE2 ;触摸松开消抖计数
+000111   1632     movar   0x32             	MOVAR	_CTOUCH_TEMP4 ;暂存
+000112   1229     rsubar  0x29             	RSUBAR	_CTOUCH_DEBOUNCE2 ;触摸松开消抖计数
+000113   3003     jbset   0x3, 0           	JBSET	STATUS,0
+000114   295d     goto    0x15d            	GOTO	SCAN_TOUCH_STEP3_RECHECK
+000115   1631     movar   0x31             	MOVAR	_CTOUCH_TEMP3 ;暂存
+000116   17ae     orra    0x2e             	ORRA	_CTOUCH_FLAG ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+000117   2843     goto    0x43             	GOTO	SCAN_TOUCH_STEP3_SAVE_DATA
+                                           SCAN_TOUCH_STEP3_NORMAL:
+000118   19aa     incr    0x2a             	INCR	_CTOUCH_DEBOUNCE3 ;触摸环境消抖计数
+000119   0b10     movai   0x10             	MOVAI	0X10
+00011a   122a     rsubar  0x2a             	RSUBAR	_CTOUCH_DEBOUNCE3 ;触摸环境消抖计数
+00011b   3003     jbset   0x3, 0           	JBSET	STATUS,0
+00011c   295d     goto    0x15d            	GOTO	SCAN_TOUCH_STEP3_RECHECK
+00011d   1daa     clrr    0x2a             	CLRR	_CTOUCH_DEBOUNCE3 ;触摸环境消抖计数
+                                           SCAN_TOUCH_STEP3_NORMAL2:
+00011e   161f     movar   0x1f             	MOVAR	_CTEMP1
+00011f   15a1     movra   0x21             	MOVRA	_CTEMP3
+000120   161e     movar   0x1e             	MOVAR	_CTEMP0
+000121   15a0     movra   0x20             	MOVRA	_CTEMP2
+000122   1633     movar   0x33             	MOVAR	_CTOUCH_TEMP5 ;暂存
+000123   15a3     movra   0x23             	MOVRA	_CTEMP5
+000124   1634     movar   0x34             	MOVAR	_CTOUCH_TEMP6 ;暂存
+000125   15a2     movra   0x22             	MOVRA	_CTEMP4
+000126   2194     call    0x194            	CALL	SUB_2BYTE
+000127   0b70     movai   0x70             	MOVAI	0X70
+000128   1e24     andar   0x24             	ANDAR	_CTEMP6
+000129   3103     jbset   0x3, 0x2         	JBSET	STATUS,2
+00012a   2953     goto    0x153            	GOTO	SCAN_TOUCH_STEP3_BAD
+00012b   1631     movar   0x31             	MOVAR	_CTOUCH_TEMP3 ;暂存
+00012c   1e2e     andar   0x2e             	ANDAR	_CTOUCH_FLAG ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+00012d   3503     jbclr   0x3, 0x2         	JBCLR	STATUS,2
+00012e   293a     goto    0x13a            	GOTO	SCAN_TOUCH_STEP3_NORMAL_KEYUNHOLD
+                                           SCAN_TOUCH_STEP3_NORMAL_KEYHOLD:
+00012f   0b7f     movai   0x7f             	MOVAI	0X7F
+000130   1e24     andar   0x24             	ANDAR	_CTEMP6
+000131   3103     jbset   0x3, 0x2         	JBSET	STATUS,2
+000132   2843     goto    0x43             	GOTO	SCAN_TOUCH_STEP3_SAVE_DATA
+000133   0b10     movai   0x10             	MOVAI	0X10
+000134   1225     rsubar  0x25             	RSUBAR	_CTEMP7
+000135   3003     jbset   0x3, 0           	JBSET	STATUS,0
+000136   2953     goto    0x153            	GOTO	SCAN_TOUCH_STEP3_BAD
+000137   33a4     jbset   0x24, 0x7        	JBSET	_CTEMP6,7
+000138   2953     goto    0x153            	GOTO	SCAN_TOUCH_STEP3_BAD
+000139   2843     goto    0x43             	GOTO	SCAN_TOUCH_STEP3_SAVE_DATA
+                                           SCAN_TOUCH_STEP3_NORMAL_KEYUNHOLD:
+00013a   283c     goto    0x3c             	GOTO	SCAN_TOUCH_STEP3_SAVE
+                                           SCAN_TOUCH_STEP3_SAVEDEBOUNCE:
+00013b   19aa     incr    0x2a             	INCR	_CTOUCH_DEBOUNCE3 ;触摸环境消抖计数
+00013c   0bf0     movai   0xf0             	MOVAI	0XF0
+00013d   122a     rsubar  0x2a             	RSUBAR	_CTOUCH_DEBOUNCE3 ;触摸环境消抖计数
+00013e   3003     jbset   0x3, 0           	JBSET	STATUS,0
+00013f   295d     goto    0x15d            	GOTO	SCAN_TOUCH_STEP3_RECHECK
+000140   2843     goto    0x43             	GOTO	SCAN_TOUCH_STEP3_SAVE_DATA
+                                           SCAN_TOUCH_STEP3_TORELEASE:
+000141   0b7f     movai   0x7f             	MOVAI	0X7F
+000142   1e24     andar   0x24             	ANDAR	_CTEMP6
+000143   3103     jbset   0x3, 0x2         	JBSET	STATUS,2
+000144   294a     goto    0x14a            	GOTO	SCAN_TOUCH_STEP3_RELEASE
+000145   1630     movar   0x30             	MOVAR	_CTOUCH_TEMP2 ;暂存
+000146   1225     rsubar  0x25             	RSUBAR	_CTEMP7
+000147   3403     jbclr   0x3, 0           	JBCLR	STATUS,0
+000148   294a     goto    0x14a            	GOTO	SCAN_TOUCH_STEP3_RELEASE
+000149   2918     goto    0x118            	GOTO	SCAN_TOUCH_STEP3_NORMAL
+                                           SCAN_TOUCH_STEP3_RELEASE:
+00014a   1da9     clrr    0x29             	CLRR	_CTOUCH_DEBOUNCE2 ;触摸松开消抖计数
+00014b   19a8     incr    0x28             	INCR	_CTOUCH_DEBOUNCE1 ;触摸按下消抖计数
+00014c   1632     movar   0x32             	MOVAR	_CTOUCH_TEMP4 ;暂存
+00014d   1228     rsubar  0x28             	RSUBAR	_CTOUCH_DEBOUNCE1 ;触摸按下消抖计数
+00014e   3003     jbset   0x3, 0           	JBSET	STATUS,0
+00014f   295d     goto    0x15d            	GOTO	SCAN_TOUCH_STEP3_RECHECK
+                                           SCAN_TOUCH_STEP3_RELEASE_SET:
+000150   1c31     comar   0x31             	COMAR	_CTOUCH_TEMP3 ;暂存
+000151   1eae     andra   0x2e             	ANDRA	_CTOUCH_FLAG ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+000152   2843     goto    0x43             	GOTO	SCAN_TOUCH_STEP3_SAVE_DATA
+                                           SCAN_TOUCH_STEP3_BAD:
+000153   19ab     incr    0x2b             	INCR	_CTOUCH_DEBOUNCE4 ;触摸环境消抖计数
+000154   1632     movar   0x32             	MOVAR	_CTOUCH_TEMP4 ;暂存
+000155   122b     rsubar  0x2b             	RSUBAR	_CTOUCH_DEBOUNCE4 ;触摸环境消抖计数
+000156   3003     jbset   0x3, 0           	JBSET	STATUS,0
+000157   295d     goto    0x15d            	GOTO	SCAN_TOUCH_STEP3_RECHECK
+000158   1c31     comar   0x31             	COMAR	_CTOUCH_TEMP3 ;暂存
+000159   1eae     andra   0x2e             	ANDRA	_CTOUCH_FLAG ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+00015a   1131     swapar  0x31             	SWAPAR	_CTOUCH_TEMP3 ;暂存
+00015b   17ae     orra    0x2e             	ORRA	_CTOUCH_FLAG ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+00015c   2987     goto    0x187            	GOTO	SCAN_TOUCH_STEP3_NEXT
+                                           SCAN_TOUCH_STEP3_RECHECK:
+00015d   1da6     clrr    0x26             	CLRR	_CTOUCH_SCAN_LIST ;扫描TOUCH步骤顺序
+00015e   000c     return                   	RETURN
+                                           SCAN_TOUCH_STEP3_BAKTONE0:
+00015f   162c     movar   0x2c             	MOVAR	_CTKCNTL_NEW
+000160   15b8     movra   0x38             	MOVRA	_CTKCNT0_BASEL
+000161   162d     movar   0x2d             	MOVAR	_CTKCNTH_NEW ;刚扫描到的触摸计数值
+000162   15b7     movra   0x37             	MOVRA	_CTKCNT0_BASEH
+000163   3e2e     bclr    0x2e, 0x4        	BCLR	_CTOUCH_FLAG,4 ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+                                           SCAN_TOUCH_STEP3_SAVETONE0:
+000164   162c     movar   0x2c             	MOVAR	_CTKCNTL_NEW
+000165   15b6     movra   0x36             	MOVRA	_CTKCNT0_SAVEL
+000166   162d     movar   0x2d             	MOVAR	_CTKCNTH_NEW ;刚扫描到的触摸计数值
+000167   15b5     movra   0x35             	MOVRA	_CTKCNT0_SAVEH ;触摸按键0是否使能;没有使用时取消定义
+000168   2987     goto    0x187            	GOTO	SCAN_TOUCH_STEP3_NEXT
+                                           SCAN_TOUCH_STEP3_BAKTONE1:
+000169   162c     movar   0x2c             	MOVAR	_CTKCNTL_NEW
+00016a   15bc     movra   0x3c             	MOVRA	_CTKCNT1_BASEL
+00016b   162d     movar   0x2d             	MOVAR	_CTKCNTH_NEW ;刚扫描到的触摸计数值
+00016c   15bb     movra   0x3b             	MOVRA	_CTKCNT1_BASEH
+00016d   3eae     bclr    0x2e, 0x5        	BCLR	_CTOUCH_FLAG,5 ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+                                           SCAN_TOUCH_STEP3_SAVETONE1:
+00016e   162c     movar   0x2c             	MOVAR	_CTKCNTL_NEW
+00016f   15ba     movra   0x3a             	MOVRA	_CTKCNT1_SAVEL
+000170   162d     movar   0x2d             	MOVAR	_CTKCNTH_NEW ;刚扫描到的触摸计数值
+000171   15b9     movra   0x39             	MOVRA	_CTKCNT1_SAVEH ;触摸按键1是否使能;没有使用时取消定义
+000172   2987     goto    0x187            	GOTO	SCAN_TOUCH_STEP3_NEXT
+                                           SCAN_TOUCH_STEP3_BAKTONE2:
+000173   162c     movar   0x2c             	MOVAR	_CTKCNTL_NEW
+000174   15c0     movra   0x40             	MOVRA	_CTKCNT2_BASEL
+000175   162d     movar   0x2d             	MOVAR	_CTKCNTH_NEW ;刚扫描到的触摸计数值
+000176   15bf     movra   0x3f             	MOVRA	_CTKCNT2_BASEH
+000177   3f2e     bclr    0x2e, 0x6        	BCLR	_CTOUCH_FLAG,6 ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+                                           SCAN_TOUCH_STEP3_SAVETONE2:
+000178   162c     movar   0x2c             	MOVAR	_CTKCNTL_NEW
+000179   15be     movra   0x3e             	MOVRA	_CTKCNT2_SAVEL
+00017a   162d     movar   0x2d             	MOVAR	_CTKCNTH_NEW ;刚扫描到的触摸计数值
+00017b   15bd     movra   0x3d             	MOVRA	_CTKCNT2_SAVEH ;触摸按键2是否使能;没有使用时取消定义
+00017c   2987     goto    0x187            	GOTO	SCAN_TOUCH_STEP3_NEXT
+                                           SCAN_TOUCH_STEP3_BAKTONE3:
+00017d   162c     movar   0x2c             	MOVAR	_CTKCNTL_NEW
+00017e   15c4     movra   0x44             	MOVRA	_CTKCNT3_BASEL
+00017f   162d     movar   0x2d             	MOVAR	_CTKCNTH_NEW ;刚扫描到的触摸计数值
+000180   15c3     movra   0x43             	MOVRA	_CTKCNT3_BASEH
+000181   3fae     bclr    0x2e, 0x7        	BCLR	_CTOUCH_FLAG,7 ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+                                           SCAN_TOUCH_STEP3_SAVETONE3:
+000182   162c     movar   0x2c             	MOVAR	_CTKCNTL_NEW
+000183   15c2     movra   0x42             	MOVRA	_CTKCNT3_SAVEL
+000184   162d     movar   0x2d             	MOVAR	_CTKCNTH_NEW ;刚扫描到的触摸计数值
+000185   15c1     movra   0x41             	MOVRA	_CTKCNT3_SAVEH ;触摸按键3是否使能;没有使用时取消定义
+000186   2987     goto    0x187            	GOTO	SCAN_TOUCH_STEP3_NEXT
+                                           SCAN_TOUCH_STEP3_NEXT:
+000187   19a7     incr    0x27             	INCR	_CTOUCH_SCAN_TONE ;扫描触摸通道顺序
+000188   0b04     movai   0x4              	MOVAI	4
+000189   1227     rsubar  0x27             	RSUBAR	_CTOUCH_SCAN_TONE ;扫描触摸通道顺序
+00018a   3003     jbset   0x3, 0           	JBSET	STATUS,0
+00018b   298e     goto    0x18e            	GOTO	SCAN_TOUCH_STEP3_NEXT1
+00018c   391d     bset    0x1d, 0x2        	BSET	_CPLAY_FLAG,2
+00018d   1da7     clrr    0x27             	CLRR	_CTOUCH_SCAN_TONE ;扫描触摸通道顺序
+                                           SCAN_TOUCH_STEP3_NEXT1:
+00018e   1da8     clrr    0x28             	CLRR	_CTOUCH_DEBOUNCE1 ;触摸按下消抖计数
+00018f   1da9     clrr    0x29             	CLRR	_CTOUCH_DEBOUNCE2 ;触摸松开消抖计数
+000190   1daa     clrr    0x2a             	CLRR	_CTOUCH_DEBOUNCE3 ;触摸环境消抖计数
+000191   1dab     clrr    0x2b             	CLRR	_CTOUCH_DEBOUNCE4 ;触摸环境消抖计数
+000192   1da6     clrr    0x26             	CLRR	_CTOUCH_SCAN_LIST ;扫描TOUCH步骤顺序
+000193   000c     return                   	RETURN
+                                           SUB_2BYTE:
+000194   3c03     bclr    0x3, 0           	BCLR	STATUS,0
+000195   1623     movar   0x23             	MOVAR	_CTEMP5
+000196   1221     rsubar  0x21             	RSUBAR	_CTEMP3
+000197   15a5     movra   0x25             	MOVRA	_CTEMP7
+000198   1622     movar   0x22             	MOVAR	_CTEMP4
+000199   0620     rsbcar  0x20             	RSBCAR	_CTEMP2
+00019a   15a4     movra   0x24             	MOVRA	_CTEMP6
+00019b   3fa4     bclr    0x24, 0x7        	BCLR	_CTEMP6,7
+00019c   3403     jbclr   0x3, 0           	JBCLR	STATUS,0
+00019d   000c     return                   	RETURN
+00019e   1621     movar   0x21             	MOVAR	_CTEMP3
+00019f   1223     rsubar  0x23             	RSUBAR	_CTEMP5
+0001a0   15a5     movra   0x25             	MOVRA	_CTEMP7
+0001a1   1620     movar   0x20             	MOVAR	_CTEMP2
+0001a2   0622     rsbcar  0x22             	RSBCAR	_CTEMP4
+0001a3   15a4     movra   0x24             	MOVRA	_CTEMP6
+0001a4   3ba4     bset    0x24, 0x7        	BSET	_CTEMP6,7
+0001a5   000c     return                   	RETURN
+                                           ;	.line	619; "MC30P8160_TK.c"	}
+0001a6   000c     return                   	RETURN	
+                                           ; exit point of _SCAN_TOUCH
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _SET_TOUCH_OPTION2	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _SET_TOUCH_OPTION2	;Function start
+                                           ; 2 exit points
+                                           ;	.line	54; "MC30P8160_TK.c"	__endasm;
+                                           SET_TOUCH_OPTION2:
+0001a7   1da6     clrr    0x26             	CLRR	_CTOUCH_SCAN_LIST ;扫描TOUCH步骤顺序
+0001a8   1da7     clrr    0x27             	CLRR	_CTOUCH_SCAN_TONE ;扫描触摸通道顺序
+0001a9   1da8     clrr    0x28             	CLRR	_CTOUCH_DEBOUNCE1 ;触摸按下消抖计数
+0001aa   1da9     clrr    0x29             	CLRR	_CTOUCH_DEBOUNCE2 ;触摸松开消抖计数
+0001ab   1daa     clrr    0x2a             	CLRR	_CTOUCH_DEBOUNCE3 ;触摸环境消抖计数
+0001ac   1dab     clrr    0x2b             	CLRR	_CTOUCH_DEBOUNCE4 ;触摸环境消抖计数
+0001ad   3d1d     bclr    0x1d, 0x2        	BCLR	_CPLAY_FLAG,2
+0001ae   389d     bset    0x1d, 0x1        	BSET	_CPLAY_FLAG,1
+0001af   000c     return                   	RETURN
+                                           ;	.line	55; "MC30P8160_TK.c"	}
+0001b0   000c     return                   	RETURN	
+                                           ; exit point of _SET_TOUCH_OPTION2
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _SET_TOUCH_OPTION	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _SET_TOUCH_OPTION	;Function start
+                                           ; 2 exit points
+                                           ;	.line	36; "MC30P8160_TK.c"	__endasm;
+                                           SET_TOUCH_OPTION:
+0001b1   0b0f     movai   0xf              	MOVAI	00001111B
+0001b2   15e7     movra   0x67             	MOVRA	P1ADCR
+0001b3   17d6     orra    0x56             	ORRA	DDR1
+0001b4   15ae     movra   0x2e             	MOVRA	_CTOUCH_FLAG ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+0001b5   11ae     swapr   0x2e             	SWAPR	_CTOUCH_FLAG ;对应哪个触摸通道被触发（相应的位置1则表示有触摸)
+0001b6   3dd8     bclr    0x58, 0x3        	BCLR	TMRCR,3
+0001b7   0bc8     movai   0xc8             	MOVAI	11001000B
+0001b8   17e0     orra    0x60             	ORRA	T2CR
+0001b9   0b00     movai   0                	MOVAI	00000000B
+0001ba   15eb     movra   0x6b             	MOVRA	TKCR0
+0001bb   0bff     movai   0xff             	MOVAI	11111111B
+0001bc   15ed     movra   0x6d             	MOVRA	TKCR2
+0001bd   000c     return                   	RETURN
+                                           ;	.line	37; "MC30P8160_TK.c"	}
+0001be   000c     return                   	RETURN	
+                                           ; exit point of _SET_TOUCH_OPTION
+                                           
+                                           
+                                           ;	code size estimation:
+                                           ;	    4+    0 =     4 instructions (    8 byte)
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SN-SDCC : SinoMCU ANSI-C Compiler
+                                           ; Version 2.0.0 (Dec 11 2019) (MINGW32)
+                                           ; This file was generated Mon Apr 03 11:58:40 2023
+                                           ;--------------------------------------------------------
+                                           ; MC30 port for the RISC core
+                                           ;--------------------------------------------------------
+                                           ;	.file	"MC30P8160_UART.c"
+                                           	list	p=1K8160
+                                           	radix dec
+                                           	include "1K8160.inc"
+                                           		LIST
+                                           ;mc30p8160.inc    Standard Header File, Version 1.00 by Sinomcu
+                                           		NOLIST
+                                           ;--------------------------------------------------------
+                                           ; external declarations
+                                           ;--------------------------------------------------------
+                                           	extern	_INDFbits
+                                           	extern	_T0CNTbits
+                                           	extern	_PCLbits
+                                           	extern	_STATUSbits
+                                           	extern	_FSRbits
+                                           	extern	_P1bits
+                                           	extern	_MCRbits
+                                           	extern	_T0CRbits
+                                           	extern	_PCLATHbits
+                                           	extern	_PDCONbits
+                                           	extern	_ODCONbits
+                                           	extern	_PUCONbits
+                                           	extern	_INTEbits
+                                           	extern	_INTFbits
+                                           	extern	_PWM1CR0bits
+                                           	extern	_PWM1CR1bits
+                                           	extern	_PWM1CR2bits
+                                           	extern	_DDR1bits
+                                           	extern	_TMRCRbits
+                                           	extern	_T1CRbits
+                                           	extern	_T1CNTbits
+                                           	extern	_T1LOADbits
+                                           	extern	_T1DATAbits
+                                           	extern	_T1DATBbits
+                                           	extern	_T1DATCbits
+                                           	extern	_T1DATDbits
+                                           	extern	_T2CRbits
+                                           	extern	_T2CNTHbits
+                                           	extern	_T2CNTLbits
+                                           	extern	_T2LOADHbits
+                                           	extern	_T2LOADLbits
+                                           	extern	_P1KBCRbits
+                                           	extern	_P1ADCRbits
+                                           	extern	_CMPCR0bits
+                                           	extern	_CMPCR1bits
+                                           	extern	_CMPCR2bits
+                                           	extern	_TKCR0bits
+                                           	extern	_TKCR1bits
+                                           	extern	_TKCNTHbits
+                                           	extern	_TKCNTLbits
+                                           	extern	_CTKCNT0_SAVEL
+                                           	extern	_CTKCNT0_SAVEH
+                                           	extern	_CTKCNT0_BASEL
+                                           	extern	_CTKCNT0_BASEH
+                                           	extern	_CTKCNT1_SAVEL
+                                           	extern	_CTKCNT1_SAVEH
+                                           	extern	_CTKCNT1_BASEL
+                                           	extern	_CTKCNT1_BASEH
+                                           	extern	_CTKCNT2_SAVEL
+                                           	extern	_CTKCNT2_SAVEH
+                                           	extern	_CTKCNT2_BASEL
+                                           	extern	_CTKCNT2_BASEH
+                                           	extern	_CTKCNT3_SAVEL
+                                           	extern	_CTKCNT3_SAVEH
+                                           	extern	_CTKCNT3_BASEL
+                                           	extern	_CTKCNT3_BASEH
+                                           	extern	_CPLAY_FLAG
+                                           	extern	_INDF
+                                           	extern	_T0CNT
+                                           	extern	_PCL
+                                           	extern	_STATUS
+                                           	extern	_FSR
+                                           	extern	_P1
+                                           	extern	_MCR
+                                           	extern	_T0CR
+                                           	extern	_PCLATH
+                                           	extern	_PDCON
+                                           	extern	_ODCON
+                                           	extern	_PUCON
+                                           	extern	_INTE
+                                           	extern	_INTF
+                                           	extern	_PWM1CR0
+                                           	extern	_PWM1CR1
+                                           	extern	_PWM1CR2
+                                           	extern	_DDR1
+                                           	extern	_TMRCR
+                                           	extern	_T1CR
+                                           	extern	_T1CNT
+                                           	extern	_T1LOAD
+                                           	extern	_T1DATA
+                                           	extern	_T1DATB
+                                           	extern	_T1DATC
+                                           	extern	_T1DATD
+                                           	extern	_T2CR
+                                           	extern	_T2CNTH
+                                           	extern	_T2CNTL
+                                           	extern	_T2LOADH
+                                           	extern	_T2LOADL
+                                           	extern	_P1KBCR
+                                           	extern	_P1ADCR
+                                           	extern	_CMPCR0
+                                           	extern	_CMPCR1
+                                           	extern	_CMPCR2
+                                           	extern	_TKCR0
+                                           	extern	_TKCR1
+                                           	extern	_TKCR2
+                                           	extern	_TKCNTH
+                                           	extern	_TKCNTL
+                                           
+                                           	extern STK06
+                                           	extern STK05
+                                           	extern STK04
+                                           	extern STK03
+                                           	extern STK02
+                                           	extern STK01
+                                           	extern STK00
+                                           ;--------------------------------------------------------
+                                           ; global declarations
+                                           ;--------------------------------------------------------
+                                           	global	_UART_SUB
+                                           	global	_SET_UART_9600BPS
+                                           	global	_OPEN_OUT_UART
+                                           	global	_SCAN_UART_OUT
+                                           	global	_CUART_OUT_DATA
+                                           	global	_CUART_OUT_LIST
+                                           	global	_CUART_OUT_LIST2
+                                           	global	_CUART_OUT_CHECKSUM
+                                           	global	_CUART_OUT_COUNT
+                                           	global	_CUART_OUT_DATA_TEMP
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global definitions
+                                           ;--------------------------------------------------------
+                                           UD_MC30P8160_UART_0	udata
+                                           _CUART_OUT_DATA	res	1
+                                           
+                                           UD_MC30P8160_UART_1	udata
+                                           _CUART_OUT_LIST	res	1
+                                           
+                                           UD_MC30P8160_UART_2	udata
+                                           _CUART_OUT_LIST2	res	1
+                                           
+                                           UD_MC30P8160_UART_3	udata
+                                           _CUART_OUT_CHECKSUM	res	1
+                                           
+                                           UD_MC30P8160_UART_4	udata
+                                           _CUART_OUT_COUNT	res	1
+                                           
+                                           UD_MC30P8160_UART_5	udata
+                                           _CUART_OUT_DATA_TEMP	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; absolute symbol definitions
+                                           ;--------------------------------------------------------
+                                           ;--------------------------------------------------------
+                                           ; compiler-defined variables
+                                           ;--------------------------------------------------------
+                                           ;--------------------------------------------------------
+                                           ; initialized data
+                                           ;--------------------------------------------------------
+                                           
+                                           ;@Allocation info for local variables in function 'UART_SUB'
+                                           ;@UART_SUB UART_SUB                  Allocated to registers ;size:2
+                                           ;@UART_SUB INDFbits                  Allocated to registers ;size:1
+                                           ;@UART_SUB T0CNTbits                 Allocated to registers ;size:1
+                                           ;@UART_SUB PCLbits                   Allocated to registers ;size:1
+                                           ;@UART_SUB STATUSbits                Allocated to registers ;size:1
+                                           ;@UART_SUB FSRbits                   Allocated to registers ;size:1
+                                           ;@UART_SUB P1bits                    Allocated to registers ;size:1
+                                           ;@UART_SUB MCRbits                   Allocated to registers ;size:1
+                                           ;@UART_SUB T0CRbits                  Allocated to registers ;size:1
+                                           ;@UART_SUB PCLATHbits                Allocated to registers ;size:1
+                                           ;@UART_SUB PDCONbits                 Allocated to registers ;size:1
+                                           ;@UART_SUB ODCONbits                 Allocated to registers ;size:1
+                                           ;@UART_SUB PUCONbits                 Allocated to registers ;size:1
+                                           ;@UART_SUB INTEbits                  Allocated to registers ;size:1
+                                           ;@UART_SUB INTFbits                  Allocated to registers ;size:1
+                                           ;@UART_SUB PWM1CR0bits               Allocated to registers ;size:1
+                                           ;@UART_SUB PWM1CR1bits               Allocated to registers ;size:1
+                                           ;@UART_SUB PWM1CR2bits               Allocated to registers ;size:1
+                                           ;@UART_SUB DDR1bits                  Allocated to registers ;size:1
+                                           ;@UART_SUB TMRCRbits                 Allocated to registers ;size:1
+                                           ;@UART_SUB T1CRbits                  Allocated to registers ;size:1
+                                           ;@UART_SUB T1CNTbits                 Allocated to registers ;size:1
+                                           ;@UART_SUB T1LOADbits                Allocated to registers ;size:1
+                                           ;@UART_SUB T1DATAbits                Allocated to registers ;size:1
+                                           ;@UART_SUB T1DATBbits                Allocated to registers ;size:1
+                                           ;@UART_SUB T1DATCbits                Allocated to registers ;size:1
+                                           ;@UART_SUB T1DATDbits                Allocated to registers ;size:1
+                                           ;@UART_SUB T2CRbits                  Allocated to registers ;size:1
+                                           ;@UART_SUB T2CNTHbits                Allocated to registers ;size:1
+                                           ;@UART_SUB T2CNTLbits                Allocated to registers ;size:1
+                                           ;@UART_SUB T2LOADHbits               Allocated to registers ;size:1
+                                           ;@UART_SUB T2LOADLbits               Allocated to registers ;size:1
+                                           ;@UART_SUB P1KBCRbits                Allocated to registers ;size:1
+                                           ;@UART_SUB P1ADCRbits                Allocated to registers ;size:1
+                                           ;@UART_SUB CMPCR0bits                Allocated to registers ;size:1
+                                           ;@UART_SUB CMPCR1bits                Allocated to registers ;size:1
+                                           ;@UART_SUB CMPCR2bits                Allocated to registers ;size:1
+                                           ;@UART_SUB TKCR0bits                 Allocated to registers ;size:1
+                                           ;@UART_SUB TKCR1bits                 Allocated to registers ;size:1
+                                           ;@UART_SUB TKCNTHbits                Allocated to registers ;size:1
+                                           ;@UART_SUB TKCNTLbits                Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT0_SAVEL             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT0_SAVEH             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT0_BASEL             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT0_BASEH             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT1_SAVEL             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT1_SAVEH             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT1_BASEL             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT1_BASEH             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT2_SAVEL             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT2_SAVEH             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT2_BASEL             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT2_BASEH             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT3_SAVEL             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT3_SAVEH             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT3_BASEL             Allocated to registers ;size:1
+                                           ;@UART_SUB CTKCNT3_BASEH             Allocated to registers ;size:1
+                                           ;@UART_SUB CPLAY_FLAG                Allocated to registers ;size:1
+                                           ;@UART_SUB CUART_OUT_DATA            Allocated to registers ;size:1
+                                           ;@UART_SUB CUART_OUT_LIST            Allocated to registers ;size:1
+                                           ;@UART_SUB CUART_OUT_LIST2           Allocated to registers ;size:1
+                                           ;@UART_SUB CUART_OUT_CHECKSUM        Allocated to registers ;size:1
+                                           ;@UART_SUB CUART_OUT_COUNT           Allocated to registers ;size:1
+                                           ;@UART_SUB CUART_OUT_DATA_TEMP       Allocated to registers ;size:1
+                                           ;@UART_SUB INDF                      Allocated to registers ;size:1
+                                           ;@UART_SUB T0CNT                     Allocated to registers ;size:1
+                                           ;@UART_SUB PCL                       Allocated to registers ;size:1
+                                           ;@UART_SUB STATUS                    Allocated to registers ;size:1
+                                           ;@UART_SUB FSR                       Allocated to registers ;size:1
+                                           ;@UART_SUB P1                        Allocated to registers ;size:1
+                                           ;@UART_SUB MCR                       Allocated to registers ;size:1
+                                           ;@UART_SUB T0CR                      Allocated to registers ;size:1
+                                           ;@UART_SUB PCLATH                    Allocated to registers ;size:1
+                                           ;@UART_SUB PDCON                     Allocated to registers ;size:1
+                                           ;@UART_SUB ODCON                     Allocated to registers ;size:1
+                                           ;@UART_SUB PUCON                     Allocated to registers ;size:1
+                                           ;@UART_SUB INTE                      Allocated to registers ;size:1
+                                           ;@UART_SUB INTF                      Allocated to registers ;size:1
+                                           ;@UART_SUB PWM1CR0                   Allocated to registers ;size:1
+                                           ;@UART_SUB PWM1CR1                   Allocated to registers ;size:1
+                                           ;@UART_SUB PWM1CR2                   Allocated to registers ;size:1
+                                           ;@UART_SUB DDR1                      Allocated to registers ;size:1
+                                           ;@UART_SUB TMRCR                     Allocated to registers ;size:1
+                                           ;@UART_SUB T1CR                      Allocated to registers ;size:1
+                                           ;@UART_SUB T1CNT                     Allocated to registers ;size:1
+                                           ;@UART_SUB T1LOAD                    Allocated to registers ;size:1
+                                           ;@UART_SUB T1DATA                    Allocated to registers ;size:1
+                                           ;@UART_SUB T1DATB                    Allocated to registers ;size:1
+                                           ;@UART_SUB T1DATC                    Allocated to registers ;size:1
+                                           ;@UART_SUB T1DATD                    Allocated to registers ;size:1
+                                           ;@UART_SUB T2CR                      Allocated to registers ;size:1
+                                           ;@UART_SUB T2CNTH                    Allocated to registers ;size:1
+                                           ;@UART_SUB T2CNTL                    Allocated to registers ;size:1
+                                           ;@UART_SUB T2LOADH                   Allocated to registers ;size:1
+                                           ;@UART_SUB T2LOADL                   Allocated to registers ;size:1
+                                           ;@UART_SUB P1KBCR                    Allocated to registers ;size:1
+                                           ;@UART_SUB P1ADCR                    Allocated to registers ;size:1
+                                           ;@UART_SUB CMPCR0                    Allocated to registers ;size:1
+                                           ;@UART_SUB CMPCR1                    Allocated to registers ;size:1
+                                           ;@UART_SUB CMPCR2                    Allocated to registers ;size:1
+                                           ;@UART_SUB TKCR0                     Allocated to registers ;size:1
+                                           ;@UART_SUB TKCR1                     Allocated to registers ;size:1
+                                           ;@UART_SUB TKCR2                     Allocated to registers ;size:1
+                                           ;@UART_SUB TKCNTH                    Allocated to registers ;size:1
+                                           ;@UART_SUB TKCNTL                    Allocated to registers ;size:1
+                                           ;@end Allocation info for local variables in function 'UART_SUB';
+                                           ;@Allocation info for local variables in function 'SET_UART_9600BPS'
+                                           ;@end Allocation info for local variables in function 'SET_UART_9600BPS';
+                                           ;@Allocation info for local variables in function 'OPEN_OUT_UART'
+                                           ;@end Allocation info for local variables in function 'OPEN_OUT_UART';
+                                           ;@Allocation info for local variables in function 'SCAN_UART_OUT'
+                                           ;@end Allocation info for local variables in function 'SCAN_UART_OUT';
+                                           
+                                           ;--------------------------------------------------------
+                                           ; overlayable items in internal ram 
+                                           ;--------------------------------------------------------
+                                           ;	udata_ovr
+                                           ;--------------------------------------------------------
+                                           ; code
+                                           ;--------------------------------------------------------
+                                           code_MC30P8160_UART	code
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _SCAN_UART_OUT	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _SCAN_UART_OUT	;Function start
+                                           ; 2 exit points
+                                           ;	.line	281; "MC30P8160_UART.c"	__endasm;
+                                           SCAN_UART_OUT:
+0001bf   321d     jbset   0x1d, 0x4        	JBSET	_CPLAY_FLAG,4
+0001c0   000c     return                   	RETURN
+0001c1   329d     jbset   0x1d, 0x5        	JBSET	_CPLAY_FLAG,5
+0001c2   000c     return                   	RETURN
+0001c3   3e9d     bclr    0x1d, 0x5        	BCLR	_CPLAY_FLAG,5
+                                           SCAN_UART_OUT_LIST:
+0001c4   1646     movar   0x46             	MOVAR	_CUART_OUT_LIST
+0001c5   0d03     andai   0x3              	ANDAI	0X03
+0001c6   1f82     addra   0x2              	ADDRA	PCL
+0001c7   29cb     goto    0x1cb            	GOTO	SCAN_UART_OUT_HEAD
+0001c8   29d4     goto    0x1d4            	GOTO	SCAN_UART_OUT_DATA
+0001c9   29ea     goto    0x1ea            	GOTO	SCAN_UART_OUT_ENDCODE
+0001ca   1dc6     clrr    0x46             	CLRR	_CUART_OUT_LIST
+                                           SCAN_UART_OUT_HEAD:
+0001cb   1647     movar   0x47             	MOVAR	_CUART_OUT_LIST2
+0001cc   0d03     andai   0x3              	ANDAI	0X03
+0001cd   1f82     addra   0x2              	ADDRA	PCL
+0001ce   2a12     goto    0x212            	GOTO	SCAN_UART_OUT_HEAD1
+0001cf   2a14     goto    0x214            	GOTO	SCAN_UART_OUT_HEAD2
+0001d0   2a16     goto    0x216            	GOTO	SCAN_UART_OUT_HEAD3
+0001d1   1dc7     clrr    0x47             	CLRR	_CUART_OUT_LIST2
+0001d2   0b01     movai   0x1              	MOVAI	0X01
+0001d3   15c6     movra   0x46             	MOVRA	_CUART_OUT_LIST
+                                           SCAN_UART_OUT_DATA:
+0001d4   1647     movar   0x47             	MOVAR	_CUART_OUT_LIST2
+0001d5   0d1f     andai   0x1f             	ANDAI	0X1F
+0001d6   1f82     addra   0x2              	ADDRA	PCL
+0001d7   29f4     goto    0x1f4            	GOTO	SCAN_UART_OUT_SAVE0H
+0001d8   29f2     goto    0x1f2            	GOTO	SCAN_UART_OUT_SAVE0L
+0001d9   29f8     goto    0x1f8            	GOTO	SCAN_UART_OUT_BASE0H
+0001da   29f6     goto    0x1f6            	GOTO	SCAN_UART_OUT_BASE0L
+0001db   29fc     goto    0x1fc            	GOTO	SCAN_UART_OUT_SAVE1H
+0001dc   29fa     goto    0x1fa            	GOTO	SCAN_UART_OUT_SAVE1L
+0001dd   2a00     goto    0x200            	GOTO	SCAN_UART_OUT_BASE1H
+0001de   29fe     goto    0x1fe            	GOTO	SCAN_UART_OUT_BASE1L
+0001df   2a04     goto    0x204            	GOTO	SCAN_UART_OUT_SAVE2H
+0001e0   2a02     goto    0x202            	GOTO	SCAN_UART_OUT_SAVE2L
+0001e1   2a08     goto    0x208            	GOTO	SCAN_UART_OUT_BASE2H
+0001e2   2a06     goto    0x206            	GOTO	SCAN_UART_OUT_BASE2L
+0001e3   2a0c     goto    0x20c            	GOTO	SCAN_UART_OUT_SAVE3H
+0001e4   2a0a     goto    0x20a            	GOTO	SCAN_UART_OUT_SAVE3L
+0001e5   2a10     goto    0x210            	GOTO	SCAN_UART_OUT_BASE3H
+0001e6   2a0e     goto    0x20e            	GOTO	SCAN_UART_OUT_BASE3L
+                                           SCAN_UART_OUT_DATA_END:
+0001e7   1dc7     clrr    0x47             	CLRR	_CUART_OUT_LIST2
+0001e8   0b02     movai   0x2              	MOVAI	0X02
+0001e9   15c6     movra   0x46             	MOVRA	_CUART_OUT_LIST
+                                           SCAN_UART_OUT_ENDCODE:
+0001ea   1647     movar   0x47             	MOVAR	_CUART_OUT_LIST2
+0001eb   0d03     andai   0x3              	ANDAI	0X03
+0001ec   1f82     addra   0x2              	ADDRA	PCL
+0001ed   2a1c     goto    0x21c            	GOTO	SCAN_UART_OUT_CHECK
+0001ee   0000     nop                      	NOP
+0001ef   0000     nop                      	NOP
+0001f0   3e1d     bclr    0x1d, 0x4        	BCLR	_CPLAY_FLAG,4
+0001f1   000c     return                   	RETURN
+                                           SCAN_UART_OUT_SAVE0L:
+0001f2   1636     movar   0x36             	MOVAR	_CTKCNT0_SAVEL
+0001f3   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_SAVE0H:
+0001f4   1635     movar   0x35             	MOVAR	_CTKCNT0_SAVEH
+0001f5   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_BASE0L:
+0001f6   1638     movar   0x38             	MOVAR	_CTKCNT0_BASEL
+0001f7   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_BASE0H:
+0001f8   1637     movar   0x37             	MOVAR	_CTKCNT0_BASEH
+0001f9   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_SAVE1L:
+0001fa   163a     movar   0x3a             	MOVAR	_CTKCNT1_SAVEL
+0001fb   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_SAVE1H:
+0001fc   1639     movar   0x39             	MOVAR	_CTKCNT1_SAVEH
+0001fd   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_BASE1L:
+0001fe   163c     movar   0x3c             	MOVAR	_CTKCNT1_BASEL
+0001ff   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_BASE1H:
+000200   163b     movar   0x3b             	MOVAR	_CTKCNT1_BASEH
+000201   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_SAVE2L:
+000202   163e     movar   0x3e             	MOVAR	_CTKCNT2_SAVEL
+000203   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_SAVE2H:
+000204   163d     movar   0x3d             	MOVAR	_CTKCNT2_SAVEH
+000205   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_BASE2L:
+000206   1640     movar   0x40             	MOVAR	_CTKCNT2_BASEL
+000207   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_BASE2H:
+000208   163f     movar   0x3f             	MOVAR	_CTKCNT2_BASEH
+000209   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_SAVE3L:
+00020a   1642     movar   0x42             	MOVAR	_CTKCNT3_SAVEL
+00020b   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_SAVE3H:
+00020c   1641     movar   0x41             	MOVAR	_CTKCNT3_SAVEH
+00020d   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_BASE3L:
+00020e   1644     movar   0x44             	MOVAR	_CTKCNT3_BASEL
+00020f   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_BASE3H:
+000210   1643     movar   0x43             	MOVAR	_CTKCNT3_BASEH
+000211   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_HEAD1:
+000212   0b88     movai   0x88             	MOVAI	0X88
+000213   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_HEAD2:
+000214   0ba1     movai   0xa1             	MOVAI	0XA1
+000215   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_HEAD3:
+000216   0b04     movai   0x4              	MOVAI	4
+000217   15c5     movra   0x45             	MOVRA	_CUART_OUT_DATA
+000218   14c5     rlr     0x45             	RLR	_CUART_OUT_DATA
+000219   14c5     rlr     0x45             	RLR	_CUART_OUT_DATA
+00021a   1645     movar   0x45             	MOVAR	_CUART_OUT_DATA
+00021b   2a1f     goto    0x21f            	GOTO	SCAN_UART_OUTCHECKSUM
+                                           SCAN_UART_OUT_CHECK:
+00021c   1648     movar   0x48             	MOVAR	_CUART_OUT_CHECKSUM
+00021d   15c5     movra   0x45             	MOVRA	_CUART_OUT_DATA
+00021e   2a21     goto    0x221            	GOTO	SCAN_UART_OUTING
+                                           SCAN_UART_OUTCHECKSUM:
+00021f   15c5     movra   0x45             	MOVRA	_CUART_OUT_DATA
+000220   1fc8     addra   0x48             	ADDRA	_CUART_OUT_CHECKSUM
+                                           SCAN_UART_OUTING:
+000221   19c7     incr    0x47             	INCR	_CUART_OUT_LIST2
+000222   0b01     movai   0x1              	MOVAI	0X01
+000223   15c9     movra   0x49             	MOVRA	_CUART_OUT_COUNT
+000224   000c     return                   	RETURN
+                                           SCAN_UART_OUT_ENDBYTE:
+000225   19c7     incr    0x47             	INCR	_CUART_OUT_LIST2
+000226   0b0a     movai   0xa              	MOVAI	10
+000227   15c9     movra   0x49             	MOVRA	_CUART_OUT_COUNT
+000228   0bff     movai   0xff             	MOVAI	0XFF
+000229   15c5     movra   0x45             	MOVRA	_CUART_OUT_DATA
+00022a   15ca     movra   0x4a             	MOVRA	_CUART_OUT_DATA_TEMP
+00022b   000c     return                   	RETURN
+                                           ;	.line	282; "MC30P8160_UART.c"	}
+00022c   000c     return                   	RETURN	
+                                           ; exit point of _SCAN_UART_OUT
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _OPEN_OUT_UART	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _OPEN_OUT_UART	;Function start
+                                           ; 2 exit points
+                                           ;	.line	104; "MC30P8160_UART.c"	__endasm;
+                                           OPEN_OUT_UART:
+00022d   361d     jbclr   0x1d, 0x4        	JBCLR	_CPLAY_FLAG,4
+00022e   000c     return                   	RETURN
+00022f   3a1d     bset    0x1d, 0x4        	BSET	_CPLAY_FLAG,4
+000230   3a9d     bset    0x1d, 0x5        	BSET	_CPLAY_FLAG,5
+000231   1dc6     clrr    0x46             	CLRR	_CUART_OUT_LIST
+000232   1dc7     clrr    0x47             	CLRR	_CUART_OUT_LIST2
+000233   1dc8     clrr    0x48             	CLRR	_CUART_OUT_CHECKSUM
+000234   000c     return                   	RETURN
+                                           ;	.line	105; "MC30P8160_UART.c"	}
+000235   000c     return                   	RETURN	
+                                           ; exit point of _OPEN_OUT_UART
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _SET_UART_9600BPS	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _SET_UART_9600BPS	;Function start
+                                           ; 2 exit points
+                                           ;	.line	86; "MC30P8160_UART.c"	__endasm;
+                                           SET_UART_9600BPS:
+000236   0b8b     movai   0x8b             	MOVAI	10001011B
+000237   15d9     movra   0x59             	MOVRA	T1CR
+000238   0bd0     movai   0xd0             	MOVAI	208
+000239   15da     movra   0x5a             	MOVRA	T1CNT
+00023a   15db     movra   0x5b             	MOVRA	T1LOAD
+00023b   38d8     bset    0x58, 0x1        	BSET	TMRCR,1
+00023c   000c     return                   	RETURN
+                                           ;	.line	87; "MC30P8160_UART.c"	}
+00023d   000c     return                   	RETURN	
+                                           ; exit point of _SET_UART_9600BPS
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _UART_SUB	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _UART_SUB	;Function start
+                                           ; 2 exit points
+                                           ;	.line	61; "MC30P8160_UART.c"	__endasm;
+                                           UART_SUB:
+00023e   321d     jbset   0x1d, 0x4        	JBSET	_CPLAY_FLAG,4
+00023f   000c     return                   	RETURN
+000240   1ac9     djzr    0x49             	DJZR	_CUART_OUT_COUNT
+000241   2a4a     goto    0x24a            	GOTO	UART_SUB_OUT_FG
+000242   369d     jbclr   0x1d, 0x5        	JBCLR	_CPLAY_FLAG,5
+000243   2a59     goto    0x259            	GOTO	UART_SUB_WAIT_NEXT
+000244   3e86     bclr    0x6, 0x5         	BCLR	P1,5
+000245   0b0a     movai   0xa              	MOVAI	10
+000246   15c9     movra   0x49             	MOVRA	_CUART_OUT_COUNT
+000247   1645     movar   0x45             	MOVAR	_CUART_OUT_DATA
+000248   15ca     movra   0x4a             	MOVRA	_CUART_OUT_DATA_TEMP
+000249   000c     return                   	RETURN
+                                           UART_SUB_OUT_FG:
+00024a   0b02     movai   0x2              	MOVAI	2
+00024b   1249     rsubar  0x49             	RSUBAR	_CUART_OUT_COUNT
+00024c   3003     jbset   0x3, 0           	JBSET	STATUS,0
+00024d   2a56     goto    0x256            	GOTO	UART_SUB_OUT_ENDBIT
+                                           UART_SUB_OUT:
+00024e   304a     jbset   0x4a, 0          	JBSET	_CUART_OUT_DATA_TEMP,0
+00024f   2a52     goto    0x252            	GOTO	UART_SUB_OUT_LOW
+                                           UART_SUB_OUT_HIGH:
+000250   3a86     bset    0x6, 0x5         	BSET	P1,5
+000251   2a54     goto    0x254            	GOTO	UART_SUB_NEXT
+                                           UART_SUB_OUT_LOW:
+000252   3e86     bclr    0x6, 0x5         	BCLR	P1,5
+000253   2a54     goto    0x254            	GOTO	UART_SUB_NEXT
+                                           UART_SUB_NEXT:
+000254   13ca     rrr     0x4a             	RRR	_CUART_OUT_DATA_TEMP
+000255   000c     return                   	RETURN
+                                           UART_SUB_OUT_ENDBIT:
+000256   3a86     bset    0x6, 0x5         	BSET	P1,5
+000257   3a9d     bset    0x1d, 0x5        	BSET	_CPLAY_FLAG,5
+000258   000c     return                   	RETURN
+                                           UART_SUB_WAIT_NEXT:
+000259   0b01     movai   0x1              	MOVAI	1
+00025a   15c9     movra   0x49             	MOVRA	_CUART_OUT_COUNT
+00025b   3a86     bset    0x6, 0x5         	BSET	P1,5
+00025c   000c     return                   	RETURN
+                                           ;	.line	62; "MC30P8160_UART.c"	}
+00025d   000c     return                   	RETURN	
+                                           ; exit point of _UART_SUB
+                                           
+                                           
+                                           ;	code size estimation:
+                                           ;	    4+    0 =     4 instructions (    8 byte)
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SN-SDCC : SinoMCU ANSI-C Compiler
+                                           ; Version 2.0.0 (Dec 11 2019) (MINGW32)
+                                           ; This file was generated Mon Apr 03 11:58:40 2023
+                                           ;--------------------------------------------------------
+                                           ; MC30 port for the RISC core
+                                           ;--------------------------------------------------------
+                                           ;	.file	"MC30P8160.c"
+                                           	list	p=1K8160
+                                           	radix dec
+                                           	include "1K8160.inc"
+                                           ;--------------------------------------------------------
+                                           ; external declarations
+                                           ;--------------------------------------------------------
+                                           	extern	_SET_TOUCH_OPTION
+                                           	extern	_SET_TOUCH_OPTION2
+                                           	extern	_SCAN_TOUCH
+                                           	extern	_TK_SLEEP
+                                           	extern	_SET_UART_9600BPS
+                                           	extern	_UART_SUB
+                                           	extern	_SCAN_UART_OUT
+                                           	extern	_OPEN_OUT_UART
+                                           	extern	_INDFbits
+                                           	extern	_T0CNTbits
+                                           	extern	_PCLbits
+                                           	extern	_STATUSbits
+                                           	extern	_FSRbits
+                                           	extern	_P1bits
+                                           	extern	_MCRbits
+                                           	extern	_T0CRbits
+                                           	extern	_PCLATHbits
+                                           	extern	_PDCONbits
+                                           	extern	_ODCONbits
+                                           	extern	_PUCONbits
+                                           	extern	_INTEbits
+                                           	extern	_INTFbits
+                                           	extern	_PWM1CR0bits
+                                           	extern	_PWM1CR1bits
+                                           	extern	_PWM1CR2bits
+                                           	extern	_DDR1bits
+                                           	extern	_TMRCRbits
+                                           	extern	_T1CRbits
+                                           	extern	_T1CNTbits
+                                           	extern	_T1LOADbits
+                                           	extern	_T1DATAbits
+                                           	extern	_T1DATBbits
+                                           	extern	_T1DATCbits
+                                           	extern	_T1DATDbits
+                                           	extern	_T2CRbits
+                                           	extern	_T2CNTHbits
+                                           	extern	_T2CNTLbits
+                                           	extern	_T2LOADHbits
+                                           	extern	_T2LOADLbits
+                                           	extern	_P1KBCRbits
+                                           	extern	_P1ADCRbits
+                                           	extern	_CMPCR0bits
+                                           	extern	_CMPCR1bits
+                                           	extern	_CMPCR2bits
+                                           	extern	_TKCR0bits
+                                           	extern	_TKCR1bits
+                                           	extern	_TKCNTHbits
+                                           	extern	_TKCNTLbits
+                                           	extern	_CTOUCH_FLAG
+                                           	extern	_INDF
+                                           	extern	_T0CNT
+                                           	extern	_PCL
+                                           	extern	_STATUS
+                                           	extern	_FSR
+                                           	extern	_P1
+                                           	extern	_MCR
+                                           	extern	_T0CR
+                                           	extern	_PCLATH
+                                           	extern	_PDCON
+                                           	extern	_ODCON
+                                           	extern	_PUCON
+                                           	extern	_INTE
+                                           	extern	_INTF
+                                           	extern	_PWM1CR0
+                                           	extern	_PWM1CR1
+                                           	extern	_PWM1CR2
+                                           	extern	_DDR1
+                                           	extern	_TMRCR
+                                           	extern	_T1CR
+                                           	extern	_T1CNT
+                                           	extern	_T1LOAD
+                                           	extern	_T1DATA
+                                           	extern	_T1DATB
+                                           	extern	_T1DATC
+                                           	extern	_T1DATD
+                                           	extern	_T2CR
+                                           	extern	_T2CNTH
+                                           	extern	_T2CNTL
+                                           	extern	_T2LOADH
+                                           	extern	_T2LOADL
+                                           	extern	_P1KBCR
+                                           	extern	_P1ADCR
+                                           	extern	_CMPCR0
+                                           	extern	_CMPCR1
+                                           	extern	_CMPCR2
+                                           	extern	_TKCR0
+                                           	extern	_TKCR1
+                                           	extern	_TKCR2
+                                           	extern	_TKCNTH
+                                           	extern	_TKCNTL
+                                           ;--------------------------------------------------------
+                                           ; global declarations
+                                           ;--------------------------------------------------------
+                                           	global	_TOUCH_OUT
+                                           	global	_Init_Sys
+                                           	global	_Clr_Ram
+                                           	global	_main
+                                           	global	_int_isr
+                                           	global	_CSAVE_ACC
+                                           	global	_CSAVE_STATUS
+                                           	global	_CPLAY_FLAG
+                                           	global	_CTEMP0
+                                           	global	_CTEMP1
+                                           	global	_CTEMP2
+                                           	global	_CTEMP3
+                                           	global	_CTEMP4
+                                           	global	_CTEMP5
+                                           	global	_CTEMP6
+                                           	global	_CTEMP7
+                                           
+                                           	global STK06
+                                           	global STK05
+                                           	global STK04
+                                           	global STK03
+                                           	global STK02
+                                           	global STK01
+                                           	global STK00
+                                           
+                                           sharebank udata_ovr 0x0010
+                                           STK06	res 1
+                                           STK05	res 1
+                                           STK04	res 1
+                                           STK03	res 1
+                                           STK02	res 1
+                                           STK01	res 1
+                                           STK00	res 1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global definitions
+                                           ;--------------------------------------------------------
+                                           UD_MC30P8160_0	udata
+                                           _CSAVE_ACC	res	1
+                                           
+                                           UD_MC30P8160_1	udata
+                                           _CSAVE_STATUS	res	1
+                                           
+                                           UD_MC30P8160_2	udata
+                                           _CPLAY_FLAG	res	1
+                                           
+                                           UD_MC30P8160_3	udata
+                                           _CTEMP0	res	1
+                                           
+                                           UD_MC30P8160_4	udata
+                                           _CTEMP1	res	1
+                                           
+                                           UD_MC30P8160_5	udata
+                                           _CTEMP2	res	1
+                                           
+                                           UD_MC30P8160_6	udata
+                                           _CTEMP3	res	1
+                                           
+                                           UD_MC30P8160_7	udata
+                                           _CTEMP4	res	1
+                                           
+                                           UD_MC30P8160_8	udata
+                                           _CTEMP5	res	1
+                                           
+                                           UD_MC30P8160_9	udata
+                                           _CTEMP6	res	1
+                                           
+                                           UD_MC30P8160_10	udata
+                                           _CTEMP7	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; absolute symbol definitions
+                                           ;--------------------------------------------------------
+                                           ;--------------------------------------------------------
+                                           ; compiler-defined variables
+                                           ;--------------------------------------------------------
+                                           UDL_MC30P8160_0	udata
+                                           r0x1003	res	1
+                                           r0x1004	res	1
+                                           r0x1005	res	1
+                                           r0x1002	res	1
+                                           ;--------------------------------------------------------
+                                           ; initialized data
+                                           ;--------------------------------------------------------
+                                           
+                                           ;@Allocation info for local variables in function 'Init_Sys'
+                                           ;@Init_Sys SET_TOUCH_OPTION          Allocated to registers ;size:2
+                                           ;@Init_Sys SET_TOUCH_OPTION2         Allocated to registers ;size:2
+                                           ;@Init_Sys SCAN_TOUCH                Allocated to registers ;size:2
+                                           ;@Init_Sys TK_SLEEP                  Allocated to registers ;size:2
+                                           ;@Init_Sys TOUCH_OUT                 Allocated to registers ;size:2
+                                           ;@Init_Sys SET_UART_9600BPS          Allocated to registers ;size:2
+                                           ;@Init_Sys UART_SUB                  Allocated to registers ;size:2
+                                           ;@Init_Sys SCAN_UART_OUT             Allocated to registers ;size:2
+                                           ;@Init_Sys OPEN_OUT_UART             Allocated to registers ;size:2
+                                           ;@Init_Sys Init_Sys                  Allocated to registers ;size:2
+                                           ;@Init_Sys INDFbits                  Allocated to registers ;size:1
+                                           ;@Init_Sys T0CNTbits                 Allocated to registers ;size:1
+                                           ;@Init_Sys PCLbits                   Allocated to registers ;size:1
+                                           ;@Init_Sys STATUSbits                Allocated to registers ;size:1
+                                           ;@Init_Sys FSRbits                   Allocated to registers ;size:1
+                                           ;@Init_Sys P1bits                    Allocated to registers ;size:1
+                                           ;@Init_Sys MCRbits                   Allocated to registers ;size:1
+                                           ;@Init_Sys T0CRbits                  Allocated to registers ;size:1
+                                           ;@Init_Sys PCLATHbits                Allocated to registers ;size:1
+                                           ;@Init_Sys PDCONbits                 Allocated to registers ;size:1
+                                           ;@Init_Sys ODCONbits                 Allocated to registers ;size:1
+                                           ;@Init_Sys PUCONbits                 Allocated to registers ;size:1
+                                           ;@Init_Sys INTEbits                  Allocated to registers ;size:1
+                                           ;@Init_Sys INTFbits                  Allocated to registers ;size:1
+                                           ;@Init_Sys PWM1CR0bits               Allocated to registers ;size:1
+                                           ;@Init_Sys PWM1CR1bits               Allocated to registers ;size:1
+                                           ;@Init_Sys PWM1CR2bits               Allocated to registers ;size:1
+                                           ;@Init_Sys DDR1bits                  Allocated to registers ;size:1
+                                           ;@Init_Sys TMRCRbits                 Allocated to registers ;size:1
+                                           ;@Init_Sys T1CRbits                  Allocated to registers ;size:1
+                                           ;@Init_Sys T1CNTbits                 Allocated to registers ;size:1
+                                           ;@Init_Sys T1LOADbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATAbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATBbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATCbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATDbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T2CRbits                  Allocated to registers ;size:1
+                                           ;@Init_Sys T2CNTHbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T2CNTLbits                Allocated to registers ;size:1
+                                           ;@Init_Sys T2LOADHbits               Allocated to registers ;size:1
+                                           ;@Init_Sys T2LOADLbits               Allocated to registers ;size:1
+                                           ;@Init_Sys P1KBCRbits                Allocated to registers ;size:1
+                                           ;@Init_Sys P1ADCRbits                Allocated to registers ;size:1
+                                           ;@Init_Sys CMPCR0bits                Allocated to registers ;size:1
+                                           ;@Init_Sys CMPCR1bits                Allocated to registers ;size:1
+                                           ;@Init_Sys CMPCR2bits                Allocated to registers ;size:1
+                                           ;@Init_Sys TKCR0bits                 Allocated to registers ;size:1
+                                           ;@Init_Sys TKCR1bits                 Allocated to registers ;size:1
+                                           ;@Init_Sys TKCNTHbits                Allocated to registers ;size:1
+                                           ;@Init_Sys TKCNTLbits                Allocated to registers ;size:1
+                                           ;@Init_Sys CTOUCH_FLAG               Allocated to registers ;size:1
+                                           ;@Init_Sys CSAVE_ACC                 Allocated to registers ;size:1
+                                           ;@Init_Sys CSAVE_STATUS              Allocated to registers ;size:1
+                                           ;@Init_Sys CPLAY_FLAG                Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP0                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP1                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP2                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP3                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP4                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP5                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP6                    Allocated to registers ;size:1
+                                           ;@Init_Sys CTEMP7                    Allocated to registers ;size:1
+                                           ;@Init_Sys INDF                      Allocated to registers ;size:1
+                                           ;@Init_Sys T0CNT                     Allocated to registers ;size:1
+                                           ;@Init_Sys PCL                       Allocated to registers ;size:1
+                                           ;@Init_Sys STATUS                    Allocated to registers ;size:1
+                                           ;@Init_Sys FSR                       Allocated to registers ;size:1
+                                           ;@Init_Sys P1                        Allocated to registers ;size:1
+                                           ;@Init_Sys MCR                       Allocated to registers ;size:1
+                                           ;@Init_Sys T0CR                      Allocated to registers ;size:1
+                                           ;@Init_Sys PCLATH                    Allocated to registers ;size:1
+                                           ;@Init_Sys PDCON                     Allocated to registers ;size:1
+                                           ;@Init_Sys ODCON                     Allocated to registers ;size:1
+                                           ;@Init_Sys PUCON                     Allocated to registers ;size:1
+                                           ;@Init_Sys INTE                      Allocated to registers ;size:1
+                                           ;@Init_Sys INTF                      Allocated to registers ;size:1
+                                           ;@Init_Sys PWM1CR0                   Allocated to registers ;size:1
+                                           ;@Init_Sys PWM1CR1                   Allocated to registers ;size:1
+                                           ;@Init_Sys PWM1CR2                   Allocated to registers ;size:1
+                                           ;@Init_Sys DDR1                      Allocated to registers ;size:1
+                                           ;@Init_Sys TMRCR                     Allocated to registers ;size:1
+                                           ;@Init_Sys T1CR                      Allocated to registers ;size:1
+                                           ;@Init_Sys T1CNT                     Allocated to registers ;size:1
+                                           ;@Init_Sys T1LOAD                    Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATA                    Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATB                    Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATC                    Allocated to registers ;size:1
+                                           ;@Init_Sys T1DATD                    Allocated to registers ;size:1
+                                           ;@Init_Sys T2CR                      Allocated to registers ;size:1
+                                           ;@Init_Sys T2CNTH                    Allocated to registers ;size:1
+                                           ;@Init_Sys T2CNTL                    Allocated to registers ;size:1
+                                           ;@Init_Sys T2LOADH                   Allocated to registers ;size:1
+                                           ;@Init_Sys T2LOADL                   Allocated to registers ;size:1
+                                           ;@Init_Sys P1KBCR                    Allocated to registers ;size:1
+                                           ;@Init_Sys P1ADCR                    Allocated to registers ;size:1
+                                           ;@Init_Sys CMPCR0                    Allocated to registers ;size:1
+                                           ;@Init_Sys CMPCR1                    Allocated to registers ;size:1
+                                           ;@Init_Sys CMPCR2                    Allocated to registers ;size:1
+                                           ;@Init_Sys TKCR0                     Allocated to registers ;size:1
+                                           ;@Init_Sys TKCR1                     Allocated to registers ;size:1
+                                           ;@Init_Sys TKCR2                     Allocated to registers ;size:1
+                                           ;@Init_Sys TKCNTH                    Allocated to registers ;size:1
+                                           ;@Init_Sys TKCNTL                    Allocated to registers ;size:1
+                                           ;@end Allocation info for local variables in function 'Init_Sys';
+                                           ;@Allocation info for local variables in function 'Clr_Ram'
+                                           ;@end Allocation info for local variables in function 'Clr_Ram';
+                                           ;@Allocation info for local variables in function 'main'
+                                           ;@end Allocation info for local variables in function 'main';
+                                           ;@Allocation info for local variables in function 'int_isr'
+                                           ;@end Allocation info for local variables in function 'int_isr';
+                                           ;@Allocation info for local variables in function 'TOUCH_OUT'
+                                           ;@end Allocation info for local variables in function 'TOUCH_OUT';
+                                           
+                                           ;--------------------------------------------------------
+                                           ; overlayable items in internal ram 
+                                           ;--------------------------------------------------------
+                                           ;	udata_ovr
+                                           ;--------------------------------------------------------
+                                           ; reset vector 
+                                           ;--------------------------------------------------------
+                                           STARTUP	code 0x0000
+                                           	goto	_main
+                                           ;--------------------------------------------------------
+                                           ; interrupt and initialization code
+                                           ;--------------------------------------------------------
+                                           c_interrupt	code	0x8
+                                           __sdcc_interrupt
+                                           ;***
+                                           ;  pBlock Stats: dbName = I
+                                           ;***
+                                           ;entry:  _int_isr	;Function start
+                                           ; 0 exit points
+                                           ;functions called:
+                                           ;   _UART_SUB
+                                           ;   _UART_SUB
+                                           ;; Starting pCode block
+                                           _int_isr	;Function start
+                                           ; 0 exit points
+                                           ;	.line	152; "MC30P8160.c"	__endasm;
+                                           	MOVRA	_CSAVE_ACC
+                                           	SWAPAR	STATUS
+                                           	MOVRA	_CSAVE_STATUS
+                                           	
+                                           ;	.line	155; "MC30P8160.c"	if(T0IF)
+                                           	JBSET	_INTFbits,0
+                                           	GOTO	_00124_DS_
+                                           ;	.line	157; "MC30P8160.c"	T0IF   = 0; 
+                                           	BCLR	_INTFbits,0
+                                           _00124_DS_
+                                           ;	.line	160; "MC30P8160.c"	if(T1IF)
+                                           	JBSET	_TMRCRbits,0
+                                           	GOTO	_00126_DS_
+                                           ;	.line	162; "MC30P8160.c"	T1IF   = 0; 
+                                           	BCLR	_TMRCRbits,0
+                                           ;	.line	164; "MC30P8160.c"	UART_SUB();    	   	   	   	//;串口中断处理
+                                           	CALL	_UART_SUB
+                                           _00126_DS_
+                                           ;	.line	173; "MC30P8160.c"	__endasm;
+                                           	SWAPAR	_CSAVE_STATUS
+                                           	MOVRA	STATUS
+                                           	SWAPR	_CSAVE_ACC
+                                           	SWAPAR	_CSAVE_ACC
+                                           	
+                                           END_OF_INTERRUPT
+                                           ;	.line	174; "MC30P8160.c"	}
+                                           	RETIE	
+                                           
+                                           ;--------------------------------------------------------
+                                           ; code
+                                           ;--------------------------------------------------------
+                                           code_MC30P8160	code
+                                           ;***
+                                           ;  pBlock Stats: dbName = M
+                                           ;***
+                                           ;entry:  _main	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;functions called:
+                                           ;   _Clr_Ram
+                                           ;   _Init_Sys
+                                           ;   _SET_TOUCH_OPTION
+                                           ;   _SET_TOUCH_OPTION2
+                                           ;   _SET_UART_9600BPS
+                                           ;   _SCAN_TOUCH
+                                           ;   _TOUCH_OUT
+                                           ;   _SCAN_UART_OUT
+                                           ;   _OPEN_OUT_UART
+                                           ;   _SET_TOUCH_OPTION2
+                                           ;   _Clr_Ram
+                                           ;   _Init_Sys
+                                           ;   _SET_TOUCH_OPTION
+                                           ;   _SET_TOUCH_OPTION2
+                                           ;   _SET_UART_9600BPS
+                                           ;   _SCAN_TOUCH
+                                           ;   _TOUCH_OUT
+                                           ;   _SCAN_UART_OUT
+                                           ;   _OPEN_OUT_UART
+                                           ;   _SET_TOUCH_OPTION2
+                                           ;3 compiler assigned registers:
+                                           ;   r0x1003
+                                           ;   r0x1004
+                                           ;   r0x1005
+                                           ;; Starting pCode block
+                                           _main	;Function start
+                                           ; 2 exit points
+                                           ;	.line	110; "MC30P8160.c"	Clr_Ram();
+                                           	CALL	_Clr_Ram
+                                           ;	.line	111; "MC30P8160.c"	Init_Sys();
+                                           	CALL	_Init_Sys
+                                           ;	.line	112; "MC30P8160.c"	SET_TOUCH_OPTION();
+                                           	CALL	_SET_TOUCH_OPTION
+                                           ;	.line	113; "MC30P8160.c"	SET_TOUCH_OPTION2();
+                                           	CALL	_SET_TOUCH_OPTION2
+                                           ;	.line	114; "MC30P8160.c"	SET_UART_9600BPS();	   	   	   	//;设定串口波特率
+                                           	CALL	_SET_UART_9600BPS
+                                           _00118_DS_
+                                           ;	.line	117; "MC30P8160.c"	WDT_Clear();
+                                           	CLRWDT	
+                                           ;	.line	118; "MC30P8160.c"	SCAN_TOUCH();
+                                           	CALL	_SCAN_TOUCH
+                                           ;	.line	119; "MC30P8160.c"	TOUCH_OUT();
+                                           	CALL	_TOUCH_OUT
+                                           ;	.line	121; "MC30P8160.c"	SCAN_UART_OUT();   	   	   	//;串口输出子程序
+                                           	CALL	_SCAN_UART_OUT
+                                           ;	.line	122; "MC30P8160.c"	if (!(CPLAY_FLAG&0X10))
+                                           	MOVAR	_CPLAY_FLAG
+                                           	MOVRA	r0x1003
+                                           	JBCLR	r0x1003,4
+                                           	GOTO	_00114_DS_
+                                           ;	.line	124; "MC30P8160.c"	OPEN_OUT_UART();   	   	//;开启串口输出
+                                           	CALL	_OPEN_OUT_UART
+                                           _00114_DS_
+                                           ;	.line	127; "MC30P8160.c"	if((CTOUCH_FLAG==0X00)&(!(CPLAY_FLAG&0X02)))
+                                           	MOVAR	_CTOUCH_FLAG
+                                           	MOVAI	0x00
+                                           	JBCLR	STATUS,2
+                                           	MOVAI	0x01
+                                           	MOVRA	r0x1003
+                                           	MOVAR	_CPLAY_FLAG
+                                           	ANDAI	0x02
+                                           	JBSET	STATUS,2
+                                           	MOVAI	0x01
+                                           	MOVRA	r0x1004
+                                           	MOVAR	r0x1004
+                                           	MOVAI	0x00
+                                           	JBCLR	STATUS,2
+                                           	MOVAI	0x01
+                                           	MOVRA	r0x1005
+                                           	MOVAR	r0x1005
+                                           	ANDRA	r0x1003
+                                           	MOVAI	0x00
+                                           	ORAR	r0x1003
+                                           	JBCLR	STATUS,2
+                                           	GOTO	_00118_DS_
+                                           ;	.line	129; "MC30P8160.c"	DDR1=0x0F;
+                                           	MOVAI	0x0f
+                                           	MOVRA	_DDR1
+                                           ;	.line	130; "MC30P8160.c"	P1=0x00;
+                                           	CLRR	_P1
+                                           ;	.line	134; "MC30P8160.c"	TKEN=0;	   	   	   	   	   	//关闭TK
+                                           	BCLR	_TKCR0bits,7
+                                           ;	.line	135; "MC30P8160.c"	SLEEP();   	   	   	   	   	//休眠两种编写方式(方式二)
+                                           	STOP	
+                                           ;	.line	136; "MC30P8160.c"	SET_TOUCH_OPTION2();
+                                           	CALL	_SET_TOUCH_OPTION2
+                                           	GOTO	_00118_DS_
+                                           ;	.line	139; "MC30P8160.c"	}
+                                           	RETURN	
+                                           ; exit point of _main
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _TOUCH_OUT	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;1 compiler assigned register :
+                                           ;   r0x1002
+                                           ;; Starting pCode block
+                                           _TOUCH_OUT	;Function start
+                                           ; 2 exit points
+                                           ;	.line	183; "MC30P8160.c"	if((CTOUCH_FLAG&0X0F)==0)
+                                           	MOVAR	_CTOUCH_FLAG
+                                           	MOVRA	r0x1002
+                                           	MOVAR	r0x1002
+                                           	ANDAI	0x0f
+                                           	JBSET	STATUS,2
+                                           	GOTO	_00132_DS_
+                                           ;	.line	185; "MC30P8160.c"	PIN_LED1=OFF;
+                                           	BCLR	_P1bits,4
+                                           	GOTO	_00134_DS_
+                                           _00132_DS_
+                                           ;	.line	189; "MC30P8160.c"	PIN_LED1=ON;
+                                           	BSET	_P1bits,4
+                                           _00134_DS_
+                                           ;	.line	191; "MC30P8160.c"	}
+                                           	RETURN	
+                                           ; exit point of _TOUCH_OUT
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _Clr_Ram	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _Clr_Ram	;Function start
+                                           ; 2 exit points
+                                           ;	.line	102; "MC30P8160.c"	__endasm;
+                                           CLR_RAM:
+                                           	MOVAI	0X4F
+                                           	MOVRA	FSR
+                                           	MOVAI	0X3F
+                                           	MOVRA	0X4F ;把寄存器的数量保存到最后一个寄存器上
+                                           CLR_RAM_LOOP:
+                                           	DECR	FSR
+                                           	CLRR	INDF
+                                           	DJZR	0X4F
+                                           	GOTO	CLR_RAM_LOOP
+                                           	RETURN
+                                           	
+                                           ;	.line	103; "MC30P8160.c"	}   
+                                           	RETURN	
+                                           ; exit point of _Clr_Ram
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _Init_Sys	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _Init_Sys	;Function start
+                                           ; 2 exit points
+                                           ;	.line	82; "MC30P8160.c"	__endasm;
+                                           SET_OPTION:
+                                           	MOVAI	00001111B
+                                           	MOVRA	P1ADCR
+                                           	MOVAI	00001111B
+                                           	MOVRA	DDR1
+                                           	MOVAI	00000000B
+                                           	MOVRA	P1
+                                           	MOVAI	0xFF
+                                           	MOVRA	PDCON
+                                           	MOVAI	0xFF
+                                           	MOVRA	PUCON
+                                           	MOVAI	0x00
+                                           	MOVRA	ODCON
+                                           	MOVAI	00000000B
+                                           	MOVRA	T1CR
+                                           	CLRR	T1CNT
+                                           	CLRR	T1LOAD
+                                           	MOVAI	00000000B
+                                           	MOVRA	TMRCR
+                                           	MOVAI	00000000B
+                                           	MOVRA	PWM1CR0
+                                           	MOVAI	00000000B
+                                           	MOVRA	PWM1CR1
+                                           	MOVAI	00000000B
+                                           	MOVRA	PWM1CR2
+                                           	CLRR	T1DATA
+                                           	CLRR	T1DATB
+                                           	CLRR	T1DATC
+                                           	CLRR	T1DATD
+                                           	MOVAI	00000001B
+                                           	MOVRA	INTE
+                                           	BSET	INTE,7
+                                           	MOVAI	0x00
+                                           	MOVRA	INTF
+                                           	MOVAI	0x00
+                                           	MOVRA	P1KBCR
+                                           	RETURN
+                                           	
+                                           ;	.line	83; "MC30P8160.c"	} 
+                                           	RETURN	
+                                           ; exit point of _Init_Sys
+                                           
+                                           
+                                           ;	code size estimation:
+                                           ;	   61+    0 =    61 instructions (  122 byte)
+                                           
+                                           	end
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XX-------------- XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0100 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0140 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0180 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+01C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0200 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0240 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0280 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+02C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0300 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0340 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0380 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+03C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0400 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0440 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0480 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+04C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0500 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0540 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0580 : XXXX------------ ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   699
+

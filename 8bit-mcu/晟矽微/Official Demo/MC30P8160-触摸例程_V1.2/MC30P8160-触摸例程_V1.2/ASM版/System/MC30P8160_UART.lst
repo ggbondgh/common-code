@@ -1,0 +1,293 @@
+gpasm-2.2.31 (Mar 15 2022)   D:\WORK\项目\触摸类芯片\MC30P8160\TEST\MC30P8160\MC30P8160_UART.asm2023-3-20  11:23:35          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;;;**********************************************************************************************************
+                      00002 ;;;**********************************************************************************************************
+                      00003 ;; 串口程序
+                      00004 ;; 波特率初始化:        CALL    SET_UART_9600BPS        ;设定波特率
+                      00005 ;; 中断调用：           CALL    UART_SUB
+                      00006 ;; 数据刷新：           CALL    SCAN_UART_OUT
+                      00007 ;; 重新/再次启动：      CALL    OPEN_OUT_UART
+                      00008 ;;;**********************************************************************************************************
+                      00009 ;;;**********************************************************************************************************
+Error[113]  : Symbol not previously defined (SET_UART_ENABLE).
+                      00010 #if SET_UART_ENABLE                                     ;串口功能是否使能
+                      00011 
+                      00012 #DEFINE                         UART_ON_FG              PLAY_FLAG,4                     ;串口启动标志位
+                      00013 #DEFINE                         UART_END_FG             PLAY_FLAG,5                     ;串口发送结束标志位
+                      00014 ;;-----------------------------------------------
+                      00015 CBLOCK  0X40
+                      00016 ;;-----------------------------------------------
+                      00017 ;;串口功能没有使用时取消定义
+                      00018 ;;UART RAM、
+                      00019 UART_OUT_DATA                                           ;UART串口发送数据
+                      00020 UART_OUT_LIST                                           ;UART串口发送数据序列
+                      00021 UART_OUT_LIST2                                          ;UART串口发送数据序列2
+                      00022 UART_OUT_CHECKSUM                                       ;UART串口数据发送累计和
+                      00023 UART_OUT_COUNT                                          ;UART串口发送数据计数
+                      00024 UART_OUT_DATA_TEMP                                      ;UART串口发送数据暂存
+                      00025 ;;-----------------------------------------------
+                      00026 ENDC
+                      00027 
+                      00028 ;;;****************************************************************************
+                      00029 ;;;****************************************************************************
+                      00030 ;;UART_INT:
+                      00031 UART_SUB:                                               ;串口通信控制
+                      00032         JBSET   UART_ON_FG
+                      00033         RETURN
+                      00034         DJZR    UART_OUT_COUNT
+                      00035         GOTO    UART_SUB_OUT_FG
+                      00036         JBCLR   UART_END_FG
+                      00037         GOTO    UART_SUB_WAIT_NEXT
+                      00038         BCLR    PIN_UART_TX                     ;起始位发0
+                      00039         MOVAI   10      ;18                             ;18为带帧数据间隔
+                      00040         MOVRA   UART_OUT_COUNT          ;初始UART计数(每帧数据1起始位，8位数据，1停止位,中间再加8个0做无效数据做帧间隔)
+                      00041         MOVAR   UART_OUT_DATA
+                      00042         MOVRA   UART_OUT_DATA_TEMP      ;更新数据
+                      00043         RETURN
+                      00044 UART_SUB_OUT_FG:
+                      00045         MOVAI   2       ;10
+                      00046         RSUBAR  UART_OUT_COUNT
+                      00047         JBSET   C
+                      00048         GOTO    UART_SUB_OUT_ENDBIT     ;起始发0（加上8个帧间隔码）合计9个0码
+                      00049 UART_SUB_OUT:
+                      00050         JBSET   UART_OUT_DATA_TEMP,0
+                      00051         GOTO    UART_SUB_OUT_LOW
+                      00052 UART_SUB_OUT_HIGH:
+                      00053         BSET    PIN_UART_TX                     ;发1码
+                      00054         GOTO    UART_SUB_NEXT
+                      00055 UART_SUB_OUT_LOW:
+                      00056         BCLR    PIN_UART_TX                     ;发0码
+                      00057         GOTO    UART_SUB_NEXT
+                      00058 UART_SUB_NEXT:
+                      00059         RRR             UART_OUT_DATA_TEMP
+                      00060         RETURN
+                      00061 UART_SUB_OUT_ENDBIT:
+                      00062         BSET    PIN_UART_TX                     ;结束位发1
+                      00063         BSET    UART_END_FG                     ;只发一次
+                      00064 ;       RETURN
+                      00065         GOTO    SCAN_UART_OUT           ;读取下一个BYTE的数据，保持数据的连续性
+                      00066 UART_SUB_WAIT_NEXT:
+                      00067         MOVAI   1
+                      00068         MOVRA   UART_OUT_COUNT
+                      00069         BSET    PIN_UART_TX                     ;结束位发1
+                      00070         RETURN
+                      00071 ;;;****************************************************************************
+                      00072 ;;;****************************************************************************
+                      00073 SET_UART_9600BPS:
+                      00074         MOVAI   10001011B                       ;定时器0配置,BIT0-2:定时器分频,BIT3定时器分配:1-WDT,0-TC0
+                      00075         MOVRA   T1CR                            ;BIT4:0-上升沿1-下降沿,BIT5:：
+                      00076         MOVAI   208                                     ;定时器1配置,BIT0-2:定时器分频,BIT3定时器分配:1-WDT,0-TC0
+                      00077         MOVRA   T1CNT                           ;清定时器1计数值
+                      00078         MOVRA   T1LOAD                          ;设定定时器1重装计数值
+                      00079         BSET    T1IE
+                      00080 
+                      00081 ;       MOVAI   10001011B                               ;定时器2配置,BIT7=T2EN,BIT4-3:时钟源选定,BIT0-2:定时器分频
+                      00082 ;       MOVRA   T2CR
+                      00083 ;       MOVAI   208                                             ;选择HOSC时钟源，32M 16分频，单计数时间长度为1000000/(32000000/16)=0.5US,208*0.5=104US（=9600BPS）
+                      00084 ;       MOVRA   T2CNT                                   ;设定定时器1计数值
+                      00085 ;       MOVRA   T2LOAD                                  ;设定定时器1重装计数值
+                      00086 ;       BSET    T2IE
+                      00087         RETURN
+                      00088 ;------------------------------------------------
+                      00089 OPEN_OUT_UART:                                          ;开启串口输出
+                      00090         JBCLR   UART_ON_FG
+                      00091         RETURN
+                      00092         BSET    UART_ON_FG                              ;只发一次
+                      00093         BSET    UART_END_FG
+                      00094         CLRR    UART_OUT_LIST
+                      00095         CLRR    UART_OUT_LIST2
+                      00096         CLRR    UART_OUT_CHECKSUM
+                      00097         RETURN
+                      00098 ;;---------------------------
+                      00099 SCAN_UART_OUT:                                          ;串口输出子程序
+                      00100         JBSET   UART_ON_FG
+                      00101         RETURN
+                      00102         JBSET   UART_END_FG
+                      00103         RETURN
+                      00104         BCLR    UART_END_FG
+                      00105 SCAN_UART_OUT_LIST:                                     ;数据格式是：0X88+0XAF+1BYTE（数据长度）+N*2BYTE（每个通道2byte的数据）+校验码（从0X88头至最后的累加和）
+                      00106         MOVAR   UART_OUT_LIST                   ;串口输出模式
+                      00107         ANDAI   0X03
+                      00108         ADDRA   PCL
+                      00109         GOTO    SCAN_UART_OUT_HEAD              ;头码部分
+                      00110         GOTO    SCAN_UART_OUT_DATA              ;数据部分
+                      00111         GOTO    SCAN_UART_OUT_ENDCODE   ;结束码部分
+                      00112         CLRR    UART_OUT_LIST                   ;帧间隔部分，持续10个高电平时间
+                      00113 SCAN_UART_OUT_HEAD:
+                      00114         MOVAR   UART_OUT_LIST2                  ;串口输出模式
+                      00115         ANDAI   0X03
+                      00116         ADDRA   PCL
+                      00117         GOTO    SCAN_UART_OUT_HEAD1             ;头码 0X88
+                      00118         GOTO    SCAN_UART_OUT_HEAD2             ;第二BYTE码 0XA1
+                      00119         GOTO    SCAN_UART_OUT_HEAD3             ;第三BYTE码 为数据长度
+                      00120         CLRR    UART_OUT_LIST2
+                      00121         MOVAI   0X01
+                      00122         MOVRA   UART_OUT_LIST
+                      00123 SCAN_UART_OUT_DATA:     
+                      00124         MOVAR   UART_OUT_LIST2                  ;串口输出模式
+                      00125         ANDAI   0X1F                                    ;要大于触摸通道数，这样发完通道数据后才会到“SCAN_UART_OUT_DATA_END”
+                      00126         ADDRA   PCL
+                      00127 ;;---------------------------
+                      00128 #if SET_TOUCH0_ENABLE                           ;第0个触摸点是否使能
+                      00129         GOTO    SCAN_UART_OUT_SAVE0H
+                      00130         GOTO    SCAN_UART_OUT_SAVE0L
+                      00131         GOTO    SCAN_UART_OUT_BASE0H
+                      00132         GOTO    SCAN_UART_OUT_BASE0L
+                      00133 #else
+                      00134 #endif
+                      00135 #if SET_TOUCH1_ENABLE                           ;第1个触摸点是否使能
+                      00136         GOTO    SCAN_UART_OUT_SAVE1H
+                      00137         GOTO    SCAN_UART_OUT_SAVE1L
+                      00138         GOTO    SCAN_UART_OUT_BASE1H
+                      00139         GOTO    SCAN_UART_OUT_BASE1L
+                      00140 #else
+                      00141 #endif
+                      00142 #if SET_TOUCH2_ENABLE                           ;第2个触摸点是否使能
+                      00143         GOTO    SCAN_UART_OUT_SAVE2H
+                      00144         GOTO    SCAN_UART_OUT_SAVE2L
+                      00145         GOTO    SCAN_UART_OUT_BASE2H
+                      00146         GOTO    SCAN_UART_OUT_BASE2L
+                      00147 #else
+                      00148 #endif
+                      00149 #if SET_TOUCH3_ENABLE                           ;第3个触摸点是否使能
+                      00150         GOTO    SCAN_UART_OUT_SAVE3H
+                      00151         GOTO    SCAN_UART_OUT_SAVE3L
+                      00152         GOTO    SCAN_UART_OUT_BASE3H
+                      00153         GOTO    SCAN_UART_OUT_BASE3L
+                      00154 #else
+                      00155 #endif
+                      00156 SCAN_UART_OUT_DATA_END:
+                      00157         CLRR    UART_OUT_LIST2
+                      00158         MOVAI   0X02
+                      00159         MOVRA   UART_OUT_LIST
+                      00160 ;;---------------------------
+                      00161 SCAN_UART_OUT_ENDCODE:                          ;结束码部分
+                      00162         MOVAR   UART_OUT_LIST2                  ;串口输出模式
+                      00163         ANDAI   0X03
+                      00164         ADDRA   PCL
+                      00165         GOTO    SCAN_UART_OUT_CHECK             ;发校验和
+                      00166 ;       GOTO    SCAN_UART_OUT_ENDBYTE   ;发送帧间隔，10个高电平周期
+                      00167         NOP
+                      00168         NOP
+                      00169         BSET    PIN_UART_TX                             ;起始位发0
+                      00170         BCLR    UART_ON_FG                              ;结束整个发码
+                      00171         RETURN
+                      00172 ;;---------------------------
+                      00173 #if SET_TOUCH0_ENABLE                                   ;第0个触摸点是否使能
+                      00174 SCAN_UART_OUT_SAVE0L:
+                      00175         MOVAR   TKCNT0_SAVEL
+                      00176         GOTO    SCAN_UART_OUTCHECKSUM
+                      00177 SCAN_UART_OUT_SAVE0H:
+                      00178         MOVAR   TKCNT0_SAVEH
+                      00179         GOTO    SCAN_UART_OUTCHECKSUM
+                      00180 SCAN_UART_OUT_BASE0L:
+                      00181         MOVAR   TKCNT0_BASEL
+                      00182         GOTO    SCAN_UART_OUTCHECKSUM
+                      00183 SCAN_UART_OUT_BASE0H:
+                      00184         MOVAR   TKCNT0_BASEH
+                      00185         GOTO    SCAN_UART_OUTCHECKSUM
+                      00186 #else
+                      00187 #endif
+                      00188 #if SET_TOUCH1_ENABLE                                   ;第1个触摸点是否使能
+                      00189 SCAN_UART_OUT_SAVE1L:
+                      00190         MOVAR   TKCNT1_SAVEL
+                      00191         GOTO    SCAN_UART_OUTCHECKSUM
+                      00192 SCAN_UART_OUT_SAVE1H:
+                      00193         MOVAR   TKCNT1_SAVEH
+                      00194         GOTO    SCAN_UART_OUTCHECKSUM
+                      00195 SCAN_UART_OUT_BASE1L:
+                      00196         MOVAR   TKCNT1_BASEL
+                      00197         GOTO    SCAN_UART_OUTCHECKSUM
+                      00198 SCAN_UART_OUT_BASE1H:
+                      00199         MOVAR   TKCNT1_BASEH
+                      00200         GOTO    SCAN_UART_OUTCHECKSUM
+                      00201 #else
+                      00202 #endif
+                      00203 #if SET_TOUCH2_ENABLE                                   ;第2个触摸点是否使能
+                      00204 SCAN_UART_OUT_SAVE2L:
+                      00205         MOVAR   TKCNT2_SAVEL
+                      00206         GOTO    SCAN_UART_OUTCHECKSUM
+                      00207 SCAN_UART_OUT_SAVE2H:
+                      00208         MOVAR   TKCNT2_SAVEH
+                      00209         GOTO    SCAN_UART_OUTCHECKSUM
+                      00210 SCAN_UART_OUT_BASE2L:
+                      00211         MOVAR   TKCNT2_BASEL
+                      00212         GOTO    SCAN_UART_OUTCHECKSUM
+                      00213 SCAN_UART_OUT_BASE2H:
+                      00214         MOVAR   TKCNT2_BASEH
+                      00215         GOTO    SCAN_UART_OUTCHECKSUM
+                      00216 #else
+                      00217 #endif
+                      00218 #if SET_TOUCH3_ENABLE                                   ;第3个触摸点是否使能
+                      00219 SCAN_UART_OUT_SAVE3L:
+                      00220         MOVAR   TKCNT3_SAVEL
+                      00221         GOTO    SCAN_UART_OUTCHECKSUM
+                      00222 SCAN_UART_OUT_SAVE3H:
+                      00223         MOVAR   TKCNT3_SAVEH
+                      00224         GOTO    SCAN_UART_OUTCHECKSUM
+                      00225 SCAN_UART_OUT_BASE3L:
+                      00226         MOVAR   TKCNT3_BASEL
+                      00227         GOTO    SCAN_UART_OUTCHECKSUM
+                      00228 SCAN_UART_OUT_BASE3H:
+                      00229         MOVAR   TKCNT3_BASEH
+                      00230         GOTO    SCAN_UART_OUTCHECKSUM
+                      00231 #else
+                      00232 #endif
+                      00233 ;;---------------------------
+                      00234 SCAN_UART_OUT_HEAD1:                                    ;头码1
+                      00235         MOVAI   0X88
+                      00236         GOTO    SCAN_UART_OUTCHECKSUM
+                      00237 SCAN_UART_OUT_HEAD2:                                    ;头码2
+                      00238         MOVAI   0XA1
+                      00239         GOTO    SCAN_UART_OUTCHECKSUM
+                      00240 SCAN_UART_OUT_HEAD3:                                    ;头码3-数据长度
+                      00241         MOVAI   TOUCH_KEY_NUM                           ;数据总长度是触摸通道数*4
+                      00242         MOVRA   UART_OUT_DATA
+                      00243         RLR             UART_OUT_DATA
+                      00244         RLR             UART_OUT_DATA
+                      00245         MOVAR   UART_OUT_DATA
+                      00246         GOTO    SCAN_UART_OUTCHECKSUM
+                      00247 SCAN_UART_OUT_CHECK:
+                      00248         MOVAR   UART_OUT_CHECKSUM
+                      00249         MOVRA   UART_OUT_DATA
+                      00250         GOTO    SCAN_UART_OUTING
+                      00251 SCAN_UART_OUTCHECKSUM:
+                      00252         MOVRA   UART_OUT_DATA
+                      00253 ;       MOVAR   UART_OUT_DATA
+                      00254         ADDRA   UART_OUT_CHECKSUM                       ;校验和
+                      00255 SCAN_UART_OUTING:
+                      00256         INCR    UART_OUT_LIST2                          ;发送下一BYTE
+                      00257         MOVAI   0X01
+                      00258         MOVRA   UART_OUT_COUNT
+                      00259         RETURN
+                      00260 ;SCAN_UART_OUT_ENDBYTE:                                 ;需要发送间隔码时调用
+                      00261 ;       INCR    UART_OUT_LIST2                          ;发送下一BYTE
+                      00262 ;;      BSET    PIN_UART_TX                                     ;起始位发1
+                      00263 ;       MOVAI   10                                                      ;10个帧数据间隔
+                      00264 ;       MOVRA   UART_OUT_COUNT                          ;直接赋UART计数
+                      00265 ;       MOVAI   0XFF
+                      00266 ;       MOVRA   UART_OUT_DATA
+                      00267 ;       MOVRA   UART_OUT_DATA_TEMP                      ;持续发送高电平
+                      00268 ;       RETURN
+                      00269 ;;;****************************************************************************
+                      00270 #else                                                           ;串口功能是否使能
+                      00271 #endif
+                      00272 ;;;**********************************************************************************************************
+Error[125]  : Illegal condition (EOF encountered before END)
+gpasm-2.2.31 (Mar 15 2022)   D:\WORK\项目\触摸类芯片\MC30P8160\TEST\MC30P8160\MC30P8160_UART.asm2023-3-20  11:23:35          PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+__1K8160                          00000001
+
+Errors   :     2
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

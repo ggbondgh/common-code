@@ -1,0 +1,2378 @@
+gplink-2.2.37 (Jan 22 2024)
+Listing File Generated: 2024-7-24  13:33:14
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           ;--------------------------------------------------------
+                                           ; external declarations
+                                           ;--------------------------------------------------------
+                                           	extern	_INDF0bits
+                                           	extern	_INDF1bits
+                                           	extern	_INDF2bits
+                                           	extern	_HIBYTEbits
+                                           	extern	_FSR0bits
+                                           	extern	_FSR1bits
+                                           	extern	_PCLbits
+                                           	extern	_PFLAGbits
+                                           	extern	_MCRbits
+                                           	extern	_INDF3bits
+                                           	extern	_INTEbits
+                                           	extern	_INTFbits
+                                           	extern	_DRVCRbits
+                                           	extern	_PFRCCRbits
+                                           	extern	_P1KBCRbits
+                                           	extern	_PFRCCALbits
+                                           	extern	_IOP0bits
+                                           	extern	_OEP0bits
+                                           	extern	_PUP0bits
+                                           	extern	_PDP0bits
+                                           	extern	_IOP1bits
+                                           	extern	_OEP1bits
+                                           	extern	_PUP1bits
+                                           	extern	_PDP1bits
+                                           	extern	_T0CRbits
+                                           	extern	_T0CNTbits
+                                           	extern	_T0LOADbits
+                                           	extern	_T0DATAbits
+                                           	extern	_T1CRbits
+                                           	extern	_T1CNTbits
+                                           	extern	_T1LOADbits
+                                           	extern	_T1DATAbits
+                                           	extern	_T2CRbits
+                                           	extern	_T2CNTbits
+                                           	extern	_T2LOADbits
+                                           	extern	_T2DATAbits
+                                           	extern	_T3CRbits
+                                           	extern	_T3CNTbits
+                                           	extern	_T3LOADbits
+                                           	extern	_PWM0DRbits
+                                           	extern	_PWM1DRbits
+                                           	extern	_PWM2DRbits
+                                           	extern	_PWMCR0bits
+                                           	extern	_PWMCR1bits
+                                           	extern	_OSCMRbits
+                                           	extern	_LVDCRbits
+                                           	extern	_ADCR0bits
+                                           	extern	_ADCR1bits
+                                           	extern	_ADCR2bits
+                                           	extern	_OSADJCRbits
+                                           	extern	_ADRHbits
+                                           	extern	_ADRLbits
+                                           	extern	_ADIOS0bits
+                                           	extern	_ADIOS1bits
+                                           	extern	_PMODbits
+                                           	extern	_PWMCR3bits
+                                           	extern	_PWMCR2bits
+                                           	extern	_PFRCAUXbits
+                                           	extern	_HIRCCALbits
+                                           	extern	_INDF0
+                                           	extern	_INDF1
+                                           	extern	_INDF2
+                                           	extern	_HIBYTE
+                                           	extern	_FSR0
+                                           	extern	_FSR1
+                                           	extern	_PCL
+                                           	extern	_PFLAG
+                                           	extern	_MCR
+                                           	extern	_INDF3
+                                           	extern	_INTE
+                                           	extern	_INTF
+                                           	extern	_DRVCR
+                                           	extern	_PFRCCR
+                                           	extern	_P1KBCR
+                                           	extern	_PFRCCAL
+                                           	extern	_IOP0
+                                           	extern	_OEP0
+                                           	extern	_PUP0
+                                           	extern	_PDP0
+                                           	extern	_IOP1
+                                           	extern	_OEP1
+                                           	extern	_PUP1
+                                           	extern	_PDP1
+                                           	extern	_T0CR
+                                           	extern	_T0CNT
+                                           	extern	_T0LOAD
+                                           	extern	_T0DATA
+                                           	extern	_T1CR
+                                           	extern	_T1CNT
+                                           	extern	_T1LOAD
+                                           	extern	_T1DATA
+                                           	extern	_T2CR
+                                           	extern	_T2CNT
+                                           	extern	_T2LOAD
+                                           	extern	_T2DATA
+                                           	extern	_T3CR
+                                           	extern	_T3CNT
+                                           	extern	_T3LOAD
+                                           	extern	_PWM0DR
+                                           	extern	_PWM1DR
+                                           	extern	_PWM2DR
+                                           	extern	_PWMCR0
+                                           	extern	_PWMCR1
+                                           	extern	_OSCMR
+                                           	extern	_LVDCR
+                                           	extern	_ADCR0
+                                           	extern	_ADCR1
+                                           	extern	_ADCR2
+                                           	extern	_OSADJCR
+                                           	extern	_ADRH
+                                           	extern	_ADRL
+                                           	extern	_ADIOS0
+                                           	extern	_ADIOS1
+                                           	extern	_PMOD
+                                           	extern	_PWMCR3
+                                           	extern	_PWMCR2
+                                           	extern	_PFRCAUX
+                                           	extern	_HIRCCAL
+                                           ;--------------------------------------------------------
+                                           ; global declarations
+                                           ;--------------------------------------------------------
+                                           	global	_Sys_Init
+                                           	global	_TIMER0_INT_Init
+                                           	global	_ADC_Get_Value_Average
+                                           	global	_ADC_Init
+                                           	global	_ADC_Zero_ADJ
+                                           	global	_ADC_Power_On_Stability
+                                           	global	_IO_Init
+                                           	global	_CLR_RAM
+                                           	global	_delay
+                                           	global	_main
+                                           	global	_int_isr
+                                           	global	_abuf
+                                           	global	_statusbuf
+                                           	global	_i
+                                           	global	_g_adc_value0_temp
+                                           	global	_g_temp_value
+                                           	global	_g_channel
+                                           	global	_g_tmpbuff
+                                           	global	_g_adcmax
+                                           	global	_g_adcmin
+                                           	global	_flag1
+                                           
+                                           	global STK06
+                                           	global STK05
+                                           	global STK04
+                                           	global STK03
+                                           	global STK02
+                                           	global STK01
+                                           	global STK00
+                                           
+                                           sharebank udata_ovr 0x0000
+                                           STK06	res 1
+                                           STK05	res 1
+                                           STK04	res 1
+                                           STK03	res 1
+                                           STK02	res 1
+                                           STK01	res 1
+                                           STK00	res 1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global definitions
+                                           ;--------------------------------------------------------
+                                           UD_MC32P7351_0	udata
+                                           _abuf	res	1
+                                           
+                                           UD_MC32P7351_1	udata
+                                           _statusbuf	res	1
+                                           
+                                           UD_MC32P7351_2	udata
+                                           _i	res	2
+                                           
+                                           UD_MC32P7351_3	udata
+                                           _g_adc_value0_temp	res	2
+                                           
+                                           UD_MC32P7351_4	udata
+                                           _g_temp_value	res	2
+                                           
+                                           UD_MC32P7351_5	udata
+                                           _g_channel	res	1
+                                           
+                                           UD_MC32P7351_6	udata
+                                           _g_tmpbuff	res	4
+                                           
+                                           UD_MC32P7351_7	udata
+                                           _g_adcmax	res	2
+                                           
+                                           UD_MC32P7351_8	udata
+                                           _g_adcmin	res	2
+                                           
+                                           UD_MC32P7351_9	udata
+                                           _flag1	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; absolute symbol definitions
+                                           ;--------------------------------------------------------
+                                           ;--------------------------------------------------------
+                                           ; compiler-defined variables
+                                           ;--------------------------------------------------------
+                                           UDL_MC32P7351_0	udata
+                                           r0x1010	res	1
+                                           r0x100F	res	1
+                                           r0x1011	res	1
+                                           r0x1012	res	1
+                                           r0x1013	res	1
+                                           r0x1014	res	1
+                                           ;--------------------------------------------------------
+                                           ; initialized data
+                                           ;--------------------------------------------------------
+                                           
+                                           ;@Allocation info for local variables in function 'CLR_RAM'
+                                           ;@CLR_RAM Sys_Init                  Allocated to registers ;size:2
+                                           ;@CLR_RAM IO_Init                   Allocated to registers ;size:2
+                                           ;@CLR_RAM ADC_Power_On_Stability    Allocated to registers ;size:2
+                                           ;@CLR_RAM ADC_Zero_ADJ              Allocated to registers ;size:2
+                                           ;@CLR_RAM ADC_Init                  Allocated to registers ;size:2
+                                           ;@CLR_RAM ADC_Get_Value_Average     Allocated to registers ;size:2
+                                           ;@CLR_RAM TIMER0_INT_Init           Allocated to registers ;size:2
+                                           ;@CLR_RAM INDF0bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF1bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF2bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM HIBYTEbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM FSR0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM FSR1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PCLbits                   Allocated to registers ;size:1
+                                           ;@CLR_RAM PFLAGbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM MCRbits                   Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF3bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM INTEbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM INTFbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM DRVCRbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCCRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM P1KBCRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCCALbits               Allocated to registers ;size:1
+                                           ;@CLR_RAM IOP0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM OEP0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PUP0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PDP0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM IOP1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM OEP1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PUP1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PDP1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T0CRbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T0CNTbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM T0LOADbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T0DATAbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T1CRbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T1CNTbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM T1LOADbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T1DATAbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T2CRbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T2CNTbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM T2LOADbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T2DATAbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T3CRbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T3CNTbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM T3LOADbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM0DRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM1DRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM2DRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR0bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR1bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM OSCMRbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM LVDCRbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR0bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR1bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR2bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM OSADJCRbits               Allocated to registers ;size:1
+                                           ;@CLR_RAM ADRHbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM ADRLbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM ADIOS0bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM ADIOS1bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PMODbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR3bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR2bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCAUXbits               Allocated to registers ;size:1
+                                           ;@CLR_RAM HIRCCALbits               Allocated to registers ;size:1
+                                           ;@CLR_RAM abuf                      Allocated to registers ;size:1
+                                           ;@CLR_RAM statusbuf                 Allocated to registers ;size:1
+                                           ;@CLR_RAM i                         Allocated to registers ;size:2
+                                           ;@CLR_RAM g_adc_value0_temp         Allocated to registers ;size:2
+                                           ;@CLR_RAM g_temp_value              Allocated to registers ;size:2
+                                           ;@CLR_RAM g_channel                 Allocated to registers ;size:1
+                                           ;@CLR_RAM g_tmpbuff                 Allocated to registers ;size:4
+                                           ;@CLR_RAM g_adcmax                  Allocated to registers ;size:2
+                                           ;@CLR_RAM g_adcmin                  Allocated to registers ;size:2
+                                           ;@CLR_RAM flag1                     Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF0                     Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF1                     Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF2                     Allocated to registers ;size:1
+                                           ;@CLR_RAM HIBYTE                    Allocated to registers ;size:1
+                                           ;@CLR_RAM FSR0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM FSR1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PCL                       Allocated to registers ;size:1
+                                           ;@CLR_RAM PFLAG                     Allocated to registers ;size:1
+                                           ;@CLR_RAM MCR                       Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF3                     Allocated to registers ;size:1
+                                           ;@CLR_RAM INTE                      Allocated to registers ;size:1
+                                           ;@CLR_RAM INTF                      Allocated to registers ;size:1
+                                           ;@CLR_RAM DRVCR                     Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCCR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM P1KBCR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCCAL                   Allocated to registers ;size:1
+                                           ;@CLR_RAM IOP0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM OEP0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PUP0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PDP0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM IOP1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM OEP1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PUP1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PDP1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T0CR                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T0CNT                     Allocated to registers ;size:1
+                                           ;@CLR_RAM T0LOAD                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T0DATA                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T1CR                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T1CNT                     Allocated to registers ;size:1
+                                           ;@CLR_RAM T1LOAD                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T1DATA                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T2CR                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T2CNT                     Allocated to registers ;size:1
+                                           ;@CLR_RAM T2LOAD                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T2DATA                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T3CR                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T3CNT                     Allocated to registers ;size:1
+                                           ;@CLR_RAM T3LOAD                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM0DR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM1DR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM2DR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR0                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR1                    Allocated to registers ;size:1
+                                           ;@CLR_RAM OSCMR                     Allocated to registers ;size:1
+                                           ;@CLR_RAM LVDCR                     Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR0                     Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR1                     Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR2                     Allocated to registers ;size:1
+                                           ;@CLR_RAM OSADJCR                   Allocated to registers ;size:1
+                                           ;@CLR_RAM ADRH                      Allocated to registers ;size:1
+                                           ;@CLR_RAM ADRL                      Allocated to registers ;size:1
+                                           ;@CLR_RAM ADIOS0                    Allocated to registers ;size:1
+                                           ;@CLR_RAM ADIOS1                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PMOD                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR3                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR2                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCAUX                   Allocated to registers ;size:1
+                                           ;@CLR_RAM HIRCCAL                   Allocated to registers ;size:1
+                                           ;@end Allocation info for local variables in function 'CLR_RAM';
+                                           ;@Allocation info for local variables in function 'delay'
+                                           ;@delay num                       Allocated to registers r0x1010 r0x100F ;size:2
+                                           ;@end Allocation info for local variables in function 'delay';
+                                           ;@Allocation info for local variables in function 'IO_Init'
+                                           ;@end Allocation info for local variables in function 'IO_Init';
+                                           ;@Allocation info for local variables in function 'ADC_Power_On_Stability'
+                                           ;@ADC_Power_On_Stability cnt                       Allocated to registers r0x100F ;size:1
+                                           ;@end Allocation info for local variables in function 'ADC_Power_On_Stability';
+                                           ;@Allocation info for local variables in function 'ADC_Zero_ADJ'
+                                           ;@end Allocation info for local variables in function 'ADC_Zero_ADJ';
+                                           ;@Allocation info for local variables in function 'ADC_Init'
+                                           ;@end Allocation info for local variables in function 'ADC_Init';
+                                           ;@Allocation info for local variables in function 'ADC_Get_Value_Average'
+                                           ;@ADC_Get_Value_Average CHX                       Allocated to registers r0x1011 ;size:1
+                                           ;@end Allocation info for local variables in function 'ADC_Get_Value_Average';
+                                           ;@Allocation info for local variables in function 'TIMER0_INT_Init'
+                                           ;@end Allocation info for local variables in function 'TIMER0_INT_Init';
+                                           ;@Allocation info for local variables in function 'Sys_Init'
+                                           ;@end Allocation info for local variables in function 'Sys_Init';
+                                           ;@Allocation info for local variables in function 'main'
+                                           ;@end Allocation info for local variables in function 'main';
+                                           ;@Allocation info for local variables in function 'int_isr'
+                                           ;@end Allocation info for local variables in function 'int_isr';
+                                           
+                                           ;--------------------------------------------------------
+                                           ; overlayable items in internal ram 
+                                           ;--------------------------------------------------------
+                                           ;	udata_ovr
+                                           ;--------------------------------------------------------
+                                           ; reset vector 
+                                           ;--------------------------------------------------------
+                                           STARTUP	code 0x0000
+000000   a010     goto    0x10             	goto	_main
+                                           ;--------------------------------------------------------
+                                           ; interrupt and initialization code
+                                           ;--------------------------------------------------------
+                                           c_interrupt	code	0x8
+                                           __sdcc_interrupt
+                                           ;***
+                                           ;  pBlock Stats: dbName = I
+                                           ;***
+                                           ;entry:  _int_isr	;Function start
+                                           ; 0 exit points
+                                           ;; Starting pCode block
+                                           _int_isr	;Function start
+                                           ; 0 exit points
+                                           ;	.line	284; "MC32P7351.c"	__endasm;
+000008   561b     movra   0x1b             	movra	_abuf
+000009   4587     swapar  0x187            	swapar	_PFLAG
+00000a   561c     movra   0x1c             	movra	_statusbuf
+                                           ;	.line	291; "MC32P7351.c"	__endasm;
+00000b   441c     swapar  0x1c             	swapar	_statusbuf
+00000c   5787     movra   0x187            	movra	_PFLAG
+00000d   461b     swapr   0x1b             	swapr	_abuf
+00000e   441b     swapar  0x1b             	swapar	_abuf
+                                           END_OF_INTERRUPT
+                                           ;	.line	292; "MC32P7351.c"	}
+00000f   000d     retie                    	RETIE	
+                                           
+                                           ;--------------------------------------------------------
+                                           ; code
+                                           ;--------------------------------------------------------
+                                           code_MC32P7351	code
+                                           ;***
+                                           ;  pBlock Stats: dbName = M
+                                           ;***
+                                           ;entry:  _main	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;functions called:
+                                           ;   _Sys_Init
+                                           ;   _ADC_Get_Value_Average
+                                           ;   _Sys_Init
+                                           ;   _ADC_Get_Value_Average
+                                           ;1 compiler assigned register :
+                                           ;   STK00
+                                           ;; Starting pCode block
+                                           _main	;Function start
+                                           ; 2 exit points
+                                           ;	.line	252; "MC32P7351.c"	Sys_Init();
+000010   8027     call    0x27             	CALL	_Sys_Init
+                                           _00384_DS_
+                                           ;	.line	255; "MC32P7351.c"	if (T0IF)                                //2mS
+000011   e18b     jbset   0x18b, 0         	JBSET	_INTFbits,0
+000012   a019     goto    0x19             	GOTO	_00379_DS_
+                                           ;	.line	257; "MC32P7351.c"	T0IF = 0;
+000013   d18b     bclr    0x18b, 0         	BCLR	_INTFbits,0
+                                           ;	.line	258; "MC32P7351.c"	g_adc_value0_temp = ADC_Get_Value_Average(5);
+000014   3c05     movai   0x5              	MOVAI	0x05
+000015   803d     call    0x3d             	CALL	_ADC_Get_Value_Average
+000016   5614     movra   0x14             	MOVRA	(_g_adc_value0_temp + 1)
+000017   5806     movar   0x6              	MOVAR	STK00
+000018   5613     movra   0x13             	MOVRA	_g_adc_value0_temp
+                                           ;;swapping arguments (AOP_TYPEs 1/3)
+                                           ;;unsigned compare: left >= lit(0xC01=3073), size=2
+                                           _00379_DS_
+                                           ;	.line	260; "MC32P7351.c"	if (g_adc_value0_temp > 2048+1024)       //>1.5V
+000019   3c0c     movai   0xc              	MOVAI	0x0c
+00001a   4814     rsubar  0x14             	RSUBAR	(_g_adc_value0_temp + 1)
+00001b   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+00001c   a01f     goto    0x1f             	GOTO	_00400_DS_
+00001d   3c01     movai   0x1              	MOVAI	0x01
+00001e   4813     rsubar  0x13             	RSUBAR	_g_adc_value0_temp
+                                           _00400_DS_
+00001f   e187     jbset   0x187, 0         	JBSET	PFLAG,0
+000020   a023     goto    0x23             	GOTO	_00381_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	262; "MC32P7351.c"	P11D = 1;
+000021   c394     bset    0x194, 0x1       	BSET	_IOP1bits,1
+000022   a024     goto    0x24             	GOTO	_00382_DS_
+                                           _00381_DS_
+                                           ;	.line	267; "MC32P7351.c"	P11D = 0;
+000023   d394     bclr    0x194, 0x1       	BCLR	_IOP1bits,1
+                                           _00382_DS_
+                                           ;	.line	269; "MC32P7351.c"	P11D = 1;
+000024   c394     bset    0x194, 0x1       	BSET	_IOP1bits,1
+000025   a011     goto    0x11             	GOTO	_00384_DS_
+                                           ;	.line	271; "MC32P7351.c"	}
+000026   000c     return                   	RETURN	
+                                           ; exit point of _main
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _Sys_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;functions called:
+                                           ;   _CLR_RAM
+                                           ;   _IO_Init
+                                           ;   _ADC_Power_On_Stability
+                                           ;   _ADC_Zero_ADJ
+                                           ;   _ADC_Init
+                                           ;   _TIMER0_INT_Init
+                                           ;   _CLR_RAM
+                                           ;   _IO_Init
+                                           ;   _ADC_Power_On_Stability
+                                           ;   _ADC_Zero_ADJ
+                                           ;   _ADC_Init
+                                           ;   _TIMER0_INT_Init
+                                           ;1 compiler assigned register :
+                                           ;   r0x1011
+                                           ;; Starting pCode block
+                                           _Sys_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	235; "MC32P7351.c"	GIE = 0;
+000027   df88     bclr    0x188, 0x7       	BCLR	_MCRbits,7
+                                           ;	.line	236; "MC32P7351.c"	CLR_RAM();
+000028   81a4     call    0x1a4            	CALL	_CLR_RAM
+                                           ;	.line	237; "MC32P7351.c"	IO_Init();
+000029   8180     call    0x180            	CALL	_IO_Init
+                                           ;	.line	238; "MC32P7351.c"	ADC_Power_On_Stability();
+00002a   8159     call    0x159            	CALL	_ADC_Power_On_Stability
+                                           _00373_DS_
+                                           ;	.line	239; "MC32P7351.c"	while (ADC_Zero_ADJ());                      //demo演示,校准失败一直校准，用户按照需求选择是否校准
+00002b   80f5     call    0xf5             	CALL	_ADC_Zero_ADJ
+00002c   5609     movra   0x9              	MOVRA	r0x1011
+00002d   3c00     movai   0                	MOVAI	0x00
+00002e   5c09     orar    0x9              	ORAR	r0x1011
+00002f   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000030   a02b     goto    0x2b             	GOTO	_00373_DS_
+                                           ;	.line	240; "MC32P7351.c"	ADC_Init();
+000031   80ec     call    0xec             	CALL	_ADC_Init
+                                           ;	.line	241; "MC32P7351.c"	TIMER0_INT_Init();
+000032   8035     call    0x35             	CALL	_TIMER0_INT_Init
+                                           ;	.line	242; "MC32P7351.c"	GIE = 1;
+000033   cf88     bset    0x188, 0x7       	BSET	_MCRbits,7
+                                           ;	.line	243; "MC32P7351.c"	}
+000034   000c     return                   	RETURN	
+                                           ; exit point of _Sys_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _TIMER0_INT_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _TIMER0_INT_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	222; "MC32P7351.c"	T0CR |= DEF_SET_BIT1 | DEF_SET_BIT2;         //CPU,64分频
+000035   3c06     movai   0x6              	MOVAI	0x06
+000036   5f98     orra    0x198            	ORRA	_T0CR
+                                           ;	.line	223; "MC32P7351.c"	T0CNT = 250-1;
+000037   3cf9     movai   0xf9             	MOVAI	0xf9
+000038   5799     movra   0x199            	MOVRA	_T0CNT
+                                           ;	.line	224; "MC32P7351.c"	T0LOAD = 250-1;                              //2ms
+000039   3cf9     movai   0xf9             	MOVAI	0xf9
+00003a   579a     movra   0x19a            	MOVRA	_T0LOAD
+                                           ;	.line	225; "MC32P7351.c"	T0EN = 1;
+00003b   cf98     bset    0x198, 0x7       	BSET	_T0CRbits,7
+                                           ;	.line	226; "MC32P7351.c"	}
+00003c   000c     return                   	RETURN	
+                                           ; exit point of _TIMER0_INT_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _ADC_Get_Value_Average	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;functions called:
+                                           ;   _delay
+                                           ;   _delay
+                                           ;7 compiler assigned registers:
+                                           ;   r0x1011
+                                           ;   r0x1012
+                                           ;   r0x1013
+                                           ;   STK00
+                                           ;   r0x1014
+                                           ;   r0x1015
+                                           ;   r0x1016
+                                           ;; Starting pCode block
+                                           _ADC_Get_Value_Average	;Function start
+                                           ; 2 exit points
+00003d   560b     movra   0xb              	MOVRA	r0x1013
+                                           ;	.line	186; "MC32P7351.c"	uint ADC_Get_Value_Average(u8 CHX)
+00003e   5609     movra   0x9              	MOVRA	r0x1011
+                                           ;	.line	188; "MC32P7351.c"	g_temp_value = 0;
+00003f   7615     clrr    0x15             	CLRR	_g_temp_value
+000040   7616     clrr    0x16             	CLRR	(_g_temp_value + 1)
+                                           ;	.line	189; "MC32P7351.c"	g_channel = 0;
+000041   761d     clrr    0x1d             	CLRR	_g_channel
+                                           ;	.line	190; "MC32P7351.c"	g_tmpbuff = 0;
+000042   760d     clrr    0xd              	CLRR	_g_tmpbuff
+000043   760e     clrr    0xe              	CLRR	(_g_tmpbuff + 1)
+000044   760f     clrr    0xf              	CLRR	(_g_tmpbuff + 2)
+000045   7610     clrr    0x10             	CLRR	(_g_tmpbuff + 3)
+                                           ;	.line	191; "MC32P7351.c"	g_adcmax = 0;
+000046   7617     clrr    0x17             	CLRR	_g_adcmax
+000047   7618     clrr    0x18             	CLRR	(_g_adcmax + 1)
+                                           ;	.line	192; "MC32P7351.c"	g_adcmin = 0xffff;
+000048   3cff     movai   0xff             	MOVAI	0xff
+000049   5619     movra   0x19             	MOVRA	_g_adcmin
+00004a   561a     movra   0x1a             	MOVRA	(_g_adcmin + 1)
+                                           ;	.line	193; "MC32P7351.c"	ADCR0 = (ADCR0 & 0x0f) | (CHX << 4);         // ADC 使能  AD转换通道开启  通道  CHX
+00004b   59b0     movar   0x1b0            	MOVAR	_ADCR0
+00004c   560a     movra   0xa              	MOVRA	r0x1012
+00004d   3c0f     movai   0xf              	MOVAI	0x0f
+00004e   7a0a     andra   0xa              	ANDRA	r0x1012
+                                           ;;106	MOVAR	r0x1011
+00004f   440b     swapar  0xb              	SWAPAR	r0x1013
+000050   3ef0     andai   0xf0             	ANDAI	0xf0
+000051   560b     movra   0xb              	MOVRA	r0x1013
+000052   5609     movra   0x9              	MOVRA	r0x1011
+                                           ;;105	MOVAR	r0x1011
+000053   580b     movar   0xb              	MOVAR	r0x1013
+000054   5c0a     orar    0xa              	ORAR	r0x1012
+000055   57b0     movra   0x1b0            	MOVRA	_ADCR0
+                                           ;	.line	194; "MC32P7351.c"	delay(300);                                  //切换通道延时200uS以上
+000056   3c2c     movai   0x2c             	MOVAI	0x2c
+000057   5606     movra   0x6              	MOVRA	STK00
+000058   3c01     movai   0x1              	MOVAI	0x01
+000059   8191     call    0x191            	CALL	_delay
+                                           ;	.line	195; "MC32P7351.c"	for (g_channel = 0; g_channel < 20; g_channel ++)
+00005a   761d     clrr    0x1d             	CLRR	_g_channel
+                                           _00331_DS_
+                                           ;	.line	197; "MC32P7351.c"	ADEOC = 0;
+00005b   d3b0     bclr    0x1b0, 0x1       	BCLR	_ADCR0bits,1
+                                           _00320_DS_
+                                           ;	.line	198; "MC32P7351.c"	while (!ADEOC);                         //等待转换完成
+00005c   e3b0     jbset   0x1b0, 0x1       	JBSET	_ADCR0bits,1
+00005d   a05c     goto    0x5c             	GOTO	_00320_DS_
+                                           ;	.line	199; "MC32P7351.c"	g_temp_value = ADRH;
+00005e   59b4     movar   0x1b4            	MOVAR	_ADRH
+00005f   5615     movra   0x15             	MOVRA	_g_temp_value
+000060   7616     clrr    0x16             	CLRR	(_g_temp_value + 1)
+                                           ;	.line	200; "MC32P7351.c"	g_temp_value = g_temp_value << 4 | (ADRL & 0x0f);
+000061   4416     swapar  0x16             	SWAPAR	(_g_temp_value + 1)
+000062   3ef0     andai   0xf0             	ANDAI	0xf0
+000063   560a     movra   0xa              	MOVRA	r0x1012
+000064   4415     swapar  0x15             	SWAPAR	_g_temp_value
+000065   5609     movra   0x9              	MOVRA	r0x1011
+000066   3e0f     andai   0xf              	ANDAI	0x0f
+000067   5e0a     orra    0xa              	ORRA	r0x1012
+000068   4209     xorra   0x9              	XORRA	r0x1011
+000069   59b5     movar   0x1b5            	MOVAR	_ADRL
+00006a   560b     movra   0xb              	MOVRA	r0x1013
+00006b   760c     clrr    0xc              	CLRR	r0x1014
+00006c   3c0f     movai   0xf              	MOVAI	0x0f
+00006d   7a0b     andra   0xb              	ANDRA	r0x1013
+00006e   760c     clrr    0xc              	CLRR	r0x1014
+                                           ;;101	MOVAR	r0x1013
+                                           ;;99	MOVRA	r0x1015
+                                           ;;104	MOVAR	r0x1014
+                                           ;;102	MOVRA	r0x1016
+                                           ;;100	MOVAR	r0x1015
+00006f   580b     movar   0xb              	MOVAR	r0x1013
+000070   5c09     orar    0x9              	ORAR	r0x1011
+000071   5615     movra   0x15             	MOVRA	_g_temp_value
+                                           ;;103	MOVAR	r0x1016
+000072   3c00     movai   0                	MOVAI	0x00
+000073   5c0a     orar    0xa              	ORAR	r0x1012
+000074   5616     movra   0x16             	MOVRA	(_g_temp_value + 1)
+                                           ;;unsigned compare: left < lit(0x2=2), size=1
+                                           ;	.line	201; "MC32P7351.c"	if (g_channel < 2)
+000075   3c02     movai   0x2              	MOVAI	0x02
+000076   481d     rsubar  0x1d             	RSUBAR	_g_channel
+000077   e187     jbset   0x187, 0         	JBSET	PFLAG,0
+000078   a0a5     goto    0xa5             	GOTO	_00329_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	203; "MC32P7351.c"	if (g_temp_value > g_adcmax)
+000079   5816     movar   0x16             	MOVAR	(_g_temp_value + 1)
+00007a   4818     rsubar  0x18             	RSUBAR	(_g_adcmax + 1)
+00007b   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+00007c   a07f     goto    0x7f             	GOTO	_00363_DS_
+00007d   5815     movar   0x15             	MOVAR	_g_temp_value
+00007e   4817     rsubar  0x17             	RSUBAR	_g_adcmax
+                                           _00363_DS_
+00007f   f187     jbclr   0x187, 0         	JBCLR	PFLAG,0
+000080   a085     goto    0x85             	GOTO	_00326_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	204; "MC32P7351.c"	g_adcmax = g_temp_value;             //最大
+000081   5815     movar   0x15             	MOVAR	_g_temp_value
+000082   5617     movra   0x17             	MOVRA	_g_adcmax
+000083   5816     movar   0x16             	MOVAR	(_g_temp_value + 1)
+000084   5618     movra   0x18             	MOVRA	(_g_adcmax + 1)
+                                           _00326_DS_
+                                           ;	.line	205; "MC32P7351.c"	if (g_temp_value < g_adcmin)
+000085   581a     movar   0x1a             	MOVAR	(_g_adcmin + 1)
+000086   4816     rsubar  0x16             	RSUBAR	(_g_temp_value + 1)
+000087   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000088   a08b     goto    0x8b             	GOTO	_00364_DS_
+000089   5819     movar   0x19             	MOVAR	_g_adcmin
+00008a   4815     rsubar  0x15             	RSUBAR	_g_temp_value
+                                           _00364_DS_
+00008b   f187     jbclr   0x187, 0         	JBCLR	PFLAG,0
+00008c   a091     goto    0x91             	GOTO	_00328_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	206; "MC32P7351.c"	g_adcmin = g_temp_value;             //最小
+00008d   5815     movar   0x15             	MOVAR	_g_temp_value
+00008e   5619     movra   0x19             	MOVRA	_g_adcmin
+00008f   5816     movar   0x16             	MOVAR	(_g_temp_value + 1)
+000090   561a     movra   0x1a             	MOVRA	(_g_adcmin + 1)
+                                           _00328_DS_
+                                           ;	.line	207; "MC32P7351.c"	g_tmpbuff += g_temp_value;
+000091   5815     movar   0x15             	MOVAR	_g_temp_value
+000092   5609     movra   0x9              	MOVRA	r0x1011
+000093   5816     movar   0x16             	MOVAR	(_g_temp_value + 1)
+000094   560a     movra   0xa              	MOVRA	r0x1012
+000095   760b     clrr    0xb              	CLRR	r0x1013
+000096   760c     clrr    0xc              	CLRR	r0x1014
+000097   5809     movar   0x9              	MOVAR	r0x1011
+000098   7e0d     addra   0xd              	ADDRA	_g_tmpbuff
+000099   580a     movar   0xa              	MOVAR	r0x1012
+00009a   f187     jbclr   0x187, 0         	JBCLR	PFLAG,0
+00009b   600a     jzar    0xa              	JZAR	r0x1012
+00009c   7e0e     addra   0xe              	ADDRA	(_g_tmpbuff + 1)
+00009d   580b     movar   0xb              	MOVAR	r0x1013
+00009e   f187     jbclr   0x187, 0         	JBCLR	PFLAG,0
+00009f   600b     jzar    0xb              	JZAR	r0x1013
+0000a0   7e0f     addra   0xf              	ADDRA	(_g_tmpbuff + 2)
+0000a1   580c     movar   0xc              	MOVAR	r0x1014
+0000a2   f187     jbclr   0x187, 0         	JBCLR	PFLAG,0
+0000a3   600c     jzar    0xc              	JZAR	r0x1014
+0000a4   7e10     addra   0x10             	ADDRA	(_g_tmpbuff + 3)
+                                           _00329_DS_
+                                           ;	.line	195; "MC32P7351.c"	for (g_channel = 0; g_channel < 20; g_channel ++)
+0000a5   661d     incr    0x1d             	INCR	_g_channel
+                                           ;;unsigned compare: left < lit(0x14=20), size=1
+0000a6   3c14     movai   0x14             	MOVAI	0x14
+0000a7   481d     rsubar  0x1d             	RSUBAR	_g_channel
+0000a8   e187     jbset   0x187, 0         	JBSET	PFLAG,0
+0000a9   a05b     goto    0x5b             	GOTO	_00331_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	209; "MC32P7351.c"	g_tmpbuff -= g_adcmax;                       //去掉一个最大
+0000aa   5817     movar   0x17             	MOVAR	_g_adcmax
+0000ab   5609     movra   0x9              	MOVRA	r0x1011
+0000ac   5818     movar   0x18             	MOVAR	(_g_adcmax + 1)
+0000ad   560a     movra   0xa              	MOVRA	r0x1012
+0000ae   760b     clrr    0xb              	CLRR	r0x1013
+0000af   760c     clrr    0xc              	CLRR	r0x1014
+0000b0   5809     movar   0x9              	MOVAR	r0x1011
+0000b1   4a0d     rsubra  0xd              	RSUBRA	_g_tmpbuff
+0000b2   580a     movar   0xa              	MOVAR	r0x1012
+0000b3   e187     jbset   0x187, 0         	JBSET	PFLAG,0
+0000b4   600a     jzar    0xa              	JZAR	r0x1012
+0000b5   4a0e     rsubra  0xe              	RSUBRA	(_g_tmpbuff + 1)
+0000b6   580b     movar   0xb              	MOVAR	r0x1013
+0000b7   e187     jbset   0x187, 0         	JBSET	PFLAG,0
+0000b8   600b     jzar    0xb              	JZAR	r0x1013
+0000b9   4a0f     rsubra  0xf              	RSUBRA	(_g_tmpbuff + 2)
+0000ba   580c     movar   0xc              	MOVAR	r0x1014
+0000bb   e187     jbset   0x187, 0         	JBSET	PFLAG,0
+0000bc   600c     jzar    0xc              	JZAR	r0x1014
+0000bd   4a10     rsubra  0x10             	RSUBRA	(_g_tmpbuff + 3)
+                                           ;	.line	210; "MC32P7351.c"	g_tmpbuff -= g_adcmin;                       //去掉一个最小
+0000be   5819     movar   0x19             	MOVAR	_g_adcmin
+0000bf   5609     movra   0x9              	MOVRA	r0x1011
+0000c0   581a     movar   0x1a             	MOVAR	(_g_adcmin + 1)
+0000c1   560a     movra   0xa              	MOVRA	r0x1012
+0000c2   760b     clrr    0xb              	CLRR	r0x1013
+0000c3   760c     clrr    0xc              	CLRR	r0x1014
+0000c4   5809     movar   0x9              	MOVAR	r0x1011
+0000c5   4a0d     rsubra  0xd              	RSUBRA	_g_tmpbuff
+0000c6   580a     movar   0xa              	MOVAR	r0x1012
+0000c7   e187     jbset   0x187, 0         	JBSET	PFLAG,0
+0000c8   600a     jzar    0xa              	JZAR	r0x1012
+0000c9   4a0e     rsubra  0xe              	RSUBRA	(_g_tmpbuff + 1)
+0000ca   580b     movar   0xb              	MOVAR	r0x1013
+0000cb   e187     jbset   0x187, 0         	JBSET	PFLAG,0
+0000cc   600b     jzar    0xb              	JZAR	r0x1013
+0000cd   4a0f     rsubra  0xf              	RSUBRA	(_g_tmpbuff + 2)
+0000ce   580c     movar   0xc              	MOVAR	r0x1014
+0000cf   e187     jbset   0x187, 0         	JBSET	PFLAG,0
+0000d0   600c     jzar    0xc              	JZAR	r0x1014
+0000d1   4a10     rsubra  0x10             	RSUBRA	(_g_tmpbuff + 3)
+                                           ;	.line	211; "MC32P7351.c"	g_temp_value = (g_tmpbuff >> 4);             //除以16，取平均值
+0000d2   440d     swapar  0xd              	SWAPAR	_g_tmpbuff
+0000d3   3e0f     andai   0xf              	ANDAI	0x0f
+0000d4   5609     movra   0x9              	MOVRA	r0x1011
+0000d5   440e     swapar  0xe              	SWAPAR	(_g_tmpbuff + 1)
+0000d6   560a     movra   0xa              	MOVRA	r0x1012
+0000d7   3ef0     andai   0xf0             	ANDAI	0xf0
+0000d8   5e09     orra    0x9              	ORRA	r0x1011
+0000d9   420a     xorra   0xa              	XORRA	r0x1012
+0000da   440f     swapar  0xf              	SWAPAR	(_g_tmpbuff + 2)
+0000db   560b     movra   0xb              	MOVRA	r0x1013
+0000dc   3ef0     andai   0xf0             	ANDAI	0xf0
+0000dd   5e0a     orra    0xa              	ORRA	r0x1012
+0000de   420b     xorra   0xb              	XORRA	r0x1013
+0000df   4410     swapar  0x10             	SWAPAR	(_g_tmpbuff + 3)
+0000e0   560c     movra   0xc              	MOVRA	r0x1014
+0000e1   3ef0     andai   0xf0             	ANDAI	0xf0
+0000e2   5e0b     orra    0xb              	ORRA	r0x1013
+0000e3   420c     xorra   0xc              	XORRA	r0x1014
+0000e4   5809     movar   0x9              	MOVAR	r0x1011
+0000e5   5615     movra   0x15             	MOVRA	_g_temp_value
+0000e6   580a     movar   0xa              	MOVAR	r0x1012
+0000e7   5616     movra   0x16             	MOVRA	(_g_temp_value + 1)
+                                           ;	.line	212; "MC32P7351.c"	return g_temp_value;
+0000e8   5815     movar   0x15             	MOVAR	_g_temp_value
+0000e9   5606     movra   0x6              	MOVRA	STK00
+0000ea   5816     movar   0x16             	MOVAR	(_g_temp_value + 1)
+                                           ;	.line	213; "MC32P7351.c"	}
+0000eb   000c     return                   	RETURN	
+                                           ; exit point of _ADC_Get_Value_Average
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _ADC_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _ADC_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	173; "MC32P7351.c"	OEP1 &= DEF_CLR_BIT0;                        //P10为输入口
+0000ec   d195     bclr    0x195, 0         	BCLR	_OEP1,0
+                                           ;	.line	174; "MC32P7351.c"	ADIOS0 |= DEF_SET_BIT5;                      //使能P10模拟功能
+0000ed   cbb6     bset    0x1b6, 0x5       	BSET	_ADIOS0,5
+                                           ;	.line	175; "MC32P7351.c"	ADCR0 = 0xfb;                                //使能ADC、12位数据H8L4
+0000ee   3cfb     movai   0xfb             	MOVAI	0xfb
+0000ef   57b0     movra   0x1b0            	MOVRA	_ADCR0
+                                           ;	.line	176; "MC32P7351.c"	ADCR1 = 0x80;                                //32分频、内部2V 
+0000f0   3c80     movai   0x80             	MOVAI	0x80
+0000f1   57b1     movra   0x1b1            	MOVRA	_ADCR1
+                                           ;	.line	177; "MC32P7351.c"	ADCR2 = 0xff;                                //固定为15ADCLK 
+0000f2   3cff     movai   0xff             	MOVAI	0xff
+0000f3   57b2     movra   0x1b2            	MOVRA	_ADCR2
+                                           ;	.line	178; "MC32P7351.c"	}
+0000f4   000c     return                   	RETURN	
+                                           ; exit point of _ADC_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _ADC_Zero_ADJ	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;2 compiler assigned registers:
+                                           ;   r0x100F
+                                           ;   r0x1010
+                                           ;; Starting pCode block
+                                           _ADC_Zero_ADJ	;Function start
+                                           ; 2 exit points
+                                           ;	.line	102; "MC32P7351.c"	ADCR0 = 0xeb;                                //使能ADC、12位数据H8L4、GND通道
+0000f5   3ceb     movai   0xeb             	MOVAI	0xeb
+0000f6   57b0     movra   0x1b0            	MOVRA	_ADCR0
+                                           ;	.line	103; "MC32P7351.c"	ADCR1 = 0x80;                                //32分频、内部2V
+0000f7   3c80     movai   0x80             	MOVAI	0x80
+0000f8   57b1     movra   0x1b1            	MOVRA	_ADCR1
+                                           ;	.line	104; "MC32P7351.c"	ADCR2 = 0xff;                                //固定为15ADCLK
+0000f9   3cff     movai   0xff             	MOVAI	0xff
+0000fa   57b2     movra   0x1b2            	MOVRA	_ADCR2
+                                           ;	.line	105; "MC32P7351.c"	OSADJCR |= DEF_SET_BIT7;                     //使能零点校准、负向修调
+0000fb   cfb3     bset    0x1b3, 0x7       	BSET	_OSADJCR,7
+                                           ;	.line	106; "MC32P7351.c"	ADEOC = 0;
+0000fc   d3b0     bclr    0x1b0, 0x1       	BCLR	_ADCR0bits,1
+                                           _00187_DS_
+                                           ;	.line	107; "MC32P7351.c"	while (!ADEOC);
+0000fd   e3b0     jbset   0x1b0, 0x1       	JBSET	_ADCR0bits,1
+0000fe   a0fd     goto    0xfd             	GOTO	_00187_DS_
+                                           ;	.line	108; "MC32P7351.c"	if ((ADRH == 0) && ((ADRL & 0x0F) == 0))     //结果是否为0
+0000ff   3c00     movai   0                	MOVAI	0x00
+000100   5db4     orar    0x1b4            	ORAR	_ADRH
+000101   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000102   a137     goto    0x137            	GOTO	_00219_DS_
+000103   59b5     movar   0x1b5            	MOVAR	_ADRL
+000104   5608     movra   0x8              	MOVRA	r0x100F
+000105   5808     movar   0x8              	MOVAR	r0x100F
+000106   3e0f     andai   0xf              	ANDAI	0x0f
+000107   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000108   a137     goto    0x137            	GOTO	_00219_DS_
+                                           ;	.line	110; "MC32P7351.c"	OSADJTD = 1;                             //正向修调
+000109   cdb3     bset    0x1b3, 0x6       	BSET	_OSADJCRbits,6
+                                           ;	.line	111; "MC32P7351.c"	OSADJCR |= 0x3F;
+00010a   3c3f     movai   0x3f             	MOVAI	0x3f
+00010b   5fb3     orra    0x1b3            	ORRA	_OSADJCR
+                                           ;	.line	112; "MC32P7351.c"	ADEOC = 0;
+00010c   d3b0     bclr    0x1b0, 0x1       	BCLR	_ADCR0bits,1
+                                           _00190_DS_
+                                           ;	.line	113; "MC32P7351.c"	while (!ADEOC);
+00010d   e3b0     jbset   0x1b0, 0x1       	JBSET	_ADCR0bits,1
+00010e   a10d     goto    0x10d            	GOTO	_00190_DS_
+                                           ;	.line	114; "MC32P7351.c"	if ((ADRH == 0) && ((ADRL & 0x0F) == 0)) //结果是否为0
+00010f   3c00     movai   0                	MOVAI	0x00
+000110   5db4     orar    0x1b4            	ORAR	_ADRH
+000111   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000112   a11c     goto    0x11c            	GOTO	_00203_DS_
+000113   59b5     movar   0x1b5            	MOVAR	_ADRL
+000114   5608     movra   0x8              	MOVRA	r0x100F
+000115   5808     movar   0x8              	MOVAR	r0x100F
+000116   3e0f     andai   0xf              	ANDAI	0x0f
+000117   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000118   a11c     goto    0x11c            	GOTO	_00203_DS_
+                                           ;	.line	116; "MC32P7351.c"	ADEN = 0;
+000119   d1b0     bclr    0x1b0, 0         	BCLR	_ADCR0bits,0
+                                           ;	.line	117; "MC32P7351.c"	return PASS;
+00011a   3c00     movai   0                	MOVAI	0x00
+00011b   a158     goto    0x158            	GOTO	_00225_DS_
+                                           _00203_DS_
+                                           ;	.line	123; "MC32P7351.c"	if (OSADJCR & 0x3f)
+00011c   59b3     movar   0x1b3            	MOVAR	_OSADJCR
+00011d   5608     movra   0x8              	MOVRA	r0x100F
+00011e   5808     movar   0x8              	MOVAR	r0x100F
+00011f   3e3f     andai   0x3f             	ANDAI	0x3f
+000120   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000121   a123     goto    0x123            	GOTO	_00311_DS_
+000122   a134     goto    0x134            	GOTO	_00200_DS_
+                                           _00311_DS_
+                                           ;	.line	125; "MC32P7351.c"	OSADJCR --;
+000123   6fb3     decr    0x1b3            	DECR	_OSADJCR
+                                           ;	.line	126; "MC32P7351.c"	ADEOC = 0;
+000124   d3b0     bclr    0x1b0, 0x1       	BCLR	_ADCR0bits,1
+                                           _00193_DS_
+                                           ;	.line	127; "MC32P7351.c"	while (!ADEOC);
+000125   e3b0     jbset   0x1b0, 0x1       	JBSET	_ADCR0bits,1
+000126   a125     goto    0x125            	GOTO	_00193_DS_
+                                           ;	.line	128; "MC32P7351.c"	if ((ADRH == 0) && ((ADRL & 0x0F) == 0))//结果是否为0
+000127   3c00     movai   0                	MOVAI	0x00
+000128   5db4     orar    0x1b4            	ORAR	_ADRH
+000129   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+00012a   a11c     goto    0x11c            	GOTO	_00203_DS_
+00012b   59b5     movar   0x1b5            	MOVAR	_ADRL
+00012c   5608     movra   0x8              	MOVRA	r0x100F
+00012d   5808     movar   0x8              	MOVAR	r0x100F
+00012e   3e0f     andai   0xf              	ANDAI	0x0f
+00012f   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000130   a11c     goto    0x11c            	GOTO	_00203_DS_
+                                           ;	.line	130; "MC32P7351.c"	ADEN = 0;
+000131   d1b0     bclr    0x1b0, 0         	BCLR	_ADCR0bits,0
+                                           ;	.line	131; "MC32P7351.c"	return PASS;
+000132   3c00     movai   0                	MOVAI	0x00
+000133   a158     goto    0x158            	GOTO	_00225_DS_
+                                           _00200_DS_
+                                           ;	.line	136; "MC32P7351.c"	ADEN = 0;
+000134   d1b0     bclr    0x1b0, 0         	BCLR	_ADCR0bits,0
+                                           ;	.line	137; "MC32P7351.c"	return FAIL;
+000135   3c01     movai   0x1              	MOVAI	0x01
+000136   a158     goto    0x158            	GOTO	_00225_DS_
+                                           _00219_DS_
+                                           ;	.line	146; "MC32P7351.c"	if ((OSADJCR & 0x3f) == 0x3f)
+000137   59b3     movar   0x1b3            	MOVAR	_OSADJCR
+000138   5608     movra   0x8              	MOVRA	r0x100F
+000139   7607     clrr    0x7              	CLRR	r0x1010
+00013a   3c3f     movai   0x3f             	MOVAI	0x3f
+00013b   7a08     andra   0x8              	ANDRA	r0x100F
+00013c   7607     clrr    0x7              	CLRR	r0x1010
+00013d   5808     movar   0x8              	MOVAR	r0x100F
+00013e   393f     xorai   0x3f             	XORAI	0x3f
+00013f   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000140   a148     goto    0x148            	GOTO	_00216_DS_
+000141   5807     movar   0x7              	MOVAR	r0x1010
+000142   3900     xorai   0                	XORAI	0x00
+000143   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000144   a148     goto    0x148            	GOTO	_00216_DS_
+                                           ;	.line	148; "MC32P7351.c"	ADEN = 0;
+000145   d1b0     bclr    0x1b0, 0         	BCLR	_ADCR0bits,0
+                                           ;	.line	149; "MC32P7351.c"	return FAIL;
+000146   3c01     movai   0x1              	MOVAI	0x01
+000147   a158     goto    0x158            	GOTO	_00225_DS_
+                                           _00216_DS_
+                                           ;	.line	153; "MC32P7351.c"	OSADJCR ++;
+000148   67b3     incr    0x1b3            	INCR	_OSADJCR
+                                           ;	.line	154; "MC32P7351.c"	ADEOC = 0;
+000149   d3b0     bclr    0x1b0, 0x1       	BCLR	_ADCR0bits,1
+                                           _00209_DS_
+                                           ;	.line	155; "MC32P7351.c"	while (!ADEOC);
+00014a   e3b0     jbset   0x1b0, 0x1       	JBSET	_ADCR0bits,1
+00014b   a14a     goto    0x14a            	GOTO	_00209_DS_
+                                           ;	.line	156; "MC32P7351.c"	if ((ADRH == 0) && ((ADRL & 0x0F) == 0))//结果是否为0
+00014c   3c00     movai   0                	MOVAI	0x00
+00014d   5db4     orar    0x1b4            	ORAR	_ADRH
+00014e   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+00014f   a137     goto    0x137            	GOTO	_00219_DS_
+000150   59b5     movar   0x1b5            	MOVAR	_ADRL
+000151   5608     movra   0x8              	MOVRA	r0x100F
+000152   5808     movar   0x8              	MOVAR	r0x100F
+000153   3e0f     andai   0xf              	ANDAI	0x0f
+000154   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000155   a137     goto    0x137            	GOTO	_00219_DS_
+                                           ;	.line	158; "MC32P7351.c"	ADEN = 0;
+000156   d1b0     bclr    0x1b0, 0         	BCLR	_ADCR0bits,0
+                                           ;	.line	159; "MC32P7351.c"	return PASS;
+000157   3c00     movai   0                	MOVAI	0x00
+                                           _00225_DS_
+                                           ;	.line	164; "MC32P7351.c"	}
+000158   000c     return                   	RETURN	
+                                           ; exit point of _ADC_Zero_ADJ
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _ADC_Power_On_Stability	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;2 compiler assigned registers:
+                                           ;   r0x100F
+                                           ;   r0x1010
+                                           ;; Starting pCode block
+                                           _ADC_Power_On_Stability	;Function start
+                                           ; 2 exit points
+                                           ;	.line	78; "MC32P7351.c"	ADCR0 = 0xab;                      //使能ADC、12位数据H8L4、VDD/4通道
+000159   3cab     movai   0xab             	MOVAI	0xab
+00015a   57b0     movra   0x1b0            	MOVRA	_ADCR0
+                                           ;	.line	79; "MC32P7351.c"	ADCR1 = 0x83;                      //32分频、内部VDD
+00015b   3c83     movai   0x83             	MOVAI	0x83
+00015c   57b1     movra   0x1b1            	MOVRA	_ADCR1
+                                           ;	.line	80; "MC32P7351.c"	ADCR2 = 0xff;                      //固定为15ADCLK
+00015d   3cff     movai   0xff             	MOVAI	0xff
+00015e   57b2     movra   0x1b2            	MOVRA	_ADCR2
+                                           ;	.line	81; "MC32P7351.c"	ADEOC = 0;
+00015f   d3b0     bclr    0x1b0, 0x1       	BCLR	_ADCR0bits,1
+                                           _00135_DS_
+                                           ;	.line	82; "MC32P7351.c"	while (!ADEOC);
+000160   e3b0     jbset   0x1b0, 0x1       	JBSET	_ADCR0bits,1
+000161   a160     goto    0x160            	GOTO	_00135_DS_
+                                           ;	.line	84; "MC32P7351.c"	while (!(((ADRH >> 2) == 0x10) || ((ADRH >> 2) == 0x0F)))
+000162   7608     clrr    0x8              	CLRR	r0x100F
+                                           ;;shiftRight_Left2ResultLit:5339: shCount=1, size=1, sign=0, same=0, offr=0
+                                           _00144_DS_
+000163   d187     bclr    0x187, 0         	BCLR	PFLAG,0
+000164   4db4     rrar    0x1b4            	RRAR	_ADRH
+000165   5607     movra   0x7              	MOVRA	r0x1010
+                                           ;;shiftRight_Left2ResultLit:5339: shCount=1, size=1, sign=0, same=1, offr=0
+000166   d187     bclr    0x187, 0         	BCLR	PFLAG,0
+000167   4e07     rrr     0x7              	RRR	r0x1010
+000168   5807     movar   0x7              	MOVAR	r0x1010
+000169   3910     xorai   0x10             	XORAI	0x10
+00016a   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+00016b   a16d     goto    0x16d            	GOTO	_00181_DS_
+00016c   a17f     goto    0x17f            	GOTO	_00147_DS_
+                                           ;;shiftRight_Left2ResultLit:5339: shCount=1, size=1, sign=0, same=0, offr=0
+                                           _00181_DS_
+00016d   d187     bclr    0x187, 0         	BCLR	PFLAG,0
+00016e   4db4     rrar    0x1b4            	RRAR	_ADRH
+00016f   5607     movra   0x7              	MOVRA	r0x1010
+                                           ;;shiftRight_Left2ResultLit:5339: shCount=1, size=1, sign=0, same=1, offr=0
+000170   d187     bclr    0x187, 0         	BCLR	PFLAG,0
+000171   4e07     rrr     0x7              	RRR	r0x1010
+000172   5807     movar   0x7              	MOVAR	r0x1010
+000173   390f     xorai   0xf              	XORAI	0x0f
+000174   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000175   a177     goto    0x177            	GOTO	_00182_DS_
+000176   a17f     goto    0x17f            	GOTO	_00147_DS_
+                                           _00182_DS_
+                                           ;	.line	86; "MC32P7351.c"	ADEOC = 0;
+000177   d3b0     bclr    0x1b0, 0x1       	BCLR	_ADCR0bits,1
+                                           _00138_DS_
+                                           ;	.line	87; "MC32P7351.c"	while (!ADEOC);
+000178   e3b0     jbset   0x1b0, 0x1       	JBSET	_ADCR0bits,1
+000179   a178     goto    0x178            	GOTO	_00138_DS_
+                                           ;	.line	88; "MC32P7351.c"	cnt ++;
+00017a   6608     incr    0x8              	INCR	r0x100F
+                                           ;;unsigned compare: left < lit(0xC8=200), size=1
+                                           ;	.line	89; "MC32P7351.c"	if (cnt >= 200)
+00017b   3cc8     movai   0xc8             	MOVAI	0xc8
+00017c   4808     rsubar  0x8              	RSUBAR	r0x100F
+00017d   e187     jbset   0x187, 0         	JBSET	PFLAG,0
+00017e   a163     goto    0x163            	GOTO	_00144_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           _00147_DS_
+                                           ;	.line	92; "MC32P7351.c"	}
+00017f   000c     return                   	RETURN	
+                                           ; exit point of _ADC_Power_On_Stability
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _IO_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _IO_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	53; "MC32P7351.c"	IOP0 = 0x00;                       //io口数据位
+000180   7790     clrr    0x190            	CLRR	_IOP0
+                                           ;	.line	54; "MC32P7351.c"	OEP0 = 0x3F;                       //io口方向 1:out  0:in
+000181   3c3f     movai   0x3f             	MOVAI	0x3f
+000182   5791     movra   0x191            	MOVRA	_OEP0
+                                           ;	.line	55; "MC32P7351.c"	PUP0 = 0x00;                       //io口上拉电阻   1:enable  0:disable
+000183   7792     clrr    0x192            	CLRR	_PUP0
+                                           ;	.line	56; "MC32P7351.c"	PDP0 = 0x00;                       //io口下拉电阻   1:enable  0:disable
+000184   7793     clrr    0x193            	CLRR	_PDP0
+                                           ;	.line	57; "MC32P7351.c"	ADIOS0 = 0x00;                     //io类型选择  1:模拟输入  0:通用io
+000185   77b6     clrr    0x1b6            	CLRR	_ADIOS0
+                                           ;	.line	59; "MC32P7351.c"	IOP1 = 0x00;                       //io口数据位
+000186   7794     clrr    0x194            	CLRR	_IOP1
+                                           ;	.line	60; "MC32P7351.c"	OEP1 = 0xFF;                       //io口方向 1:out  0:in
+000187   3cff     movai   0xff             	MOVAI	0xff
+000188   5795     movra   0x195            	MOVRA	_OEP1
+                                           ;	.line	61; "MC32P7351.c"	PUP1 = 0x00;                       //io口上拉电阻   1:enable  0:disable
+000189   7796     clrr    0x196            	CLRR	_PUP1
+                                           ;	.line	62; "MC32P7351.c"	PDP1 = 0x00;                       //io口下拉电阻   1:enable  0:disable
+00018a   7797     clrr    0x197            	CLRR	_PDP1
+                                           ;	.line	63; "MC32P7351.c"	ADIOS1 = 0x00;                     //io类型选择  1:模拟输入  0:通用io
+00018b   77b7     clrr    0x1b7            	CLRR	_ADIOS1
+                                           ;	.line	65; "MC32P7351.c"	PMOD = 0x07;                       //bit7-bit5 P17、P13、P01 io类型选择 1:模拟输入  0:通用io 
+00018c   3c07     movai   0x7              	MOVAI	0x07
+00018d   57bc     movra   0x1bc            	MOVRA	_PMOD
+                                           ;	.line	67; "MC32P7351.c"	DRVCR = 0x80;                      //普通驱动
+00018e   3c80     movai   0x80             	MOVAI	0x80
+00018f   578c     movra   0x18c            	MOVRA	_DRVCR
+                                           ;	.line	68; "MC32P7351.c"	}
+000190   000c     return                   	RETURN	
+                                           ; exit point of _IO_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _delay	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;3 compiler assigned registers:
+                                           ;   r0x100F
+                                           ;   STK00
+                                           ;   r0x1010
+                                           ;; Starting pCode block
+                                           _delay	;Function start
+                                           ; 2 exit points
+                                           ;	.line	38; "MC32P7351.c"	void delay(uint16_t num)
+000191   5608     movra   0x8              	MOVRA	r0x100F
+000192   5806     movar   0x6              	MOVAR	STK00
+000193   5607     movra   0x7              	MOVRA	r0x1010
+                                           ;	.line	40; "MC32P7351.c"	for (i = 0; i < num; i ++)
+000194   7611     clrr    0x11             	CLRR	_i
+000195   7612     clrr    0x12             	CLRR	(_i + 1)
+                                           _00114_DS_
+000196   5808     movar   0x8              	MOVAR	r0x100F
+000197   4812     rsubar  0x12             	RSUBAR	(_i + 1)
+000198   e587     jbset   0x187, 0x2       	JBSET	PFLAG,2
+000199   a19c     goto    0x19c            	GOTO	_00126_DS_
+00019a   5807     movar   0x7              	MOVAR	r0x1010
+00019b   4811     rsubar  0x11             	RSUBAR	_i
+                                           _00126_DS_
+00019c   f187     jbclr   0x187, 0         	JBCLR	PFLAG,0
+00019d   a1a3     goto    0x1a3            	GOTO	_00116_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	42; "MC32P7351.c"	Nop();
+00019e   0000     nop                      	nop	
+                                           ;	.line	40; "MC32P7351.c"	for (i = 0; i < num; i ++)
+00019f   6611     incr    0x11             	INCR	_i
+0001a0   f587     jbclr   0x187, 0x2       	JBCLR	PFLAG,2
+0001a1   6612     incr    0x12             	INCR	(_i + 1)
+0001a2   a196     goto    0x196            	GOTO	_00114_DS_
+                                           _00116_DS_
+                                           ;	.line	44; "MC32P7351.c"	}
+0001a3   000c     return                   	RETURN	
+                                           ; exit point of _delay
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _CLR_RAM	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _CLR_RAM	;Function start
+                                           ; 2 exit points
+                                           ;	.line	25; "MC32P7351.c"	for (FSR0 = 0; FSR0 < 0xff; FSR0 ++)
+0001a4   7784     clrr    0x184            	CLRR	_FSR0
+                                           ;;unsigned compare: left < lit(0xFF=255), size=1
+                                           _00107_DS_
+0001a5   3cff     movai   0xff             	MOVAI	0xff
+0001a6   4984     rsubar  0x184            	RSUBAR	_FSR0
+0001a7   f187     jbclr   0x187, 0         	JBCLR	PFLAG,0
+0001a8   a1ac     goto    0x1ac            	GOTO	_00105_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	27; "MC32P7351.c"	INDF0 = 0x00;
+0001a9   7780     clrr    0x180            	CLRR	_INDF0
+                                           ;	.line	25; "MC32P7351.c"	for (FSR0 = 0; FSR0 < 0xff; FSR0 ++)
+0001aa   6784     incr    0x184            	INCR	_FSR0
+0001ab   a1a5     goto    0x1a5            	GOTO	_00107_DS_
+                                           _00105_DS_
+                                           ;	.line	29; "MC32P7351.c"	FSR0 = 0xFF;
+0001ac   3cff     movai   0xff             	MOVAI	0xff
+0001ad   5784     movra   0x184            	MOVRA	_FSR0
+                                           ;	.line	30; "MC32P7351.c"	INDF0 = 0x00;
+0001ae   7780     clrr    0x180            	CLRR	_INDF0
+                                           ;	.line	31; "MC32P7351.c"	}
+0001af   000c     return                   	RETURN	
+                                           ; exit point of _CLR_RAM
+                                           
+                                           
+                                           ;	code size estimation:
+                                           ;	  416+    0 =   416 instructions (  832 byte)
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SN-SDCC : SinoMCU ANSI-C Compiler
+                                           ; Version 2.0.0 (Dec 11 2019) (MINGW32)
+                                           ; This file was generated Wed Jul 24 13:33:14 2024
+                                           ;--------------------------------------------------------
+                                           ; MC32 port for the RISC core
+                                           ;--------------------------------------------------------
+                                           ;	.file	"MC32P7351.c"
+                                           	list	p=7351
+                                           	radix dec
+                                           	include "7351.inc"
+                                           ;--------------------------------------------------------
+                                           ; external declarations
+                                           ;--------------------------------------------------------
+                                           	extern	_INDF0bits
+                                           	extern	_INDF1bits
+                                           	extern	_INDF2bits
+                                           	extern	_HIBYTEbits
+                                           	extern	_FSR0bits
+                                           	extern	_FSR1bits
+                                           	extern	_PCLbits
+                                           	extern	_PFLAGbits
+                                           	extern	_MCRbits
+                                           	extern	_INDF3bits
+                                           	extern	_INTEbits
+                                           	extern	_INTFbits
+                                           	extern	_DRVCRbits
+                                           	extern	_PFRCCRbits
+                                           	extern	_P1KBCRbits
+                                           	extern	_PFRCCALbits
+                                           	extern	_IOP0bits
+                                           	extern	_OEP0bits
+                                           	extern	_PUP0bits
+                                           	extern	_PDP0bits
+                                           	extern	_IOP1bits
+                                           	extern	_OEP1bits
+                                           	extern	_PUP1bits
+                                           	extern	_PDP1bits
+                                           	extern	_T0CRbits
+                                           	extern	_T0CNTbits
+                                           	extern	_T0LOADbits
+                                           	extern	_T0DATAbits
+                                           	extern	_T1CRbits
+                                           	extern	_T1CNTbits
+                                           	extern	_T1LOADbits
+                                           	extern	_T1DATAbits
+                                           	extern	_T2CRbits
+                                           	extern	_T2CNTbits
+                                           	extern	_T2LOADbits
+                                           	extern	_T2DATAbits
+                                           	extern	_T3CRbits
+                                           	extern	_T3CNTbits
+                                           	extern	_T3LOADbits
+                                           	extern	_PWM0DRbits
+                                           	extern	_PWM1DRbits
+                                           	extern	_PWM2DRbits
+                                           	extern	_PWMCR0bits
+                                           	extern	_PWMCR1bits
+                                           	extern	_OSCMRbits
+                                           	extern	_LVDCRbits
+                                           	extern	_ADCR0bits
+                                           	extern	_ADCR1bits
+                                           	extern	_ADCR2bits
+                                           	extern	_OSADJCRbits
+                                           	extern	_ADRHbits
+                                           	extern	_ADRLbits
+                                           	extern	_ADIOS0bits
+                                           	extern	_ADIOS1bits
+                                           	extern	_PMODbits
+                                           	extern	_PWMCR3bits
+                                           	extern	_PWMCR2bits
+                                           	extern	_PFRCAUXbits
+                                           	extern	_HIRCCALbits
+                                           	extern	_INDF0
+                                           	extern	_INDF1
+                                           	extern	_INDF2
+                                           	extern	_HIBYTE
+                                           	extern	_FSR0
+                                           	extern	_FSR1
+                                           	extern	_PCL
+                                           	extern	_PFLAG
+                                           	extern	_MCR
+                                           	extern	_INDF3
+                                           	extern	_INTE
+                                           	extern	_INTF
+                                           	extern	_DRVCR
+                                           	extern	_PFRCCR
+                                           	extern	_P1KBCR
+                                           	extern	_PFRCCAL
+                                           	extern	_IOP0
+                                           	extern	_OEP0
+                                           	extern	_PUP0
+                                           	extern	_PDP0
+                                           	extern	_IOP1
+                                           	extern	_OEP1
+                                           	extern	_PUP1
+                                           	extern	_PDP1
+                                           	extern	_T0CR
+                                           	extern	_T0CNT
+                                           	extern	_T0LOAD
+                                           	extern	_T0DATA
+                                           	extern	_T1CR
+                                           	extern	_T1CNT
+                                           	extern	_T1LOAD
+                                           	extern	_T1DATA
+                                           	extern	_T2CR
+                                           	extern	_T2CNT
+                                           	extern	_T2LOAD
+                                           	extern	_T2DATA
+                                           	extern	_T3CR
+                                           	extern	_T3CNT
+                                           	extern	_T3LOAD
+                                           	extern	_PWM0DR
+                                           	extern	_PWM1DR
+                                           	extern	_PWM2DR
+                                           	extern	_PWMCR0
+                                           	extern	_PWMCR1
+                                           	extern	_OSCMR
+                                           	extern	_LVDCR
+                                           	extern	_ADCR0
+                                           	extern	_ADCR1
+                                           	extern	_ADCR2
+                                           	extern	_OSADJCR
+                                           	extern	_ADRH
+                                           	extern	_ADRL
+                                           	extern	_ADIOS0
+                                           	extern	_ADIOS1
+                                           	extern	_PMOD
+                                           	extern	_PWMCR3
+                                           	extern	_PWMCR2
+                                           	extern	_PFRCAUX
+                                           	extern	_HIRCCAL
+                                           ;--------------------------------------------------------
+                                           ; global declarations
+                                           ;--------------------------------------------------------
+                                           	global	_Sys_Init
+                                           	global	_TIMER0_INT_Init
+                                           	global	_ADC_Get_Value_Average
+                                           	global	_ADC_Init
+                                           	global	_ADC_Zero_ADJ
+                                           	global	_ADC_Power_On_Stability
+                                           	global	_IO_Init
+                                           	global	_CLR_RAM
+                                           	global	_delay
+                                           	global	_main
+                                           	global	_int_isr
+                                           	global	_abuf
+                                           	global	_statusbuf
+                                           	global	_i
+                                           	global	_g_adc_value0_temp
+                                           	global	_g_temp_value
+                                           	global	_g_channel
+                                           	global	_g_tmpbuff
+                                           	global	_g_adcmax
+                                           	global	_g_adcmin
+                                           	global	_flag1
+                                           
+                                           	global STK06
+                                           	global STK05
+                                           	global STK04
+                                           	global STK03
+                                           	global STK02
+                                           	global STK01
+                                           	global STK00
+                                           
+                                           sharebank udata_ovr 0x0000
+                                           STK06	res 1
+                                           STK05	res 1
+                                           STK04	res 1
+                                           STK03	res 1
+                                           STK02	res 1
+                                           STK01	res 1
+                                           STK00	res 1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global definitions
+                                           ;--------------------------------------------------------
+                                           UD_MC32P7351_0	udata
+                                           _abuf	res	1
+                                           
+                                           UD_MC32P7351_1	udata
+                                           _statusbuf	res	1
+                                           
+                                           UD_MC32P7351_2	udata
+                                           _i	res	2
+                                           
+                                           UD_MC32P7351_3	udata
+                                           _g_adc_value0_temp	res	2
+                                           
+                                           UD_MC32P7351_4	udata
+                                           _g_temp_value	res	2
+                                           
+                                           UD_MC32P7351_5	udata
+                                           _g_channel	res	1
+                                           
+                                           UD_MC32P7351_6	udata
+                                           _g_tmpbuff	res	4
+                                           
+                                           UD_MC32P7351_7	udata
+                                           _g_adcmax	res	2
+                                           
+                                           UD_MC32P7351_8	udata
+                                           _g_adcmin	res	2
+                                           
+                                           UD_MC32P7351_9	udata
+                                           _flag1	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; absolute symbol definitions
+                                           ;--------------------------------------------------------
+                                           ;--------------------------------------------------------
+                                           ; compiler-defined variables
+                                           ;--------------------------------------------------------
+                                           UDL_MC32P7351_0	udata
+                                           r0x1010	res	1
+                                           r0x100F	res	1
+                                           r0x1011	res	1
+                                           r0x1012	res	1
+                                           r0x1013	res	1
+                                           r0x1014	res	1
+                                           ;--------------------------------------------------------
+                                           ; initialized data
+                                           ;--------------------------------------------------------
+                                           
+                                           ;@Allocation info for local variables in function 'CLR_RAM'
+                                           ;@CLR_RAM Sys_Init                  Allocated to registers ;size:2
+                                           ;@CLR_RAM IO_Init                   Allocated to registers ;size:2
+                                           ;@CLR_RAM ADC_Power_On_Stability    Allocated to registers ;size:2
+                                           ;@CLR_RAM ADC_Zero_ADJ              Allocated to registers ;size:2
+                                           ;@CLR_RAM ADC_Init                  Allocated to registers ;size:2
+                                           ;@CLR_RAM ADC_Get_Value_Average     Allocated to registers ;size:2
+                                           ;@CLR_RAM TIMER0_INT_Init           Allocated to registers ;size:2
+                                           ;@CLR_RAM INDF0bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF1bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF2bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM HIBYTEbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM FSR0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM FSR1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PCLbits                   Allocated to registers ;size:1
+                                           ;@CLR_RAM PFLAGbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM MCRbits                   Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF3bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM INTEbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM INTFbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM DRVCRbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCCRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM P1KBCRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCCALbits               Allocated to registers ;size:1
+                                           ;@CLR_RAM IOP0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM OEP0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PUP0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PDP0bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM IOP1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM OEP1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PUP1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PDP1bits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T0CRbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T0CNTbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM T0LOADbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T0DATAbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T1CRbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T1CNTbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM T1LOADbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T1DATAbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T2CRbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T2CNTbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM T2LOADbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T2DATAbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM T3CRbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM T3CNTbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM T3LOADbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM0DRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM1DRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM2DRbits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR0bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR1bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM OSCMRbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM LVDCRbits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR0bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR1bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR2bits                 Allocated to registers ;size:1
+                                           ;@CLR_RAM OSADJCRbits               Allocated to registers ;size:1
+                                           ;@CLR_RAM ADRHbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM ADRLbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM ADIOS0bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM ADIOS1bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PMODbits                  Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR3bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR2bits                Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCAUXbits               Allocated to registers ;size:1
+                                           ;@CLR_RAM HIRCCALbits               Allocated to registers ;size:1
+                                           ;@CLR_RAM abuf                      Allocated to registers ;size:1
+                                           ;@CLR_RAM statusbuf                 Allocated to registers ;size:1
+                                           ;@CLR_RAM i                         Allocated to registers ;size:2
+                                           ;@CLR_RAM g_adc_value0_temp         Allocated to registers ;size:2
+                                           ;@CLR_RAM g_temp_value              Allocated to registers ;size:2
+                                           ;@CLR_RAM g_channel                 Allocated to registers ;size:1
+                                           ;@CLR_RAM g_tmpbuff                 Allocated to registers ;size:4
+                                           ;@CLR_RAM g_adcmax                  Allocated to registers ;size:2
+                                           ;@CLR_RAM g_adcmin                  Allocated to registers ;size:2
+                                           ;@CLR_RAM flag1                     Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF0                     Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF1                     Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF2                     Allocated to registers ;size:1
+                                           ;@CLR_RAM HIBYTE                    Allocated to registers ;size:1
+                                           ;@CLR_RAM FSR0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM FSR1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PCL                       Allocated to registers ;size:1
+                                           ;@CLR_RAM PFLAG                     Allocated to registers ;size:1
+                                           ;@CLR_RAM MCR                       Allocated to registers ;size:1
+                                           ;@CLR_RAM INDF3                     Allocated to registers ;size:1
+                                           ;@CLR_RAM INTE                      Allocated to registers ;size:1
+                                           ;@CLR_RAM INTF                      Allocated to registers ;size:1
+                                           ;@CLR_RAM DRVCR                     Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCCR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM P1KBCR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCCAL                   Allocated to registers ;size:1
+                                           ;@CLR_RAM IOP0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM OEP0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PUP0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PDP0                      Allocated to registers ;size:1
+                                           ;@CLR_RAM IOP1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM OEP1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PUP1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PDP1                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T0CR                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T0CNT                     Allocated to registers ;size:1
+                                           ;@CLR_RAM T0LOAD                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T0DATA                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T1CR                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T1CNT                     Allocated to registers ;size:1
+                                           ;@CLR_RAM T1LOAD                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T1DATA                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T2CR                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T2CNT                     Allocated to registers ;size:1
+                                           ;@CLR_RAM T2LOAD                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T2DATA                    Allocated to registers ;size:1
+                                           ;@CLR_RAM T3CR                      Allocated to registers ;size:1
+                                           ;@CLR_RAM T3CNT                     Allocated to registers ;size:1
+                                           ;@CLR_RAM T3LOAD                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM0DR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM1DR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWM2DR                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR0                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR1                    Allocated to registers ;size:1
+                                           ;@CLR_RAM OSCMR                     Allocated to registers ;size:1
+                                           ;@CLR_RAM LVDCR                     Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR0                     Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR1                     Allocated to registers ;size:1
+                                           ;@CLR_RAM ADCR2                     Allocated to registers ;size:1
+                                           ;@CLR_RAM OSADJCR                   Allocated to registers ;size:1
+                                           ;@CLR_RAM ADRH                      Allocated to registers ;size:1
+                                           ;@CLR_RAM ADRL                      Allocated to registers ;size:1
+                                           ;@CLR_RAM ADIOS0                    Allocated to registers ;size:1
+                                           ;@CLR_RAM ADIOS1                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PMOD                      Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR3                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PWMCR2                    Allocated to registers ;size:1
+                                           ;@CLR_RAM PFRCAUX                   Allocated to registers ;size:1
+                                           ;@CLR_RAM HIRCCAL                   Allocated to registers ;size:1
+                                           ;@end Allocation info for local variables in function 'CLR_RAM';
+                                           ;@Allocation info for local variables in function 'delay'
+                                           ;@delay num                       Allocated to registers r0x1010 r0x100F ;size:2
+                                           ;@end Allocation info for local variables in function 'delay';
+                                           ;@Allocation info for local variables in function 'IO_Init'
+                                           ;@end Allocation info for local variables in function 'IO_Init';
+                                           ;@Allocation info for local variables in function 'ADC_Power_On_Stability'
+                                           ;@ADC_Power_On_Stability cnt                       Allocated to registers r0x100F ;size:1
+                                           ;@end Allocation info for local variables in function 'ADC_Power_On_Stability';
+                                           ;@Allocation info for local variables in function 'ADC_Zero_ADJ'
+                                           ;@end Allocation info for local variables in function 'ADC_Zero_ADJ';
+                                           ;@Allocation info for local variables in function 'ADC_Init'
+                                           ;@end Allocation info for local variables in function 'ADC_Init';
+                                           ;@Allocation info for local variables in function 'ADC_Get_Value_Average'
+                                           ;@ADC_Get_Value_Average CHX                       Allocated to registers r0x1011 ;size:1
+                                           ;@end Allocation info for local variables in function 'ADC_Get_Value_Average';
+                                           ;@Allocation info for local variables in function 'TIMER0_INT_Init'
+                                           ;@end Allocation info for local variables in function 'TIMER0_INT_Init';
+                                           ;@Allocation info for local variables in function 'Sys_Init'
+                                           ;@end Allocation info for local variables in function 'Sys_Init';
+                                           ;@Allocation info for local variables in function 'main'
+                                           ;@end Allocation info for local variables in function 'main';
+                                           ;@Allocation info for local variables in function 'int_isr'
+                                           ;@end Allocation info for local variables in function 'int_isr';
+                                           
+                                           ;--------------------------------------------------------
+                                           ; overlayable items in internal ram 
+                                           ;--------------------------------------------------------
+                                           ;	udata_ovr
+                                           ;--------------------------------------------------------
+                                           ; reset vector 
+                                           ;--------------------------------------------------------
+                                           STARTUP	code 0x0000
+                                           	goto	_main
+                                           ;--------------------------------------------------------
+                                           ; interrupt and initialization code
+                                           ;--------------------------------------------------------
+                                           c_interrupt	code	0x8
+                                           __sdcc_interrupt
+                                           ;***
+                                           ;  pBlock Stats: dbName = I
+                                           ;***
+                                           ;entry:  _int_isr	;Function start
+                                           ; 0 exit points
+                                           ;; Starting pCode block
+                                           _int_isr	;Function start
+                                           ; 0 exit points
+                                           ;	.line	284; "MC32P7351.c"	__endasm;
+                                           	movra	_abuf
+                                           	swapar	_PFLAG
+                                           	movra	_statusbuf
+                                           ;	.line	291; "MC32P7351.c"	__endasm;
+                                           	swapar	_statusbuf
+                                           	movra	_PFLAG
+                                           	swapr	_abuf
+                                           	swapar	_abuf
+                                           END_OF_INTERRUPT
+                                           ;	.line	292; "MC32P7351.c"	}
+                                           	RETIE	
+                                           
+                                           ;--------------------------------------------------------
+                                           ; code
+                                           ;--------------------------------------------------------
+                                           code_MC32P7351	code
+                                           ;***
+                                           ;  pBlock Stats: dbName = M
+                                           ;***
+                                           ;entry:  _main	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;functions called:
+                                           ;   _Sys_Init
+                                           ;   _ADC_Get_Value_Average
+                                           ;   _Sys_Init
+                                           ;   _ADC_Get_Value_Average
+                                           ;1 compiler assigned register :
+                                           ;   STK00
+                                           ;; Starting pCode block
+                                           _main	;Function start
+                                           ; 2 exit points
+                                           ;	.line	252; "MC32P7351.c"	Sys_Init();
+                                           	CALL	_Sys_Init
+                                           _00384_DS_
+                                           ;	.line	255; "MC32P7351.c"	if (T0IF)                                //2mS
+                                           	JBSET	_INTFbits,0
+                                           	GOTO	_00379_DS_
+                                           ;	.line	257; "MC32P7351.c"	T0IF = 0;
+                                           	BCLR	_INTFbits,0
+                                           ;	.line	258; "MC32P7351.c"	g_adc_value0_temp = ADC_Get_Value_Average(5);
+                                           	MOVAI	0x05
+                                           	CALL	_ADC_Get_Value_Average
+                                           	MOVRA	(_g_adc_value0_temp + 1)
+                                           	MOVAR	STK00
+                                           	MOVRA	_g_adc_value0_temp
+                                           ;;swapping arguments (AOP_TYPEs 1/3)
+                                           ;;unsigned compare: left >= lit(0xC01=3073), size=2
+                                           _00379_DS_
+                                           ;	.line	260; "MC32P7351.c"	if (g_adc_value0_temp > 2048+1024)       //>1.5V
+                                           	MOVAI	0x0c
+                                           	RSUBAR	(_g_adc_value0_temp + 1)
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00400_DS_
+                                           	MOVAI	0x01
+                                           	RSUBAR	_g_adc_value0_temp
+                                           _00400_DS_
+                                           	JBSET	PFLAG,0
+                                           	GOTO	_00381_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	262; "MC32P7351.c"	P11D = 1;
+                                           	BSET	_IOP1bits,1
+                                           	GOTO	_00382_DS_
+                                           _00381_DS_
+                                           ;	.line	267; "MC32P7351.c"	P11D = 0;
+                                           	BCLR	_IOP1bits,1
+                                           _00382_DS_
+                                           ;	.line	269; "MC32P7351.c"	P11D = 1;
+                                           	BSET	_IOP1bits,1
+                                           	GOTO	_00384_DS_
+                                           ;	.line	271; "MC32P7351.c"	}
+                                           	RETURN	
+                                           ; exit point of _main
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _Sys_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;functions called:
+                                           ;   _CLR_RAM
+                                           ;   _IO_Init
+                                           ;   _ADC_Power_On_Stability
+                                           ;   _ADC_Zero_ADJ
+                                           ;   _ADC_Init
+                                           ;   _TIMER0_INT_Init
+                                           ;   _CLR_RAM
+                                           ;   _IO_Init
+                                           ;   _ADC_Power_On_Stability
+                                           ;   _ADC_Zero_ADJ
+                                           ;   _ADC_Init
+                                           ;   _TIMER0_INT_Init
+                                           ;1 compiler assigned register :
+                                           ;   r0x1011
+                                           ;; Starting pCode block
+                                           _Sys_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	235; "MC32P7351.c"	GIE = 0;
+                                           	BCLR	_MCRbits,7
+                                           ;	.line	236; "MC32P7351.c"	CLR_RAM();
+                                           	CALL	_CLR_RAM
+                                           ;	.line	237; "MC32P7351.c"	IO_Init();
+                                           	CALL	_IO_Init
+                                           ;	.line	238; "MC32P7351.c"	ADC_Power_On_Stability();
+                                           	CALL	_ADC_Power_On_Stability
+                                           _00373_DS_
+                                           ;	.line	239; "MC32P7351.c"	while (ADC_Zero_ADJ());                      //demo演示,校准失败一直校准，用户按照需求选择是否校准
+                                           	CALL	_ADC_Zero_ADJ
+                                           	MOVRA	r0x1011
+                                           	MOVAI	0x00
+                                           	ORAR	r0x1011
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00373_DS_
+                                           ;	.line	240; "MC32P7351.c"	ADC_Init();
+                                           	CALL	_ADC_Init
+                                           ;	.line	241; "MC32P7351.c"	TIMER0_INT_Init();
+                                           	CALL	_TIMER0_INT_Init
+                                           ;	.line	242; "MC32P7351.c"	GIE = 1;
+                                           	BSET	_MCRbits,7
+                                           ;	.line	243; "MC32P7351.c"	}
+                                           	RETURN	
+                                           ; exit point of _Sys_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _TIMER0_INT_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _TIMER0_INT_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	222; "MC32P7351.c"	T0CR |= DEF_SET_BIT1 | DEF_SET_BIT2;         //CPU,64分频
+                                           	MOVAI	0x06
+                                           	ORRA	_T0CR
+                                           ;	.line	223; "MC32P7351.c"	T0CNT = 250-1;
+                                           	MOVAI	0xf9
+                                           	MOVRA	_T0CNT
+                                           ;	.line	224; "MC32P7351.c"	T0LOAD = 250-1;                              //2ms
+                                           	MOVAI	0xf9
+                                           	MOVRA	_T0LOAD
+                                           ;	.line	225; "MC32P7351.c"	T0EN = 1;
+                                           	BSET	_T0CRbits,7
+                                           ;	.line	226; "MC32P7351.c"	}
+                                           	RETURN	
+                                           ; exit point of _TIMER0_INT_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _ADC_Get_Value_Average	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;functions called:
+                                           ;   _delay
+                                           ;   _delay
+                                           ;7 compiler assigned registers:
+                                           ;   r0x1011
+                                           ;   r0x1012
+                                           ;   r0x1013
+                                           ;   STK00
+                                           ;   r0x1014
+                                           ;   r0x1015
+                                           ;   r0x1016
+                                           ;; Starting pCode block
+                                           _ADC_Get_Value_Average	;Function start
+                                           ; 2 exit points
+                                           	MOVRA	r0x1013
+                                           ;	.line	186; "MC32P7351.c"	uint ADC_Get_Value_Average(u8 CHX)
+                                           	MOVRA	r0x1011
+                                           ;	.line	188; "MC32P7351.c"	g_temp_value = 0;
+                                           	CLRR	_g_temp_value
+                                           	CLRR	(_g_temp_value + 1)
+                                           ;	.line	189; "MC32P7351.c"	g_channel = 0;
+                                           	CLRR	_g_channel
+                                           ;	.line	190; "MC32P7351.c"	g_tmpbuff = 0;
+                                           	CLRR	_g_tmpbuff
+                                           	CLRR	(_g_tmpbuff + 1)
+                                           	CLRR	(_g_tmpbuff + 2)
+                                           	CLRR	(_g_tmpbuff + 3)
+                                           ;	.line	191; "MC32P7351.c"	g_adcmax = 0;
+                                           	CLRR	_g_adcmax
+                                           	CLRR	(_g_adcmax + 1)
+                                           ;	.line	192; "MC32P7351.c"	g_adcmin = 0xffff;
+                                           	MOVAI	0xff
+                                           	MOVRA	_g_adcmin
+                                           	MOVRA	(_g_adcmin + 1)
+                                           ;	.line	193; "MC32P7351.c"	ADCR0 = (ADCR0 & 0x0f) | (CHX << 4);         // ADC 使能  AD转换通道开启  通道  CHX
+                                           	MOVAR	_ADCR0
+                                           	MOVRA	r0x1012
+                                           	MOVAI	0x0f
+                                           	ANDRA	r0x1012
+                                           ;;106	MOVAR	r0x1011
+                                           	SWAPAR	r0x1013
+                                           	ANDAI	0xf0
+                                           	MOVRA	r0x1013
+                                           	MOVRA	r0x1011
+                                           ;;105	MOVAR	r0x1011
+                                           	MOVAR	r0x1013
+                                           	ORAR	r0x1012
+                                           	MOVRA	_ADCR0
+                                           ;	.line	194; "MC32P7351.c"	delay(300);                                  //切换通道延时200uS以上
+                                           	MOVAI	0x2c
+                                           	MOVRA	STK00
+                                           	MOVAI	0x01
+                                           	CALL	_delay
+                                           ;	.line	195; "MC32P7351.c"	for (g_channel = 0; g_channel < 20; g_channel ++)
+                                           	CLRR	_g_channel
+                                           _00331_DS_
+                                           ;	.line	197; "MC32P7351.c"	ADEOC = 0;
+                                           	BCLR	_ADCR0bits,1
+                                           _00320_DS_
+                                           ;	.line	198; "MC32P7351.c"	while (!ADEOC);                         //等待转换完成
+                                           	JBSET	_ADCR0bits,1
+                                           	GOTO	_00320_DS_
+                                           ;	.line	199; "MC32P7351.c"	g_temp_value = ADRH;
+                                           	MOVAR	_ADRH
+                                           	MOVRA	_g_temp_value
+                                           	CLRR	(_g_temp_value + 1)
+                                           ;	.line	200; "MC32P7351.c"	g_temp_value = g_temp_value << 4 | (ADRL & 0x0f);
+                                           	SWAPAR	(_g_temp_value + 1)
+                                           	ANDAI	0xf0
+                                           	MOVRA	r0x1012
+                                           	SWAPAR	_g_temp_value
+                                           	MOVRA	r0x1011
+                                           	ANDAI	0x0f
+                                           	ORRA	r0x1012
+                                           	XORRA	r0x1011
+                                           	MOVAR	_ADRL
+                                           	MOVRA	r0x1013
+                                           	CLRR	r0x1014
+                                           	MOVAI	0x0f
+                                           	ANDRA	r0x1013
+                                           	CLRR	r0x1014
+                                           ;;101	MOVAR	r0x1013
+                                           ;;99	MOVRA	r0x1015
+                                           ;;104	MOVAR	r0x1014
+                                           ;;102	MOVRA	r0x1016
+                                           ;;100	MOVAR	r0x1015
+                                           	MOVAR	r0x1013
+                                           	ORAR	r0x1011
+                                           	MOVRA	_g_temp_value
+                                           ;;103	MOVAR	r0x1016
+                                           	MOVAI	0x00
+                                           	ORAR	r0x1012
+                                           	MOVRA	(_g_temp_value + 1)
+                                           ;;unsigned compare: left < lit(0x2=2), size=1
+                                           ;	.line	201; "MC32P7351.c"	if (g_channel < 2)
+                                           	MOVAI	0x02
+                                           	RSUBAR	_g_channel
+                                           	JBSET	PFLAG,0
+                                           	GOTO	_00329_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	203; "MC32P7351.c"	if (g_temp_value > g_adcmax)
+                                           	MOVAR	(_g_temp_value + 1)
+                                           	RSUBAR	(_g_adcmax + 1)
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00363_DS_
+                                           	MOVAR	_g_temp_value
+                                           	RSUBAR	_g_adcmax
+                                           _00363_DS_
+                                           	JBCLR	PFLAG,0
+                                           	GOTO	_00326_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	204; "MC32P7351.c"	g_adcmax = g_temp_value;             //最大
+                                           	MOVAR	_g_temp_value
+                                           	MOVRA	_g_adcmax
+                                           	MOVAR	(_g_temp_value + 1)
+                                           	MOVRA	(_g_adcmax + 1)
+                                           _00326_DS_
+                                           ;	.line	205; "MC32P7351.c"	if (g_temp_value < g_adcmin)
+                                           	MOVAR	(_g_adcmin + 1)
+                                           	RSUBAR	(_g_temp_value + 1)
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00364_DS_
+                                           	MOVAR	_g_adcmin
+                                           	RSUBAR	_g_temp_value
+                                           _00364_DS_
+                                           	JBCLR	PFLAG,0
+                                           	GOTO	_00328_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	206; "MC32P7351.c"	g_adcmin = g_temp_value;             //最小
+                                           	MOVAR	_g_temp_value
+                                           	MOVRA	_g_adcmin
+                                           	MOVAR	(_g_temp_value + 1)
+                                           	MOVRA	(_g_adcmin + 1)
+                                           _00328_DS_
+                                           ;	.line	207; "MC32P7351.c"	g_tmpbuff += g_temp_value;
+                                           	MOVAR	_g_temp_value
+                                           	MOVRA	r0x1011
+                                           	MOVAR	(_g_temp_value + 1)
+                                           	MOVRA	r0x1012
+                                           	CLRR	r0x1013
+                                           	CLRR	r0x1014
+                                           	MOVAR	r0x1011
+                                           	ADDRA	_g_tmpbuff
+                                           	MOVAR	r0x1012
+                                           	JBCLR	PFLAG,0
+                                           	JZAR	r0x1012
+                                           	ADDRA	(_g_tmpbuff + 1)
+                                           	MOVAR	r0x1013
+                                           	JBCLR	PFLAG,0
+                                           	JZAR	r0x1013
+                                           	ADDRA	(_g_tmpbuff + 2)
+                                           	MOVAR	r0x1014
+                                           	JBCLR	PFLAG,0
+                                           	JZAR	r0x1014
+                                           	ADDRA	(_g_tmpbuff + 3)
+                                           _00329_DS_
+                                           ;	.line	195; "MC32P7351.c"	for (g_channel = 0; g_channel < 20; g_channel ++)
+                                           	INCR	_g_channel
+                                           ;;unsigned compare: left < lit(0x14=20), size=1
+                                           	MOVAI	0x14
+                                           	RSUBAR	_g_channel
+                                           	JBSET	PFLAG,0
+                                           	GOTO	_00331_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	209; "MC32P7351.c"	g_tmpbuff -= g_adcmax;                       //去掉一个最大
+                                           	MOVAR	_g_adcmax
+                                           	MOVRA	r0x1011
+                                           	MOVAR	(_g_adcmax + 1)
+                                           	MOVRA	r0x1012
+                                           	CLRR	r0x1013
+                                           	CLRR	r0x1014
+                                           	MOVAR	r0x1011
+                                           	RSUBRA	_g_tmpbuff
+                                           	MOVAR	r0x1012
+                                           	JBSET	PFLAG,0
+                                           	JZAR	r0x1012
+                                           	RSUBRA	(_g_tmpbuff + 1)
+                                           	MOVAR	r0x1013
+                                           	JBSET	PFLAG,0
+                                           	JZAR	r0x1013
+                                           	RSUBRA	(_g_tmpbuff + 2)
+                                           	MOVAR	r0x1014
+                                           	JBSET	PFLAG,0
+                                           	JZAR	r0x1014
+                                           	RSUBRA	(_g_tmpbuff + 3)
+                                           ;	.line	210; "MC32P7351.c"	g_tmpbuff -= g_adcmin;                       //去掉一个最小
+                                           	MOVAR	_g_adcmin
+                                           	MOVRA	r0x1011
+                                           	MOVAR	(_g_adcmin + 1)
+                                           	MOVRA	r0x1012
+                                           	CLRR	r0x1013
+                                           	CLRR	r0x1014
+                                           	MOVAR	r0x1011
+                                           	RSUBRA	_g_tmpbuff
+                                           	MOVAR	r0x1012
+                                           	JBSET	PFLAG,0
+                                           	JZAR	r0x1012
+                                           	RSUBRA	(_g_tmpbuff + 1)
+                                           	MOVAR	r0x1013
+                                           	JBSET	PFLAG,0
+                                           	JZAR	r0x1013
+                                           	RSUBRA	(_g_tmpbuff + 2)
+                                           	MOVAR	r0x1014
+                                           	JBSET	PFLAG,0
+                                           	JZAR	r0x1014
+                                           	RSUBRA	(_g_tmpbuff + 3)
+                                           ;	.line	211; "MC32P7351.c"	g_temp_value = (g_tmpbuff >> 4);             //除以16，取平均值
+                                           	SWAPAR	_g_tmpbuff
+                                           	ANDAI	0x0f
+                                           	MOVRA	r0x1011
+                                           	SWAPAR	(_g_tmpbuff + 1)
+                                           	MOVRA	r0x1012
+                                           	ANDAI	0xf0
+                                           	ORRA	r0x1011
+                                           	XORRA	r0x1012
+                                           	SWAPAR	(_g_tmpbuff + 2)
+                                           	MOVRA	r0x1013
+                                           	ANDAI	0xf0
+                                           	ORRA	r0x1012
+                                           	XORRA	r0x1013
+                                           	SWAPAR	(_g_tmpbuff + 3)
+                                           	MOVRA	r0x1014
+                                           	ANDAI	0xf0
+                                           	ORRA	r0x1013
+                                           	XORRA	r0x1014
+                                           	MOVAR	r0x1011
+                                           	MOVRA	_g_temp_value
+                                           	MOVAR	r0x1012
+                                           	MOVRA	(_g_temp_value + 1)
+                                           ;	.line	212; "MC32P7351.c"	return g_temp_value;
+                                           	MOVAR	_g_temp_value
+                                           	MOVRA	STK00
+                                           	MOVAR	(_g_temp_value + 1)
+                                           ;	.line	213; "MC32P7351.c"	}
+                                           	RETURN	
+                                           ; exit point of _ADC_Get_Value_Average
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _ADC_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _ADC_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	173; "MC32P7351.c"	OEP1 &= DEF_CLR_BIT0;                        //P10为输入口
+                                           	BCLR	_OEP1,0
+                                           ;	.line	174; "MC32P7351.c"	ADIOS0 |= DEF_SET_BIT5;                      //使能P10模拟功能
+                                           	BSET	_ADIOS0,5
+                                           ;	.line	175; "MC32P7351.c"	ADCR0 = 0xfb;                                //使能ADC、12位数据H8L4
+                                           	MOVAI	0xfb
+                                           	MOVRA	_ADCR0
+                                           ;	.line	176; "MC32P7351.c"	ADCR1 = 0x80;                                //32分频、内部2V 
+                                           	MOVAI	0x80
+                                           	MOVRA	_ADCR1
+                                           ;	.line	177; "MC32P7351.c"	ADCR2 = 0xff;                                //固定为15ADCLK 
+                                           	MOVAI	0xff
+                                           	MOVRA	_ADCR2
+                                           ;	.line	178; "MC32P7351.c"	}
+                                           	RETURN	
+                                           ; exit point of _ADC_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _ADC_Zero_ADJ	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;2 compiler assigned registers:
+                                           ;   r0x100F
+                                           ;   r0x1010
+                                           ;; Starting pCode block
+                                           _ADC_Zero_ADJ	;Function start
+                                           ; 2 exit points
+                                           ;	.line	102; "MC32P7351.c"	ADCR0 = 0xeb;                                //使能ADC、12位数据H8L4、GND通道
+                                           	MOVAI	0xeb
+                                           	MOVRA	_ADCR0
+                                           ;	.line	103; "MC32P7351.c"	ADCR1 = 0x80;                                //32分频、内部2V
+                                           	MOVAI	0x80
+                                           	MOVRA	_ADCR1
+                                           ;	.line	104; "MC32P7351.c"	ADCR2 = 0xff;                                //固定为15ADCLK
+                                           	MOVAI	0xff
+                                           	MOVRA	_ADCR2
+                                           ;	.line	105; "MC32P7351.c"	OSADJCR |= DEF_SET_BIT7;                     //使能零点校准、负向修调
+                                           	BSET	_OSADJCR,7
+                                           ;	.line	106; "MC32P7351.c"	ADEOC = 0;
+                                           	BCLR	_ADCR0bits,1
+                                           _00187_DS_
+                                           ;	.line	107; "MC32P7351.c"	while (!ADEOC);
+                                           	JBSET	_ADCR0bits,1
+                                           	GOTO	_00187_DS_
+                                           ;	.line	108; "MC32P7351.c"	if ((ADRH == 0) && ((ADRL & 0x0F) == 0))     //结果是否为0
+                                           	MOVAI	0x00
+                                           	ORAR	_ADRH
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00219_DS_
+                                           	MOVAR	_ADRL
+                                           	MOVRA	r0x100F
+                                           	MOVAR	r0x100F
+                                           	ANDAI	0x0f
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00219_DS_
+                                           ;	.line	110; "MC32P7351.c"	OSADJTD = 1;                             //正向修调
+                                           	BSET	_OSADJCRbits,6
+                                           ;	.line	111; "MC32P7351.c"	OSADJCR |= 0x3F;
+                                           	MOVAI	0x3f
+                                           	ORRA	_OSADJCR
+                                           ;	.line	112; "MC32P7351.c"	ADEOC = 0;
+                                           	BCLR	_ADCR0bits,1
+                                           _00190_DS_
+                                           ;	.line	113; "MC32P7351.c"	while (!ADEOC);
+                                           	JBSET	_ADCR0bits,1
+                                           	GOTO	_00190_DS_
+                                           ;	.line	114; "MC32P7351.c"	if ((ADRH == 0) && ((ADRL & 0x0F) == 0)) //结果是否为0
+                                           	MOVAI	0x00
+                                           	ORAR	_ADRH
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00203_DS_
+                                           	MOVAR	_ADRL
+                                           	MOVRA	r0x100F
+                                           	MOVAR	r0x100F
+                                           	ANDAI	0x0f
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00203_DS_
+                                           ;	.line	116; "MC32P7351.c"	ADEN = 0;
+                                           	BCLR	_ADCR0bits,0
+                                           ;	.line	117; "MC32P7351.c"	return PASS;
+                                           	MOVAI	0x00
+                                           	GOTO	_00225_DS_
+                                           _00203_DS_
+                                           ;	.line	123; "MC32P7351.c"	if (OSADJCR & 0x3f)
+                                           	MOVAR	_OSADJCR
+                                           	MOVRA	r0x100F
+                                           	MOVAR	r0x100F
+                                           	ANDAI	0x3f
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00311_DS_
+                                           	GOTO	_00200_DS_
+                                           _00311_DS_
+                                           ;	.line	125; "MC32P7351.c"	OSADJCR --;
+                                           	DECR	_OSADJCR
+                                           ;	.line	126; "MC32P7351.c"	ADEOC = 0;
+                                           	BCLR	_ADCR0bits,1
+                                           _00193_DS_
+                                           ;	.line	127; "MC32P7351.c"	while (!ADEOC);
+                                           	JBSET	_ADCR0bits,1
+                                           	GOTO	_00193_DS_
+                                           ;	.line	128; "MC32P7351.c"	if ((ADRH == 0) && ((ADRL & 0x0F) == 0))//结果是否为0
+                                           	MOVAI	0x00
+                                           	ORAR	_ADRH
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00203_DS_
+                                           	MOVAR	_ADRL
+                                           	MOVRA	r0x100F
+                                           	MOVAR	r0x100F
+                                           	ANDAI	0x0f
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00203_DS_
+                                           ;	.line	130; "MC32P7351.c"	ADEN = 0;
+                                           	BCLR	_ADCR0bits,0
+                                           ;	.line	131; "MC32P7351.c"	return PASS;
+                                           	MOVAI	0x00
+                                           	GOTO	_00225_DS_
+                                           _00200_DS_
+                                           ;	.line	136; "MC32P7351.c"	ADEN = 0;
+                                           	BCLR	_ADCR0bits,0
+                                           ;	.line	137; "MC32P7351.c"	return FAIL;
+                                           	MOVAI	0x01
+                                           	GOTO	_00225_DS_
+                                           _00219_DS_
+                                           ;	.line	146; "MC32P7351.c"	if ((OSADJCR & 0x3f) == 0x3f)
+                                           	MOVAR	_OSADJCR
+                                           	MOVRA	r0x100F
+                                           	CLRR	r0x1010
+                                           	MOVAI	0x3f
+                                           	ANDRA	r0x100F
+                                           	CLRR	r0x1010
+                                           	MOVAR	r0x100F
+                                           	XORAI	0x3f
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00216_DS_
+                                           	MOVAR	r0x1010
+                                           	XORAI	0x00
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00216_DS_
+                                           ;	.line	148; "MC32P7351.c"	ADEN = 0;
+                                           	BCLR	_ADCR0bits,0
+                                           ;	.line	149; "MC32P7351.c"	return FAIL;
+                                           	MOVAI	0x01
+                                           	GOTO	_00225_DS_
+                                           _00216_DS_
+                                           ;	.line	153; "MC32P7351.c"	OSADJCR ++;
+                                           	INCR	_OSADJCR
+                                           ;	.line	154; "MC32P7351.c"	ADEOC = 0;
+                                           	BCLR	_ADCR0bits,1
+                                           _00209_DS_
+                                           ;	.line	155; "MC32P7351.c"	while (!ADEOC);
+                                           	JBSET	_ADCR0bits,1
+                                           	GOTO	_00209_DS_
+                                           ;	.line	156; "MC32P7351.c"	if ((ADRH == 0) && ((ADRL & 0x0F) == 0))//结果是否为0
+                                           	MOVAI	0x00
+                                           	ORAR	_ADRH
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00219_DS_
+                                           	MOVAR	_ADRL
+                                           	MOVRA	r0x100F
+                                           	MOVAR	r0x100F
+                                           	ANDAI	0x0f
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00219_DS_
+                                           ;	.line	158; "MC32P7351.c"	ADEN = 0;
+                                           	BCLR	_ADCR0bits,0
+                                           ;	.line	159; "MC32P7351.c"	return PASS;
+                                           	MOVAI	0x00
+                                           _00225_DS_
+                                           ;	.line	164; "MC32P7351.c"	}
+                                           	RETURN	
+                                           ; exit point of _ADC_Zero_ADJ
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _ADC_Power_On_Stability	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;2 compiler assigned registers:
+                                           ;   r0x100F
+                                           ;   r0x1010
+                                           ;; Starting pCode block
+                                           _ADC_Power_On_Stability	;Function start
+                                           ; 2 exit points
+                                           ;	.line	78; "MC32P7351.c"	ADCR0 = 0xab;                      //使能ADC、12位数据H8L4、VDD/4通道
+                                           	MOVAI	0xab
+                                           	MOVRA	_ADCR0
+                                           ;	.line	79; "MC32P7351.c"	ADCR1 = 0x83;                      //32分频、内部VDD
+                                           	MOVAI	0x83
+                                           	MOVRA	_ADCR1
+                                           ;	.line	80; "MC32P7351.c"	ADCR2 = 0xff;                      //固定为15ADCLK
+                                           	MOVAI	0xff
+                                           	MOVRA	_ADCR2
+                                           ;	.line	81; "MC32P7351.c"	ADEOC = 0;
+                                           	BCLR	_ADCR0bits,1
+                                           _00135_DS_
+                                           ;	.line	82; "MC32P7351.c"	while (!ADEOC);
+                                           	JBSET	_ADCR0bits,1
+                                           	GOTO	_00135_DS_
+                                           ;	.line	84; "MC32P7351.c"	while (!(((ADRH >> 2) == 0x10) || ((ADRH >> 2) == 0x0F)))
+                                           	CLRR	r0x100F
+                                           ;;shiftRight_Left2ResultLit:5339: shCount=1, size=1, sign=0, same=0, offr=0
+                                           _00144_DS_
+                                           	BCLR	PFLAG,0
+                                           	RRAR	_ADRH
+                                           	MOVRA	r0x1010
+                                           ;;shiftRight_Left2ResultLit:5339: shCount=1, size=1, sign=0, same=1, offr=0
+                                           	BCLR	PFLAG,0
+                                           	RRR	r0x1010
+                                           	MOVAR	r0x1010
+                                           	XORAI	0x10
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00181_DS_
+                                           	GOTO	_00147_DS_
+                                           ;;shiftRight_Left2ResultLit:5339: shCount=1, size=1, sign=0, same=0, offr=0
+                                           _00181_DS_
+                                           	BCLR	PFLAG,0
+                                           	RRAR	_ADRH
+                                           	MOVRA	r0x1010
+                                           ;;shiftRight_Left2ResultLit:5339: shCount=1, size=1, sign=0, same=1, offr=0
+                                           	BCLR	PFLAG,0
+                                           	RRR	r0x1010
+                                           	MOVAR	r0x1010
+                                           	XORAI	0x0f
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00182_DS_
+                                           	GOTO	_00147_DS_
+                                           _00182_DS_
+                                           ;	.line	86; "MC32P7351.c"	ADEOC = 0;
+                                           	BCLR	_ADCR0bits,1
+                                           _00138_DS_
+                                           ;	.line	87; "MC32P7351.c"	while (!ADEOC);
+                                           	JBSET	_ADCR0bits,1
+                                           	GOTO	_00138_DS_
+                                           ;	.line	88; "MC32P7351.c"	cnt ++;
+                                           	INCR	r0x100F
+                                           ;;unsigned compare: left < lit(0xC8=200), size=1
+                                           ;	.line	89; "MC32P7351.c"	if (cnt >= 200)
+                                           	MOVAI	0xc8
+                                           	RSUBAR	r0x100F
+                                           	JBSET	PFLAG,0
+                                           	GOTO	_00144_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           _00147_DS_
+                                           ;	.line	92; "MC32P7351.c"	}
+                                           	RETURN	
+                                           ; exit point of _ADC_Power_On_Stability
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _IO_Init	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _IO_Init	;Function start
+                                           ; 2 exit points
+                                           ;	.line	53; "MC32P7351.c"	IOP0 = 0x00;                       //io口数据位
+                                           	CLRR	_IOP0
+                                           ;	.line	54; "MC32P7351.c"	OEP0 = 0x3F;                       //io口方向 1:out  0:in
+                                           	MOVAI	0x3f
+                                           	MOVRA	_OEP0
+                                           ;	.line	55; "MC32P7351.c"	PUP0 = 0x00;                       //io口上拉电阻   1:enable  0:disable
+                                           	CLRR	_PUP0
+                                           ;	.line	56; "MC32P7351.c"	PDP0 = 0x00;                       //io口下拉电阻   1:enable  0:disable
+                                           	CLRR	_PDP0
+                                           ;	.line	57; "MC32P7351.c"	ADIOS0 = 0x00;                     //io类型选择  1:模拟输入  0:通用io
+                                           	CLRR	_ADIOS0
+                                           ;	.line	59; "MC32P7351.c"	IOP1 = 0x00;                       //io口数据位
+                                           	CLRR	_IOP1
+                                           ;	.line	60; "MC32P7351.c"	OEP1 = 0xFF;                       //io口方向 1:out  0:in
+                                           	MOVAI	0xff
+                                           	MOVRA	_OEP1
+                                           ;	.line	61; "MC32P7351.c"	PUP1 = 0x00;                       //io口上拉电阻   1:enable  0:disable
+                                           	CLRR	_PUP1
+                                           ;	.line	62; "MC32P7351.c"	PDP1 = 0x00;                       //io口下拉电阻   1:enable  0:disable
+                                           	CLRR	_PDP1
+                                           ;	.line	63; "MC32P7351.c"	ADIOS1 = 0x00;                     //io类型选择  1:模拟输入  0:通用io
+                                           	CLRR	_ADIOS1
+                                           ;	.line	65; "MC32P7351.c"	PMOD = 0x07;                       //bit7-bit5 P17、P13、P01 io类型选择 1:模拟输入  0:通用io 
+                                           	MOVAI	0x07
+                                           	MOVRA	_PMOD
+                                           ;	.line	67; "MC32P7351.c"	DRVCR = 0x80;                      //普通驱动
+                                           	MOVAI	0x80
+                                           	MOVRA	_DRVCR
+                                           ;	.line	68; "MC32P7351.c"	}
+                                           	RETURN	
+                                           ; exit point of _IO_Init
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _delay	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;3 compiler assigned registers:
+                                           ;   r0x100F
+                                           ;   STK00
+                                           ;   r0x1010
+                                           ;; Starting pCode block
+                                           _delay	;Function start
+                                           ; 2 exit points
+                                           ;	.line	38; "MC32P7351.c"	void delay(uint16_t num)
+                                           	MOVRA	r0x100F
+                                           	MOVAR	STK00
+                                           	MOVRA	r0x1010
+                                           ;	.line	40; "MC32P7351.c"	for (i = 0; i < num; i ++)
+                                           	CLRR	_i
+                                           	CLRR	(_i + 1)
+                                           _00114_DS_
+                                           	MOVAR	r0x100F
+                                           	RSUBAR	(_i + 1)
+                                           	JBSET	PFLAG,2
+                                           	GOTO	_00126_DS_
+                                           	MOVAR	r0x1010
+                                           	RSUBAR	_i
+                                           _00126_DS_
+                                           	JBCLR	PFLAG,0
+                                           	GOTO	_00116_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	42; "MC32P7351.c"	Nop();
+                                           	nop	
+                                           ;	.line	40; "MC32P7351.c"	for (i = 0; i < num; i ++)
+                                           	INCR	_i
+                                           	JBCLR	PFLAG,2
+                                           	INCR	(_i + 1)
+                                           	GOTO	_00114_DS_
+                                           _00116_DS_
+                                           ;	.line	44; "MC32P7351.c"	}
+                                           	RETURN	
+                                           ; exit point of _delay
+                                           
+                                           ;***
+                                           ;  pBlock Stats: dbName = C
+                                           ;***
+                                           ;entry:  _CLR_RAM	;Function start
+                                           ; 2 exit points
+                                           ;has an exit
+                                           ;; Starting pCode block
+                                           _CLR_RAM	;Function start
+                                           ; 2 exit points
+                                           ;	.line	25; "MC32P7351.c"	for (FSR0 = 0; FSR0 < 0xff; FSR0 ++)
+                                           	CLRR	_FSR0
+                                           ;;unsigned compare: left < lit(0xFF=255), size=1
+                                           _00107_DS_
+                                           	MOVAI	0xff
+                                           	RSUBAR	_FSR0
+                                           	JBCLR	PFLAG,0
+                                           	GOTO	_00105_DS_
+                                           ;;genSkipc:3291: created from rifx:013B5EFC
+                                           ;	.line	27; "MC32P7351.c"	INDF0 = 0x00;
+                                           	CLRR	_INDF0
+                                           ;	.line	25; "MC32P7351.c"	for (FSR0 = 0; FSR0 < 0xff; FSR0 ++)
+                                           	INCR	_FSR0
+                                           	GOTO	_00107_DS_
+                                           _00105_DS_
+                                           ;	.line	29; "MC32P7351.c"	FSR0 = 0xFF;
+                                           	MOVAI	0xff
+                                           	MOVRA	_FSR0
+                                           ;	.line	30; "MC32P7351.c"	INDF0 = 0x00;
+                                           	CLRR	_INDF0
+                                           ;	.line	31; "MC32P7351.c"	}
+                                           	RETURN	
+                                           ; exit point of _CLR_RAM
+                                           
+                                           
+                                           ;	code size estimation:
+                                           ;	  416+    0 =   416 instructions (  832 byte)
+                                           
+                                           	end
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XX-------------- XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0100 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0140 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0180 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+01C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0200 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0240 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0280 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+02C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0300 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0340 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   425
+
